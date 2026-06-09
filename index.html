@@ -1,0 +1,347 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover" />
+<title>Kevil Patel — AI / Cloud Engineer · Kevil.OS v1.0</title>
+<meta name="description" content="Kevil Patel — Associate SDE @ Kyndryl. Agentic AI, Azure, Cloud architecture. Boot into Kevil.OS." />
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;700&family=Space+Grotesk:wght@300;400;500;600;700&family=Syncopate:wght@400;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="styles.css">
+</head>
+<body>
+
+<!-- ============ BOOT LOADER ============ -->
+<div id="boot">
+  <div class="boot-inner">
+    <div class="boot-logo">KP<span>.OS</span></div>
+    <pre id="boot-log"></pre>
+    <div class="boot-bar"><div id="boot-bar-fill"></div></div>
+    <div class="boot-hint">press <kbd>any key</kbd> or <kbd>tap</kbd> to enter</div>
+  </div>
+</div>
+
+<!-- ============ CUSTOM CURSOR ============ -->
+<div id="cursor"><div id="cursor-dot"></div><div id="cursor-ring"></div></div>
+
+<!-- ============ NEURAL CANVAS BG ============ -->
+<canvas id="neural"></canvas>
+<div class="grain"></div>
+<div class="scanlines"></div>
+
+<!-- ============ NAV ============ -->
+<nav id="nav">
+  <a href="#hero" class="brand"><span class="dot"></span> kevil.os</a>
+  <ul>
+    <li><a href="#about" data-i="01">about</a></li>
+    <li><a href="#xp" data-i="02">experience</a></li>
+    <li><a href="#skills" data-i="03">skills</a></li>
+    <li><a href="#projects" data-i="04">projects</a></li>
+    <li><a href="#certs" data-i="05">certs</a></li>
+    <li><a href="#contact" data-i="06">contact</a></li>
+  </ul>
+  <a class="nav-cta magnetic" href="mailto:kevilpatel24@gmail.com"><span>./hire</span></a>
+</nav>
+
+<main>
+
+<!-- ============ HERO ============ -->
+<section id="hero">
+  <div class="hero-meta">
+    <div><span class="key">loc</span> Surat, IN · 21.17°N 72.83°E</div>
+    <div><span class="key">sys</span> Kevil.OS v1.0 · uptime <span id="uptime">00:00:00</span></div>
+    <div><span class="key">stack</span> Agentic AI · Azure · Cloud</div>
+  </div>
+
+  <h1 class="title">
+    <span class="line"><span class="scramble" data-text="Kevil">Kevil</span></span>
+    <span class="line"><span class="scramble" data-text="Patel.">Patel.</span></span>
+  </h1>
+
+  <p class="tagline">
+    <span class="cursor-blink">▮</span>
+    <span class="typed" data-words='["Associate SDE @ Kyndryl.","Building agentic AI on Azure.","Cloud · ML · Observability.","Turning policy into pipelines."]'></span>
+  </p>
+
+  <div class="hero-actions">
+    <a class="btn primary magnetic" href="#projects"><span>explore_work()</span><i>→</i></a>
+    <a class="btn ghost magnetic" href="#contact"><span>open_terminal()</span><i>▮</i></a>
+  </div>
+
+  <div class="scroll-hint">
+    <span>scroll</span>
+    <div class="line-down"></div>
+  </div>
+</section>
+
+<!-- ============ ABOUT ============ -->
+<section id="about" class="pad">
+  <div class="section-head">
+    <span class="num">01 //</span><h2>whoami</h2>
+  </div>
+  <div class="about-grid">
+    <div class="about-text reveal">
+      <p>
+        I’m an <strong>Associate SDE at Kyndryl</strong>, fresh out of <strong>VIT University</strong>
+        (CGPA <strong>8.95</strong>, AIR 56 VITEEE), engineering
+        <em>agentic AI systems</em> on Azure AI Foundry for enterprise clients.
+      </p>
+      <p>
+        I live at the intersection of <span class="hl">machine learning</span>,
+        <span class="hl">cloud architecture</span> and <span class="hl">developer experience</span> —
+        from LSTMs predicting power loads to multi-tenant observability platforms ingesting millions of agent traces.
+      </p>
+      <p class="muted">
+        Certified AWS SAA · Azure AI-102 · AZ-104 · GH Copilot GH-300.
+      </p>
+    </div>
+    <div class="about-card tilt reveal">
+      <div class="card-glow"></div>
+      <div class="card-row"><span>role</span><b>Associate SDE</b></div>
+      <div class="card-row"><span>org</span><b>Kyndryl</b></div>
+      <div class="card-row"><span>focus</span><b>Agentic AI · Azure</b></div>
+      <div class="card-row"><span>edu</span><b>B.Tech CSE, VIT</b></div>
+      <div class="card-row"><span>gpa</span><b>8.95 / 10</b></div>
+      <div class="card-row"><span>since</span><b>2025 →</b></div>
+      <div class="card-row stat"><span>status</span><b><i class="live"></i> available for collab</b></div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ EXPERIENCE TIMELINE ============ -->
+<section id="xp" class="pad">
+  <div class="section-head">
+    <span class="num">02 //</span><h2>trace.log</h2>
+  </div>
+  <div class="timeline">
+    <div class="rail"><div class="rail-fill" id="rail-fill"></div></div>
+
+    <article class="t-item reveal" data-year="2025 → now">
+      <div class="t-dot"></div>
+      <h3>Associate SDE — <span>Kyndryl</span></h3>
+      <p>Designing and shipping Agentic AI POCs and enterprise use cases on
+         <b>Azure AI Foundry</b>. Delivering mission-critical insights via
+         <b>Kyndryl Bridge</b> with predictive modelling and observability.</p>
+      <div class="chips"><span>Azure AI Foundry</span><span>Agentic AI</span><span>RAG</span><span>Observability</span></div>
+    </article>
+
+    <article class="t-item reveal" data-year="07/2024 — 08/2024">
+      <div class="t-dot"></div>
+      <h3>Cloud Intern — <span>Charly Computers</span></h3>
+      <p>Engineered cloud architectures that improved scalability <b>+40%</b>.
+         Orchestrated migration of business ops to the cloud.</p>
+      <div class="chips"><span>AWS</span><span>Migration</span><span>Architecture</span></div>
+    </article>
+
+    <article class="t-item reveal" data-year="08/2023 — 09/2024">
+      <div class="t-dot"></div>
+      <h3>Technical Core — <span>GDSC VIT</span></h3>
+      <p>Led 3+ initiatives, ran 2 hackathons and 4 coding challenges,
+         impacting <b>500+ students</b>.</p>
+      <div class="chips"><span>Leadership</span><span>Community</span><span>DevRel</span></div>
+    </article>
+  </div>
+</section>
+
+<!-- ============ SKILLS CONSTELLATION ============ -->
+<section id="skills" class="pad">
+  <div class="section-head">
+    <span class="num">03 //</span><h2>./skills --interactive</h2>
+  </div>
+  <p class="sub muted">drag a node · hover to inspect · everything is alive.</p>
+  <div id="constellation"></div>
+  <div class="legend">
+    <span><i style="background:#7df9ff"></i> languages</span>
+    <span><i style="background:#ff6ec7"></i> ai / ml</span>
+    <span><i style="background:#a78bfa"></i> cloud</span>
+    <span><i style="background:#facc15"></i> dev / tools</span>
+  </div>
+</section>
+
+<!-- ============ FEATURED PROJECTS ============ -->
+<section id="projects" class="pad">
+  <div class="section-head">
+    <span class="num">04 //</span><h2>featured.deploy</h2>
+  </div>
+
+  <!-- A360 -->
+  <article class="feature reveal">
+    <div class="feature-visual">
+      <div class="orbit">
+        <div class="planet core">A360</div>
+        <div class="ring r1"><span>ADX</span><span>Elastic</span><span>Kibana</span><span>Cosmos</span></div>
+        <div class="ring r2"><span>OTEL</span><span>LiteLLM</span><span>Next.js</span><span>FastAPI</span></div>
+      </div>
+    </div>
+    <div class="feature-body">
+      <div class="tag">flagship · 2025</div>
+      <h3>A360 — Agent Observability Platform</h3>
+      <p>
+        Multi-tenant AI agent observability for enterprise fleets. Executive
+        dashboards, KPI drill-downs, cost tracking, agent trust scores and
+        workflow tracing — built on a streaming pipeline from
+        <b>OTEL → ADX → Elasticsearch → Next.js</b>.
+      </p>
+      <ul class="bullets">
+        <li>31 ADX materialized views synced to per-tenant Elastic indices</li>
+        <li>FastAPI gateway proxying ES / Kibana / Cosmos / LiteLLM with JWKS auth</li>
+        <li>Next.js 16 + React 19 frontend on Kyndryl Shidoka design system</li>
+        <li>Synthetic telemetry generator for realistic multi-tenant load</li>
+      </ul>
+      <div class="chips">
+        <span>Azure ADX</span><span>Elasticsearch</span><span>FastAPI</span>
+        <span>Next.js 16</span><span>AKS</span><span>Cosmos DB</span><span>OTEL</span>
+      </div>
+    </div>
+  </article>
+
+  <!-- Policy to Pipelines -->
+  <article class="feature reverse reveal">
+    <div class="feature-visual">
+      <div class="pipeline-anim">
+        <div class="node n1">policy.yaml</div>
+        <div class="arrow"></div>
+        <div class="node n2">parse · validate</div>
+        <div class="arrow"></div>
+        <div class="node n3">CI / CD</div>
+        <div class="packets"></div>
+      </div>
+    </div>
+    <div class="feature-body">
+      <div class="tag">governance-as-code</div>
+      <h3>Policy → Pipelines</h3>
+      <p>
+        A system that translates plain-English governance &amp; compliance policies
+        into executable CI/CD pipelines — closing the gap between
+        <b>what the org promises</b> and <b>what the build actually enforces</b>.
+      </p>
+      <ul class="bullets">
+        <li>LLM-assisted parser turns policy docs into structured controls</li>
+        <li>Generates pipeline stages (scan, gate, approve, deploy) automatically</li>
+        <li>Continuous drift detection between policy intent and pipeline reality</li>
+        <li>Audit-ready evidence trail for every deploy</li>
+      </ul>
+      <div class="chips">
+        <span>Agentic AI</span><span>Azure DevOps</span><span>GitHub Actions</span>
+        <span>OPA</span><span>Python</span><span>RAG</span>
+      </div>
+    </div>
+  </article>
+</section>
+
+<!-- ============ ALL PROJECTS GRID ============ -->
+<section class="pad">
+  <div class="section-head"><span class="num">04.b //</span><h2>archive</h2></div>
+  <div class="proj-grid">
+    <a class="proj tilt reveal">
+      <div class="proj-num">P/01</div>
+      <h4>OptiCrop</h4>
+      <p>ML for precision water allocation in Indian agriculture — <b>+35%</b> water-use efficiency, automated expense categorization <b>−50%</b> manual entry.</p>
+      <div class="chips sm"><span>ML</span><span>Python</span><span>Rule engines</span></div>
+    </a>
+    <a class="proj tilt reveal">
+      <div class="proj-num">P/02</div>
+      <h4>AI Climate Mitigation Tool</h4>
+      <p>RNN-based predictive model for climate-induced migration — <b>+15%</b> accuracy, fed by 3+ real-time weather APIs.</p>
+      <div class="chips sm"><span>RNN</span><span>APIs</span><span>Forecasting</span></div>
+    </a>
+    <a class="proj tilt reveal">
+      <div class="proj-num">P/03</div>
+      <h4>Smart Energy Forecasting</h4>
+      <p>LSTM forecasting on AWS Kinesis / S3 / SageMaker across 500+ houses &amp; transformers — <b>+25%</b> grid resilience.</p>
+      <div class="chips sm"><span>LSTM</span><span>AWS</span><span>Streaming</span></div>
+    </a>
+    <a class="proj tilt reveal featured-mini">
+      <div class="proj-num">P/04 ★</div>
+      <h4>A360 Observability</h4>
+      <p>Multi-tenant agent observability platform powering executive KPIs and trust scores. See above ↑</p>
+      <div class="chips sm"><span>ADX</span><span>Elastic</span><span>Next.js</span></div>
+    </a>
+    <a class="proj tilt reveal featured-mini">
+      <div class="proj-num">P/05 ★</div>
+      <h4>Policy → Pipelines</h4>
+      <p>Compile governance policies straight into CI/CD with continuous drift detection.</p>
+      <div class="chips sm"><span>Agentic</span><span>DevOps</span><span>OPA</span></div>
+    </a>
+    <a class="proj tilt reveal ghost-card">
+      <div class="proj-num">P/06</div>
+      <h4>next.idea()</h4>
+      <p>your collaboration could live here.</p>
+      <div class="chips sm"><span>open slot</span></div>
+    </a>
+  </div>
+</section>
+
+<!-- ============ CERTS ============ -->
+<section id="certs" class="pad">
+  <div class="section-head"><span class="num">05 //</span><h2>credentials.verified</h2></div>
+  <div class="certs">
+    <div class="cert reveal"><div class="badge">AWS</div><h5>Solutions Architect Associate</h5><p>SAA-C03 · valid 09/2027</p></div>
+    <div class="cert reveal"><div class="badge az">AZ</div><h5>Azure Administrator</h5><p>AZ-104 · valid 10/2026</p></div>
+    <div class="cert reveal"><div class="badge ai">AI</div><h5>Azure AI Engineer</h5><p>AI-102 · valid 01/2027</p></div>
+    <div class="cert reveal"><div class="badge gh">GH</div><h5>GitHub Copilot</h5><p>GH-300 · valid 10/2027</p></div>
+  </div>
+</section>
+
+<!-- ============ EDUCATION ============ -->
+<section class="pad">
+  <div class="section-head"><span class="num">05.b //</span><h2>education</h2></div>
+  <div class="edu">
+    <div class="edu-card reveal">
+      <span class="edu-year">2021 — 2025</span>
+      <h4>B.Tech, Computer Science Engineering</h4>
+      <p>VIT University, Vellore · CGPA <b>8.95 / 10</b> · AIR <b>56</b> VITEEE</p>
+    </div>
+    <div class="edu-card reveal">
+      <span class="edu-year">2019 — 2020</span>
+      <h4>12th CBSE</h4>
+      <p>L.P. Savani International, Surat · GPA <b>8.9</b></p>
+    </div>
+    <div class="edu-card reveal">
+      <span class="edu-year">2017 — 2018</span>
+      <h4>10th CBSE</h4>
+      <p>L.P. Savani International, Surat · GPA <b>8</b></p>
+    </div>
+  </div>
+</section>
+
+<!-- ============ CONTACT TERMINAL ============ -->
+<section id="contact" class="pad">
+  <div class="section-head"><span class="num">06 //</span><h2>establish_connection()</h2></div>
+
+  <div class="terminal reveal">
+    <div class="t-bar"><i></i><i></i><i></i><span>kevil@os ~ /contact</span></div>
+    <div class="t-body" id="term-body">
+<span class="t-line"><span class="prompt">kevil@os:~$</span> help</span>
+<span class="t-line muted">available commands: about · email · linkedin · github · resume · hire · clear</span>
+<span class="t-line"><span class="prompt">kevil@os:~$</span> <span class="t-cursor">▮</span></span>
+    </div>
+    <form id="term-form" autocomplete="off">
+      <span class="prompt">kevil@os:~$</span>
+      <input id="term-input" spellcheck="false" placeholder="type a command…" />
+    </form>
+  </div>
+
+  <div class="contact-grid">
+    <a class="cdot magnetic" href="mailto:kevilpatel24@gmail.com"><span>email</span><b>kevilpatel24@gmail.com</b></a>
+    <a class="cdot magnetic" href="tel:+919998967939"><span>phone</span><b>+91 999 896 7939</b></a>
+    <a class="cdot magnetic" target="_blank" rel="noopener" href="https://linkedin.com/in/kevil21"><span>linkedin</span><b>/in/kevil21</b></a>
+    <a class="cdot magnetic" target="_blank" rel="noopener" href="https://github.com/kevil21"><span>github</span><b>/kevil21</b></a>
+  </div>
+</section>
+
+<footer>
+  <div>© <span id="yr"></span> Kevil Patel · built with too much coffee &amp; three.js</div>
+  <div class="foot-right">v1.0.0 · <span class="live"></span> live</div>
+</footer>
+
+</main>
+
+<!-- libs (CDN) -->
+<script src="https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/gsap.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/ScrollTrigger.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@studio-freight/lenis@1.0.42/dist/lenis.min.js"></script>
+<script src="app.js"></script>
+</body>
+</html>
