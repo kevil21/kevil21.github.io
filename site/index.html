@@ -1,0 +1,833 @@
+<!doctype html>
+<html lang="en" data-theme="dark">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover" />
+<title>Kevil Patel — AI / Cloud Engineer · Kevil.OS v2.2</title>
+<meta name="description" content="Kevil Patel — Associate SDE @ Kyndryl. Agentic AI on Azure. The most interactive resume on the internet." />
+<meta name="author" content="Kevil Patel" />
+<meta name="keywords" content="Kevil Patel, Kyndryl, Azure, Agentic AI, LangGraph, Next.js, FastAPI, AI Engineer, Cloud Engineer, Surat, VIT" />
+<meta name="theme-color" content="#05060a" />
+<meta name="color-scheme" content="dark light" />
+
+<!-- Open Graph -->
+<meta property="og:type" content="website" />
+<meta property="og:title" content="Kevil Patel — AI / Cloud Engineer" />
+<meta property="og:description" content="Agentic AI on Azure. Interactive resume with command palette, terminal and live GitHub feed." />
+<meta property="og:image" content="assets/og.svg" />
+<meta property="og:url" content="https://kevil21.github.io" />
+<meta property="og:site_name" content="Kevil.OS" />
+<meta property="og:locale" content="en_US" />
+
+<!-- Twitter -->
+<meta name="twitter:card" content="summary_large_image" />
+<meta name="twitter:title" content="Kevil Patel — AI / Cloud Engineer" />
+<meta name="twitter:description" content="Agentic AI on Azure. Interactive resume." />
+<meta name="twitter:image" content="assets/og.svg" />
+<meta name="twitter:creator" content="@kevil_36" />
+
+<!-- Canonical & robots -->
+<link rel="canonical" href="https://kevil21.github.io/" />
+<meta name="robots" content="index, follow, max-image-preview:large" />
+
+<!-- schema.org JSON-LD -->
+<script type="application/ld+json">
+{
+  "@context":"https://schema.org",
+  "@type":"Person",
+  "name":"Kevil Patel",
+  "alternateName":"kevil21",
+  "jobTitle":"Associate Software Development Engineer",
+  "worksFor":{"@type":"Organization","name":"Kyndryl","url":"https://www.kyndryl.com"},
+  "alumniOf":{"@type":"CollegeOrUniversity","name":"Vellore Institute of Technology","url":"https://vit.ac.in"},
+  "email":"mailto:kevilpatel24@gmail.com",
+  "telephone":"+91-9998967939",
+  "address":{"@type":"PostalAddress","addressLocality":"Surat","addressCountry":"IN"},
+  "url":"https://kevil21.github.io",
+  "sameAs":[
+    "https://github.com/kevil21",
+    "https://linkedin.com/in/kevil21",
+    "https://huggingface.co/Kevil21",
+    "https://instagram.com/kevil_36"
+  ],
+  "knowsAbout":["Agentic AI","Azure AI Foundry","LangGraph","RAG","Next.js","FastAPI","Elasticsearch","Azure Data Explorer","Kubernetes"],
+  "hasCredential":[
+    {"@type":"EducationalOccupationalCredential","name":"AWS Solutions Architect Associate","credentialCategory":"certification","recognizedBy":{"@type":"Organization","name":"Amazon Web Services"}},
+    {"@type":"EducationalOccupationalCredential","name":"Azure AI Engineer Associate (AI-102)","credentialCategory":"certification","recognizedBy":{"@type":"Organization","name":"Microsoft"}},
+    {"@type":"EducationalOccupationalCredential","name":"Azure Administrator Associate (AZ-104)","credentialCategory":"certification","recognizedBy":{"@type":"Organization","name":"Microsoft"}},
+    {"@type":"EducationalOccupationalCredential","name":"GitHub Copilot (GH-300)","credentialCategory":"certification","recognizedBy":{"@type":"Organization","name":"GitHub"}}
+  ]
+}
+</script>
+
+<!-- Perf hints -->
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="preconnect" href="https://api.github.com" crossorigin>
+<link rel="dns-prefetch" href="https://avatars.githubusercontent.com">
+<link rel="preload" as="image" href="assets/photo3.jpg" />
+
+<link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;700&family=Space+Grotesk:wght@300;400;500;600;700&family=Syncopate:wght@400;700&family=Instrument+Serif&display=swap" rel="stylesheet">
+<link rel="icon" type="image/svg+xml" href="data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'><rect width='32' height='32' rx='8' fill='%237df9ff'/><text x='16' y='22' text-anchor='middle' font-family='monospace' font-weight='700' font-size='16' fill='%23000'>K</text></svg>">
+<link rel="stylesheet" href="styles.css">
+</head>
+<body>
+
+<!-- skip link for a11y -->
+<a href="#hero" class="skip-link">skip to content</a>
+
+<!-- BOOT LOADER -->
+<div id="boot">
+  <div class="boot-inner">
+    <div class="boot-logo">KP<span>.OS</span></div>
+    <pre id="boot-log"></pre>
+    <div class="boot-bar"><div id="boot-bar-fill"></div></div>
+    <div class="boot-hint">press <kbd>any key</kbd> or <kbd>tap</kbd> to enter — try <kbd>Ctrl/Cmd K</kbd> for command palette anytime</div>
+  </div>
+</div>
+
+<!-- CUSTOM CURSOR -->
+<div id="cursor"><div id="cursor-dot"></div><div id="cursor-ring"></div></div>
+
+<!-- BACKGROUND FX -->
+<canvas id="neural"></canvas>
+<svg id="blob" viewBox="0 0 600 600" preserveAspectRatio="xMidYMid slice" aria-hidden="true">
+  <defs>
+    <linearGradient id="blobGrad" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#7df9ff" stop-opacity=".25"/>
+      <stop offset="50%" stop-color="#a78bfa" stop-opacity=".18"/>
+      <stop offset="100%" stop-color="#ff6ec7" stop-opacity=".22"/>
+    </linearGradient>
+    <filter id="blobBlur"><feGaussianBlur stdDeviation="40"/></filter>
+  </defs>
+  <path id="blobPath" fill="url(#blobGrad)" filter="url(#blobBlur)" d=""/>
+</svg>
+<div class="grain"></div>
+<div class="scanlines"></div>
+
+<!-- NAV -->
+<nav id="nav">
+  <a href="#hero" class="brand"><span class="dot"></span> kevil.os <em class="ver">v2.2</em></a>
+  <ul>
+    <li><a href="#about" data-i="01">about</a></li>
+    <li><a href="#a360" data-i="02">a360</a></li>
+    <li><a href="#p2p" data-i="03">p2p</a></li>
+    <li><a href="#xp" data-i="04">log</a></li>
+    <li><a href="#skills" data-i="05">skills</a></li>
+    <li><a href="#projects" data-i="06">archive</a></li>
+    <li><a href="#github" data-i="07">github</a></li>
+    <li><a href="#certs" data-i="08">creds</a></li>
+    <li><a href="#contact" data-i="09">contact</a></li>
+  </ul>
+  <div class="nav-tools">
+    <button class="icon-btn" id="lang-btn" aria-label="Language" title="Language">EN</button>
+    <button class="icon-btn" id="pdf-btn" aria-label="Download resume PDF" title="Download resume PDF">PDF</button>
+    <button class="icon-btn" id="palette-btn" aria-label="Command palette" title="Command palette">CMD K</button>
+    <button class="icon-btn" id="sound-btn" aria-label="Toggle sound" title="Sound on/off"><span class="snd-on">ON</span></button>
+    <button class="icon-btn theme-btn" id="theme-btn" aria-label="Toggle theme" title="Toggle theme"><span class="sun">sun</span><span class="moon">moon</span></button>
+  </div>
+</nav>
+
+<!-- COMMAND PALETTE -->
+<div id="palette" hidden>
+  <div class="pal-back"></div>
+  <div class="pal-card">
+    <input id="pal-input" placeholder="Jump anywhere, run a command, find a repo…" />
+    <ul id="pal-list"></ul>
+    <div class="pal-foot">up/down navigate · enter run · esc close</div>
+  </div>
+</div>
+
+<main>
+
+<!-- HERO -->
+<section id="hero">
+  <div class="hero-meta">
+    <div><span class="key">loc</span> Surat, IN · 21.17N 72.83E · <span id="local-time">--:--</span></div>
+    <div><span class="key">sys</span> Kevil.OS v2.2 · uptime <span id="uptime">00:00:00</span></div>
+    <div><span class="key">stack</span> Agentic AI · Azure · Cloud</div>
+    <div><span class="key">net</span> <i class="live"></i> <span id="visitors">connected</span></div>
+  </div>
+
+  <div class="hero-grid">
+    <div class="hero-left">
+      <h1 class="title">
+        <span class="line"><span class="scramble" data-text="Kevil">Kevil</span></span>
+        <span class="line"><span class="scramble" data-text="Patel.">Patel.</span></span>
+      </h1>
+
+      <p class="role-line"><span class="r-glow"></span>Associate SDE · <em>Kyndryl</em> · building Agentic AI on Cloud</p>
+
+      <p class="tagline">
+        <span class="cursor-blink">|</span>
+        <span class="typed" data-words='["I build agentic AI on Cloud.","I ship multi-tenant agentic observability.","I turn policy into pipelines.","I make telemetry tell stories.","I keep dashboards honest.","I design agents that understand language."]'></span>
+      </p>
+
+      <div class="hero-actions">
+        <a class="btn primary magnetic" href="#a360" data-snd="primary"><span>see_flagship()</span><i>-&gt;</i></a>
+        <a class="btn ghost magnetic" href="#contact" data-snd="ghost"><span>open_terminal()</span><i>|</i></a>
+        <button class="btn ghost magnetic" id="palette-btn-2" data-snd="ghost"><span>command palette</span></button>
+      </div>
+
+      <div class="hero-stats">
+        <a class="hs" href="https://github.com/kevil21" target="_blank" rel="noopener"><b id="hs-repos">24</b><span>github repos</span></a>
+        <a class="hs" href="https://linkedin.com/in/kevil21" target="_blank" rel="noopener"><b>8.95<i>/10</i></b><span>cgpa · vit</span></a>
+        <a class="hs" href="#certs"><b id="hs-certs">10<i>x</i></b><span>certifications</span></a>
+        <a class="hs" href="#xp"><b>500<i>+</i></b><span>students impacted</span></a>
+      </div>
+    </div>
+
+    <div class="hero-right">
+      <!-- PHOTO SLIDESHOW -->
+      <div class="photo-frame tilt" id="photo-frame" data-tilt-strength="14">
+        <div class="frame-glow"></div>
+        <div class="photo-stage" id="photo-stage">
+          <img class="ph active" src="assets/photo3.jpg" alt="Kevil at Kyndryl" loading="eager"/>
+          <img class="ph" src="assets/photo1.jpg" alt="Kevil outdoors" loading="eager"/>
+          <img class="ph" src="assets/photo2.jpg" alt="Kevil portrait" loading="eager"/>
+        </div>
+        <canvas id="photo-fx"></canvas>
+        <div class="frame-ring"></div>
+        <div class="frame-corners"><i></i><i></i><i></i><i></i></div>
+        <div class="frame-meta">
+          <span id="ph-label">// subject_001 · kyndryl_hq</span>
+          <span>IN_21.17N</span>
+        </div>
+        <div class="frame-scan"></div>
+        <div class="ph-dots" id="ph-dots">
+          <button class="active" data-i="0" aria-label="Photo 1"></button>
+          <button data-i="1" aria-label="Photo 2"></button>
+          <button data-i="2" aria-label="Photo 3"></button>
+        </div>
+      </div>
+      <div class="photo-caption">
+        <span class="dot live"></span> human verified · click the photo for fx
+      </div>
+    </div>
+  </div>
+
+  <div class="scroll-hint">
+    <span>scroll</span>
+    <div class="line-down"></div>
+  </div>
+</section>
+
+<!-- ABOUT -->
+<section id="about" class="pad">
+  <div class="section-head"><span class="num">01 //</span><h2>whoami</h2></div>
+  <div class="about-grid">
+    <div class="about-text reveal">
+      <p class="lead">
+        I am an <strong>Associate SDE at <a target="_blank" rel="noopener" href="https://www.kyndryl.com">Kyndryl</a></strong>,
+        fresh out of <strong><a target="_blank" rel="noopener" href="https://vit.ac.in">VIT University</a></strong>
+        (CGPA <strong>8.95</strong>, AIR <strong>56</strong> in VITEEE), engineering
+        <em>agentic AI systems</em> on <strong><a target="_blank" rel="noopener" href="https://azure.microsoft.com/en-us/products/ai-foundry">Azure AI Foundry</a></strong> for enterprise clients.
+      </p>
+      <p>
+        I live at the intersection of <span class="hl">machine learning</span>,
+        <span class="hl">cloud architecture</span> and <span class="hl">developer experience</span> —
+        from <b>LSTM grids</b> predicting power loads across 500+ households,
+        to a <b>multi-tenant agentic observability platform</b> (A360) ingesting millions
+        of agent traces, to a <b>LangGraph governance agent</b> that turns
+        plain-English policies into enforced cloud pipelines.
+      </p>
+      <p class="muted">
+        Certified across <a target="_blank" rel="noopener" href="https://aws.amazon.com/certification/">AWS</a>,
+        <a target="_blank" rel="noopener" href="https://learn.microsoft.com/credentials">Microsoft Azure</a>,
+        <a target="_blank" rel="noopener" href="https://github.com/certifications">GitHub</a> and
+        <a target="_blank" rel="noopener" href="https://www.founderz.com">Founderz</a>.
+        Always certified, sometimes asleep.
+      </p>
+      <div class="quote">
+        <span class="q">&ldquo;</span>
+        the best engineers do not just write code &mdash; they listen to the system breathe.
+      </div>
+    </div>
+
+    <div class="about-card tilt reveal">
+      <div class="card-glow"></div>
+      <div class="card-row"><span>role</span><b>Associate SDE</b></div>
+      <div class="card-row"><span>org</span><b><a target="_blank" rel="noopener" href="https://www.kyndryl.com">Kyndryl · Agentic AI</a></b></div>
+      <div class="card-row"><span>focus</span><b>Azure AI Foundry · Bridge</b></div>
+      <div class="card-row"><span>edu</span><b><a target="_blank" rel="noopener" href="https://vit.ac.in">B.Tech CSE, VIT</a></b></div>
+      <div class="card-row"><span>gpa</span><b>8.95 / 10 · AIR 56</b></div>
+      <div class="card-row"><span>langs</span><b>Python · C++ · Java · R</b></div>
+      <div class="card-row"><span>cloud</span><b>Azure · AWS · GCP</b></div>
+      <div class="card-row stat"><span>status</span><b><i class="live"></i> available for collab</b></div>
+    </div>
+  </div>
+</section>
+
+<!-- A360 DEEP DIVE -->
+<section id="a360" class="pad deep">
+  <div class="section-head"><span class="num">02 //</span><h2>flagship · a360 platform</h2></div>
+
+  <div class="a360-hero reveal">
+    <div class="a360-left">
+      <div class="tag">kyndryl · agentic ai · 2025 to now</div>
+      <h3 class="big">A360 &mdash; multi-tenant<br/>AI agent observability.</h3>
+      <p>
+        A360 is Kyndryl&rsquo;s platform for watching how enterprise AI agent fleets
+        actually behave in production. Executive dashboards, KPI drill-downs,
+        embedded Kibana, agent <em>trust scores</em>, multi-persona dashboards, LLM FinOps, and a
+        conversational interface over telemetry &mdash; running on a streaming pipeline from
+        <b>OTEL &rarr; Postgres &rarr; <a target="_blank" rel="noopener" href="https://learn.microsoft.com/azure/data-explorer/">Azure Data Explorer</a> &rarr; <a target="_blank" rel="noopener" href="https://www.elastic.co">Elasticsearch</a> &rarr; <a target="_blank" rel="noopener" href="https://nextjs.org">Next.js</a></b>.
+      </p>
+
+      <div class="a360-counts">
+        <div class="cnt"><b data-count="31">0</b><span>materialized views</span></div>
+        <div class="cnt"><b data-count="20">0</b><span>insight types</span></div>
+        <div class="cnt"><b data-count="7">0</b><span>gateway routers</span></div>
+        <div class="cnt"><b data-count="4">0</b><span>tenants live</span></div>
+        <div class="cnt"><b data-count="11">0</b><span>kpi dashboards</span></div>
+        <div class="cnt"><b data-count="30">0</b><span>+ ui components</span></div>
+      </div>
+    </div>
+
+    <div class="a360-mock reveal">
+      <div class="mock-bar"><i></i><i></i><i></i><span>a360.kyndryl.io · tenant: contoso</span></div>
+      <div class="mock-body">
+        <div class="mock-tabs"><span class="active">dashboard</span><span>kibana</span><span>chat</span><span>trust</span></div>
+        <div class="kpi-grid">
+          <div class="kpi"><span>avg latency</span><b id="kpi-lat">412 ms</b><div class="spark" data-spark="1"></div></div>
+          <div class="kpi"><span>trust score</span><b id="kpi-trust">87.3</b><div class="spark" data-spark="2"></div></div>
+          <div class="kpi"><span>cost / 1k tok</span><b id="kpi-cost">$0.42</b><div class="spark" data-spark="3"></div></div>
+          <div class="kpi"><span>p95 ttft</span><b id="kpi-ttft">1.8 s</b><div class="spark" data-spark="4"></div></div>
+        </div>
+        <div class="mock-row">
+          <div class="gauge">
+            <svg viewBox="0 0 120 70">
+              <path d="M10 60 A50 50 0 0 1 110 60" fill="none" stroke="rgba(255,255,255,.08)" stroke-width="10" stroke-linecap="round"/>
+              <path id="gauge-fill" d="M10 60 A50 50 0 0 1 110 60" fill="none" stroke="url(#g1)" stroke-width="10" stroke-linecap="round" stroke-dasharray="158" stroke-dashoffset="40"/>
+              <defs><linearGradient id="g1"><stop offset="0" stop-color="#7df9ff"/><stop offset="1" stop-color="#ff6ec7"/></linearGradient></defs>
+            </svg>
+            <div class="gauge-label">SLA &middot; <b id="gauge-num">87%</b></div>
+          </div>
+          <div class="mini-log">
+            <div><span class="ok">OK</span> agent.svc.invoke &middot; 412ms</div>
+            <div><span class="ok">OK</span> llm.gpt-4o.complete &middot; 1.2s</div>
+            <div><span class="warn">WARN</span> tool.search &middot; retry 1</div>
+            <div><span class="ok">OK</span> agent.svc.commit &middot; 88ms</div>
+            <div><span class="ok">OK</span> insight.engine.tick &middot; 22ms</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- DATA FLOW PIPELINE -->
+  <div class="flow-wrap reveal">
+    <h4 class="sub-h">live data flow &middot; hover a stage</h4>
+    <svg id="flowsvg" viewBox="0 0 1200 220" preserveAspectRatio="xMidYMid meet">
+      <defs>
+        <linearGradient id="line-grad" x1="0" x2="1">
+          <stop offset="0" stop-color="#7df9ff" stop-opacity=".4"/>
+          <stop offset="1" stop-color="#ff6ec7" stop-opacity=".4"/>
+        </linearGradient>
+      </defs>
+      <line x1="80" y1="110" x2="1120" y2="110" stroke="url(#line-grad)" stroke-width="2"/>
+      <g class="stage" data-stage="0" data-info="Customer agents emit OTLP traces from inside their own infra.">
+        <circle cx="120" cy="110" r="32" class="ring"/><text x="120" y="115" class="lbl">OTEL</text>
+        <text x="120" y="170" class="cap">customer agents</text>
+      </g>
+      <g class="stage" data-stage="1" data-info="Postgres staging buffers raw OTEL spans before normalization.">
+        <circle cx="320" cy="110" r="32" class="ring"/><text x="320" y="115" class="lbl">PG</text>
+        <text x="320" y="170" class="cap">staging</text>
+      </g>
+      <g class="stage" data-stage="2" data-info="Azure Data Explorer — source of truth. 3 fact tables + 4 dims + 31 materialized views.">
+        <circle cx="520" cy="110" r="36" class="ring core"/><text x="520" y="115" class="lbl">ADX</text>
+        <text x="520" y="180" class="cap">source of truth</text>
+      </g>
+      <g class="stage" data-stage="3" data-info="adx-es-sync function fans 31 MVs into per-tenant ES indices every 10 min.">
+        <circle cx="720" cy="110" r="32" class="ring"/><text x="720" y="115" class="lbl">ES</text>
+        <text x="720" y="170" class="cap">31 idx x N</text>
+      </g>
+      <g class="stage" data-stage="4" data-info="FastAPI gateway proxies ES, Kibana, Cosmos, LiteLLM and Insights with JWKS auth.">
+        <circle cx="920" cy="110" r="32" class="ring"/><text x="920" y="115" class="lbl">API</text>
+        <text x="920" y="170" class="cap">fastapi gateway</text>
+      </g>
+      <g class="stage" data-stage="5" data-info="Next.js 16 + React 19 + Shidoka design system. 11 KPI tiles · 10 Kibana pages · /chat · /agent-trust.">
+        <circle cx="1120" cy="110" r="32" class="ring"/><text x="1120" y="115" class="lbl">UI</text>
+        <text x="1120" y="170" class="cap">next.js / shidoka</text>
+      </g>
+      <g id="packets"></g>
+    </svg>
+    <div class="flow-info" id="flow-info">hover a node to inspect.</div>
+  </div>
+
+  <div class="a360-repos reveal">
+    <h4 class="sub-h">12 repos &middot; 1 platform</h4>
+    <div class="repo-strip">
+      <a class="r-card" target="_blank" rel="noopener" href="https://github.com/kyndryl-agentic-ai"><b>agentic-a360-app-project</b><span>frontend &middot; next.js 16 &middot; shidoka</span></a>
+      <a class="r-card" target="_blank" rel="noopener" href="https://github.com/kyndryl-agentic-ai"><b>agentic-api-gateway</b><span>fastapi &middot; es/kibana/cosmos/litellm</span></a>
+      <a class="r-card" target="_blank" rel="noopener" href="https://github.com/kyndryl-agentic-ai"><b>agentic-adx-to-elastic-sync</b><span>31 mvs &middot; sha-256 ids</span></a>
+      <a class="r-card" target="_blank" rel="noopener" href="https://github.com/kyndryl-agentic-ai"><b>agentic-cosmos-adx-sync</b><span>catalog metadata sync</span></a>
+      <a class="r-card" target="_blank" rel="noopener" href="https://github.com/kyndryl-agentic-ai"><b>agentic-synth-gen-project</b><span>multi-tenant synth telemetry</span></a>
+      <a class="r-card" target="_blank" rel="noopener" href="https://github.com/kyndryl-agentic-ai"><b>agentic-a360-boarding-function</b><span>tenant provisioning &middot; flex</span></a>
+      <a class="r-card" target="_blank" rel="noopener" href="https://github.com/kyndryl-agentic-ai"><b>agentic-insight-generation-engine</b><span>20 insights &middot; anomaly det.</span></a>
+      <a class="r-card" target="_blank" rel="noopener" href="https://github.com/kyndryl-agentic-ai"><b>agentic-a360-es-insight-curation</b><span>dedupe + promote</span></a>
+      <a class="r-card" target="_blank" rel="noopener" href="https://github.com/kyndryl-agentic-ai"><b>agentic-telemetry-exporter-app</b><span>customer-side otel exporter</span></a>
+      <a class="r-card" target="_blank" rel="noopener" href="https://github.com/kyndryl-agentic-ai"><b>agentic-admin-portal</b><span>ops UI</span></a>
+      <a class="r-card" target="_blank" rel="noopener" href="https://github.com/kyndryl-agentic-ai"><b>agentic-azure-project-docs</b><span>architecture &middot; cost &middot; diagrams</span></a>
+      <a class="r-card" target="_blank" rel="noopener" href="https://github.com/kyndryl-agentic-ai"><b>signal-processing-framework</b><span>iac naming reference</span></a>
+    </div>
+  </div>
+
+  <div class="a360-callouts reveal">
+    <div class="callout"><b>Agent Trust Score</b><p>Composite reliability + quality metric, fed by composite ES indices (run-summary, decision, run-heatmap). Surfaced at <code>/agent-trust</code>.</p></div>
+    <div class="callout"><b>Actionable Insights</b><p>20 insight types &mdash; cost spikes, latency regressions, model drift, error clusters &mdash; auto-curated and rendered in the UI.</p></div>
+    <div class="callout"><b>Tenant Lifecycle</b><p>Boarding function (Flex Consumption) provisions per-tenant ADX DB, Cosmos containers, ES index templates and registers the tenant.</p></div>
+    <div class="callout"><b>Dogfooding</b><p>A360 emits its own traces into A360 under the <code>kyndryl</code> tenant. Eat your own observability.</p></div>
+    <div class="callout"><b>Auth</b><p>Frontend &rarr; Azure AD token &rarr; API gateway validates against JWKS, checks <code>authorized_users</code> in Cosmos.</p></div>
+    <div class="callout"><b>Sync strategy</b><p>Hourly views with 70-min overlap, daily with 25-hour overlap. SHA-256 doc IDs from natural keys.</p></div>
+  </div>
+</section>
+
+<!-- P2P DEEP DIVE -->
+<section id="p2p" class="pad deep">
+  <div class="section-head"><span class="num">03 //</span><h2>policy &rarr; pipelines</h2></div>
+
+  <div class="p2p-hero reveal">
+    <div>
+      <div class="tag">hackathon &middot; production-track &middot; gcp + vertex ai</div>
+      <h3 class="big">natural language controls<br/>&rarr; enforced guardrails + drift fix.</h3>
+      <p>
+        A multi-agent <b><a target="_blank" rel="noopener" href="https://langchain-ai.github.io/langgraph/">LangGraph</a></b> platform that takes a plain-English policy like
+        <em>&ldquo;All GCS buckets must have <code>cost_center</code>, <code>environment</code> and <code>team</code> labels&rdquo;</em>
+        and turns it into compiled rules, live drift detection, risk-scored
+        gcloud remediation plans, human-in-the-loop approvals, and audit-ready
+        evidence &mdash; running against real GCP (<a target="_blank" rel="noopener" href="https://cloud.google.com/vertex-ai">Gemini 2.5 Pro on Vertex AI</a>) or fully
+        offline in mock mode for CI.
+      </p>
+    </div>
+  </div>
+
+  <div class="lg-wrap reveal">
+    <h4 class="sub-h">run the pipeline &mdash; click <button id="lg-run" class="mini-btn magnetic" data-snd="primary">simulate</button></h4>
+
+    <!-- SVG beam layer -->
+    <svg id="lg-beams" viewBox="0 0 1000 60" preserveAspectRatio="none" aria-hidden="true">
+      <defs>
+        <linearGradient id="beam" x1="0" x2="1"><stop offset="0" stop-color="#7df9ff"/><stop offset="1" stop-color="#ff6ec7"/></linearGradient>
+      </defs>
+    </svg>
+
+    <div class="lg-stages" id="lg-stages">
+      <div class="lg-stage" data-s="1">
+        <div class="lg-num">01</div>
+        <div class="lg-pulse"></div>
+        <div class="lg-body"><h5>Policy Compiler</h5><p>NL &rarr; structured <code>PolicyConstraint</code> via few-shot LLM. Rejects greetings, off-topic, or ambiguous policies.</p></div>
+        <div class="lg-status">idle</div>
+        <div class="lg-bar"></div>
+      </div>
+      <div class="lg-stage" data-s="2">
+        <div class="lg-num">02</div>
+        <div class="lg-pulse"></div>
+        <div class="lg-body"><h5>Drift Scanner</h5><p>Queries live GCS / Compute / IAM / SQL state; LLM compares to policy and emits structured violations.</p></div>
+        <div class="lg-status">idle</div>
+        <div class="lg-bar"></div>
+      </div>
+      <div class="lg-stage" data-s="3">
+        <div class="lg-num">03</div>
+        <div class="lg-pulse"></div>
+        <div class="lg-body"><h5>Remediation Planner</h5><p>Generates ordered, reversible gcloud commands per violation, with rollback hints and blast-radius estimates.</p></div>
+        <div class="lg-status">idle</div>
+        <div class="lg-bar"></div>
+      </div>
+      <div class="lg-stage" data-s="4">
+        <div class="lg-num">04</div>
+        <div class="lg-pulse"></div>
+        <div class="lg-body"><h5>Risk Assessor</h5><p>Guardrails first (BLOCKED / HIGH_RISK), then LLM rubric scoring 0&ndash;10. Auto-approve below 4.</p></div>
+        <div class="lg-status">idle</div>
+        <div class="lg-bar"></div>
+      </div>
+      <div class="lg-stage" data-s="5">
+        <div class="lg-num">05</div>
+        <div class="lg-pulse"></div>
+        <div class="lg-body"><h5>Change Executor</h5><p>Runs approved commands via gcloud, re-queries the resource for post-state proof, refuses unapproved plans.</p></div>
+        <div class="lg-status">idle</div>
+        <div class="lg-bar"></div>
+      </div>
+    </div>
+
+    <canvas id="lg-particles"></canvas>
+
+    <div class="lg-result" id="lg-result"><span class="muted">// click <b>simulate</b> to watch a real policy run through all 5 agents.</span></div>
+  </div>
+
+  <div class="p2p-grid reveal">
+    <div class="callout"><b>LangGraph state machine</b><p>Conditional routers short-circuit on rejection or cloud-error; per-stage timings let the UI render a Gantt of agent execution.</p></div>
+    <div class="callout"><b>Guardrails &amp; risk engine</b><p>BLOCKED patterns force score=10. HIGH_RISK patterns boost LLM score by +6 to push past auto-approve.</p></div>
+    <div class="callout"><b>Policy template library</b><p>7+ YAML controls for GCS, Compute, IAM, Cloud SQL, VPC. Loadable via <code>/api/templates</code>.</p></div>
+    <div class="callout"><b>Provider pluggable</b><p>Mock / LiteLLM / Vertex AI for LLM. Mock / GCP for cloud. AWS &amp; Azure scaffolded next.</p></div>
+    <div class="callout"><b>Audit-ready</b><p>EvidencePack bundles: policy + finding + plan + before/after state + execution log. Persisted to Firestore.</p></div>
+    <div class="callout"><b>Stack</b><p>LangGraph &middot; LangChain &middot; FastAPI &middot; Pydantic v2 &middot; React + Vite &middot; APScheduler &middot; Cloud Build &middot; Firestore &middot; Podman.</p></div>
+  </div>
+</section>
+
+<!-- EXPERIENCE TIMELINE -->
+<section id="xp" class="pad">
+  <div class="section-head"><span class="num">04 //</span><h2>trace.log</h2></div>
+  <div class="timeline">
+    <div class="rail"><div class="rail-fill" id="rail-fill"></div></div>
+
+    <article class="t-item reveal" data-year="07/2025 -> now">
+      <div class="t-dot"></div>
+      <h3>Associate SDE &mdash; <a target="_blank" rel="noopener" href="https://www.kyndryl.com"><span>Kyndryl</span></a></h3>
+      <p>Designing &amp; shipping Agentic AI POCs and enterprise use cases on
+         <b>Azure AI Foundry</b>. Delivering mission-critical insights via
+         <b><a target="_blank" rel="noopener" href="https://www.kyndryl.com/in/en/services/platform">Kyndryl Bridge</a></b> with predictive modelling and observability.
+         Owner of multiple A360 services and the <b>P2P</b> hackathon-to-production track.</p>
+      <div class="chips"><span>Azure AI Foundry</span><span>Agentic AI</span><span>RAG</span><span>LangGraph</span><span>Observability</span><span>Kyndryl Bridge</span></div>
+    </article>
+
+    <article class="t-item reveal" data-year="07/2024 — 08/2024">
+      <div class="t-dot"></div>
+      <h3>Cloud Intern &mdash; <span>Charly Computers</span></h3>
+      <p>Engineered cloud architectures that improved scalability <b>+40%</b>.
+         Orchestrated migration of business ops to the cloud.</p>
+      <div class="chips"><span>AWS</span><span>Migration</span><span>Architecture</span></div>
+    </article>
+
+    <article class="t-item reveal" data-year="08/2023 — 09/2024">
+      <div class="t-dot"></div>
+      <h3>Technical Core &mdash; <a target="_blank" rel="noopener" href="https://gdsc.community.dev/vellore-institute-of-technology-vellore/"><span>GDSC VIT</span></a></h3>
+      <p>Led 3+ initiatives, ran 2 hackathons and 4 coding challenges,
+         impacting <b>500+ students</b>.</p>
+      <div class="chips"><span>Leadership</span><span>Community</span><span>DevRel</span></div>
+    </article>
+  </div>
+</section>
+
+<!-- SKILLS &mdash; ORBITAL SYSTEM -->
+<section id="skills" class="pad">
+  <div class="section-head"><span class="num">05 //</span><h2>./skills --orbit</h2></div>
+  <p class="sub muted">5 clusters · hover to nudge nodes · click to inspect · switch view to orbit / grid →</p>
+  <div class="skill-toolbar">
+    <button class="skill-tab" data-view="orbit" data-snd="ghost">orbit</button>
+    <button class="skill-tab" data-view="grid" data-snd="ghost">grid</button>
+    <button class="skill-tab active" data-view="net" data-snd="ghost">network</button>
+    <div class="skill-detail" id="skill-detail">click a node to inspect</div>
+  </div>
+  <div id="skill-stage" class="skill-stage" data-view="net"></div>
+  <div class="legend">
+    <span><i style="background:#7df9ff"></i> languages</span>
+    <span><i style="background:#ff6ec7"></i> ai / ml</span>
+    <span><i style="background:#a78bfa"></i> cloud</span>
+    <span><i style="background:#facc15"></i> dev / tools</span>
+    <span><i style="background:#4ade80"></i> data</span>
+  </div>
+</section>
+
+<!-- ALL PROJECTS GRID -->
+<section id="projects" class="pad">
+  <div class="section-head"><span class="num">06 //</span><h2>archive</h2></div>
+  <p class="sub muted">tilt the cards &middot; star &middot; external links open the repo.</p>
+  <div class="proj-grid">
+    <a class="proj tilt reveal featured-mini" href="#a360">
+      <div class="proj-num">P/01 *</div>
+      <h4>A360 Observability</h4>
+      <p>Multi-tenant agent observability with 31 ADX MVs synced to ES, FastAPI gateway, Next.js + Shidoka frontend, synthetic telemetry generator.</p>
+      <div class="chips sm"><span>ADX</span><span>Elastic</span><span>Next.js 16</span><span>FastAPI</span><span>AKS</span></div>
+    </a>
+    <a class="proj tilt reveal featured-mini" href="#p2p">
+      <div class="proj-num">P/02 *</div>
+      <h4>Policy &rarr; Pipelines</h4>
+      <p>5-agent LangGraph platform that compiles natural-language policies into enforced GCP guardrails with drift fix, risk scoring, and audit evidence.</p>
+      <div class="chips sm"><span>LangGraph</span><span>Gemini 2.5 Pro</span><span>FastAPI</span><span>React</span><span>GCP</span></div>
+    </a>
+    <a class="proj tilt reveal" target="_blank" rel="noopener" href="https://github.com/kevil21/Overlay-Insights">
+      <div class="proj-num">P/03 [link]</div>
+      <h4>Overlay-Insights</h4>
+      <p>Python toolkit that finds repeated overlay patterns across hostnames and quantifies business impact (cost / brand value).</p>
+      <div class="chips sm"><span>Python</span><span>Elasticsearch</span><span>Kibana</span><span>Jupyter</span></div>
+    </a>
+    <a class="proj tilt reveal" target="_blank" rel="noopener" href="https://github.com/kevil21/Incident_Ticket_Management">
+      <div class="proj-num">P/04 [link]</div>
+      <h4>Incident Ticket Mgmt</h4>
+      <p>End-to-end ELK pipeline that cleans, indexes, transforms and visualises incident-ticket data &mdash; fully script-driven and reproducible.</p>
+      <div class="chips sm"><span>ELK</span><span>Python</span><span>CSV</span></div>
+    </a>
+    <a class="proj tilt reveal" target="_blank" rel="noopener" href="https://github.com/kevil21/data-operations-it-assets_ELK">
+      <div class="proj-num">P/05 [link]</div>
+      <h4>IT Asset Analytics</h4>
+      <p>End-to-end IT asset analytics pipeline &mdash; pandas / NumPy / Elasticsearch / Kibana &mdash; cleaning, indexing, transforming and visualizing asset data.</p>
+      <div class="chips sm"><span>Pandas</span><span>NumPy</span><span>ELK</span></div>
+    </a>
+    <a class="proj tilt reveal" target="_blank" rel="noopener" href="https://github.com/kevil21/Climate_Mitigation_Tool">
+      <div class="proj-num">P/06 [link]</div>
+      <h4>Climate Mitigation Tool</h4>
+      <p>LSTM multi-modal time-series model for climate-induced migration forecasting. Real-time data from 3+ weather APIs &middot; <b>+15%</b> accuracy.</p>
+      <div class="chips sm"><span>LSTM</span><span>Time series</span><span>APIs</span></div>
+    </a>
+    <a class="proj tilt reveal" target="_blank" rel="noopener" href="https://github.com/kevil21/Crop-Prediction">
+      <div class="proj-num">P/07 [link]</div>
+      <h4>OptiCrop</h4>
+      <p>ML for precision water allocation in Indian agriculture &mdash; <b>+35%</b> water-use efficiency, automated expense categorization <b>-50%</b> manual entry.</p>
+      <div class="chips sm"><span>ML</span><span>Python</span><span>Rule engines</span></div>
+    </a>
+    <a class="proj tilt reveal" target="_blank" rel="noopener" href="https://github.com/kevil21">
+      <div class="proj-num">P/08</div>
+      <h4>Smart Energy Forecasting</h4>
+      <p>LSTM forecasting on AWS Kinesis / S3 / SageMaker across 500+ houses &amp; transformers &mdash; <b>+25%</b> grid resilience.</p>
+      <div class="chips sm"><span>LSTM</span><span>AWS</span><span>Streaming</span></div>
+    </a>
+    <a class="proj tilt reveal" target="_blank" rel="noopener" href="https://github.com/kevil21/Python">
+      <div class="proj-num">P/09 [link]</div>
+      <h4>Python Essentials</h4>
+      <p>A beginner-to-mastery Python guide &mdash; kept as a public learning artifact.</p>
+      <div class="chips sm"><span>Python</span><span>Education</span></div>
+    </a>
+    <a class="proj tilt reveal ghost-card" href="mailto:kevilpatel24@gmail.com">
+      <div class="proj-num">P/10</div>
+      <h4>next.idea()</h4>
+      <p>your collaboration could live here. <span class="muted">(yes, you, reading this.)</span></p>
+      <div class="chips sm"><span>open slot</span></div>
+    </a>
+  </div>
+</section>
+
+<!-- GITHUB LIVE -->
+<section id="github" class="pad">
+  <div class="section-head"><span class="num">07 //</span><h2>github &middot; live</h2></div>
+  <p class="sub muted">fetched from <code>api.github.com/users/kevil21</code> when you opened this page.</p>
+
+  <div class="gh-grid reveal">
+    <div class="gh-card big">
+      <img id="gh-avatar" alt="Kevil GitHub avatar" src="https://avatars.githubusercontent.com/u/89412608?v=4"/>
+      <div>
+        <h4>@<a target="_blank" rel="noopener" href="https://github.com/kevil21">kevil21</a></h4>
+        <p id="gh-bio">Kevil Patel &middot; loading bio...</p>
+        <div class="gh-stats">
+          <span><b id="gh-public">&mdash;</b> public repos</span>
+          <span><b id="gh-followers">&mdash;</b> followers</span>
+          <span><b id="gh-following">&mdash;</b> following</span>
+        </div>
+        <div class="gh-links">
+          <a class="magnetic" data-snd="ghost" target="_blank" rel="noopener" href="https://github.com/kevil21">github</a>
+          <a class="magnetic" data-snd="ghost" target="_blank" rel="noopener" href="https://linkedin.com/in/kevil21">linkedin</a>
+          <a class="magnetic" data-snd="ghost" target="_blank" rel="noopener" href="https://huggingface.co/Kevil21">huggingface</a>
+          <a class="magnetic" data-snd="ghost" target="_blank" rel="noopener" href="https://instagram.com/kevil_36">instagram</a>
+          <a class="magnetic" data-snd="ghost" target="_blank" rel="noopener" href="mailto:kevilpatel24@gmail.com">email</a>
+        </div>
+      </div>
+    </div>
+
+    <div class="gh-card">
+      <h5>contribution heatmap <em>(visualization)</em></h5>
+      <div id="gh-heat" class="heat"></div>
+      <p class="muted small">42 contributions in the last year &middot; <a target="_blank" rel="noopener" href="https://github.com/kevil21">view real graph on github</a></p>
+    </div>
+
+    <div class="gh-card">
+      <h5>top languages</h5>
+      <div id="gh-langs" class="langs"></div>
+    </div>
+  </div>
+
+  <h4 class="sub-h">recent repositories</h4>
+  <div class="gh-repos" id="gh-repos">
+    <div class="muted">loading repositories...</div>
+  </div>
+</section>
+
+<!-- CERTS WITH VERIFICATION LINKS -->
+<section id="certs" class="pad">
+  <div class="section-head"><span class="num">08 //</span><h2>credentials.verified</h2></div>
+  <p class="sub muted">click any card to open the official verification page with credential ID prefilled.</p>
+  <div class="certs">
+
+    <a class="cert tilt reveal" target="_blank" rel="noopener" href="https://aws.amazon.com/verification" data-snd="primary">
+      <div class="cert-logo"><img src="assets/AWS.png" alt="AWS" loading="lazy"/></div>
+      <h5>AWS Solutions Architect Associate</h5>
+      <p class="cert-meta">SAA-C03 &middot; valid 09/2027</p>
+      <p class="cert-id">cred id: 3d7ecea14b4342659eb4d68cdc9fbc37</p>
+      <span class="cert-verify">verify -&gt;</span>
+    </a>
+
+    <a class="cert tilt reveal" target="_blank" rel="noopener" href="https://aws.amazon.com/verification" data-snd="primary">
+      <div class="cert-logo"><img src="assets/AWS.png" alt="AWS" loading="lazy"/></div>
+      <h5>AWS Certified Cloud Practitioner</h5>
+      <p class="cert-meta">CLF-C02 &middot; valid 03/2027</p>
+      <p class="cert-id">cred id: b1f4b1e59f194f5da6872a5f1b79c824</p>
+      <span class="cert-verify">verify -&gt;</span>
+    </a>
+
+    <a class="cert tilt reveal" target="_blank" rel="noopener" href="https://learn.microsoft.com/api/credentials/share/en-us/KevilPatel-7029/661B55BA40148A87?sharingId" data-snd="primary">
+      <div class="cert-logo ms-logo">
+        <svg viewBox="0 0 23 23" xmlns="http://www.w3.org/2000/svg" aria-label="Microsoft"><path fill="#f25022" d="M0 0h11v11H0z"/><path fill="#7fba00" d="M12 0h11v11H12z"/><path fill="#00a4ef" d="M0 12h11v11H0z"/><path fill="#ffb900" d="M12 12h11v11H12z"/></svg>
+      </div>
+      <h5>Azure AI Engineer Associate</h5>
+      <p class="cert-meta">AI-102 &middot; valid 01/2027</p>
+      <p class="cert-id">cred id: 661B55BA40148A87</p>
+      <span class="cert-verify">verify -&gt;</span>
+    </a>
+
+    <a class="cert tilt reveal" target="_blank" rel="noopener" href="https://learn.microsoft.com/api/credentials/share/en-us/KevilPatel-7029/141508FF683C2BFE?sharingId" data-snd="primary">
+      <div class="cert-logo ms-logo">
+        <svg viewBox="0 0 23 23" xmlns="http://www.w3.org/2000/svg" aria-label="Microsoft"><path fill="#f25022" d="M0 0h11v11H0z"/><path fill="#7fba00" d="M12 0h11v11H12z"/><path fill="#00a4ef" d="M0 12h11v11H0z"/><path fill="#ffb900" d="M12 12h11v11H12z"/></svg>
+      </div>
+      <h5>Azure Administrator Associate</h5>
+      <p class="cert-meta">AZ-104 &middot; valid 10/2026</p>
+      <p class="cert-id">cred id: 141508FF683C2BFE</p>
+      <span class="cert-verify">verify -&gt;</span>
+    </a>
+
+    <a class="cert tilt reveal" target="_blank" rel="noopener" href="https://learn.microsoft.com/api/credentials/share/en-us/KevilPatel-7029/CBEF8794CADFA2F1?sharingId" data-snd="primary">
+      <div class="cert-logo ms-logo">
+        <svg viewBox="0 0 23 23" xmlns="http://www.w3.org/2000/svg" aria-label="Microsoft"><path fill="#f25022" d="M0 0h11v11H0z"/><path fill="#7fba00" d="M12 0h11v11H12z"/><path fill="#00a4ef" d="M0 12h11v11H0z"/><path fill="#ffb900" d="M12 12h11v11H12z"/></svg>
+      </div>
+      <h5>Azure Fundamentals</h5>
+      <p class="cert-meta">AZ-900 &middot; lifetime</p>
+      <p class="cert-id">cred id: CBEF8794CADFA2F1</p>
+      <span class="cert-verify">verify -&gt;</span>
+    </a>
+
+    <a class="cert tilt reveal" target="_blank" rel="noopener" href="https://learn.microsoft.com/api/credentials/share/en-us/KevilPatel-7029/505C219976CD2E5D?sharingId" data-snd="primary">
+      <div class="cert-logo gh-logo">
+        <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" aria-label="GitHub"><path fill="#fff" d="M12 .3a12 12 0 0 0-3.8 23.38c.6.12.83-.26.83-.57v-2c-3.34.72-4.04-1.6-4.04-1.6-.55-1.4-1.34-1.77-1.34-1.77-1.08-.74.09-.73.09-.73 1.2.09 1.84 1.24 1.84 1.24 1.08 1.83 2.81 1.3 3.5.99.1-.77.42-1.3.76-1.6-2.66-.3-5.47-1.33-5.47-5.93 0-1.31.47-2.38 1.24-3.22-.13-.3-.54-1.52.12-3.18 0 0 1.01-.32 3.3 1.23a11.5 11.5 0 0 1 6 0c2.28-1.55 3.29-1.23 3.29-1.23.66 1.66.25 2.88.12 3.18a4.65 4.65 0 0 1 1.24 3.22c0 4.61-2.81 5.62-5.48 5.92.43.37.81 1.1.81 2.22v3.29c0 .31.22.69.83.57A12 12 0 0 0 12 .3"/></svg>
+      </div>
+      <h5>GitHub Copilot</h5>
+      <p class="cert-meta">GH-300 &middot; valid 12/2027</p>
+      <p class="cert-id">cred id: 505C219976CD2E5D</p>
+      <span class="cert-verify">verify -&gt;</span>
+    </a>
+
+    <a class="cert tilt reveal" target="_blank" rel="noopener" href="https://learn.microsoft.com/credentials/share/en-us/KevilPatel" data-snd="primary">
+      <div class="cert-logo ms-logo">
+        <svg viewBox="0 0 23 23" xmlns="http://www.w3.org/2000/svg" aria-label="Microsoft"><path fill="#f25022" d="M0 0h11v11H0z"/><path fill="#7fba00" d="M12 0h11v11H12z"/><path fill="#00a4ef" d="M0 12h11v11H0z"/><path fill="#ffb900" d="M12 12h11v11H12z"/></svg>
+      </div>
+      <h5>Excellerate Agentic AI</h5>
+      <p class="cert-meta">microsoft &middot; mar 2026</p>
+      <p class="cert-id">azure ai foundry &middot; agentic workflows</p>
+      <span class="cert-verify">verify -&gt;</span>
+    </a>
+
+    <a class="cert tilt reveal" target="_blank" rel="noopener" href="https://www.founderz.com/" data-snd="primary">
+      <div class="cert-logo"><img src="assets/Founderz.png" alt="Founderz" loading="lazy"/></div>
+      <h5>Agent Master</h5>
+      <p class="cert-meta">founderz &middot; may 2026</p>
+      <p class="cert-id">cred id: a2df505f-955c-41b6-a071-f21178c8a5bb</p>
+      <span class="cert-verify">verify -&gt;</span>
+    </a>
+
+    <a class="cert tilt reveal" target="_blank" rel="noopener" href="https://www.founderz.com/" data-snd="primary">
+      <div class="cert-logo"><img src="assets/Founderz.png" alt="Founderz" loading="lazy"/></div>
+      <h5>Agent Commander</h5>
+      <p class="cert-meta">founderz &middot; may 2026</p>
+      <p class="cert-id">cred id: bbf6e80b-21cc-4306-9aea-77d03d0de28c</p>
+      <span class="cert-verify">verify -&gt;</span>
+    </a>
+
+    <a class="cert tilt reveal" target="_blank" rel="noopener" href="https://www.founderz.com/" data-snd="primary">
+      <div class="cert-logo"><img src="assets/Founderz.png" alt="Founderz" loading="lazy"/></div>
+      <h5>Agent Explorer</h5>
+      <p class="cert-meta">founderz &middot; feb 2026</p>
+      <p class="cert-id">cred id: 09b81d9b-3aa0-4734-a85a-b9cd42c09e29</p>
+      <span class="cert-verify">verify -&gt;</span>
+    </a>
+  </div>
+</section>
+
+<!-- EDUCATION -->
+<section class="pad">
+  <div class="section-head"><span class="num">08.b //</span><h2>education</h2></div>
+  <div class="edu">
+    <a class="edu-card reveal" target="_blank" rel="noopener" href="https://vit.ac.in">
+      <span class="edu-year">2021 — 2025</span>
+      <div><h4>B.Tech, Computer Science Engineering</h4>
+      <p>VIT University, Vellore &middot; CGPA <b>8.95 / 10</b> &middot; AIR <b>56</b> VITEEE</p></div>
+    </a>
+    <div class="edu-card reveal">
+      <span class="edu-year">2019 — 2020</span>
+      <div><h4>12th CBSE</h4>
+      <p>L.P. Savani International, Surat &middot; GPA <b>8.9</b></p></div>
+    </div>
+    <div class="edu-card reveal">
+      <span class="edu-year">2017 — 2018</span>
+      <div><h4>10th CBSE</h4>
+      <p>L.P. Savani International, Surat &middot; GPA <b>8</b></p></div>
+    </div>
+  </div>
+</section>
+
+<!-- CONTACT TERMINAL -->
+<section id="contact" class="pad">
+  <div class="section-head"><span class="num">09 //</span><h2>establish_connection()</h2></div>
+
+  <div class="terminal reveal">
+    <div class="t-bar"><i></i><i></i><i></i><span>kevil@os ~ /contact</span></div>
+    <div class="t-body" id="term-body">
+<span class="t-line"><span class="prompt">kevil@os:~$</span> help</span>
+<span class="t-line muted">about &middot; email &middot; linkedin &middot; github &middot; huggingface &middot; instagram &middot; resume &middot; hire &middot; whoami &middot; matrix &middot; konami &middot; theme &middot; clear</span>
+<span class="t-line"><span class="prompt">kevil@os:~$</span> <span class="t-cursor">|</span></span>
+    </div>
+    <form id="term-form" autocomplete="off">
+      <span class="prompt">kevil@os:~$</span>
+      <input id="term-input" spellcheck="false" placeholder="type a command..." />
+    </form>
+  </div>
+
+  <div class="contact-grid">
+    <a class="cdot magnetic" data-snd="primary" href="mailto:kevilpatel24@gmail.com"><span>email</span><b>kevilpatel24@gmail.com</b></a>
+    <a class="cdot magnetic" data-snd="primary" href="tel:+919998967939"><span>phone</span><b>+91 999 896 7939</b></a>
+    <a class="cdot magnetic" data-snd="primary" target="_blank" rel="noopener" href="https://linkedin.com/in/kevil21"><span>linkedin</span><b>/in/kevil21</b></a>
+    <a class="cdot magnetic" data-snd="primary" target="_blank" rel="noopener" href="https://github.com/kevil21"><span>github</span><b>/kevil21</b></a>
+    <a class="cdot magnetic" data-snd="primary" target="_blank" rel="noopener" href="https://huggingface.co/Kevil21"><span>huggingface</span><b>/Kevil21</b></a>
+    <a class="cdot magnetic" data-snd="primary" target="_blank" rel="noopener" href="https://instagram.com/kevil_36"><span>instagram</span><b>@kevil_36</b></a>
+  </div>
+</section>
+
+<footer>
+  <div>(c) <span id="yr"></span> Kevil Patel &middot; built with too much curiosity, GSAP, and stubbornness.</div>
+  <div class="foot-right">v2.2.0 &middot; <span class="live"></span> live &middot; made in India &middot; <a href="behind.html">behind</a> &middot; <a href="stack.html">stack</a></div>
+</footer>
+
+</main>
+
+<!-- Chatbot persona of Kevil -->
+<button id="chat-fab" aria-label="Chat with Kevil" title="Chat with Kevil (persona)" data-snd="primary">
+  <svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12a8 8 0 0 1-11.4 7.2L3 21l1.8-6.6A8 8 0 1 1 21 12z"/></svg>
+  <span>ask kevil</span>
+</button>
+<div id="chat-panel" hidden role="dialog" aria-label="Kevil persona chatbot">
+  <header><b>kevil.bot</b> <span class="muted small">offline persona · canned answers</span> <button id="chat-close" aria-label="Close chat">x</button></header>
+  <div id="chat-log"></div>
+  <div id="chat-quick"></div>
+  <form id="chat-form"><input id="chat-input" placeholder="ask about a360, p2p, stack..." autocomplete="off"/><button data-snd="primary">send</button></form>
+</div>
+
+<!-- Project case-study modal -->
+<div id="case-modal" hidden role="dialog" aria-label="Project case study">
+  <div class="case-back"></div>
+  <article class="case-card">
+    <button class="case-close" aria-label="Close">x</button>
+    <div id="case-body"></div>
+  </article>
+</div>
+
+<!-- Snake / Chess / Doom mini-overlays -->
+<div id="snake-modal" hidden role="dialog" aria-label="Snake game">
+  <div class="case-back"></div>
+  <div class="mini-card">
+    <header><b>snake.exe</b> <span class="muted small">arrows / wasd · esc to quit</span> <button class="mini-close" aria-label="Close">x</button></header>
+    <canvas id="snake-canvas" width="360" height="360"></canvas>
+    <div id="snake-score" class="muted small">score 0 · best 0</div>
+  </div>
+</div>
+<div id="chess-modal" hidden role="dialog" aria-label="Chess board">
+  <div class="case-back"></div>
+  <div class="mini-card">
+    <header><b>chess.board</b> <span class="muted small">drag pieces · freeplay · no engine</span> <button class="mini-close" aria-label="Close">x</button></header>
+    <div id="chess-board"></div>
+  </div>
+</div>
+
+<canvas id="matrix" hidden></canvas>
+
+<script src="https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/gsap.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/ScrollTrigger.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@studio-freight/lenis@1.0.42/dist/lenis.min.js"></script>
+<script src="app.js"></script>
+</body>
+</html>

@@ -10,16 +10,32 @@ Personal interactive resume/portfolio site for **Kevil Patel**.
 |---|---|
 | `v1.0.0` | Initial launch — pure animation, placeholder about photo |
 | `v2.0.0` | Real photo assets added, about section updated with portrait |
+| `v2.1.0` | Full restructure into `site/`, multi-page, major feature expansion |
 
-**Current:** `v2.0.0`
+**Current:** `v2.1.0`
 
 ---
 
-## What's new in V2
+## What's new in V2.1
 
-- Added `assets/` folder with real photos (`portrait.jpg`, `headshot.jpg`, `tree.jpg`)
-- About section now renders the real portrait photo
-- `.gitignore` added and fixed
+- All site files moved into `site/` — cleaner repo root
+- New pages: `behind.html` (build story), `stack.html` (tech breakdown), `404.html` (neural canvas error page)
+- More photos added (`photo1.jpg`, `photo2.jpg`, `photo3.jpg`)
+- Real cert logos: `AWS.png`, `Founderz.png`
+- OG / Twitter card image (`og.svg`) + schema.org JSON-LD in `<head>`
+- Skills section rebuilt as force-floating network with cursor repulsion
+- Chatbot FAB — "Ask Kevil" panel with keyword KB + quick-question chips
+- Snake game + freeplay chess board easter eggs
+- Doom mode (`?flags=doom`)
+- Multilingual hero switcher (EN → FR → HI → GU)
+- PDF resume via `window.print()` with `@media print` stylesheet
+- Per-project case study modals on archive cards
+- Page-transition fade overlay between `.html` navigations
+- Auto dark/light theme tied to OS preference
+- Touch swipe on photo frame
+- Local RUM stub (visits, TTFB, JS errors in `localStorage`)
+- Accessibility pass: skip-link, `:focus-visible`, aria-labels
+- `future.md` roadmap added to repo root
 
 ---
 
@@ -30,7 +46,7 @@ Personal interactive resume/portfolio site for **Kevil Patel**.
 - **Lenis** — smooth scrolling
 - Custom canvas neural-network background (mouse-reactive)
 - Custom magnetic cursor, tilt cards, scramble text, typed tagline
-- Interactive draggable skills constellation
+- Force-graph skills network
 - Terminal-style contact widget with command palette
 - Konami-code easter egg (`↑↑↓↓←→←→ b a`)
 
@@ -40,49 +56,62 @@ Personal interactive resume/portfolio site for **Kevil Patel**.
 
 ```
 kevilpatel/
-├── index.html
-├── styles.css
-├── app.js
 ├── .gitignore
 ├── README.md
-└── assets/
-    ├── portrait.jpg
-    ├── headshot.jpg
-    └── tree.jpg
+├── future.md          ← versioned roadmap
+└── site/
+    ├── index.html     ← main resume page
+    ├── behind.html    ← build story & constraints
+    ├── stack.html     ← full tech stack breakdown
+    ├── 404.html       ← custom error page
+    ├── styles.css
+    ├── app.js
+    └── assets/
+        ├── portrait.jpg
+        ├── headshot.jpg
+        ├── photo1.jpg
+        ├── photo2.jpg
+        ├── photo3.jpg
+        ├── tree.jpg
+        ├── AWS.png
+        ├── Founderz.png
+        └── og.svg
 ```
 
 ---
 
 ## Run locally
 
-Open `index.html` directly, or serve it:
-
 ```bash
-python3 -m http.server 5173
+cd site && python3 -m http.server 5173
 # → http://localhost:5173
 ```
+
+Or open `site/index.html` directly (multi-page links work best with a local server).
 
 ---
 
 ## Deployment
 
-This is a static site — deploy by pointing any host at this folder:
+Static site — deploy by pointing any host at the `site/` folder:
 
-- **GitHub Pages** — enable Pages on the `dev` branch root
-- **Netlify / Vercel** — drag-and-drop this folder
-- **Cloudflare Pages** — connect repo, output dir = `/`
+- **GitHub Pages** — enable Pages on the `dev` branch, set source to `/site`
+- **Netlify / Vercel** — set publish directory to `site`
+- **Cloudflare Pages** — output dir = `site`
 
 ---
 
-## Sections
+## Pages
 
-1. Boot loader (sci-fi terminal warm-up)
-2. Hero — scramble title, typed tagline, live uptime, neural canvas
-3. About — bio + real portrait + glassmorphic status card
-4. Experience — scroll-driven timeline rail
-5. Skills — physics-driven draggable constellation
-6. Featured projects — A360 (orbit) + Policy→Pipelines (animated pipeline)
-7. Project archive grid
-8. Certifications
-9. Education
-10. Contact — interactive terminal + contact dots
+| Page | Path | Description |
+|---|---|---|
+| Resume | `site/index.html` | Main interactive resume |
+| Behind the scenes | `site/behind.html` | Build constraints, layers, perf budget |
+| Stack | `site/stack.html` | 8-card full tech stack breakdown |
+| 404 | `site/404.html` | Neural canvas error page |
+
+---
+
+## Roadmap
+
+See [future.md](./future.md) for the full versioned roadmap.

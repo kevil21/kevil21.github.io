@@ -1,0 +1,30 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 630">
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#05060a"/>
+      <stop offset="1" stop-color="#0a0d18"/>
+    </linearGradient>
+    <linearGradient id="acc" x1="0" x2="1">
+      <stop offset="0" stop-color="#7df9ff"/>
+      <stop offset=".5" stop-color="#a78bfa"/>
+      <stop offset="1" stop-color="#ff6ec7"/>
+    </linearGradient>
+    <radialGradient id="glow" cx="50%" cy="50%" r="50%">
+      <stop offset="0" stop-color="#7df9ff" stop-opacity=".35"/>
+      <stop offset="1" stop-color="#7df9ff" stop-opacity="0"/>
+    </radialGradient>
+  </defs>
+  <rect width="1200" height="630" fill="url(#bg)"/>
+  <circle cx="900" cy="320" r="380" fill="url(#glow)"/>
+  <g font-family="-apple-system, Segoe UI, Roboto, sans-serif" fill="#e8ecf3">
+    <text x="80" y="120" font-size="18" letter-spacing="6" fill="#7df9ff">KEVIL.OS — v2.2</text>
+    <text x="80" y="240" font-size="92" font-weight="700">Kevil Patel.</text>
+    <text x="80" y="310" font-size="36" fill="#cfd8e6">Associate SDE · Kyndryl</text>
+    <text x="80" y="360" font-size="28" fill="#8892a6">building agentic AI on Azure.</text>
+    <g font-size="20" fill="#7df9ff" font-family="ui-monospace, monospace">
+      <text x="80" y="470">azure ai foundry  ·  langgraph  ·  next.js  ·  fastapi  ·  adx  ·  elasticsearch</text>
+    </g>
+    <text x="80" y="560" font-size="18" fill="#8892a6" font-family="ui-monospace, monospace">github.com/kevil21  ·  linkedin.com/in/kevil21  ·  kevilpatel24@gmail.com</text>
+  </g>
+  <rect x="80" y="490" width="1040" height="2" fill="url(#acc)"/>
+</svg>
