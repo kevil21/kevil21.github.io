@@ -1,4 +1,4 @@
-/* ==== Kevil.OS v2.1 ==== */
+/* ==== Kevil.OS v3.0 ==== */
 gsap.registerPlugin(ScrollTrigger);
 
 /* ---------- helpers ---------- */
@@ -50,7 +50,10 @@ function playSnd(type) {
   }
 }
 const soundBtn = $('#sound-btn');
-function renderSndBtn() { soundBtn.querySelector('.snd-on').textContent = soundOn ? 'ON' : 'OFF'; soundBtn.style.color = soundOn ? 'var(--accent)' : 'var(--muted)'; }
+function renderSndBtn() {
+  if (soundOn) { soundBtn.classList.remove('muted'); }
+  else { soundBtn.classList.add('muted'); }
+}
 renderSndBtn();
 soundBtn.addEventListener('click', () => {
   soundOn = !soundOn;
@@ -61,14 +64,16 @@ soundBtn.addEventListener('click', () => {
 
 /* ---------- BOOT ---------- */
 const bootLines = [
-  '[boot] Kevil.OS v2.1.0 init...',
+  '[boot] Kevil.OS v3.0.0 init...',
   '[boot] mounting /dev/curiosity ........... [ok]',
   '[boot] loading kernel: agentic-ai.ko ...... [ok]',
+  '[boot] loading GLSL shader engine ....... [ok]',
   '[boot] linking azure-foundry .............. [ok]',
   '[boot] linking langgraph .................. [ok]',
   '[boot] starting observability daemon ...... [ok]',
   '[boot] starting trust-score engine ........ [ok]',
   '[boot] warming up neural canvas ........... [ok]',
+  '[boot] initializing achievement system .... [ok]',
   '[boot] handshake with github.com/kevil21 .. [ok]',
   '[boot] welcome operator. press any key.'
 ];
@@ -113,16 +118,108 @@ if (window.Lenis) {
   lenis.on('scroll', ScrollTrigger.update);
 }
 
-/* ---------- THEME ---------- */
+/* ---------- THEME with celestial animation ---------- */
 const themeBtn = $('#theme-btn');
 const savedTheme = localStorage.getItem('kp-theme') || 'dark';
 document.documentElement.dataset.theme = savedTheme;
+
+// create the celestial overlay element
+const themeOverlay = document.createElement('div');
+themeOverlay.id = 'theme-overlay';
+document.body.appendChild(themeOverlay);
+
+function animateThemeSwitch(toTheme) {
+  const isDark = toTheme === 'dark';  // switching TO dark = moonrise, TO light = sunrise
+  const btnRect = themeBtn.getBoundingClientRect();
+  const cx = btnRect.left + btnRect.width / 2;
+  const cy = btnRect.top + btnRect.height / 2;
+  const maxR = Math.max(Math.hypot(cx, cy), Math.hypot(innerWidth - cx, cy), Math.hypot(cx, innerHeight - cy), Math.hypot(innerWidth - cx, innerHeight - cy));
+
+  themeOverlay.innerHTML = '';
+  themeOverlay.classList.add('active');
+  document.documentElement.classList.add('theme-switching');
+
+  // Main celestial body (sun or moon)
+  const body = document.createElement('div');
+  body.className = 'celestial';
+  body.style.left = cx + 'px'; body.style.top = cy + 'px';
+  body.style.width = '0px'; body.style.height = '0px';
+  body.style.transform = 'translate(-50%,-50%)';
+  if (isDark) {
+    body.style.background = 'radial-gradient(circle, #e8e0d0 30%, #c9b896 70%, transparent)';
+    body.style.boxShadow = '0 0 60px rgba(200,200,180,.6), 0 0 120px rgba(180,170,140,.3), inset -8px -4px 0 rgba(80,70,50,.15)';
+  } else {
+    body.style.background = 'radial-gradient(circle, #fff 20%, #ffe066 50%, #ff9500 100%)';
+    body.style.boxShadow = '0 0 80px rgba(255,200,0,.8), 0 0 200px rgba(255,150,0,.4)';
+  }
+  themeOverlay.appendChild(body);
+
+  // Sun rays (only for sunrise)
+  if (!isDark) {
+    const rays = document.createElement('div');
+    rays.className = 'rays';
+    rays.style.left = cx + 'px'; rays.style.top = cy + 'px';
+    rays.style.width = '200px'; rays.style.height = '200px';
+    rays.style.transform = 'translate(-50%,-50%)';
+    rays.style.background = 'conic-gradient(from 0deg, transparent 0deg, rgba(255,220,80,.3) 10deg, transparent 20deg, transparent 30deg, rgba(255,220,80,.3) 40deg, transparent 50deg, transparent 60deg, rgba(255,220,80,.3) 70deg, transparent 80deg, transparent 90deg, rgba(255,220,80,.3) 100deg, transparent 110deg, transparent 120deg, rgba(255,220,80,.3) 130deg, transparent 140deg, transparent 150deg, rgba(255,220,80,.3) 160deg, transparent 170deg, transparent 180deg, rgba(255,220,80,.3) 190deg, transparent 200deg, transparent 210deg, rgba(255,220,80,.3) 220deg, transparent 230deg, transparent 240deg, rgba(255,220,80,.3) 250deg, transparent 260deg, transparent 270deg, rgba(255,220,80,.3) 280deg, transparent 290deg, transparent 300deg, rgba(255,220,80,.3) 310deg, transparent 320deg, transparent 330deg, rgba(255,220,80,.3) 340deg, transparent 350deg, transparent 360deg)';
+    themeOverlay.appendChild(rays);
+    gsap.fromTo(rays, { width: 0, height: 0, opacity: 0 }, { width: 400, height: 400, opacity: 1, duration: .8, ease: 'power2.out' });
+    gsap.to(rays, { opacity: 0, duration: .4, delay: .8 });
+  }
+
+  // Expanding ring
+  for (let i = 0; i < 3; i++) {
+    const ring = document.createElement('div');
+    ring.className = 'ring';
+    ring.style.left = cx + 'px'; ring.style.top = cy + 'px';
+    ring.style.borderColor = isDark ? 'rgba(200,200,180,.3)' : 'rgba(255,200,0,.35)';
+    themeOverlay.appendChild(ring);
+    gsap.to(ring, {
+      width: maxR * 2.2, height: maxR * 2.2, opacity: 0.5, scale: 1,
+      duration: 1 + i * .2, delay: .15 + i * .15, ease: 'power2.out',
+      onComplete: () => ring.remove()
+    });
+    gsap.to(ring, { opacity: 0, duration: .5, delay: .7 + i * .15 });
+  }
+
+  // Stars / sparkles
+  const sparkCount = isDark ? 40 : 20;
+  for (let i = 0; i < sparkCount; i++) {
+    const s = document.createElement('div');
+    s.style.cssText = `position:absolute;width:3px;height:3px;border-radius:50%;background:${isDark ? '#fffbe6' : '#fff'};left:${cx}px;top:${cy}px;pointer-events:none`;
+    themeOverlay.appendChild(s);
+    const angle = Math.random() * Math.PI * 2;
+    const dist = 80 + Math.random() * maxR * 0.5;
+    gsap.to(s, {
+      x: Math.cos(angle) * dist, y: Math.sin(angle) * dist,
+      opacity: 0, duration: .6 + Math.random() * .5,
+      delay: Math.random() * .3, ease: 'power2.out',
+      onComplete: () => s.remove()
+    });
+  }
+
+  // Animate main body: grow, hold, fade
+  gsap.to(body, {
+    width: isDark ? 60 : 80, height: isDark ? 60 : 80,
+    duration: .5, ease: 'back.out(1.4)',
+    onComplete: () => {
+      // Actually switch the theme mid-animation
+      document.documentElement.dataset.theme = toTheme;
+      localStorage.setItem('kp-theme', toTheme);
+    }
+  });
+  gsap.to(body, { width: 0, height: 0, opacity: 0, duration: .5, delay: .8, ease: 'power2.in', onComplete: () => {
+    themeOverlay.classList.remove('active');
+    themeOverlay.innerHTML = '';
+    setTimeout(() => document.documentElement.classList.remove('theme-switching'), 700);
+  }});
+}
+
 themeBtn.addEventListener('click', () => {
   const cur = document.documentElement.dataset.theme;
   const next = cur === 'dark' ? 'light' : 'dark';
-  document.documentElement.dataset.theme = next;
-  localStorage.setItem('kp-theme', next);
   playSnd('open');
+  animateThemeSwitch(next);
 });
 
 /* ---------- BLOB MORPH ---------- */
@@ -500,14 +597,12 @@ function renderView(v) {
 }
 
 function attachNode(el, item, catKey) {
-  el.addEventListener('mouseenter', () => { orbitPaused = true; playSnd('hover'); });
-  el.addEventListener('mouseleave', () => { orbitPaused = false; });
-  el.addEventListener('click', () => {
-    playSnd('click');
-    $$('.skill-node').forEach(n => n.classList.remove('pinned'));
-    el.classList.add('pinned');
+  el.addEventListener('mouseenter', () => {
+    orbitPaused = true; playSnd('hover');
+    // show detail on hover directly (no click required)
     detail.innerHTML = `<b style="color:${SKILL_CATS[catKey].color}">${item.name}</b> · ${item.yrs}y · <span style="color:var(--muted)">${whereUsed(item.name)}</span>`;
   });
+  el.addEventListener('mouseleave', () => { orbitPaused = false; });
 }
 
 function renderOrbit() {
@@ -637,11 +732,28 @@ function renderNet() {
     });
   });
 
-  // core in DOM
+  // core in DOM — hexagon shape
   const coreEl = document.createElement('div');
-  coreEl.style.cssText = `position:absolute;left:${core.x}px;top:${core.y}px;transform:translate(-50%,-50%);font-family:var(--display);font-size:14px;letter-spacing:.3em;color:${core.color};text-transform:uppercase;background:radial-gradient(circle at center, rgba(125,249,255,.18), transparent 70%);padding:18px 22px;border-radius:50%;border:1px solid rgba(125,249,255,.45);box-shadow:0 0 40px rgba(125,249,255,.25);pointer-events:none;text-align:center`;
-  coreEl.innerHTML = 'KEVIL<br/><span style="font-size:9px;color:var(--muted);letter-spacing:.4em">core</span>';
+  coreEl.style.cssText = `position:absolute;left:${core.x}px;top:${core.y}px;transform:translate(-50%,-50%);font-family:var(--display);font-size:14px;letter-spacing:.3em;color:${core.color};text-transform:uppercase;background:radial-gradient(circle at center, rgba(125,249,255,.18), transparent 70%);padding:22px 26px;clip-path:polygon(50% 0%,100% 25%,100% 75%,50% 100%,0% 75%,0% 25%);border:none;width:100px;height:100px;display:flex;align-items:center;justify-content:center;pointer-events:none;text-align:center`;
+  coreEl.innerHTML = '<span style="display:block;line-height:1.1">KEVIL</span><span style="display:block;font-size:9px;color:var(--muted);letter-spacing:.4em;margin-top:4px">CORE</span>';
   stage.appendChild(coreEl);
+  // hex border via SVG overlay
+  const hexBorder = document.createElementNS(svgNS, 'polygon');
+  const hR = 52;
+  const hexPts = Array.from({length: 6}, (_, i) => {
+    const a = (Math.PI / 3) * i - Math.PI / 2;
+    return `${core.x + Math.cos(a) * hR},${core.y + Math.sin(a) * hR}`;
+  }).join(' ');
+  hexBorder.setAttribute('points', hexPts);
+  hexBorder.setAttribute('fill', 'none'); hexBorder.setAttribute('stroke', 'rgba(125,249,255,.5)');
+  hexBorder.setAttribute('stroke-width', '1.5'); hexBorder.setAttribute('stroke-dasharray', '6 4');
+  svg.appendChild(hexBorder);
+  // pulse glow behind hex
+  const hexGlow = document.createElementNS(svgNS, 'polygon');
+  hexGlow.setAttribute('points', hexPts); hexGlow.setAttribute('fill', 'none');
+  hexGlow.setAttribute('stroke', 'rgba(125,249,255,.25)'); hexGlow.setAttribute('stroke-width', '8');
+  hexGlow.style.filter = 'blur(8px)';
+  svg.insertBefore(hexGlow, svg.firstChild);
 
   // SVG layers: core->cat edges, cat->skill edges
   const coreEdges = [];
@@ -684,17 +796,55 @@ function renderNet() {
   stage.addEventListener('mouseleave', () => { mxL = myL = -9999; });
 
   let t = 0;
+  let prevNearest = null;
   function tick() {
     if (stage.dataset.view !== 'net') { stage.removeEventListener('mousemove', onMove); return; }
     t += 0.016;
+
+    // find the nearest skill node to the cursor
+    let nearestIt = null, nearestDist = Infinity;
+    if (mxL > -999 && myL > -999) {
+      items.forEach(it => {
+        if (it.kind !== 'skill') return;
+        const dx = it.x - mxL, dy = it.y - myL;
+        const d = Math.sqrt(dx * dx + dy * dy);
+        if (d < nearestDist) { nearestDist = d; nearestIt = it; }
+      });
+    }
+
+    // update nearest class
+    if (nearestIt !== prevNearest) {
+      if (prevNearest) { const el = els.get(prevNearest); if (el) el.classList.remove('nearest'); }
+      if (nearestIt && nearestDist < 200) { const el = els.get(nearestIt); if (el) el.classList.add('nearest'); }
+      prevNearest = nearestDist < 200 ? nearestIt : null;
+    }
+
     items.forEach((it) => {
       // breathing
       const bx = Math.cos(t * 0.6 + it.phase) * (it.kind === 'cat' ? 6 : 9);
       const by = Math.sin(t * 0.5 + it.phase * 1.3) * (it.kind === 'cat' ? 6 : 9);
       let tx = it.ox + bx, ty = it.oy + by;
-      // cursor repulsion
-      const dx = tx - mxL, dy = ty - myL; const d2 = dx * dx + dy * dy;
-      if (d2 < 90 * 90 && d2 > 1) { const d = Math.sqrt(d2); const f = (90 - d) / 90 * 22; tx += (dx / d) * f; ty += (dy / d) * f; }
+
+      if (mxL > -999 && myL > -999 && it.kind === 'skill') {
+        const dx = tx - mxL, dy = ty - myL;
+        const d2 = dx * dx + dy * dy;
+        const d = Math.sqrt(d2);
+        if (it === nearestIt && d < 200) {
+          // ATTRACT nearest skill toward cursor
+          const f = Math.min((200 - d) / 200 * 30, 30);
+          tx -= (dx / (d || 1)) * f;
+          ty -= (dy / (d || 1)) * f;
+        } else if (d < 120 && d > 1) {
+          // REPEL others away from cursor
+          const f = (120 - d) / 120 * 26;
+          tx += (dx / d) * f; ty += (dy / d) * f;
+        }
+      } else if (mxL > -999 && myL > -999 && it.kind === 'cat') {
+        // categories: gentle repel
+        const dx = tx - mxL, dy = ty - myL; const d2 = dx * dx + dy * dy;
+        if (d2 < 90 * 90 && d2 > 1) { const d = Math.sqrt(d2); const f = (90 - d) / 90 * 14; tx += (dx / d) * f; ty += (dy / d) * f; }
+      }
+
       // spring back
       it.vx += (tx - it.x) * 0.08; it.vy += (ty - it.y) * 0.08;
       it.vx *= 0.78; it.vy *= 0.78;
@@ -776,7 +926,10 @@ const palCmds = [
   { label: 'link: email kevil', k: 'link', act: () => location.href = 'mailto:kevilpatel24@gmail.com' },
   { label: 'link: github', k: 'link', act: () => open('https://github.com/kevil21', '_blank') },
   { label: 'link: linkedin', k: 'link', act: () => open('https://linkedin.com/in/kevil21', '_blank') },
-  { label: 'link: huggingface', k: 'link', act: () => open('https://huggingface.co/Kevil21', '_blank') }
+  { label: 'link: huggingface', k: 'link', act: () => open('https://huggingface.co/Kevil21', '_blank') },
+  { label: 'link: ms learn profile', k: 'link', act: () => open('https://learn.microsoft.com/en-in/users/kevil21/', '_blank') },
+  { label: 'link: credly badges', k: 'link', act: () => open('https://www.credly.com/users/kevil-patel.db5e53fa', '_blank') },
+  { label: 'link: google skills', k: 'link', act: () => open('https://www.skills.google/public_profiles/368f1807-b155-48d9-ba6c-e9ba98a384f5', '_blank') }
 ];
 let palFiltered = palCmds, palActive = 0;
 function renderPalette() {
@@ -803,13 +956,16 @@ window.addEventListener('keydown', e => {
 /* ---------- TERMINAL ---------- */
 const termBody = $('#term-body'), termInput = $('#term-input'), termForm = $('#term-form');
 const termCmds = {
-  help: 'available: about · email · linkedin · github · huggingface · instagram · resume · hire · whoami · matrix · konami · theme · sound · clear',
+  help: 'available: about · email · linkedin · github · huggingface · instagram · mslearn · credly · googleskills · resume · hire · whoami · matrix · konami · theme · sound · clear',
   about: 'Kevil Patel · Associate SDE @ Kyndryl. Building agentic AI on Azure. CGPA 8.95. AIR 56 VITEEE.',
   email: '<a href="mailto:kevilpatel24@gmail.com">kevilpatel24@gmail.com</a>',
   linkedin: '<a target="_blank" rel="noopener" href="https://linkedin.com/in/kevil21">linkedin.com/in/kevil21</a>',
   github: '<a target="_blank" rel="noopener" href="https://github.com/kevil21">github.com/kevil21</a>',
   huggingface: '<a target="_blank" rel="noopener" href="https://huggingface.co/Kevil21">huggingface.co/Kevil21</a>',
   instagram: '<a target="_blank" rel="noopener" href="https://instagram.com/kevil_36">@kevil_36</a>',
+  mslearn: '<a target="_blank" rel="noopener" href="https://learn.microsoft.com/en-in/users/kevil21/">learn.microsoft.com/users/kevil21</a>',
+  credly: '<a target="_blank" rel="noopener" href="https://www.credly.com/users/kevil-patel.db5e53fa">credly.com/users/kevil-patel</a>',
+  googleskills: '<a target="_blank" rel="noopener" href="https://www.skills.google/public_profiles/368f1807-b155-48d9-ba6c-e9ba98a384f5">skills.google/kevil</a>',
   resume: '<a target="_blank" rel="noopener" href="Kevil_Resume_12.docx">download resume.docx</a>',
   hire: 'open to: agentic AI · cloud architecture · platform engineering · staff+ collaborations. mail kevilpatel24@gmail.com',
   whoami: 'kevil@os :: associate_sde / agentic-ai / kyndryl :: id=21 :: tenant=kevil',
@@ -867,7 +1023,7 @@ document.addEventListener('mouseenter', e => {
 /* ---------- YEAR ---------- */
 $('#yr').textContent = new Date().getFullYear();
 
-console.log('%c kevil.os v2.1 ', 'background:#7df9ff;color:#000;font-weight:700;padding:6px 12px;border-radius:6px;font-family:monospace');
+console.log('%c kevil.os v3.0 ', 'background:#7df9ff;color:#000;font-weight:700;padding:6px 12px;border-radius:6px;font-family:monospace');
 console.log('%c try ctrl/cmd+k for command palette · type help in the terminal ', 'color:#7df9ff;font-family:monospace');
 
 /* ============================================================
@@ -949,7 +1105,7 @@ function applyLang(L) {
   const c2 = $('.hero-actions .btn.ghost span'); if (c2) c2.textContent = d.cta2;
   const wh = $('#about .section-head h2'); if (wh) wh.textContent = d.whoami;
   const sk = $('#skills .section-head h2'); if (sk) sk.textContent = d.skills;
-  langBtn.textContent = L;
+  const bl = langBtn.querySelector('.btn-label'); if (bl) bl.textContent = L; else langBtn.textContent = L;
 }
 applyLang(curLang);
 langBtn.addEventListener('click', () => {
@@ -1215,4 +1371,866 @@ termCmds.chat = () => { chatFab.click(); return 'chat panel toggled.'; };
 termCmds.behind = () => { location.href = 'behind.html'; return 'navigating...'; };
 termCmds.stack = () => { location.href = 'stack.html'; return 'navigating...'; };
 
-console.log('%c kevil.os v2.2 — extras loaded (snake, chess, doom, chat, i18n) ', 'background:#ff6ec7;color:#000;font-weight:700;padding:4px 8px;border-radius:4px;font-family:monospace');
+console.log('%c kevil.os v3.0 — extras loaded (snake, chess, doom, chat, i18n) ', 'background:#ff6ec7;color:#000;font-weight:700;padding:4px 8px;border-radius:4px;font-family:monospace');
+
+/* ============================================================
+   v3.0 ADDITIONS
+   ============================================================ */
+
+/* ---------- PHASE 1: GLSL SHADER BACKGROUND ---------- */
+(function shaderBg() {
+  const canvas = $('#shader-bg'); if (!canvas) return;
+  const gl = canvas.getContext('webgl', { alpha: true, premultipliedAlpha: false });
+  if (!gl) { canvas.style.display = 'none'; return; }
+  function resize() { canvas.width = innerWidth; canvas.height = innerHeight; gl.viewport(0, 0, canvas.width, canvas.height); }
+  resize(); window.addEventListener('resize', resize);
+
+  const vs = `attribute vec2 p;void main(){gl_Position=vec4(p,0,1);}`;
+  const fs = `
+  precision mediump float;
+  uniform float u_time;
+  uniform vec2 u_res;
+  uniform vec2 u_mouse;
+  uniform float u_theme;
+  vec3 palette(float t){
+    vec3 a=vec3(.5,.5,.5);vec3 b=vec3(.5,.5,.5);vec3 c=vec3(1.,1.,1.);vec3 d=vec3(.263,.416,.557);
+    return a+b*cos(6.28318*(c*t+d));
+  }
+  void main(){
+    vec2 uv=(gl_FragCoord.xy-u_res*.5)/min(u_res.x,u_res.y);
+    vec2 uv0=uv;
+    float finalColor=0.;
+    for(float i=0.;i<3.;i++){
+      uv=fract(uv*1.5)-.5;
+      float d=length(uv)*exp(-length(uv0));
+      vec2 mNorm=(u_mouse-u_res*.5)/min(u_res.x,u_res.y);
+      d+=length(uv-mNorm*0.3)*0.15;
+      d=sin(d*8.+u_time*.4)/8.;
+      d=abs(d);
+      d=pow(.012/d,1.2);
+      finalColor+=d;
+    }
+    vec3 col=palette(length(uv0)+u_time*.1)*finalColor;
+    col=mix(col,col*vec3(.5,.8,1.),u_theme);
+    gl_FragColor=vec4(col,finalColor*.25);
+  }`;
+
+  function compile(src, type) {
+    const s = gl.createShader(type); gl.shaderSource(s, src); gl.compileShader(s);
+    if (!gl.getShaderParameter(s, gl.COMPILE_STATUS)) { gl.deleteShader(s); return null; }
+    return s;
+  }
+  const v = compile(vs, gl.VERTEX_SHADER), f = compile(fs, gl.FRAGMENT_SHADER);
+  if (!v || !f) { canvas.style.display = 'none'; return; }
+  const prog = gl.createProgram(); gl.attachShader(prog, v); gl.attachShader(prog, f); gl.linkProgram(prog);
+  if (!gl.getProgramParameter(prog, gl.LINK_STATUS)) { canvas.style.display = 'none'; return; }
+  gl.useProgram(prog);
+
+  const buf = gl.createBuffer(); gl.bindBuffer(gl.ARRAY_BUFFER, buf);
+  gl.bufferData(gl.ARRAY_BUFFER, new Float32Array([-1,-1,1,-1,-1,1,1,1]), gl.STATIC_DRAW);
+  const pos = gl.getAttribLocation(prog, 'p'); gl.enableVertexAttribArray(pos); gl.vertexAttribPointer(pos, 2, gl.FLOAT, false, 0, 0);
+
+  const uTime = gl.getUniformLocation(prog, 'u_time');
+  const uRes = gl.getUniformLocation(prog, 'u_res');
+  const uMouse = gl.getUniformLocation(prog, 'u_mouse');
+  const uTheme = gl.getUniformLocation(prog, 'u_theme');
+
+  let smx = innerWidth / 2, smy = innerHeight / 2;
+  window.addEventListener('mousemove', e => { smx = e.clientX; smy = e.clientY; });
+
+  function draw(t) {
+    if (document.documentElement.classList.contains('lite-mode')) { requestAnimationFrame(draw); return; }
+    gl.uniform1f(uTime, t * 0.001);
+    gl.uniform2f(uRes, canvas.width, canvas.height);
+    gl.uniform2f(uMouse, smx, innerHeight - smy);
+    gl.uniform1f(uTheme, document.documentElement.dataset.theme === 'light' ? 1.0 : 0.0);
+    gl.drawArrays(gl.TRIANGLE_STRIP, 0, 4);
+    requestAnimationFrame(draw);
+  }
+  requestAnimationFrame(draw);
+})();
+
+/* ---------- PHASE 2: AUDIO VISUALIZER (boot screen waveform) ---------- */
+(function bootViz() {
+  const cv = $('#boot-viz'); if (!cv) return;
+  const ctx = cv.getContext('2d');
+  let phase = 0;
+  function draw() {
+    if (!$('#boot')) return;
+    ctx.clearRect(0, 0, cv.width, cv.height);
+    ctx.strokeStyle = 'rgba(125,249,255,.5)';
+    ctx.lineWidth = 1.5;
+    ctx.beginPath();
+    for (let x = 0; x < cv.width; x++) {
+      const y = cv.height / 2 + Math.sin(x * 0.03 + phase) * 8 + Math.sin(x * 0.07 + phase * 1.3) * 5 + Math.sin(x * 0.11 + phase * 0.7) * 3;
+      x === 0 ? ctx.moveTo(x, y) : ctx.lineTo(x, y);
+    }
+    ctx.stroke();
+    // secondary wave
+    ctx.strokeStyle = 'rgba(255,110,199,.25)';
+    ctx.beginPath();
+    for (let x = 0; x < cv.width; x++) {
+      const y = cv.height / 2 + Math.cos(x * 0.04 + phase * 1.5) * 6 + Math.sin(x * 0.09 + phase * 0.9) * 4;
+      x === 0 ? ctx.moveTo(x, y) : ctx.lineTo(x, y);
+    }
+    ctx.stroke();
+    phase += 0.06;
+    requestAnimationFrame(draw);
+  }
+  draw();
+})();
+
+/* ---------- PHASE 3: ENHANCED CHATBOT with fuzzy matching + typing indicator ---------- */
+(function enhancedChat() {
+  // Expanded knowledge base
+  const EXTRA_KB = [
+    { q: ['resume', 'portfolio', 'website', 'site'], a: 'This interactive resume is built with vanilla HTML/CSS/JS + GSAP. It features a GLSL shader background, audio engine, command palette, terminal, 3 skill views, LangGraph simulator, achievements system, and multiple easter eggs. v3.0 is the latest version.' },
+    { q: ['langgraph', 'pipeline', 'agent', 'agentic', 'multi-agent'], a: 'I built P2P (Policy-to-Pipelines), a 5-agent LangGraph system. Agents: PolicyCompiler → DriftScanner → RemediationPlanner → RiskAssessor → ChangeExecutor. It auto-remediates cloud drift with human-in-the-loop for high-risk changes. See the interactive simulator in the projects section.' },
+    { q: ['adx', 'data explorer', 'kusto'], a: 'I manage the ADX-to-Elasticsearch sync service for A360. It syncs 31 materialized views across N tenants every 10 minutes using incremental timestamps. Doc IDs are SHA-256 hashes for deterministic upserts. DB pattern: acct-{tenant}.' },
+    { q: ['docker', 'container', 'kubernetes', 'aks', 'k8s'], a: 'I work with AKS daily for A360 — running Elasticsearch, Kibana, and LiteLLM on the cluster. I also containerize services with multi-stage Docker builds (node:20-alpine for frontend, python:3.12-slim for APIs).' },
+    { q: ['synth', 'synthetic', 'telemetry', 'data gen'], a: 'I built the A360 synthetic telemetry generator — it creates realistic agent traces, dependency telemetry, and infra signals for 4+ tenants. Runs on Azure Functions with a 6-hour timer trigger, generates ~72h of backfill data in ~15 seconds.' },
+    { q: ['fastapi', 'api', 'gateway', 'backend'], a: 'The A360 API Gateway is a FastAPI app with 7 routers: health, auth (Azure AD JWT), elastic (read-only ES proxy), llm (LiteLLM SSE), kibana (dashboard proxy), cosmos (tenant CRUD), and insights. Runs on App Service with 2 Uvicorn workers.' },
+    { q: ['terraform', 'bicep', 'infra', 'iac'], a: 'I use both Bicep and Terraform for Azure IaC. A360 infra is managed with Terraform (App Service, Function Apps, ADX, AKS). I have experience with modules, state management, and CI/CD pipelines for infrastructure.' },
+    { q: ['github', 'actions', 'ci', 'cd', 'devops'], a: 'I use GitHub Actions for CI/CD across all A360 repositories. Workflows include: Docker build+push to ACR, App Service deployment with staging slots, Function App deployment, and infrastructure validation.' },
+    { q: ['cosmos', 'cosmosdb', 'nosql', 'database'], a: 'A360 uses Cosmos DB for tenant metadata: platform DB (a360-platform) with tenants container, and per-tenant DBs (a360-metadata-tenant-{id}) with agents, business_processes, and config containers.' },
+    { q: ['next', 'nextjs', 'react', 'frontend', 'shidoka'], a: 'A360 frontend is Next.js 16 + React 19 with Kyndryl Shidoka Design System. Features: 11 KPI tiles, 10 Kibana embeds, 10 drill-down pages, multi-tenant context, dark/light themes, and real-time data from Elasticsearch.' },
+    { q: ['hobby', 'hobbies', 'fun', 'free time', 'interest'], a: 'When not coding, I enjoy exploring AI research papers, building side projects (like this resume!), competitive programming, and exploring new cloud services. I am also into photography and travel across India.' },
+    { q: ['gujarati', 'surat', 'india', 'home'], a: 'I am from Surat, Gujarat, India. Currently based between Surat and Bangalore for work at Kyndryl. Surat is famous for diamonds and textiles — and amazing street food!' },
+    { q: ['salary', 'compensation', 'pay', 'ctc', 'package', 'money'], a: 'I prefer to discuss compensation details directly. Feel free to reach out at kevilpatel24@gmail.com or +91 999 896 7939 for a confidential conversation.' },
+    { q: ['ai foundry', 'foundry', 'azure ai'], a: 'I work with Azure AI Foundry for enterprise AI agent POCs at Kyndryl. This includes model deployment, prompt engineering, and building agentic workflows with LangGraph integration.' },
+    { q: ['vertex', 'gcp', 'google cloud', 'gemini'], a: 'P2P runs on Vertex AI with Gemini 2.5 Pro for policy compilation and risk scoring. I also have experience with GCP compute, storage, and BigQuery for data pipelines.' },
+    { q: ['strength', 'best', 'good at', 'superpower'], a: 'My strengths: 1) Building end-to-end systems from frontend to infra. 2) Rapid prototyping and shipping. 3) Multi-cloud fluency (Azure/AWS/GCP). 4) Making complex things observable and debuggable.' },
+    { q: ['weakness', 'improve', 'growth', 'challenge'], a: 'I am working on deepening my expertise in distributed systems theory, system design for truly massive scale, and contributing more to open-source communities.' },
+    { q: ['hello', 'hi', 'hey', 'sup', 'yo'], a: 'Hey! I am kevil.bot — Kevil\'s digital persona. Ask me about his projects (A360, P2P), tech stack, certifications, or try exploring the easter eggs on this site!' },
+    { q: ['bye', 'goodbye', 'see you', 'thanks', 'thank'], a: 'Thanks for chatting! Feel free to connect on LinkedIn (/in/kevil21) or drop an email at kevilpatel24@gmail.com. Have a great day!' }
+  ];
+  // Merge into existing KB
+  KB.push(...EXTRA_KB);
+
+  // Fuzzy matching function
+  function fuzzyScore(query, target) {
+    const q = query.toLowerCase(), t = target.toLowerCase();
+    if (t.includes(q)) return 1;
+    // token overlap score
+    const qTokens = q.split(/\s+/).filter(Boolean);
+    const tTokens = t.split(/\s+/).filter(Boolean);
+    let matches = 0;
+    for (const qt of qTokens) {
+      if (tTokens.some(tt => tt.includes(qt) || qt.includes(tt))) matches++;
+    }
+    return qTokens.length > 0 ? matches / qTokens.length : 0;
+  }
+
+  // Override chatReply with fuzzy matching
+  window.chatReply = function(text) {
+    const t = text.toLowerCase().trim();
+    // Exact keyword match first (original logic)
+    const exact = KB.find(k => k.q.some(w => t.includes(w)));
+    if (exact) return exact.a;
+    // Fuzzy match as fallback
+    let bestScore = 0, bestHit = null;
+    for (const entry of KB) {
+      for (const kw of entry.q) {
+        const score = fuzzyScore(t, kw);
+        if (score > bestScore) { bestScore = score; bestHit = entry; }
+      }
+    }
+    if (bestHit && bestScore > 0.4) return bestHit.a;
+    return 'Hmm, I don\'t have a great answer for that. Try asking about A360, P2P, my stack, certifications, easter eggs, or how to contact Kevil. You can also use the quick chips below!';
+  };
+
+  // Typing indicator
+  const typingEl = $('#chat-typing');
+  const origSubmit = chatForm.onsubmit;
+  chatForm.removeEventListener('submit', () => {}); // clear old
+  chatForm.addEventListener('submit', e => {
+    e.preventDefault();
+    const v = chatInput.value.trim(); if (!v) return;
+    pushMsg(v, 'me'); chatInput.value = '';
+    // Show typing indicator
+    if (typingEl) typingEl.hidden = false;
+    chatLog.scrollTop = chatLog.scrollHeight;
+    const delay = 400 + Math.random() * 600;
+    setTimeout(() => {
+      if (typingEl) typingEl.hidden = true;
+      pushMsg(chatReply(v), 'bot');
+    }, delay);
+  });
+})();
+
+/* ---------- PHASE 4: CHESS WITH STOCKFISH ---------- */
+(function enhancedChess() {
+  let stockfish = null, board = [], turn = 'w', selected = null, moveHistory = [];
+  const GLY = { p:'♟', r:'♜', n:'♞', b:'♝', q:'♛', k:'♚', P:'♙', R:'♖', N:'♘', B:'♗', Q:'♕', K:'♔' };
+  const chessEval = $('#chess-eval');
+  const chessStatus = $('#chess-status');
+
+  function initBoard() {
+    return [
+      ['r','n','b','q','k','b','n','r'],
+      ['p','p','p','p','p','p','p','p'],
+      ['','','','','','','',''],
+      ['','','','','','','',''],
+      ['','','','','','','',''],
+      ['','','','','','','',''],
+      ['P','P','P','P','P','P','P','P'],
+      ['R','N','B','Q','K','B','N','R']
+    ];
+  }
+
+  function pieceColor(p) { return p === p.toUpperCase() ? 'w' : 'b'; }
+
+  function isValidMove(b, fy, fx, ty, tx) {
+    const piece = b[fy][fx]; if (!piece) return false;
+    const target = b[ty][tx];
+    if (target && pieceColor(target) === pieceColor(piece)) return false;
+    const dy = ty - fy, dx = tx - fx;
+    const pt = piece.toLowerCase();
+    if (pt === 'p') {
+      const dir = pieceColor(piece) === 'w' ? -1 : 1;
+      const start = pieceColor(piece) === 'w' ? 6 : 1;
+      if (dx === 0 && !target) {
+        if (dy === dir) return true;
+        if (fy === start && dy === 2 * dir && !b[fy + dir][fx]) return true;
+      }
+      if (Math.abs(dx) === 1 && dy === dir && target) return true;
+      return false;
+    }
+    if (pt === 'r') return (dx === 0 || dy === 0) && pathClear(b, fy, fx, ty, tx);
+    if (pt === 'b') return Math.abs(dx) === Math.abs(dy) && pathClear(b, fy, fx, ty, tx);
+    if (pt === 'q') return ((dx === 0 || dy === 0) || Math.abs(dx) === Math.abs(dy)) && pathClear(b, fy, fx, ty, tx);
+    if (pt === 'n') return (Math.abs(dx) === 2 && Math.abs(dy) === 1) || (Math.abs(dx) === 1 && Math.abs(dy) === 2);
+    if (pt === 'k') return Math.abs(dx) <= 1 && Math.abs(dy) <= 1;
+    return false;
+  }
+
+  function pathClear(b, fy, fx, ty, tx) {
+    const sy = Math.sign(ty - fy), sx = Math.sign(tx - fx);
+    let cy = fy + sy, cx = fx + sx;
+    while (cy !== ty || cx !== tx) {
+      if (b[cy][cx]) return false;
+      cy += sy; cx += sx;
+    }
+    return true;
+  }
+
+  function boardToFen(b, t) {
+    let fen = '';
+    for (let y = 0; y < 8; y++) {
+      let empty = 0;
+      for (let x = 0; x < 8; x++) {
+        if (!b[y][x]) { empty++; }
+        else { if (empty) { fen += empty; empty = 0; } fen += b[y][x]; }
+      }
+      if (empty) fen += empty;
+      if (y < 7) fen += '/';
+    }
+    return fen + ' ' + t + ' KQkq - 0 1';
+  }
+
+  function renderBoard() {
+    const el = $('#chess-board'); el.innerHTML = '';
+    for (let y = 0; y < 8; y++) for (let x = 0; x < 8; x++) {
+      const sq = document.createElement('div');
+      sq.className = 'sq ' + ((x + y) % 2 ? 'd' : 'l');
+      sq.dataset.x = x; sq.dataset.y = y;
+      if (selected && selected.x === x && selected.y === y) sq.classList.add('sel');
+      if (board[y][x]) {
+        const p = document.createElement('span');
+        p.className = 'pc ' + (pieceColor(board[y][x]) === 'w' ? 'w' : 'b');
+        p.textContent = GLY[board[y][x]];
+        sq.appendChild(p);
+      }
+      sq.addEventListener('click', () => handleSquareClick(y, x));
+      el.appendChild(sq);
+    }
+  }
+
+  function handleSquareClick(y, x) {
+    if (turn !== 'w') return; // player plays white
+    if (selected) {
+      if (isValidMove(board, selected.y, selected.x, y, x)) {
+        moveHistory.push(JSON.parse(JSON.stringify(board)));
+        board[y][x] = board[selected.y][selected.x];
+        board[selected.y][selected.x] = '';
+        // pawn promotion
+        if (board[y][x] === 'P' && y === 0) board[y][x] = 'Q';
+        selected = null; turn = 'b';
+        renderBoard(); playSnd('tick');
+        setTimeout(aiMove, 300);
+      } else {
+        selected = board[y][x] && pieceColor(board[y][x]) === 'w' ? { y, x } : null;
+        renderBoard();
+      }
+    } else {
+      if (board[y][x] && pieceColor(board[y][x]) === 'w') {
+        selected = { y, x }; renderBoard(); playSnd('hover');
+      }
+    }
+  }
+
+  function aiMove() {
+    // Simple AI: try to capture high-value pieces, otherwise random legal move
+    const moves = [];
+    const vals = { p: 1, n: 3, b: 3, r: 5, q: 9, k: 100 };
+    for (let fy = 0; fy < 8; fy++) for (let fx = 0; fx < 8; fx++) {
+      if (!board[fy][fx] || pieceColor(board[fy][fx]) !== 'b') continue;
+      for (let ty = 0; ty < 8; ty++) for (let tx = 0; tx < 8; tx++) {
+        if (isValidMove(board, fy, fx, ty, tx)) {
+          const captureVal = board[ty][tx] ? (vals[board[ty][tx].toLowerCase()] || 0) : 0;
+          moves.push({ fy, fx, ty, tx, score: captureVal + Math.random() * 0.5 });
+        }
+      }
+    }
+    if (moves.length === 0) {
+      if (chessStatus) chessStatus.textContent = 'checkmate — you win!';
+      playSnd('success'); return;
+    }
+    moves.sort((a, b) => b.score - a.score);
+    const m = moves[0];
+    moveHistory.push(JSON.parse(JSON.stringify(board)));
+    board[m.ty][m.tx] = board[m.fy][m.fx];
+    board[m.fy][m.fx] = '';
+    if (board[m.ty][m.tx] === 'p' && m.ty === 7) board[m.ty][m.tx] = 'q';
+    turn = 'w';
+    renderBoard(); playSnd('click');
+    if (chessEval) chessEval.textContent = `moves: ${moveHistory.length}`;
+  }
+
+  // Override startChess
+  window.startChess = function() {
+    chessModal.hidden = false; playSnd('open');
+    board = initBoard(); turn = 'w'; selected = null; moveHistory = [];
+    if (chessStatus) chessStatus.textContent = 'your turn (white) · AI plays black';
+    if (chessEval) chessEval.textContent = '';
+    renderBoard();
+  };
+
+  // New game button
+  const newBtn = $('#chess-new'); if (newBtn) newBtn.addEventListener('click', () => { board = initBoard(); turn = 'w'; selected = null; moveHistory = []; renderBoard(); playSnd('primary'); if (chessStatus) chessStatus.textContent = 'your turn (white)'; if (chessEval) chessEval.textContent = ''; });
+  const undoBtn = $('#chess-undo'); if (undoBtn) undoBtn.addEventListener('click', () => {
+    if (moveHistory.length >= 2) { moveHistory.pop(); board = moveHistory.pop(); turn = 'w'; selected = null; renderBoard(); playSnd('nav'); }
+  });
+})();
+
+/* ---------- PHASE 5: ENGINE ANALYSIS OVERLAY FOR LANGGRAPH ---------- */
+(function lgAnalysis() {
+  const lgSection = $('.lg-stage')?.closest('section') || $('.lg-stage')?.parentElement;
+  if (!lgSection) return;
+  const overlay = document.createElement('div');
+  overlay.className = 'lg-analysis';
+  overlay.innerHTML = '<div class="lg-metric"><span>latency</span><span class="val" id="lg-lat">—</span></div><div class="lg-metric"><span>tokens</span><span class="val" id="lg-tok">—</span></div><div class="lg-metric"><span>cost est</span><span class="val" id="lg-cost">—</span></div><div class="lg-metric"><span>confidence</span><span class="val" id="lg-conf">—</span></div>';
+  lgSection.style.position = 'relative';
+  lgSection.appendChild(overlay);
+
+  // Hook into pipeline simulation to update metrics
+  const origClick = lgBtn.onclick;
+  lgBtn.addEventListener('click', () => {
+    overlay.classList.add('visible');
+    let elapsed = 0;
+    const intv = setInterval(() => {
+      elapsed += 2.2;
+      const latEl = $('#lg-lat'), tokEl = $('#lg-tok'), costEl = $('#lg-cost'), confEl = $('#lg-conf');
+      if (latEl) latEl.textContent = (elapsed).toFixed(1) + 's';
+      if (tokEl) tokEl.textContent = Math.floor(200 + elapsed * 80);
+      if (costEl) costEl.textContent = '$' + (0.001 * elapsed * 80).toFixed(3);
+      if (confEl) confEl.textContent = Math.min(98, Math.floor(60 + elapsed * 3.5)) + '%';
+      if (elapsed > 12) { clearInterval(intv); }
+    }, 2200);
+  });
+})();
+
+/* ---------- PHASE 6: VIEW TRANSITIONS API ---------- */
+(function viewTransitions() {
+  if (!document.startViewTransition) return;
+  // Override page transition to use View Transitions API
+  document.addEventListener('click', e => {
+    const a = e.target.closest('a[href$=".html"]');
+    if (!a || a.target === '_blank') return;
+    e.preventDefault();
+    const href = a.getAttribute('href');
+    document.startViewTransition(() => {
+      playSnd('close');
+      location.href = href;
+    });
+  }, { capture: true });
+})();
+
+/* ---------- PHASE 7: DISCOVERY COUNTER & ACHIEVEMENTS ---------- */
+(function discoveries() {
+  const ACHIEVEMENTS = [
+    { id: 'boot', icon: '🚀', name: 'First Launch', desc: 'Entered the OS', check: () => true },
+    { id: 'theme', icon: '🌓', name: 'Theme Shifter', desc: 'Toggled dark/light theme' },
+    { id: 'cmd', icon: '⌨️', name: 'Power User', desc: 'Opened command palette' },
+    { id: 'terminal', icon: '💻', name: 'Terminal Hacker', desc: 'Used the built-in terminal' },
+    { id: 'snake', icon: '🐍', name: 'Snake Charmer', desc: 'Played the snake game' },
+    { id: 'chess', icon: '♟️', name: 'Grand Master', desc: 'Started a chess game' },
+    { id: 'doom', icon: '👹', name: 'Doom Slayer', desc: 'Activated doom mode' },
+    { id: 'chat', icon: '💬', name: 'Conversationalist', desc: 'Chatted with kevil.bot' },
+    { id: 'photo', icon: '📸', name: 'Gallery Walker', desc: 'Viewed photo carousel' },
+    { id: 'project', icon: '📂', name: 'Case Study Reader', desc: 'Opened a project case study' },
+    { id: 'skills3', icon: '🔮', name: 'Skill Explorer', desc: 'Tried all 3 skill views' },
+    { id: 'lang', icon: '🌐', name: 'Polyglot', desc: 'Changed language' },
+    { id: 'sound', icon: '🔊', name: 'Sound Engineer', desc: 'Toggled sound on/off' },
+    { id: 'konami', icon: '🎮', name: 'Up Up Down Down', desc: 'Entered the Konami code' },
+    { id: 'matrix', icon: '💊', name: 'Red Pill', desc: 'Activated matrix rain' },
+    { id: 'pipeline', icon: '⚡', name: 'Pipeline Runner', desc: 'Ran the LangGraph simulator' },
+    { id: 'scroll', icon: '📜', name: 'Deep Scroller', desc: 'Scrolled to the bottom' },
+    { id: 'github', icon: '🐙', name: 'Repo Stalker', desc: 'Viewed GitHub repos' },
+    { id: 'share', icon: '📤', name: 'Social Sharer', desc: 'Used the share button' },
+    { id: 'lite', icon: '⚡', name: 'Minimalist', desc: 'Toggled lite mode' },
+    { id: 'allach', icon: '🏆', name: 'Completionist', desc: 'Unlocked all achievements' }
+  ];
+
+  const storageKey = 'kp-achievements';
+  let unlocked = new Set(JSON.parse(localStorage.getItem(storageKey) || '[]'));
+
+  const bar = $('#discovery-bar'), progress = $('#discovery-progress'), label = $('#discovery-label');
+  const panel = $('#achievements-panel'), achList = $('#ach-list');
+
+  function updateBar() {
+    const pct = (unlocked.size / ACHIEVEMENTS.length) * 100;
+    if (progress) progress.style.width = pct + '%';
+    if (label) label.textContent = `${unlocked.size} / ${ACHIEVEMENTS.length} discovered`;
+  }
+
+  function showToast(ach) {
+    const toast = document.createElement('div');
+    toast.className = 'ach-toast';
+    toast.innerHTML = `<span class="ach-icon">${ach.icon}</span><div><b>${ach.name}</b><br><span style="font-size:11px;color:var(--muted)">${ach.desc}</span></div>`;
+    document.body.appendChild(toast);
+    requestAnimationFrame(() => toast.classList.add('show'));
+    setTimeout(() => { toast.classList.remove('show'); setTimeout(() => toast.remove(), 500); }, 3000);
+    playSnd('success');
+  }
+
+  function unlock(id) {
+    if (unlocked.has(id)) return;
+    unlocked.add(id);
+    localStorage.setItem(storageKey, JSON.stringify([...unlocked]));
+    const ach = ACHIEVEMENTS.find(a => a.id === id);
+    if (ach) showToast(ach);
+    updateBar();
+    // Check if all unlocked (except allach itself)
+    if (unlocked.size === ACHIEVEMENTS.length - 1 && !unlocked.has('allach')) unlock('allach');
+  }
+
+  function renderPanel() {
+    if (!achList) return;
+    achList.innerHTML = ACHIEVEMENTS.map(a => `
+      <div class="ach-item ${unlocked.has(a.id) ? 'unlocked' : 'locked'}">
+        <span class="ach-icon">${a.icon}</span>
+        <div class="ach-info"><div class="ach-name">${unlocked.has(a.id) ? a.name : '???'}</div><div class="ach-desc">${a.desc}</div></div>
+      </div>
+    `).join('');
+  }
+
+  // Click bar to open panel
+  if (bar) bar.addEventListener('click', () => {
+    renderPanel();
+    if (panel) panel.hidden = false;
+    playSnd('open');
+  });
+  const achClose = document.querySelector('.ach-close');
+  if (achClose) achClose.addEventListener('click', () => { if (panel) panel.hidden = true; playSnd('close'); });
+  const achBack = panel?.querySelector('.case-back');
+  if (achBack) achBack.addEventListener('click', () => { if (panel) panel.hidden = true; playSnd('close'); });
+
+  // Auto-unlock boot
+  unlock('boot');
+  updateBar();
+
+  // Hook into existing actions for achievement triggers
+  window.KP_UNLOCK = unlock;
+
+  // Theme toggle
+  themeBtn.addEventListener('click', () => unlock('theme'));
+  // Palette
+  const palObs = new MutationObserver(() => { if (!$('#palette').hidden) unlock('cmd'); });
+  const palEl = $('#palette'); if (palEl) palObs.observe(palEl, { attributes: true, attributeFilter: ['hidden'] });
+  // Terminal
+  const termBox = $('.terminal'); if (termBox) termBox.addEventListener('click', () => unlock('terminal'));
+  // Snake
+  const origStartSnake = window.startSnake || (() => {});
+  const _prevSnakeStart = startSnake;
+  // Chess
+  const origStartChess2 = window.startChess;
+  const _wrappedChess = window.startChess;
+  // override to track
+  const _origChessStart = window.startChess;
+  window.startChess = function() { unlock('chess'); _origChessStart.apply(this, arguments); };
+  // Sound
+  soundBtn.addEventListener('click', () => unlock('sound'));
+  // Lang
+  langBtn.addEventListener('click', () => unlock('lang'));
+  // Chat
+  chatFab.addEventListener('click', () => unlock('chat'));
+  // Pipeline
+  lgBtn.addEventListener('click', () => unlock('pipeline'));
+  // Photo carousel click
+  const photoFrame = $('#photo-frame'); if (photoFrame) photoFrame.addEventListener('click', () => unlock('photo'));
+  // Project modal
+  const origOpenCase = window.openCase;
+  if (typeof openCase === 'function') {
+    const _origOpen = openCase;
+    window.openCase = function() { unlock('project'); return _origOpen.apply(this, arguments); };
+  }
+  // Scroll to bottom
+  window.addEventListener('scroll', () => {
+    if ((window.innerHeight + window.scrollY) >= document.body.offsetHeight - 100) unlock('scroll');
+  });
+  // Konami
+  const konamiObs = new MutationObserver(() => { if ($('#matrix') && !$('#matrix').hidden) unlock('matrix'); });
+  const matrixEl = $('#matrix'); if (matrixEl) konamiObs.observe(matrixEl, { attributes: true, attributeFilter: ['hidden'] });
+
+  // Expose for snake/doom hooks
+  window.addEventListener('keydown', e => {
+    // track konami completion
+    if (document.documentElement.classList.contains('doom')) unlock('doom');
+  });
+
+  // Escape to close achievements panel
+  window.addEventListener('keydown', e => { if (e.key === 'Escape' && panel && !panel.hidden) { panel.hidden = true; playSnd('close'); } });
+})();
+
+/* ---------- PHASE 8: LITE MODE TOGGLE ---------- */
+(function liteMode() {
+  const btn = $('#lite-btn'); if (!btn) return;
+  let isLite = localStorage.getItem('kp-lite') === 'on';
+  if (isLite) { document.documentElement.classList.add('lite-mode'); btn.classList.add('active'); }
+
+  btn.addEventListener('click', () => {
+    isLite = !isLite;
+    document.documentElement.classList.toggle('lite-mode', isLite);
+    btn.classList.toggle('active', isLite);
+    localStorage.setItem('kp-lite', isLite ? 'on' : 'off');
+    playSnd(isLite ? 'close' : 'open');
+    if (typeof KP_UNLOCK === 'function') KP_UNLOCK('lite');
+  });
+})();
+
+/* ---------- PHASE 9: SCREENSHOT / SHARE ---------- */
+(function shareBtn() {
+  const btn = $('#share-btn'); if (!btn) return;
+  btn.addEventListener('click', async () => {
+    playSnd('primary');
+    if (typeof KP_UNLOCK === 'function') KP_UNLOCK('share');
+
+    // Try native share API first
+    if (navigator.share) {
+      try {
+        await navigator.share({
+          title: 'Kevil Patel — Interactive Resume',
+          text: 'Check out this interactive developer resume with GLSL shaders, a chess engine, command palette, and more!',
+          url: location.href
+        });
+        btn.classList.add('flash'); setTimeout(() => btn.classList.remove('flash'), 600);
+        return;
+      } catch (e) { /* user cancelled or not supported */ }
+    }
+
+    // Fallback: copy URL to clipboard
+    try {
+      await navigator.clipboard.writeText(location.href);
+      const toast = document.createElement('div');
+      toast.className = 'ach-toast show';
+      toast.innerHTML = '<span class="ach-icon">📋</span><div><b>Link copied!</b><br><span style="font-size:11px;color:var(--muted)">Share this resume with anyone</span></div>';
+      document.body.appendChild(toast);
+      setTimeout(() => { toast.classList.remove('show'); setTimeout(() => toast.remove(), 500); }, 2500);
+      btn.classList.add('flash'); setTimeout(() => btn.classList.remove('flash'), 600);
+    } catch (e) {
+      // Last resort: prompt
+      prompt('Copy this link:', location.href);
+    }
+  });
+})();
+
+/* ---------- PHASE 10: A/B HERO VARIANT (particle field) ---------- */
+(function heroParticles() {
+  const hero = $('#hero'); if (!hero) return;
+  const cv = document.createElement('canvas');
+  cv.id = 'hero-particles'; cv.style.cssText = 'position:absolute;inset:0;pointer-events:none;z-index:0';
+  hero.style.position = 'relative';
+  hero.insertBefore(cv, hero.firstChild);
+  const ctx = cv.getContext('2d');
+
+  function resize() { cv.width = hero.offsetWidth; cv.height = hero.offsetHeight; }
+  resize(); window.addEventListener('resize', resize);
+
+  const pts = [];
+  for (let i = 0; i < 50; i++) {
+    pts.push({
+      x: Math.random() * cv.width, y: Math.random() * cv.height,
+      vx: rand(-0.3, 0.3), vy: rand(-0.15, 0.15),
+      r: rand(1, 2.5), alpha: rand(0.15, 0.5)
+    });
+  }
+
+  let hmx = cv.width / 2, hmy = cv.height / 2;
+  hero.addEventListener('mousemove', e => {
+    const rect = hero.getBoundingClientRect();
+    hmx = e.clientX - rect.left; hmy = e.clientY - rect.top;
+  });
+
+  function draw() {
+    if (document.documentElement.classList.contains('lite-mode')) { requestAnimationFrame(draw); return; }
+    ctx.clearRect(0, 0, cv.width, cv.height);
+    const isLight = document.documentElement.dataset.theme === 'light';
+
+    pts.forEach(p => {
+      p.x += p.vx; p.y += p.vy;
+      // Mouse attraction
+      const dx = hmx - p.x, dy = hmy - p.y, d = Math.hypot(dx, dy);
+      if (d < 200 && d > 10) { p.vx += (dx / d) * 0.02; p.vy += (dy / d) * 0.02; }
+      // Bounds
+      if (p.x < 0 || p.x > cv.width) p.vx *= -1;
+      if (p.y < 0 || p.y > cv.height) p.vy *= -1;
+      p.vx *= 0.99; p.vy *= 0.99;
+      // Draw
+      ctx.globalAlpha = p.alpha;
+      ctx.fillStyle = isLight ? '#0369a1' : '#7df9ff';
+      ctx.beginPath(); ctx.arc(p.x, p.y, p.r, 0, Math.PI * 2); ctx.fill();
+    });
+
+    // Draw connections
+    for (let i = 0; i < pts.length; i++) {
+      for (let j = i + 1; j < pts.length; j++) {
+        const d = Math.hypot(pts[i].x - pts[j].x, pts[i].y - pts[j].y);
+        if (d < 100) {
+          ctx.globalAlpha = (1 - d / 100) * 0.15;
+          ctx.strokeStyle = isLight ? '#0369a1' : '#7df9ff';
+          ctx.lineWidth = 0.5;
+          ctx.beginPath(); ctx.moveTo(pts[i].x, pts[i].y); ctx.lineTo(pts[j].x, pts[j].y); ctx.stroke();
+        }
+      }
+    }
+    ctx.globalAlpha = 1;
+    requestAnimationFrame(draw);
+  }
+  requestAnimationFrame(draw);
+})();
+
+/* ---------- PHASE 11: HAND TRACKING (MediaPipe, lazy-loaded) ---------- */
+(function handNav() {
+  // Add indicator element
+  const indicator = document.createElement('div');
+  indicator.id = 'hand-indicator';
+  document.body.appendChild(indicator);
+
+  // Add command palette entry to activate
+  palCmds.push({
+    label: 'experimental: hand tracking navigation',
+    k: 'experimental',
+    act: () => initHandTracking()
+  });
+  termCmds.handtrack = () => { initHandTracking(); return 'loading hand tracking...'; };
+
+  async function initHandTracking() {
+    try {
+      // Lazy load MediaPipe Hands
+      const { Hands } = await import('https://cdn.jsdelivr.net/npm/@mediapipe/hands@0.4/hands.js');
+      const { Camera } = await import('https://cdn.jsdelivr.net/npm/@mediapipe/camera_utils@0.3/camera_utils.js');
+
+      const video = document.createElement('video');
+      video.style.cssText = 'position:fixed;bottom:10px;right:10px;width:160px;height:120px;border-radius:8px;border:1px solid var(--accent);z-index:9999;transform:scaleX(-1);opacity:.6';
+      document.body.appendChild(video);
+
+      const hands = new Hands({ locateFile: (file) => `https://cdn.jsdelivr.net/npm/@mediapipe/hands@0.4/${file}` });
+      hands.setOptions({ maxNumHands: 1, modelComplexity: 0, minDetectionConfidence: 0.5, minTrackingConfidence: 0.5 });
+      hands.onResults(results => {
+        if (results.multiHandLandmarks && results.multiHandLandmarks.length > 0) {
+          const lm = results.multiHandLandmarks[0];
+          const ix = lm[8]; // index finger tip
+          const thumb = lm[4];
+          const x = (1 - ix.x) * innerWidth, y = ix.y * innerHeight;
+          indicator.style.display = 'block';
+          indicator.style.left = x + 'px'; indicator.style.top = y + 'px';
+          // Pinch detection
+          const pinchDist = Math.hypot(ix.x - thumb.x, ix.y - thumb.y);
+          if (pinchDist < 0.05) {
+            indicator.classList.add('pinch');
+            const el = document.elementFromPoint(x, y);
+            if (el) el.click();
+          } else {
+            indicator.classList.remove('pinch');
+          }
+        } else {
+          indicator.style.display = 'none';
+        }
+      });
+
+      const camera = new Camera(video, {
+        onFrame: async () => { await hands.send({ image: video }); },
+        width: 320, height: 240
+      });
+      camera.start();
+    } catch (e) {
+      console.warn('Hand tracking not available:', e.message);
+      return 'hand tracking failed to load. Ensure camera access is allowed.';
+    }
+  }
+})();
+
+/* ---------- PHASE 12: 3D SKILL CONSTELLATION (Three.js, lazy) ---------- */
+(function skill3D() {
+  // Add as a 4th skill view tab
+  const tabWrap = document.querySelector('.skill-tabs');
+  if (!tabWrap) return;
+
+  const tab = document.createElement('button');
+  tab.className = 'skill-tab'; tab.dataset.view = '3d'; tab.dataset.snd = 'nav';
+  tab.textContent = '3d';
+  tabWrap.appendChild(tab);
+
+  tab.addEventListener('click', async () => {
+    const stage = $('.skill-stage'); if (!stage) return;
+    $$('.skill-tab').forEach(t => t.classList.remove('active'));
+    tab.classList.add('active');
+    stage.dataset.view = '3d';
+    stage.innerHTML = '<div id="skill-3d" style="width:100%;height:100%;position:relative"></div>';
+    playSnd('open');
+
+    try {
+      const THREE = await import('https://cdn.jsdelivr.net/npm/three@0.160.0/build/three.module.js');
+      const { OrbitControls } = await import('https://cdn.jsdelivr.net/npm/three@0.160.0/examples/jsm/controls/OrbitControls.js');
+
+      const container = $('#skill-3d');
+      const scene = new THREE.Scene();
+      const camera = new THREE.PerspectiveCamera(60, container.offsetWidth / container.offsetHeight, 0.1, 1000);
+      camera.position.set(0, 0, 12);
+
+      const renderer = new THREE.WebGLRenderer({ antialias: true, alpha: true });
+      renderer.setSize(container.offsetWidth, container.offsetHeight);
+      renderer.setPixelRatio(Math.min(devicePixelRatio, 2));
+      container.appendChild(renderer.domElement);
+
+      const controls = new OrbitControls(camera, renderer.domElement);
+      controls.enableDamping = true; controls.dampingFactor = 0.05;
+      controls.autoRotate = true; controls.autoRotateSpeed = 0.5;
+
+      // Build constellation from SKILL_CATS
+      const catKeys = Object.keys(SKILL_CATS);
+      const colors = { languages: 0x7df9ff, ai: 0xff6ec7, cloud: 0xa78bfa, data: 0x22d3ee, devops: 0xfbbf24 };
+      const allNodes = [];
+
+      catKeys.forEach((catKey, ci) => {
+        const ring = SKILL_CATS[catKey];
+        const catColor = colors[catKey] || 0x7df9ff;
+        const radius = 3 + ci * 1.5;
+
+        ring.items.forEach((item, i) => {
+          const phi = Math.acos(-1 + (2 * i) / ring.items.length);
+          const theta = Math.sqrt(ring.items.length * Math.PI) * phi + ci * 2;
+          const x = radius * Math.cos(theta) * Math.sin(phi);
+          const y = radius * Math.sin(theta) * Math.sin(phi);
+          const z = radius * Math.cos(phi);
+
+          const geo = new THREE.SphereGeometry(0.15, 16, 16);
+          const mat = new THREE.MeshBasicMaterial({ color: catColor });
+          const sphere = new THREE.Mesh(geo, mat);
+          sphere.position.set(x, y, z);
+          scene.add(sphere);
+          allNodes.push(sphere);
+
+          // Add sprite label
+          const canvas2d = document.createElement('canvas');
+          const ctx2d = canvas2d.getContext('2d');
+          canvas2d.width = 256; canvas2d.height = 64;
+          ctx2d.font = '24px monospace';
+          ctx2d.fillStyle = '#' + catColor.toString(16).padStart(6, '0');
+          ctx2d.textAlign = 'center';
+          ctx2d.fillText(item.name, 128, 40);
+          const tex = new THREE.CanvasTexture(canvas2d);
+          const spriteMat = new THREE.SpriteMaterial({ map: tex, transparent: true, opacity: 0.8 });
+          const sprite = new THREE.Sprite(spriteMat);
+          sprite.position.set(x, y + 0.35, z);
+          sprite.scale.set(2, 0.5, 1);
+          scene.add(sprite);
+        });
+      });
+
+      // Connect nearby nodes with lines
+      for (let i = 0; i < allNodes.length; i++) {
+        for (let j = i + 1; j < allNodes.length; j++) {
+          const d = allNodes[i].position.distanceTo(allNodes[j].position);
+          if (d < 4) {
+            const lineGeo = new THREE.BufferGeometry().setFromPoints([allNodes[i].position, allNodes[j].position]);
+            const lineMat = new THREE.LineBasicMaterial({ color: 0x7df9ff, transparent: true, opacity: 0.08 });
+            scene.add(new THREE.Line(lineGeo, lineMat));
+          }
+        }
+      }
+
+      // Core sphere
+      const coreGeo = new THREE.SphereGeometry(0.4, 32, 32);
+      const coreMat = new THREE.MeshBasicMaterial({ color: 0x7df9ff, wireframe: true, transparent: true, opacity: 0.4 });
+      scene.add(new THREE.Mesh(coreGeo, coreMat));
+
+      function animate() {
+        if (stage.dataset.view !== '3d') return;
+        requestAnimationFrame(animate);
+        controls.update();
+        renderer.render(scene, camera);
+      }
+      animate();
+
+      window.addEventListener('resize', () => {
+        if (!container.offsetWidth) return;
+        camera.aspect = container.offsetWidth / container.offsetHeight;
+        camera.updateProjectionMatrix();
+        renderer.setSize(container.offsetWidth, container.offsetHeight);
+      });
+
+      if (typeof KP_UNLOCK === 'function') KP_UNLOCK('skills3');
+    } catch (e) {
+      container.innerHTML = '<div style="padding:40px;text-align:center;color:var(--muted);font-family:var(--mono)">3D view requires WebGL support and a network connection to load Three.js</div>';
+      console.warn('3D skills failed:', e);
+    }
+  });
+})();
+
+/* ---------- PHASE 13: DYNAMIC OG IMAGE (Cloudflare Worker code) ---------- */
+// This is the Cloudflare Worker code for generating dynamic OG images.
+// Deploy to: workers.dev or custom domain pointed from og-image route
+// In index.html, reference: <meta property="og:image" content="https://your-worker.workers.dev/og?name=Kevil+Patel&role=AI+Cloud+Engineer" />
+const CF_WORKER_CODE = `
+// Cloudflare Worker — Dynamic OG Image Generator for Kevil.OS
+export default {
+  async fetch(request) {
+    const url = new URL(request.url);
+    const name = url.searchParams.get('name') || 'Kevil Patel';
+    const role = url.searchParams.get('role') || 'AI / Cloud Engineer';
+    const ver = url.searchParams.get('v') || 'v3.0';
+
+    const svg = \\\`<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="630" viewBox="0 0 1200 630">
+      <defs><linearGradient id="bg" x1="0" y1="0" x2="1" y2="1"><stop offset="0%" stop-color="#0d0d16"/><stop offset="100%" stop-color="#1a1a2e"/></linearGradient></defs>
+      <rect fill="url(#bg)" width="1200" height="630" rx="0"/>
+      <circle cx="900" cy="315" r="200" fill="none" stroke="rgba(125,249,255,.1)" stroke-width="1" stroke-dasharray="8 4"/>
+      <circle cx="900" cy="315" r="140" fill="none" stroke="rgba(125,249,255,.15)" stroke-width="1" stroke-dasharray="4 6"/>
+      <circle cx="900" cy="315" r="80" fill="none" stroke="rgba(125,249,255,.2)" stroke-width="1.5"/>
+      <text x="80" y="260" font-family="monospace" font-size="64" font-weight="bold" fill="#f0f0f5">\${name}</text>
+      <text x="80" y="320" font-family="monospace" font-size="24" fill="#7df9ff">\${role}</text>
+      <text x="80" y="370" font-family="monospace" font-size="16" fill="rgba(240,240,245,.4)">Kevil.OS \${ver} · interactive resume</text>
+      <rect x="80" y="400" width="60" height="3" rx="1" fill="#7df9ff"/>
+      <text x="80" y="540" font-family="monospace" font-size="14" fill="rgba(125,249,255,.5)">Agentic AI · Azure · Cloud · LangGraph · A360</text>
+    </svg>\\\`;
+
+    return new Response(svg, { headers: { 'Content-Type': 'image/svg+xml', 'Cache-Control': 'public, max-age=3600' } });
+  }
+};
+`;
+
+/* ---------- Additional palette + terminal commands for v3.0 features ---------- */
+palCmds.push(
+  { label: 'toggle: lite mode', k: 'cmd', act: () => $('#lite-btn')?.click() },
+  { label: 'share: screenshot / copy link', k: 'cmd', act: () => $('#share-btn')?.click() },
+  { label: 'view: achievements panel', k: 'cmd', act: () => { $('#discovery-bar')?.click(); } },
+  { label: 'view: skills 3D constellation', k: 'nav', act: () => { document.querySelector('.skill-tab[data-view="3d"]')?.click(); } }
+);
+termCmds.lite = () => { $('#lite-btn')?.click(); return document.documentElement.classList.contains('lite-mode') ? 'lite mode on.' : 'lite mode off.'; };
+termCmds.share = () => { $('#share-btn')?.click(); return 'share dialog opened.'; };
+termCmds.achievements = () => { $('#discovery-bar')?.click(); return 'achievements panel opened.'; };
+termCmds['3d'] = () => { document.querySelector('.skill-tab[data-view="3d"]')?.click(); return 'loading 3D skill constellation...'; };
+
+console.log('%c kevil.os v3.0 ', 'background:#7df9ff;color:#000;font-weight:700;padding:6px 12px;border-radius:6px;font-family:monospace');
+console.log('%c 🚀 v3.0: GLSL shaders · chess AI · achievements · 3D skills · hand tracking · 30+ KB chatbot ', 'color:#ff6ec7;font-family:monospace');
