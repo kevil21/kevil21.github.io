@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8" />
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover" />
-<title>Kevil Patel — AI / Cloud Engineer · Kevil.OS v3.1</title>
+<title>Kevil Patel — AI / Cloud Engineer · Kevil.OS v3.2</title>
 <meta name="description" content="Kevil Patel — Associate SDE @ Kyndryl. Agentic AI on Azure. The most interactive resume on the internet." />
 <meta name="author" content="Kevil Patel" />
 <meta name="keywords" content="Kevil Patel, Kyndryl, Azure, Agentic AI, LangGraph, Next.js, FastAPI, AI Engineer, Cloud Engineer, Surat, VIT" />
@@ -48,7 +48,9 @@
     "https://github.com/kevil21",
     "https://linkedin.com/in/kevil21",
     "https://huggingface.co/Kevil21",
-    "https://instagram.com/kevil_36"
+    "https://learn.microsoft.com/en-in/users/kevil21/",
+    "https://www.credly.com/users/kevil-patel.db5e53fa",
+    "https://www.skills.google/public_profiles/368f1807-b155-48d9-ba6c-e9ba98a384f5"
   ],
   "knowsAbout":["Agentic AI","Azure AI Foundry","LangGraph","RAG","Next.js","FastAPI","Elasticsearch","Azure Data Explorer","Kubernetes"],
   "hasCredential":[
@@ -83,6 +85,7 @@
     <pre id="boot-log"></pre>
     <div class="boot-bar"><div id="boot-bar-fill"></div></div>
     <div class="boot-hint">press <kbd>any key</kbd> or <kbd>tap</kbd> to enter — try <kbd>Ctrl/Cmd K</kbd> for command palette anytime</div>
+    <canvas id="boot-viz" width="600" height="40"></canvas>
   </div>
 </div>
 
@@ -107,7 +110,7 @@
 
 <!-- NAV -->
 <nav id="nav">
-  <a href="#hero" class="brand"><span class="dot"></span> kevil.os <em class="ver">v3.1</em></a>
+  <a href="#hero" class="brand"><span class="dot"></span> kevil.os <em class="ver">v3.2</em></a>
   <ul>
     <li><a href="#about" data-i="01">about</a></li>
     <li><a href="#a360" data-i="02">a360</a></li>
@@ -120,11 +123,14 @@
     <li><a href="#contact" data-i="09">contact</a></li>
   </ul>
   <div class="nav-tools">
-    <button class="icon-btn" id="lang-btn" aria-label="Language" title="Language">EN</button>
-    <button class="icon-btn" id="pdf-btn" aria-label="Download resume PDF" title="Download resume PDF">PDF</button>
-    <button class="icon-btn" id="palette-btn" aria-label="Command palette" title="Command palette">CMD K</button>
-    <button class="icon-btn" id="sound-btn" aria-label="Toggle sound" title="Sound on/off"><span class="snd-on">ON</span></button>
-    <button class="icon-btn theme-btn" id="theme-btn" aria-label="Toggle theme" title="Toggle theme"><span class="sun">sun</span><span class="moon">moon</span></button>
+    <button class="icon-btn" id="lang-btn" aria-label="Language" title="Language"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M2 12h20"/><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10A15.3 15.3 0 0 1 12 2z"/></svg><span class="btn-label">EN</span></button>
+    <button class="icon-btn" id="pdf-btn" aria-label="Download resume PDF" title="Download resume PDF"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="12" y1="18" x2="12" y2="12"/><polyline points="8 15 12 18 16 15"/></svg></button>
+    <button class="icon-btn" id="palette-btn" aria-label="Command palette" title="Command palette"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 3a3 3 0 0 0-3 3v12a3 3 0 0 0 3 3 3 3 0 0 0 3-3 3 3 0 0 0-3-3H6a3 3 0 0 0-3 3 3 3 0 0 0 3 3 3 3 0 0 0 3-3V6a3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3h12a3 3 0 0 0 3-3 3 3 0 0 0-3-3z"/></svg></button>
+    <button class="icon-btn" id="sound-btn" aria-label="Toggle sound" title="Sound on/off"><svg class="snd-icon-on" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"/><path d="M19.07 4.93a10 10 0 0 1 0 14.14"/><path d="M15.54 8.46a5 5 0 0 1 0 7.07"/></svg><svg class="snd-icon-off" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"/><line x1="23" y1="9" x2="17" y2="15"/><line x1="17" y1="9" x2="23" y2="15"/></svg></button>
+    <button class="icon-btn theme-btn" id="theme-btn" aria-label="Toggle theme" title="Toggle theme"><svg class="sun-icon" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="5"/><line x1="12" y1="1" x2="12" y2="3"/><line x1="12" y1="21" x2="12" y2="23"/><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/><line x1="1" y1="12" x2="3" y2="12"/><line x1="21" y1="12" x2="23" y2="12"/><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"/><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"/></svg><svg class="moon-icon" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg></button>
+    <button class="icon-btn" id="lite-btn" aria-label="Toggle lite mode" title="Lite mode"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z"/></svg></button>
+    <button class="icon-btn" id="hand-btn" aria-label="Toggle hand tracking navigation" title="Hand tracking (experimental)"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 11V6a2 2 0 0 0-4 0v5"/><path d="M14 10V4a2 2 0 0 0-4 0v6"/><path d="M10 10.5V6a2 2 0 0 0-4 0v8"/><path d="M18 8a2 2 0 1 1 4 0v6a8 8 0 0 1-8 8h-2c-2.8 0-4.5-.86-5.99-2.34l-3.6-3.6a2 2 0 0 1 2.83-2.82L7 15"/></svg></button>
+    <button class="icon-btn" id="share-btn" aria-label="Screenshot &amp; share" title="Screenshot / share"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 12v8a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2v-8"/><polyline points="16 6 12 2 8 6"/><line x1="12" y1="2" x2="12" y2="15"/></svg></button>
   </div>
 </nav>
 
@@ -143,8 +149,8 @@
 <!-- HERO -->
 <section id="hero">
   <div class="hero-meta">
-    <div><span class="key">loc</span> Surat, IN · 21.17N 72.83E · <span id="local-time">--:--</span></div>
-    <div><span class="key">sys</span> Kevil.OS v3.1 · uptime <span id="uptime">00:00:00</span></div>
+    <div><span class="key">loc</span> <a class="loc-link" href="https://maps.google.com/?q=21.1141,72.7418" target="_blank" rel="noopener" title="Surat Airport (STV) · 21.1141N 72.7418E">Surat</a> · <a class="loc-link" href="https://maps.google.com/?q=13.1986,77.7066" target="_blank" rel="noopener" title="Kempegowda Intl (BLR) · 13.1986N 77.7066E">Bangalore</a>, IN · <span id="local-time">--:--</span></div>
+    <div><span class="key">sys</span> Kevil.OS v3.2 · uptime <span id="uptime">00:00:00</span></div>
     <div><span class="key">stack</span> Agentic AI · Azure · Cloud</div>
     <div><span class="key">net</span> <i class="live"></i> <span id="visitors">connected</span></div>
   </div>
@@ -156,11 +162,11 @@
         <span class="line"><span class="scramble" data-text="Patel.">Patel.</span></span>
       </h1>
 
-      <p class="role-line"><span class="r-glow"></span>Associate SDE · <em>Kyndryl</em> · building agentic AI on Azure</p>
+      <p class="role-line"><span class="r-glow"></span>Associate SDE · <em>Kyndryl</em> · building Agentic AI on Cloud</p>
 
       <p class="tagline">
         <span class="cursor-blink">|</span>
-        <span class="typed" data-words='["I build agentic AI on Azure.","I ship multi-tenant observability.","I turn policy into pipelines.","I make telemetry tell stories.","I keep dashboards honest."]'></span>
+        <span class="typed" data-words='["I build agentic AI on Cloud.","I ship multi-tenant agentic observability.","I turn policy into pipelines.","I make telemetry tell stories.","I keep dashboards honest.","I design agents that understand language."]'></span>
       </p>
 
       <div class="hero-actions">
@@ -170,7 +176,7 @@
       </div>
 
       <div class="hero-stats">
-        <a class="hs" href="https://github.com/kevil21" target="_blank" rel="noopener"><b id="hs-repos">12</b><span>github repos</span></a>
+        <a class="hs" href="https://github.com/kevil21" target="_blank" rel="noopener"><b id="hs-repos">24</b><span>github repos</span></a>
         <a class="hs" href="https://linkedin.com/in/kevil21" target="_blank" rel="noopener"><b>8.95<i>/10</i></b><span>cgpa · vit</span></a>
         <a class="hs" href="#certs"><b id="hs-certs">10<i>x</i></b><span>certifications</span></a>
         <a class="hs" href="#xp"><b>500<i>+</i></b><span>students impacted</span></a>
@@ -201,7 +207,7 @@
         </div>
       </div>
       <div class="photo-caption">
-        <span class="dot live"></span> human verified · click the photo for fx · auto-cycles every 4s
+        <span class="dot live"></span> human verified · click the photo for fx
       </div>
     </div>
   </div>
@@ -227,7 +233,7 @@
         I live at the intersection of <span class="hl">machine learning</span>,
         <span class="hl">cloud architecture</span> and <span class="hl">developer experience</span> —
         from <b>LSTM grids</b> predicting power loads across 500+ households,
-        to a <b>multi-tenant observability platform</b> (A360) ingesting millions
+        to a <b>multi-tenant agentic observability platform</b> (A360) ingesting millions
         of agent traces, to a <b>LangGraph governance agent</b> that turns
         plain-English policies into enforced cloud pipelines.
       </p>
@@ -269,7 +275,7 @@
       <p>
         A360 is Kyndryl&rsquo;s platform for watching how enterprise AI agent fleets
         actually behave in production. Executive dashboards, KPI drill-downs,
-        embedded Kibana, agent <em>trust scores</em>, LLM FinOps, and a
+        embedded Kibana, agent <em>trust scores</em>, multi-persona dashboards, LLM FinOps, and a
         conversational interface over telemetry &mdash; running on a streaming pipeline from
         <b>OTEL &rarr; Postgres &rarr; <a target="_blank" rel="noopener" href="https://learn.microsoft.com/azure/data-explorer/">Azure Data Explorer</a> &rarr; <a target="_blank" rel="noopener" href="https://www.elastic.co">Elasticsearch</a> &rarr; <a target="_blank" rel="noopener" href="https://nextjs.org">Next.js</a></b>.
       </p>
@@ -476,7 +482,7 @@
       <h3>Associate SDE &mdash; <a target="_blank" rel="noopener" href="https://www.kyndryl.com"><span>Kyndryl</span></a></h3>
       <p>Designing &amp; shipping Agentic AI POCs and enterprise use cases on
          <b>Azure AI Foundry</b>. Delivering mission-critical insights via
-         <b><a target="_blank" rel="noopener" href="https://www.kyndryl.com/us/en/about-us/news/2023/05/kyndryl-bridge">Kyndryl Bridge</a></b> with predictive modelling and observability.
+         <b><a target="_blank" rel="noopener" href="https://www.kyndryl.com/in/en/services/platform">Kyndryl Bridge</a></b> with predictive modelling and observability.
          Owner of multiple A360 services and the <b>P2P</b> hackathon-to-production track.</p>
       <div class="chips"><span>Azure AI Foundry</span><span>Agentic AI</span><span>RAG</span><span>LangGraph</span><span>Observability</span><span>Kyndryl Bridge</span></div>
     </article>
@@ -502,7 +508,7 @@
 <!-- SKILLS &mdash; ORBITAL SYSTEM -->
 <section id="skills" class="pad">
   <div class="section-head"><span class="num">05 //</span><h2>./skills --orbit</h2></div>
-  <p class="sub muted">5 clusters · hover to nudge nodes · click to inspect · switch view to orbit / grid →</p>
+  <p class="sub muted">5 clusters · nearest skill follows your cursor · hover to inspect · switch view →</p>
   <div class="skill-toolbar">
     <button class="skill-tab" data-view="orbit" data-snd="ghost">orbit</button>
     <button class="skill-tab" data-view="grid" data-snd="ghost">grid</button>
@@ -607,8 +613,10 @@
           <a class="magnetic" data-snd="ghost" target="_blank" rel="noopener" href="https://github.com/kevil21">github</a>
           <a class="magnetic" data-snd="ghost" target="_blank" rel="noopener" href="https://linkedin.com/in/kevil21">linkedin</a>
           <a class="magnetic" data-snd="ghost" target="_blank" rel="noopener" href="https://huggingface.co/Kevil21">huggingface</a>
-          <a class="magnetic" data-snd="ghost" target="_blank" rel="noopener" href="https://instagram.com/kevil_36">instagram</a>
           <a class="magnetic" data-snd="ghost" target="_blank" rel="noopener" href="mailto:kevilpatel24@gmail.com">email</a>
+          <a class="magnetic" data-snd="ghost" target="_blank" rel="noopener" href="https://learn.microsoft.com/en-in/users/kevil21/">ms learn</a>
+          <a class="magnetic" data-snd="ghost" target="_blank" rel="noopener" href="https://www.credly.com/users/kevil-patel.db5e53fa">credly</a>
+          <a class="magnetic" data-snd="ghost" target="_blank" rel="noopener" href="https://www.skills.google/public_profiles/368f1807-b155-48d9-ba6c-e9ba98a384f5">google skills</a>
         </div>
       </div>
     </div>
@@ -685,7 +693,7 @@
 
     <a class="cert tilt reveal" target="_blank" rel="noopener" href="https://learn.microsoft.com/api/credentials/share/en-us/KevilPatel-7029/505C219976CD2E5D?sharingId" data-snd="primary">
       <div class="cert-logo gh-logo">
-        <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" aria-label="GitHub"><path fill="#fff" d="M12 .3a12 12 0 0 0-3.8 23.38c.6.12.83-.26.83-.57v-2c-3.34.72-4.04-1.6-4.04-1.6-.55-1.4-1.34-1.77-1.34-1.77-1.08-.74.09-.73.09-.73 1.2.09 1.84 1.24 1.84 1.24 1.08 1.83 2.81 1.3 3.5.99.1-.77.42-1.3.76-1.6-2.66-.3-5.47-1.33-5.47-5.93 0-1.31.47-2.38 1.24-3.22-.13-.3-.54-1.52.12-3.18 0 0 1.01-.32 3.3 1.23a11.5 11.5 0 0 1 6 0c2.28-1.55 3.29-1.23 3.29-1.23.66 1.66.25 2.88.12 3.18a4.65 4.65 0 0 1 1.24 3.22c0 4.61-2.81 5.62-5.48 5.92.43.37.81 1.1.81 2.22v3.29c0 .31.22.69.83.57A12 12 0 0 0 12 .3"/></svg>
+        <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" aria-label="GitHub Copilot"><path fill="currentColor" d="M12 .3a12 12 0 0 0-3.8 23.38c.6.12.83-.26.83-.57v-2c-3.34.72-4.04-1.6-4.04-1.6-.55-1.4-1.34-1.77-1.34-1.77-1.08-.74.09-.73.09-.73 1.2.09 1.84 1.24 1.84 1.24 1.08 1.83 2.81 1.3 3.5.99.1-.77.42-1.3.76-1.6-2.66-.3-5.47-1.33-5.47-5.93 0-1.31.47-2.38 1.24-3.22-.13-.3-.54-1.52.12-3.18 0 0 1.01-.32 3.3 1.23a11.5 11.5 0 0 1 6 0c2.28-1.55 3.29-1.23 3.29-1.23.66 1.66.25 2.88.12 3.18a4.65 4.65 0 0 1 1.24 3.22c0 4.61-2.81 5.62-5.48 5.92.43.37.81 1.1.81 2.22v3.29c0 .31.22.69.83.57A12 12 0 0 0 12 .3"/></svg>
       </div>
       <h5>GitHub Copilot</h5>
       <p class="cert-meta">GH-300 &middot; valid 12/2027</p>
@@ -759,7 +767,7 @@
     <div class="t-bar"><i></i><i></i><i></i><span>kevil@os ~ /contact</span></div>
     <div class="t-body" id="term-body">
 <span class="t-line"><span class="prompt">kevil@os:~$</span> help</span>
-<span class="t-line muted">about &middot; email &middot; linkedin &middot; github &middot; huggingface &middot; instagram &middot; resume &middot; hire &middot; whoami &middot; matrix &middot; konami &middot; theme &middot; clear</span>
+<span class="t-line muted">about &middot; email &middot; linkedin &middot; github &middot; huggingface &middot; resume &middot; hire &middot; whoami &middot; matrix &middot; konami &middot; theme &middot; clear</span>
 <span class="t-line"><span class="prompt">kevil@os:~$</span> <span class="t-cursor">|</span></span>
     </div>
     <form id="term-form" autocomplete="off">
@@ -774,16 +782,34 @@
     <a class="cdot magnetic" data-snd="primary" target="_blank" rel="noopener" href="https://linkedin.com/in/kevil21"><span>linkedin</span><b>/in/kevil21</b></a>
     <a class="cdot magnetic" data-snd="primary" target="_blank" rel="noopener" href="https://github.com/kevil21"><span>github</span><b>/kevil21</b></a>
     <a class="cdot magnetic" data-snd="primary" target="_blank" rel="noopener" href="https://huggingface.co/Kevil21"><span>huggingface</span><b>/Kevil21</b></a>
-    <a class="cdot magnetic" data-snd="primary" target="_blank" rel="noopener" href="https://instagram.com/kevil_36"><span>instagram</span><b>@kevil_36</b></a>
+    <a class="cdot magnetic" data-snd="primary" target="_blank" rel="noopener" href="https://learn.microsoft.com/en-in/users/kevil21/"><span>ms learn</span><b>/kevil21</b></a>
+    <a class="cdot magnetic" data-snd="primary" target="_blank" rel="noopener" href="https://www.credly.com/users/kevil-patel.db5e53fa"><span>credly</span><b>kevil-patel</b></a>
+    <a class="cdot magnetic" data-snd="primary" target="_blank" rel="noopener" href="https://www.skills.google/public_profiles/368f1807-b155-48d9-ba6c-e9ba98a384f5"><span>google skills</span><b>kevil patel</b></a>
   </div>
 </section>
 
 <footer>
   <div>(c) <span id="yr"></span> Kevil Patel &middot; built with too much curiosity, GSAP, and stubbornness.</div>
-  <div class="foot-right">v3.1.0 &middot; <span class="live"></span> live &middot; made in India &middot; <a href="behind.html">behind</a> &middot; <a href="stack.html">stack</a></div>
+  <div class="foot-right">v3.2.0 &middot; <span class="live"></span> live &middot; made in India &middot; <a href="behind.html">behind</a> &middot; <a href="stack.html">stack</a></div>
 </footer>
 
 </main>
+
+<!-- GLSL shader background (behind neural canvas) -->
+<canvas id="shader-bg"></canvas>
+
+<!-- Achievement / discovery counter -->
+<div id="discovery-bar">
+  <div id="discovery-progress"></div>
+  <span id="discovery-label">0 / 0 discovered</span>
+</div>
+<div id="achievements-panel" hidden role="dialog" aria-label="Achievements">
+  <div class="case-back"></div>
+  <div class="mini-card ach-card">
+    <header><b>achievements</b> <span class="muted small">explore to unlock</span> <button class="mini-close ach-close" aria-label="Close">x</button></header>
+    <div id="ach-list"></div>
+  </div>
+</div>
 
 <!-- Chatbot persona of Kevil -->
 <button id="chat-fab" aria-label="Chat with Kevil" title="Chat with Kevil (persona)" data-snd="primary">
@@ -791,8 +817,9 @@
   <span>ask kevil</span>
 </button>
 <div id="chat-panel" hidden role="dialog" aria-label="Kevil persona chatbot">
-  <header><b>kevil.bot</b> <span class="muted small">offline persona · canned answers</span> <button id="chat-close" aria-label="Close chat">x</button></header>
+  <header><b>kevil.bot</b> <span class="muted small" id="chat-status">offline persona · fuzzy match</span> <button id="chat-close" aria-label="Close chat">x</button></header>
   <div id="chat-log"></div>
+  <div id="chat-typing" class="chat-typing" hidden><span></span><span></span><span></span></div>
   <div id="chat-quick"></div>
   <form id="chat-form"><input id="chat-input" placeholder="ask about a360, p2p, stack..." autocomplete="off"/><button data-snd="primary">send</button></form>
 </div>
@@ -818,8 +845,13 @@
 <div id="chess-modal" hidden role="dialog" aria-label="Chess board">
   <div class="case-back"></div>
   <div class="mini-card">
-    <header><b>chess.board</b> <span class="muted small">drag pieces · freeplay · no engine</span> <button class="mini-close" aria-label="Close">x</button></header>
+    <header><b>chess.board</b> <span class="muted small" id="chess-status">drag pieces · AI via stockfish.wasm</span> <button class="mini-close" aria-label="Close">x</button></header>
     <div id="chess-board"></div>
+    <div id="chess-controls" class="chess-controls">
+      <button id="chess-new" class="ch-btn" data-snd="primary">new game</button>
+      <button id="chess-undo" class="ch-btn" data-snd="nav">undo</button>
+      <span id="chess-eval" class="ch-eval muted small"></span>
+    </div>
   </div>
 </div>
 
@@ -828,6 +860,7 @@
 <script src="https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/gsap.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/ScrollTrigger.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/@studio-freight/lenis@1.0.42/dist/lenis.min.js"></script>
+<script src="shader-bg.js"></script>
 <script src="app.js"></script>
 </body>
 </html>

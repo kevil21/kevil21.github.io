@@ -5,7 +5,17 @@
 
 ---
 
-## v3.1 — shipped (current)
+## v3.2 — shipped (current)
+
+- ✅ **Extracted shader module** — GLSL shader background moved to standalone `shader-bg.js` for cleaner separation
+- ✅ **Improved hand tracking** — bigger active area (central 60% of camera), snappier cursor smoothing (0.35 → faster)
+- ✅ **GitHub Actions auto-deploy** — `.github/workflows/deploy.yml` deploys `site/` to GitHub Pages on every push to `main`
+- ✅ **Deployment guide** — `deploy.md` added with full GitHub Pages setup (Scenario A `kevil21.github.io` + Scenario B project URL)
+- ✅ **Version bump** — all version strings updated to v3.2
+
+---
+
+## v3.1 — shipped
 
 - ✅ **Lighthouse CI** — GitHub Actions workflow, fails PR if perf/SEO/a11y drops below 90
 - ✅ **Voice command mode** — Web Speech API (`"open chess"`, `"go to flagship"`, `"switch to French"`)
@@ -80,7 +90,7 @@
 
 ---
 
-## 🔵 v3.2 — next up
+## 🔵 v3.3 — next up
 
 1. **Blog / changelog section** — markdown-driven, with RSS
 2. **Plausible / Cloudflare Analytics** — replace local RUM stub with real telemetry (needs custom domain)
@@ -116,7 +126,8 @@
 
 | Version | Highlights |
 |---|---|
-| **v3.1** | Lighthouse CI, voice commands, dark-theme variants, GitHub heatmap, guided tour |
+| **v3.2** | Extracted `shader-bg.js`, improved hand tracking, GitHub Actions auto-deploy, `deploy.md` |
+| v3.1 | Lighthouse CI, voice commands, dark-theme variants, GitHub heatmap, guided tour |
 | v3.0 | GLSL shader, 3D constellation (Three.js), achievement system, hand tracking, engine analysis overlay, audio visualizer, View Transitions API, lite mode, share button |
 | v2.2 | network skills default, chatbot, snake, chess, doom, multilingual, PDF, OG, JSON-LD, 404/behind/stack pages, gestures, RUM stub, feature flags, auto-theme |
 | v2.1 | LangGraph simulator, scramble text, photo FX carousel, command palette, terminal, matrix rain, konami |

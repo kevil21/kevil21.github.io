@@ -9,6 +9,7 @@
 <link rel="stylesheet" href="styles.css">
 </head>
 <body style="cursor:auto">
+<canvas id="shader-bg"></canvas>
 <canvas id="neural"></canvas>
 <main style="max-width:780px;margin:0 auto;padding:18vh 6vw;text-align:center">
   <div style="font-family:var(--mono);color:var(--accent);letter-spacing:.3em;font-size:12px;margin-bottom:12px">// signal_lost</div>
@@ -31,5 +32,6 @@
 <script>
 document.getElementById('missing').textContent = location.pathname + location.search;
 </script>
+<script src="shader-bg.js"></script>
 </body>
 </html>

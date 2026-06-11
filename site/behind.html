@@ -9,8 +9,9 @@
 <link rel="stylesheet" href="styles.css">
 </head>
 <body style="cursor:auto">
+<canvas id="shader-bg"></canvas>
 <canvas id="neural"></canvas>
-<nav id="nav"><a href="index.html" class="brand"><span class="dot"></span> kevil.os <em class="ver">v3.1</em></a><ul><li><a href="index.html#hero" data-i="00">home</a></li><li><a href="behind.html" data-i="01">behind</a></li><li><a href="stack.html" data-i="02">stack</a></li></ul><div class="nav-tools"><a href="index.html" class="icon-btn">&larr; back</a></div></nav>
+<nav id="nav"><a href="index.html" class="brand"><span class="dot"></span> kevil.os <em class="ver">v3.2</em></a><ul><li><a href="index.html#hero" data-i="00">home</a></li><li><a href="behind.html" data-i="01">behind</a></li><li><a href="stack.html" data-i="02">stack</a></li></ul><div class="nav-tools"><a href="index.html" class="icon-btn">&larr; back</a></div></nav>
 
 <main style="max-width:920px;margin:0 auto;padding:140px 6vw 80px">
   <div style="font-family:var(--mono);color:var(--accent);letter-spacing:.3em;font-size:11px">// 01 — behind the scenes</div>
@@ -65,5 +66,6 @@
 
 <footer><div>(c) <span id="yr"></span> Kevil Patel</div></footer>
 <script>document.getElementById('yr').textContent = new Date().getFullYear();</script>
+<script src="shader-bg.js"></script>
 </body>
 </html>
