@@ -1,0 +1,71 @@
+<!doctype html>
+<html lang="en" data-theme="dark">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width,initial-scale=1" />
+<title>behind the scenes · Kevil.OS</title>
+<meta name="description" content="How the most interactive resume on the internet was built — design decisions, performance budgets and lessons learned." />
+<link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;700&family=Space+Grotesk:wght@400;500;700&family=Syncopate:wght@700&family=Instrument+Serif&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="styles.css">
+</head>
+<body style="cursor:auto">
+<canvas id="shader-bg"></canvas>
+<canvas id="neural"></canvas>
+<nav id="nav"><a href="index.html" class="brand"><span class="dot"></span> kevil.os <em class="ver">v3.2</em></a><ul><li><a href="index.html#hero" data-i="00">home</a></li><li><a href="behind.html" data-i="01">behind</a></li><li><a href="stack.html" data-i="02">stack</a></li></ul><div class="nav-tools"><a href="index.html" class="icon-btn">&larr; back</a></div></nav>
+
+<main style="max-width:920px;margin:0 auto;padding:140px 6vw 80px">
+  <div style="font-family:var(--mono);color:var(--accent);letter-spacing:.3em;font-size:11px">// 01 — behind the scenes</div>
+  <h1 style="font-family:var(--display);font-size:clamp(40px,7vw,86px);margin:14px 0 28px;line-height:1.05">how this site<br/>actually works.</h1>
+  <p style="color:var(--fg-soft);font-size:18px;line-height:1.7;max-width:640px">A short tour through the decisions, constraints and accidents that made this resume into Kevil.OS. No build step, no framework, just plain HTML/CSS/JS plus three CDN scripts.</p>
+
+  <h2 style="font-family:var(--display);font-size:22px;letter-spacing:.18em;text-transform:uppercase;color:var(--muted);margin:60px 0 16px">// the constraints</h2>
+  <ul style="line-height:1.85;color:var(--fg-soft);padding-left:18px">
+    <li><b>No build step.</b> Opens directly with <code>open site/index.html</code>. Anyone can read the source.</li>
+    <li><b>One HTML, one CSS, one JS.</b> Easier to fork, easier to audit.</li>
+    <li><b>No backend.</b> GitHub stats come from <code>api.github.com</code>; everything else is static.</li>
+    <li><b>Three CDN scripts only:</b> GSAP, ScrollTrigger, Lenis. Total &lt;90 kB.</li>
+    <li><b>Web Audio for sound</b> &mdash; no audio assets shipped.</li>
+  </ul>
+
+  <h2 style="font-family:var(--display);font-size:22px;letter-spacing:.18em;text-transform:uppercase;color:var(--muted);margin:48px 0 16px">// the layers</h2>
+  <ol style="line-height:1.85;color:var(--fg-soft);padding-left:22px">
+    <li><b>Neural canvas</b> behind everything &mdash; particles + lines, paused when offscreen.</li>
+    <li><b>Blurred SVG blob</b> for the colour wash, animated via GSAP path morph.</li>
+    <li><b>Grain + scanlines</b> via SVG turbulence and repeating linear gradients.</li>
+    <li><b>Custom cursor</b> with a dot pinned to the pointer and a ring lagged by linear interpolation.</li>
+    <li><b>Lenis</b> for smooth scroll &mdash; tells <b>ScrollTrigger</b> when to update.</li>
+    <li><b>Photo carousel</b> with five FX renderers (glitch, pixelate, sweep, aberration, dissolve) on a dedicated canvas.</li>
+    <li><b>LangGraph simulator</b> &mdash; SVG beams + particle bursts + per-stage pulse + animated progress bar.</li>
+    <li><b>Skills network</b> &mdash; force-floating nodes with cursor repulsion and dashed core edges.</li>
+    <li><b>Terminal + command palette + matrix rain + konami + snake + chess + doom mode</b>.</li>
+  </ol>
+
+  <h2 style="font-family:var(--display);font-size:22px;letter-spacing:.18em;text-transform:uppercase;color:var(--muted);margin:48px 0 16px">// performance budget</h2>
+  <ul style="line-height:1.85;color:var(--fg-soft);padding-left:18px">
+    <li>Photos preloaded for hero, lazy for certs.</li>
+    <li>GSAP loaded via <code>jsdelivr</code> + preconnect.</li>
+    <li>Animations pause when their owning view isn&apos;t active (skill renderers, photo carousel on hover).</li>
+    <li>No web fonts blocking render (<code>display=swap</code>).</li>
+    <li>JSON-LD + OG + Twitter cards in the head.</li>
+  </ul>
+
+  <h2 style="font-family:var(--display);font-size:22px;letter-spacing:.18em;text-transform:uppercase;color:var(--muted);margin:48px 0 16px">// lessons</h2>
+  <ul style="line-height:1.85;color:var(--fg-soft);padding-left:18px">
+    <li>Custom cursors hurt accessibility unless you also keep the native one functional in form inputs.</li>
+    <li>Web Audio refuses to start without a user gesture &mdash; that is why the boot screen exists.</li>
+    <li>Skill-orbit looks magical but reading the labels is hard on small screens &mdash; the network view is now the default.</li>
+    <li>Animating SVG <code>stroke-dashoffset</code> outperforms canvas line drawing on phones.</li>
+  </ul>
+
+  <div style="margin-top:60px;display:flex;gap:10px;flex-wrap:wrap;font-family:var(--mono);font-size:12px">
+    <a href="index.html" style="padding:12px 22px;border:1px solid var(--accent);color:var(--accent);border-radius:999px">&larr; back to home</a>
+    <a href="stack.html" style="padding:12px 22px;border:1px solid var(--line-2);border-radius:999px">see the stack -&gt;</a>
+    <a target="_blank" rel="noopener" href="https://github.com/kevil21" style="padding:12px 22px;border:1px solid var(--line-2);border-radius:999px">github -&gt;</a>
+  </div>
+</main>
+
+<footer><div>(c) <span id="yr"></span> Kevil Patel</div></footer>
+<script>document.getElementById('yr').textContent = new Date().getFullYear();</script>
+<script src="shader-bg.js"></script>
+</body>
+</html>
