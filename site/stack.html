@@ -1,0 +1,118 @@
+<!doctype html>
+<html lang="en" data-theme="dark">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width,initial-scale=1" />
+<title>stack · Kevil.OS</title>
+<meta name="description" content="The complete stack behind Kevil.OS and every flagship project — frontend, backend, AI, cloud, ops, tooling." />
+<link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;700&family=Space+Grotesk:wght@400;500;700&family=Syncopate:wght@700&family=Instrument+Serif&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="styles.css">
+</head>
+<body style="cursor:auto">
+<canvas id="shader-bg"></canvas>
+<canvas id="neural"></canvas>
+<nav id="nav"><a href="index.html" class="brand"><span class="dot"></span> kevil.os <em class="ver">v3.2</em></a><ul><li><a href="index.html#hero" data-i="00">home</a></li><li><a href="behind.html" data-i="01">behind</a></li><li><a href="stack.html" data-i="02">stack</a></li></ul><div class="nav-tools"><a href="index.html" class="icon-btn">&larr; back</a></div></nav>
+
+<main style="max-width:1100px;margin:0 auto;padding:140px 6vw 80px">
+  <div style="font-family:var(--mono);color:var(--accent);letter-spacing:.3em;font-size:11px">// 02 — stack</div>
+  <h1 style="font-family:var(--display);font-size:clamp(40px,7vw,86px);margin:14px 0 28px;line-height:1.05">everything I touch.</h1>
+  <p style="color:var(--fg-soft);font-size:18px;line-height:1.7;max-width:680px">A complete inventory of the languages, frameworks, services and tools that power Kevil.OS, A360 and Policy &rarr; Pipelines.</p>
+
+  <div style="display:grid;grid-template-columns:repeat(auto-fit, minmax(280px,1fr));gap:18px;margin-top:50px">
+    <section style="background:var(--card);border:1px solid var(--line);border-radius:14px;padding:22px">
+      <h3 style="font-family:var(--display);font-size:13px;letter-spacing:.22em;text-transform:uppercase;color:var(--accent);margin-bottom:14px">// this site</h3>
+      <ul style="line-height:1.85;color:var(--fg-soft);padding-left:18px;font-size:14px">
+        <li>HTML / CSS / vanilla JS (no build)</li>
+        <li>GSAP 3.12 + ScrollTrigger</li>
+        <li>Lenis smooth scroll</li>
+        <li>Web Audio API (custom synth)</li>
+        <li>Inline SVG + canvas FX</li>
+        <li>Google Fonts: JetBrains Mono, Space Grotesk, Syncopate, Instrument Serif</li>
+      </ul>
+    </section>
+    <section style="background:var(--card);border:1px solid var(--line);border-radius:14px;padding:22px">
+      <h3 style="font-family:var(--display);font-size:13px;letter-spacing:.22em;text-transform:uppercase;color:var(--accent-2);margin-bottom:14px">// frontend (A360)</h3>
+      <ul style="line-height:1.85;color:var(--fg-soft);padding-left:18px;font-size:14px">
+        <li>Next.js 16 (App Router, RSC)</li>
+        <li>React 19</li>
+        <li>Kyndryl Shidoka design system (Lit web components)</li>
+        <li>Tailwind CSS 3</li>
+        <li>TWK Everett · Roboto Mono</li>
+        <li>Per-tenant React Context + URL params</li>
+      </ul>
+    </section>
+    <section style="background:var(--card);border:1px solid var(--line);border-radius:14px;padding:22px">
+      <h3 style="font-family:var(--display);font-size:13px;letter-spacing:.22em;text-transform:uppercase;color:var(--accent-3);margin-bottom:14px">// backend</h3>
+      <ul style="line-height:1.85;color:var(--fg-soft);padding-left:18px;font-size:14px">
+        <li>FastAPI (Python 3.12)</li>
+        <li>Pydantic v2</li>
+        <li>Uvicorn workers</li>
+        <li>Azure Functions (Python 3.11/3.12)</li>
+        <li>OpenTelemetry SDK</li>
+      </ul>
+    </section>
+    <section style="background:var(--card);border:1px solid var(--line);border-radius:14px;padding:22px">
+      <h3 style="font-family:var(--display);font-size:13px;letter-spacing:.22em;text-transform:uppercase;color:var(--accent-4);margin-bottom:14px">// AI / ML</h3>
+      <ul style="line-height:1.85;color:var(--fg-soft);padding-left:18px;font-size:14px">
+        <li>LangGraph + LangChain</li>
+        <li>Azure AI Foundry</li>
+        <li>Vertex AI · Gemini 2.5 Pro</li>
+        <li>LiteLLM (proxy + routing)</li>
+        <li>Agentic AI · RAG · Prompt Engineering</li>
+        <li>LSTM / time-series</li>
+      </ul>
+    </section>
+    <section style="background:var(--card);border:1px solid var(--line);border-radius:14px;padding:22px">
+      <h3 style="font-family:var(--display);font-size:13px;letter-spacing:.22em;text-transform:uppercase;color:var(--accent-5);margin-bottom:14px">// cloud</h3>
+      <ul style="line-height:1.85;color:var(--fg-soft);padding-left:18px;font-size:14px">
+        <li>Azure: AKS, ACA, Functions, App Service</li>
+        <li>Azure Data Explorer / KQL</li>
+        <li>Cosmos DB (NoSQL)</li>
+        <li>AWS: EC2, S3, SageMaker, Kinesis</li>
+        <li>GCP: Cloud Run, Vertex, GCS, Firestore</li>
+        <li>Bicep · Terraform · Cloud Build</li>
+      </ul>
+    </section>
+    <section style="background:var(--card);border:1px solid var(--line);border-radius:14px;padding:22px">
+      <h3 style="font-family:var(--display);font-size:13px;letter-spacing:.22em;text-transform:uppercase;color:#7df9ff;margin-bottom:14px">// data / observability</h3>
+      <ul style="line-height:1.85;color:var(--fg-soft);padding-left:18px;font-size:14px">
+        <li>Elasticsearch + Kibana</li>
+        <li>Azure Data Explorer (31 MVs)</li>
+        <li>PostgreSQL</li>
+        <li>Pandas · NumPy</li>
+        <li>OTEL collectors</li>
+      </ul>
+    </section>
+    <section style="background:var(--card);border:1px solid var(--line);border-radius:14px;padding:22px">
+      <h3 style="font-family:var(--display);font-size:13px;letter-spacing:.22em;text-transform:uppercase;color:#ff6ec7;margin-bottom:14px">// dev / ops</h3>
+      <ul style="line-height:1.85;color:var(--fg-soft);padding-left:18px;font-size:14px">
+        <li>Git · GitHub · GitHub Actions</li>
+        <li>Docker · Podman</li>
+        <li>VS Code · GitHub Copilot</li>
+        <li>iTerm2 · zsh on macOS</li>
+        <li>APScheduler</li>
+      </ul>
+    </section>
+    <section style="background:var(--card);border:1px solid var(--line);border-radius:14px;padding:22px">
+      <h3 style="font-family:var(--display);font-size:13px;letter-spacing:.22em;text-transform:uppercase;color:#a78bfa;margin-bottom:14px">// languages</h3>
+      <ul style="line-height:1.85;color:var(--fg-soft);padding-left:18px;font-size:14px">
+        <li>Python (primary)</li>
+        <li>TypeScript</li>
+        <li>C++, Java, R</li>
+        <li>SQL · KQL</li>
+        <li>Shell (zsh / bash)</li>
+      </ul>
+    </section>
+  </div>
+
+  <div style="margin-top:60px;display:flex;gap:10px;flex-wrap:wrap;font-family:var(--mono);font-size:12px">
+    <a href="index.html" style="padding:12px 22px;border:1px solid var(--accent);color:var(--accent);border-radius:999px">&larr; back to home</a>
+    <a href="behind.html" style="padding:12px 22px;border:1px solid var(--line-2);border-radius:999px">behind the scenes -&gt;</a>
+  </div>
+</main>
+
+<footer><div>(c) <span id="yr"></span> Kevil Patel</div></footer>
+<script>document.getElementById('yr').textContent = new Date().getFullYear();</script>
+<script src="shader-bg.js"></script>
+</body>
+</html>
