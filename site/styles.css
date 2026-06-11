@@ -33,7 +33,7 @@
 }
 
 *{box-sizing:border-box;margin:0;padding:0}
-html,body{background:var(--bg);color:var(--fg);font-family:var(--sans);-webkit-font-smoothing:antialiased;overflow-x:hidden;transition:background .7s ease,color .7s ease}
+html,body{background:var(--bg);color:var(--fg);font-family:var(--sans);-webkit-font-smoothing:antialiased;overflow-x:hidden;transition:background .5s,color .5s}
 body{cursor:none}
 a{color:inherit;text-decoration:none}
 img,svg{display:block;max-width:100%}
@@ -78,24 +78,11 @@ code{font-family:var(--mono);background:var(--card-hi);padding:1px 6px;border-ra
 #nav ul a::before{content:attr(data-i) " ";color:var(--accent);opacity:.5;font-size:10px}
 #nav ul a:hover{color:var(--fg)}
 .nav-tools{display:flex;gap:8px}
-.icon-btn{min-width:42px;height:36px;padding:0 10px;border-radius:10px;border:1px solid var(--line);background:var(--card);color:var(--fg);cursor:none;display:flex;align-items:center;justify-content:center;gap:5px;font-family:var(--mono);font-size:11px;transition:border-color .25s,color .25s,background .25s;font-weight:700;letter-spacing:.1em}
-.icon-btn svg{flex-shrink:0;display:block}
-.icon-btn .btn-label{font-size:10px}
+.icon-btn{min-width:42px;height:36px;padding:0 10px;border-radius:10px;border:1px solid var(--line);background:var(--card);color:var(--fg);cursor:none;display:flex;align-items:center;justify-content:center;font-family:var(--mono);font-size:11px;transition:.25s;font-weight:700;letter-spacing:.1em}
 .icon-btn:hover{border-color:var(--accent);color:var(--accent);background:var(--card-hi)}
-
-/* sound button icon states */
-#sound-btn .snd-icon-off{display:none}
-#sound-btn.muted .snd-icon-on{display:none}
-#sound-btn.muted .snd-icon-off{display:block}
-
-/* theme button: sun/moon icons with animated swap */
-.theme-btn{position:relative;overflow:hidden}
-.theme-btn .sun-icon,.theme-btn .moon-icon{transition:transform .5s cubic-bezier(.4,0,.2,1),opacity .4s}
-.theme-btn .moon-icon{position:absolute;opacity:0;transform:rotate(90deg) scale(.4)}
-:root[data-theme="dark"] .theme-btn .sun-icon{position:absolute;opacity:0;transform:rotate(-90deg) scale(.4)}
-:root[data-theme="dark"] .theme-btn .moon-icon{position:relative;opacity:1;transform:rotate(0) scale(1)}
-:root[data-theme="light"] .theme-btn .sun-icon{position:relative;opacity:1;transform:rotate(0) scale(1)}
-:root[data-theme="light"] .theme-btn .moon-icon{position:absolute;opacity:0;transform:rotate(90deg) scale(.4)}
+.theme-btn .moon{display:none}
+:root[data-theme="light"] .theme-btn .sun{display:none}
+:root[data-theme="light"] .theme-btn .moon{display:inline}
 @media (max-width:980px){#nav ul{display:none}}
 
 /* command palette */
@@ -404,8 +391,7 @@ code{font-family:var(--mono);background:var(--card-hi);padding:1px 6px;border-ra
 .cert-logo{width:64px;height:64px;border-radius:16px;background:#fff;display:flex;align-items:center;justify-content:center;padding:10px;margin-bottom:16px;box-shadow:0 8px 20px rgba(0,0,0,.18)}
 .cert-logo svg{width:100%;height:100%;object-fit:contain}
 .cert-logo.ms-logo{background:#fff}
-.cert-logo.gh-logo{background:#24292e;padding:12px;color:#fff}
-:root[data-theme="light"] .cert-logo.gh-logo{background:#f6f8fa;color:#24292e}
+.cert-logo.gh-logo{background:#0a0d18;padding:12px}
 .cert-logo.fz-logo{background:linear-gradient(135deg,#1a1a2e,#16213e);color:#7df9ff;font-family:var(--display);font-size:22px;font-weight:700}
 :root[data-theme="light"] .cert-logo{box-shadow:0 6px 16px rgba(0,0,0,.1)}
 .cert h5{font-size:15px;margin-bottom:6px;font-weight:600}
@@ -457,7 +443,7 @@ footer{max-width:var(--max);margin:0 auto;padding:40px 6vw 60px;display:flex;jus
 @keyframes drop{0%{transform:translateY(-30%);opacity:0}40%{opacity:1}100%{transform:translateY(30%);opacity:0}}
 @keyframes spin{to{transform:rotate(360deg)}}
 
-/* ============ v2.2 ADDITIONS ============ */
+/* ============ v3.1 ADDITIONS ============ */
 
 /* a11y skip link */
 .skip-link{position:absolute;left:-9999px;top:0;padding:8px 14px;background:var(--accent);color:#000;font-family:var(--mono);font-size:12px;z-index:10000}
@@ -556,119 +542,3 @@ a:focus-visible, button:focus-visible, input:focus-visible{outline:2px solid var
 
 /* fix: respect [hidden] on modal/panel containers */
 #case-modal[hidden], #snake-modal[hidden], #chess-modal[hidden], #chat-panel[hidden], #palette[hidden]{display:none !important}
-
-/* ---- v2.3 additions ---- */
-
-/* theme transition celestial overlay */
-#theme-overlay{position:fixed;inset:0;z-index:9997;pointer-events:none;overflow:hidden;opacity:0;transition:opacity .3s}
-#theme-overlay.active{opacity:1}
-#theme-overlay .celestial{position:absolute;border-radius:50%;filter:blur(0);transition:none}
-#theme-overlay .rays{position:absolute;border-radius:50%;animation:rays-spin 1.2s linear infinite;pointer-events:none}
-@keyframes rays-spin{to{transform:translate(-50%,-50%) rotate(360deg)}}
-#theme-overlay .ring{position:absolute;border-radius:50%;border:2px solid;opacity:0;transform:translate(-50%,-50%) scale(0);pointer-events:none}
-
-/* smooth colour transitions on all coloured elements when theme changes */
-html.theme-switching, html.theme-switching *{
-  transition:background-color .7s ease, color .7s ease, border-color .7s ease, box-shadow .7s ease, fill .7s ease, stroke .7s ease !important;
-}
-html.theme-switching .icon-btn, html.theme-switching .cert, html.theme-switching .proj,
-html.theme-switching #nav, html.theme-switching .skill-node, html.theme-switching .skill-stage,
-html.theme-switching .terminal, html.theme-switching .about-card, html.theme-switching footer,
-html.theme-switching .pal-card, html.theme-switching .hero-meta, html.theme-switching .callout,
-html.theme-switching .r-card, html.theme-switching .gh-card, html.theme-switching .edu-card,
-html.theme-switching .cdot, html.theme-switching .kpi, html.theme-switching .quote,
-html.theme-switching .photo-frame, html.theme-switching .a360-mock{
-  transition:background-color .7s ease, color .7s ease, border-color .7s ease, box-shadow .7s ease !important;
-}
-
-/* location links */
-.loc-link{color:var(--accent);text-decoration:none;border-bottom:1px dashed var(--accent);transition:opacity .2s}
-.loc-link:hover{opacity:.7}
-
-/* skill-node in network: attract glow for nearest */
-.skill-node.nearest{transform:translate(-50%,-50%) scale(1.22) !important;z-index:11;box-shadow:0 0 36px currentColor,0 0 8px currentColor inset;border-width:2px}
-
-/* ---- v3.0 additions ---- */
-
-/* GLSL shader background canvas */
-#shader-bg{position:fixed;inset:0;z-index:0;width:100%;height:100%;pointer-events:none;opacity:.35}
-html[data-theme="light"] #shader-bg{opacity:.18}
-html.lite-mode #shader-bg{display:none}
-
-/* boot audio visualizer */
-#boot-viz{display:block;margin:12px auto 0;opacity:.6;border-radius:4px}
-
-/* discovery bar */
-#discovery-bar{position:fixed;bottom:0;left:0;right:0;height:3px;z-index:9990;background:rgba(125,249,255,.08);cursor:pointer;transition:height .3s}
-#discovery-bar:hover{height:6px}
-#discovery-progress{height:100%;background:linear-gradient(90deg,var(--accent),#ff6ec7);width:0%;transition:width .6s ease}
-#discovery-label{position:absolute;right:12px;top:-22px;font-size:10px;font-family:var(--mono);color:var(--muted);opacity:0;transition:opacity .3s;pointer-events:none}
-#discovery-bar:hover #discovery-label{opacity:1}
-
-/* achievements panel */
-.ach-card{max-width:420px;max-height:70vh;overflow-y:auto}
-#ach-list{display:grid;gap:8px;padding:12px}
-.ach-item{display:flex;align-items:center;gap:10px;padding:10px 12px;border-radius:8px;background:rgba(125,249,255,.04);border:1px solid rgba(125,249,255,.08);font-size:13px;font-family:var(--mono);transition:all .3s}
-.ach-item.unlocked{border-color:var(--accent);background:rgba(125,249,255,.08)}
-.ach-item.locked{opacity:.35;filter:grayscale(1)}
-.ach-icon{font-size:22px;width:32px;text-align:center;flex-shrink:0}
-.ach-info{flex:1}
-.ach-name{font-weight:700;color:var(--fg)}
-.ach-desc{color:var(--muted);font-size:11px;margin-top:2px}
-.ach-toast{position:fixed;top:20px;right:20px;z-index:9999;background:rgba(13,13,22,.95);border:1px solid var(--accent);border-radius:10px;padding:12px 18px;font-family:var(--mono);font-size:13px;color:var(--accent);display:flex;align-items:center;gap:10px;transform:translateX(120%);transition:transform .4s cubic-bezier(.175,.885,.32,1.275);pointer-events:none;backdrop-filter:blur(12px)}
-.ach-toast.show{transform:translateX(0)}
-.ach-toast .ach-icon{font-size:24px}
-
-/* chatbot typing indicator */
-.chat-typing{display:flex;gap:4px;padding:8px 14px;align-items:center}
-.chat-typing span{width:6px;height:6px;background:var(--accent);border-radius:50%;animation:typing-bounce .6s infinite alternate}
-.chat-typing span:nth-child(2){animation-delay:.15s}
-.chat-typing span:nth-child(3){animation-delay:.3s}
-@keyframes typing-bounce{to{opacity:.3;transform:translateY(-4px)}}
-
-/* chess controls */
-.chess-controls{display:flex;align-items:center;gap:8px;padding:8px 12px;font-family:var(--mono)}
-.ch-btn{background:rgba(125,249,255,.08);border:1px solid rgba(125,249,255,.15);color:var(--fg);padding:4px 12px;border-radius:4px;cursor:pointer;font-size:12px;font-family:var(--mono);transition:all .2s}
-.ch-btn:hover{background:rgba(125,249,255,.15);border-color:var(--accent)}
-.ch-eval{margin-left:auto}
-
-/* lite mode */
-html.lite-mode *{animation:none !important;transition:none !important}
-html.lite-mode .neural,html.lite-mode .cursor,html.lite-mode .blob{display:none !important}
-html.lite-mode .photo-frame{animation:none !important}
-html.lite-mode .skill-stage svg{display:none}
-#lite-btn.active svg{color:var(--accent)}
-
-/* share button feedback */
-#share-btn.flash{animation:share-flash .6s}
-@keyframes share-flash{0%,100%{color:var(--fg)}50%{color:#7df9ff;transform:scale(1.2)}}
-
-/* LangGraph analysis overlay */
-.lg-analysis{position:absolute;right:8px;top:8px;background:rgba(13,13,22,.85);border:1px solid rgba(125,249,255,.12);border-radius:6px;padding:8px 12px;font-size:11px;font-family:var(--mono);color:var(--muted);z-index:5;backdrop-filter:blur(8px);max-width:180px;opacity:0;transition:opacity .3s}
-.lg-analysis.visible{opacity:1}
-.lg-metric{display:flex;justify-content:space-between;gap:8px;margin:2px 0}
-.lg-metric .val{color:var(--accent);font-weight:700}
-
-/* hero variant B (particle field) */
-#hero-particles{position:absolute;inset:0;pointer-events:none;z-index:0}
-.hero-grid{position:relative;z-index:1}
-
-/* hand tracking indicator */
-#hand-indicator{position:fixed;width:24px;height:24px;border-radius:50%;border:2px solid var(--accent);background:rgba(125,249,255,.15);pointer-events:none;z-index:9998;transform:translate(-50%,-50%);display:none;transition:left .08s,top .08s}
-#hand-indicator.pinch{background:rgba(255,110,199,.4);border-color:#ff6ec7;transform:translate(-50%,-50%) scale(.7)}
-
-/* 3D constellation container */
-#skill-3d{position:absolute;inset:0;z-index:0;border-radius:12px;overflow:hidden}
-.skill-stage{position:relative}
-
-/* view-transition morphing */
-::view-transition-old(root),::view-transition-new(root){animation-duration:.35s;animation-timing-function:cubic-bezier(.4,0,.2,1)}
-
-/* responsive adjustments for new elements */
-@media(max-width:700px){
-  #discovery-bar{height:2px}
-  .ach-toast{top:auto;bottom:70px;right:10px;left:10px;transform:translateY(120%)}
-  .ach-toast.show{transform:translateY(0)}
-  .lg-analysis{display:none}
-  .chess-controls{flex-wrap:wrap}
-}
