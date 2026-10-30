@@ -6,19 +6,20 @@
 <title>stack · Kevil.OS</title>
 <meta name="description" content="The complete stack behind Kevil.OS and every flagship project — frontend, backend, AI, cloud, ops, tooling." />
 <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;700&family=Space+Grotesk:wght@400;500;700&family=Syncopate:wght@700&family=Instrument+Serif&display=swap" rel="stylesheet">
+<link rel="icon" type="image/svg+xml" href="data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'><rect width='32' height='32' rx='8' fill='%237df9ff'/><text x='16' y='22' text-anchor='middle' font-family='monospace' font-weight='700' font-size='16' fill='%23000'>K</text></svg>">
 <link rel="stylesheet" href="styles.css">
 </head>
 <body style="cursor:auto">
 <canvas id="shader-bg"></canvas>
 <canvas id="neural"></canvas>
-<nav id="nav"><a href="index.html" class="brand"><span class="dot"></span> kevil.os <em class="ver">v3.2</em></a><ul><li><a href="index.html#hero" data-i="00">home</a></li><li><a href="behind.html" data-i="01">behind</a></li><li><a href="stack.html" data-i="02">stack</a></li></ul><div class="nav-tools"><a href="index.html" class="icon-btn">&larr; back</a></div></nav>
+<nav id="nav"><a href="index.html" class="brand"><span class="dot"></span> kevil.os <em class="ver">v3.2</em></a><ul><li><a href="index.html#hero" data-i="00">home</a></li><li><a href="behind.html" data-i="01">behind</a></li><li><a href="stack.html" data-i="02">stack</a></li></ul><div class="nav-tools"><a href="index.html" class="icon-btn nav-sec">&larr; back</a><button class="icon-btn nav-more" id="nav-more" aria-label="Menu" aria-expanded="false" aria-controls="nav" title="Menu"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><line x1="4" y1="7" x2="20" y2="7"/><line x1="4" y1="12" x2="20" y2="12"/><line x1="4" y1="17" x2="20" y2="17"/></svg></button></div></nav>
 
 <main style="max-width:1100px;margin:0 auto;padding:140px 6vw 80px">
   <div style="font-family:var(--mono);color:var(--accent);letter-spacing:.3em;font-size:11px">// 02 — stack</div>
-  <h1 style="font-family:var(--display);font-size:clamp(40px,7vw,86px);margin:14px 0 28px;line-height:1.05">everything I touch.</h1>
+  <h1 style="font-family:var(--display);font-size:max(min(8.5vw,40px),min(7vw,86px));overflow-wrap:anywhere;margin:14px 0 28px;line-height:1.05">everything I touch.</h1>
   <p style="color:var(--fg-soft);font-size:18px;line-height:1.7;max-width:680px">A complete inventory of the languages, frameworks, services and tools that power Kevil.OS, A360 and Policy &rarr; Pipelines.</p>
 
-  <div style="display:grid;grid-template-columns:repeat(auto-fit, minmax(280px,1fr));gap:18px;margin-top:50px">
+  <div style="display:grid;grid-template-columns:repeat(auto-fit, minmax(min(280px,100%),1fr));gap:18px;margin-top:50px">
     <section style="background:var(--card);border:1px solid var(--line);border-radius:14px;padding:22px">
       <h3 style="font-family:var(--display);font-size:13px;letter-spacing:.22em;text-transform:uppercase;color:var(--accent);margin-bottom:14px">// this site</h3>
       <ul style="line-height:1.85;color:var(--fg-soft);padding-left:18px;font-size:14px">
@@ -114,5 +115,6 @@
 <footer><div>(c) <span id="yr"></span> Kevil Patel</div></footer>
 <script>document.getElementById('yr').textContent = new Date().getFullYear();</script>
 <script src="shader-bg.js"></script>
+<script src="nav.js"></script>
 </body>
 </html>
