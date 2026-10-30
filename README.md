@@ -1,4 +1,4 @@
-# Kevil.OS — Interactive Resume
+# Kevil.OS — Interactive Resume `v3.2.0`
 
 Personal interactive resume/portfolio site for **Kevil Patel**.
 
