@@ -737,6 +737,7 @@ navLinks.forEach(a => a.addEventListener('click', () => playSnd('nav')));
 // flow svg interactions
 $$('#flowsvg .stage').forEach(s => {
   s.addEventListener('mouseenter', () => { $('#flow-info').textContent = s.dataset.info; playSnd('hover'); });
+  s.addEventListener('click', () => { $('#flow-info').textContent = s.dataset.info; });
 });
 
 // flow packets
@@ -985,7 +986,22 @@ const stage = $('#skill-stage'); const detail = $('#skill-detail');
 const tabs = $$('.skill-tab');
 let currentView = 'net', orbitPaused = false;
 
-function buildSkillStage() { renderView(currentView); }
+function buildSkillStage() {
+  // the force-directed network is unreadable on a phone-sized stage — start on the grid there
+  if (window.innerWidth < 640 && currentView === 'net') {
+    currentView = 'grid'; stage.dataset.view = 'grid';
+    tabs.forEach(x => x.classList.toggle('active', x.dataset.view === 'grid'));
+  }
+  renderView(currentView);
+}
+// re-layout on width change (rotation, window resize); ignore height-only changes (mobile URL bar)
+window.addEventListener('resize', () => {
+  clearTimeout(stageResizeT);
+  stageResizeT = setTimeout(() => {
+    if (!['net', 'orbit', 'grid'].includes(currentView) || stage.clientWidth === stageW) return;
+    renderView(currentView);
+  }, 200);
+});
 tabs.forEach(t => t.addEventListener('click', () => {
   tabs.forEach(x => x.classList.remove('active'));
   t.classList.add('active');
@@ -997,7 +1013,9 @@ tabs.forEach(t => t.addEventListener('click', () => {
 
 function clearStage() { stage.innerHTML = ''; }
 
+let stageW = 0, stageResizeT;
 function renderView(v) {
+  stageW = stage.clientWidth;
   clearStage();
   if (v === 'orbit') renderOrbit();
   else if (v === 'grid') renderGrid();
@@ -1017,8 +1035,11 @@ function renderOrbit() {
   const rect = stage.getBoundingClientRect();
   const cx = rect.width / 2, cy = rect.height / 2;
   const cats = Object.keys(SKILL_CATS);
-  const baseR = Math.min(rect.width, rect.height) * 0.12;
-  const stepR = Math.min(rect.width, rect.height) * 0.085;
+  const m = Math.min(rect.width, rect.height);
+  // shrink the rings so the outermost nodes (≈62px half-width, ≈22px half-height) stay inside the stage
+  const fit = Math.min(1, Math.max(40, Math.min(rect.width / 2 - 62, rect.height / 2 - 22)) / (m * 0.46));
+  const baseR = m * 0.12 * fit;
+  const stepR = m * 0.085 * fit;
 
   // center label
   const center = document.createElement('div');
@@ -1064,10 +1085,15 @@ function renderOrbit() {
   });
 
   // animate rotation
+  ringWrappers.forEach(rw => { rw.nodes = [...rw.wrap.querySelectorAll('.skill-node')]; });
   function spin() {
-    if (!orbitPaused) ringWrappers.forEach(rw => { rw.angle += rw.speed; rw.wrap.style.transform = `rotate(${rw.angle}deg)`; });
-    // counter-rotate text so labels stay upright-ish
-    ringWrappers.forEach(rw => { rw.wrap.querySelectorAll('.skill-node').forEach(n => { n.style.setProperty('--cr', -rw.angle + 'deg'); }); });
+    if (!orbitPaused) {
+      ringWrappers.forEach(rw => {
+        rw.angle += rw.speed; rw.wrap.style.transform = `rotate(${rw.angle}deg)`;
+        // counter-rotate each label so it stays upright while its ring turns
+        rw.nodes.forEach(n => { n.style.transform = `translate(-50%,-50%) rotate(${-rw.angle}deg)`; });
+      });
+    }
     if (stage.dataset.view === 'orbit') requestAnimationFrame(spin);
   }
   requestAnimationFrame(spin);
@@ -1075,7 +1101,7 @@ function renderOrbit() {
 
 function renderGrid() {
   const wrap = document.createElement('div');
-  wrap.style.cssText = 'position:absolute;inset:18px;display:grid;grid-template-columns:repeat(5,1fr);gap:14px;overflow:auto';
+  wrap.className = 'skill-grid';
   Object.entries(SKILL_CATS).forEach(([catKey, ring]) => {
     const col = document.createElement('div');
     col.style.cssText = 'display:flex;flex-direction:column;gap:8px;align-items:flex-start';
@@ -1253,6 +1279,11 @@ function renderNet() {
         if (d2 < 90 * 90 && d2 > 1) { const d = Math.sqrt(d2); const f = (90 - d) / 90 * 14; tx += (dx / d) * f; ty += (dy / d) * f; }
       }
 
+      // keep every node fully inside the stage
+      if (it.hw === undefined) { const e0 = els.get(it); it.hw = e0.offsetWidth / 2 + 6; it.hh = e0.offsetHeight / 2 + 6; }
+      tx = Math.min(Math.max(tx, it.hw), Math.max(it.hw, W - it.hw));
+      ty = Math.min(Math.max(ty, it.hh), Math.max(it.hh, Hh - it.hh));
+
       // spring back
       it.vx += (tx - it.x) * 0.08; it.vy += (ty - it.y) * 0.08;
       it.vx *= 0.78; it.vy *= 0.78;
@@ -1269,15 +1300,16 @@ function renderNet() {
 /* ---------- GITHUB LIVE ---------- */
 async function loadGithub() {
   try {
-    const u = await fetch('https://api.github.com/users/kevil21').then(r => r.json());
-    $('#gh-avatar').src = u.avatar_url;
+    const ghJson = r => { if (!r.ok) throw new Error('github ' + r.status); return r.json(); };
+    const u = await fetch('https://api.github.com/users/kevil21').then(ghJson);
+    if (u.avatar_url) $('#gh-avatar').src = u.avatar_url;
     $('#gh-bio').textContent = u.bio || 'AI / Cloud Engineer at Kyndryl.';
     $('#gh-public').textContent = u.public_repos;
     $('#gh-followers').textContent = u.followers;
     $('#gh-following').textContent = u.following;
     $('#hs-repos').textContent = u.public_repos;
 
-    const repos = await fetch('https://api.github.com/users/kevil21/repos?per_page=100&sort=updated').then(r => r.json());
+    const repos = await fetch('https://api.github.com/users/kevil21/repos?per_page=100&sort=updated').then(ghJson);
     const top = repos.filter(r => !r.fork).slice(0, 9);
     $('#gh-repos').innerHTML = top.map(r => `
       <a class="gh-repo" target="_blank" rel="noopener" href="${r.html_url}" data-snd="ghost">
@@ -1689,7 +1721,7 @@ function startSnake() {
   snakeKey = (e) => {
     const k = e.key.toLowerCase();
     if (k === 'escape') { stopSnake(); return; }
-    if (!snakeRAF && (k.startsWith('arrow') || 'wasd'.includes(k))) { startSnake(); stopSnake(true); return; }
+    if (!snakeRAF && (k.startsWith('arrow') || 'wasd'.includes(k))) { stopSnake(true); startSnake(); return; }
     if (k === 'arrowup' || k === 'w') { if (dir.y !== 1) dir = { x: 0, y: -1 }; }
     if (k === 'arrowdown' || k === 's') { if (dir.y !== -1) dir = { x: 0, y: 1 }; }
     if (k === 'arrowleft' || k === 'a') { if (dir.x !== 1) dir = { x: -1, y: 0 }; }
@@ -1703,6 +1735,17 @@ function stopSnake(keepOpen) {
   window.removeEventListener('keydown', snakeKey); snakeKey = null;
   if (!keepOpen) { snakeModal.hidden = true; playSnd('close'); }
 }
+// touch: swipe on the board steers the snake, tap restarts after game over
+(() => {
+  let sx = 0, sy = 0;
+  snakeCv.addEventListener('touchstart', e => { const t = e.changedTouches[0]; sx = t.clientX; sy = t.clientY; }, { passive: true });
+  snakeCv.addEventListener('touchend', e => {
+    if (!snakeKey) return;
+    const t = e.changedTouches[0], dx = t.clientX - sx, dy = t.clientY - sy, ax = Math.abs(dx), ay = Math.abs(dy);
+    if (Math.max(ax, ay) < 20) { if (!snakeRAF) snakeKey({ key: 'ArrowRight' }); return; }
+    snakeKey({ key: ax > ay ? (dx > 0 ? 'ArrowRight' : 'ArrowLeft') : (dy > 0 ? 'ArrowDown' : 'ArrowUp') });
+  }, { passive: true });
+})();
 snakeModal.querySelector('.case-back').addEventListener('click', () => stopSnake());
 snakeModal.querySelector('.mini-close').addEventListener('click', () => stopSnake());
 
