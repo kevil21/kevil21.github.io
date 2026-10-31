@@ -1,0 +1,158 @@
+---
+import Shell from '@/layouts/Shell.astro';
+import ProjectCard from '@/components/ProjectCard.astro';
+import { pageData } from '@/lib/page-data';
+import { routes } from '@/lib/knowledge/routes';
+import { carriersOf } from '@/lib/knowledge/graph';
+import { formatYM } from '@/lib/knowledge/dates';
+import { getCollection } from 'astro:content';
+import '@/styles/pages/pages.css';
+
+export async function getStaticPaths() {
+  const skills = await getCollection('skills');
+  return skills.map((s) => ({ params: { id: s.id } }));
+}
+const { id } = Astro.params;
+const { data, graph, labels } = await pageData();
+const s = data.skills.find((x) => x.id === id)!;
+const carriers = carriersOf(graph, s.id);
+const projects = data.projects.filter((p) => carriers.includes(p.id));
+const roles = data.experience.filter((x) => carriers.includes(x.id));
+const certs = data.certifications.filter((c) => c.skills.includes(s.id));
+const techs = data.technologies.filter((t) => t.skill === s.id && t.id !== s.id);
+const evidence = data.evidence.filter((v) => v.supports.includes(s.id));
+const meta = {
+  title: s.name,
+  description: `${s.name}: evidenced by ${projects.length} projects, ${roles.length} roles and ${certs.length} certifications in Kevil Patel's portfolio.`,
+  path: routes.skill(s.id),
+};
+---
+
+<Shell meta={meta} current="skills">
+  <header class="project-head">
+    <p class="eyebrow" style="color: var(--ink-trace)">
+      skill · {s.category}
+      {s.yearsSelfReported ? ` · ≈ ${s.yearsSelfReported} yrs self-reported` : ''}
+    </p>
+    <h1 class="project-head__title">{s.name}</h1>
+    {s.summary && <p class="project-head__tagline">{s.summary}</p>}
+    <dl class="facts">
+      <div>
+        <dt>projects</dt>
+        <dd>{projects.length}</dd>
+      </div>
+      <div>
+        <dt>roles</dt>
+        <dd>{roles.length}</dd>
+      </div>
+      <div>
+        <dt>certifications</dt>
+        <dd>{certs.length}</dd>
+      </div>
+      <div>
+        <dt>technologies</dt>
+        <dd>{techs.length}</dd>
+      </div>
+    </dl>
+  </header>
+
+  {techs.length > 0 && (
+    <section class="section" aria-labelledby="tech">
+      <h2 id="tech" class="section__title">
+        Technologies
+      </h2>
+      <ul class="cluster" role="list">
+        {techs.map((t) => (
+          <li id={`tech-${t.id}`}>
+            {t.url ? (
+              <a class="chip" href={t.url} target="_blank" rel="noopener noreferrer external">
+                {t.name} ↗
+              </a>
+            ) : (
+              <span class="chip">{t.name}</span>
+            )}
+          </li>
+        ))}
+      </ul>
+    </section>
+  )}
+
+  {roles.length > 0 && (
+    <section class="section" aria-labelledby="roles">
+      <h2 id="roles" class="section__title">
+        Roles that carry it
+      </h2>
+      <ul class="span-detail__list" role="list">
+        {roles.map((x) => (
+          <li>
+            <a href={routes.role(x.id)}>
+              {x.role} · {x.org}
+            </a>{' '}
+            <span class="faint mono small">
+              {formatYM(x.start)} → {formatYM(x.end)}
+            </span>
+          </li>
+        ))}
+      </ul>
+    </section>
+  )}
+
+  {projects.length > 0 && (
+    <section class="section" aria-labelledby="projects">
+      <h2 id="projects" class="section__title">
+        Projects that demonstrate it
+      </h2>
+      <div class="page-grid">
+        {projects.map((p) => (
+          <ProjectCard project={p} labels={labels} />
+        ))}
+      </div>
+    </section>
+  )}
+
+  {certs.length > 0 && (
+    <section class="section" aria-labelledby="certs">
+      <h2 id="certs" class="section__title">
+        Certifications that validate it
+      </h2>
+      <ul class="span-detail__list" role="list">
+        {certs.map((c) => (
+          <li>
+            <a href={routes.credential(c.id)}>
+              {c.code ? `${c.code} · ` : ''}
+              {c.name}
+            </a>{' '}
+            <span class="faint mono small">{c.issuer}</span>
+          </li>
+        ))}
+      </ul>
+    </section>
+  )}
+
+  {evidence.length > 0 && (
+    <section class="section" aria-labelledby="ev">
+      <h2 id="ev" class="section__title">
+        External evidence
+      </h2>
+      <ul class="span-detail__list" role="list">
+        {evidence.map((v) => (
+          <li>
+            <a href={v.url} target="_blank" rel="noopener noreferrer external">
+              {v.title} ↗
+            </a>
+          </li>
+        ))}
+      </ul>
+    </section>
+  )}
+
+  {projects.length + roles.length + certs.length === 0 && (
+    <p class="note">
+      This skill is listed in the source résumé but no project, role or credential in the portfolio carries it
+      yet.
+    </p>
+  )}
+  <p class="small faint mono" style="margin-block-start:var(--sp-6)">
+    source: {s.source}
+  </p>
+</Shell>

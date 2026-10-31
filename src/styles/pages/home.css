@@ -1,0 +1,112 @@
+@layer layout {
+  .hero {
+    position: relative;
+    min-block-size: clamp(22rem, 46vh, 32rem);
+    display: grid;
+    align-content: end;
+    padding-block: var(--sp-7) var(--sp-6);
+    margin-block-start: calc(-1 * var(--sp-5));
+    margin-inline: calc(-1 * var(--gutter));
+    padding-inline: var(--gutter);
+    overflow: hidden;
+    isolation: isolate;
+  }
+  @media (min-width: 64rem) {
+    .hero {
+      margin-inline: calc(-1 * clamp(1.5rem, 3vw, 3rem));
+      padding-inline: clamp(1.5rem, 3vw, 3rem);
+    }
+  }
+  .hero__content {
+    position: relative;
+    z-index: 1;
+    display: grid;
+    gap: var(--sp-3);
+    max-inline-size: 56rem;
+  }
+  .hero__eyebrow {
+    display: inline-flex;
+    align-items: center;
+    gap: var(--sp-2);
+  }
+  .hero__pulse {
+    inline-size: 8px;
+    block-size: 8px;
+    border-radius: 50%;
+    background: var(--signal);
+    box-shadow: 0 0 0 0 var(--signal-soft);
+    animation: pulse 2.4s var(--ease-standard) infinite;
+  }
+  @keyframes pulse {
+    0% {
+      box-shadow: 0 0 0 0 var(--signal-soft);
+    }
+    70% {
+      box-shadow: 0 0 0 10px transparent;
+    }
+    100% {
+      box-shadow: 0 0 0 0 transparent;
+    }
+  }
+  .hero__title {
+    font-size: var(--fs-5);
+    font-weight: 620;
+    letter-spacing: -0.03em;
+    font-variation-settings:
+      'opsz' 96,
+      'wdth' 95;
+    animation: reveal var(--dur-emphasis) var(--ease-enter) both;
+  }
+  .hero__lede {
+    font-size: var(--fs-1);
+    color: var(--text-2);
+    max-inline-size: 42rem;
+    animation: reveal var(--dur-emphasis) var(--ease-enter) both;
+    animation-delay: var(--stagger-medium);
+  }
+  .hero__lede strong {
+    color: var(--text-1);
+    font-weight: 560;
+  }
+  .hero__tagline {
+    color: var(--ink-signal);
+    font-size: var(--fs-0);
+    min-block-size: 1.6em;
+    animation: reveal var(--dur-emphasis) var(--ease-enter) both;
+    animation-delay: calc(var(--stagger-medium) * 2);
+  }
+  .hero__actions {
+    animation: reveal var(--dur-emphasis) var(--ease-enter) both;
+    animation-delay: calc(var(--stagger-medium) * 3);
+  }
+  .trace-section {
+    padding-block-start: var(--sp-6);
+  }
+  .trace-section__head {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    align-items: end;
+    gap: var(--sp-3);
+    margin-block-end: var(--sp-4);
+  }
+  .home-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(min(100%, 14rem), 1fr));
+    gap: var(--sp-3);
+    margin-block-start: var(--sp-7);
+  }
+  .tile {
+    display: grid;
+    gap: var(--sp-1);
+    text-decoration: none;
+    color: var(--text-1);
+    transition:
+      transform var(--dur-fast) var(--ease-standard),
+      border-color var(--dur-fast) var(--ease-standard);
+  }
+  .tile:hover {
+    transform: translateY(-2px);
+    border-color: var(--border-strong);
+  }
+}

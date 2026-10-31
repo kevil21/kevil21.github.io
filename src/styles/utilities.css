@@ -1,0 +1,174 @@
+@layer utilities {
+  .flow > * + * {
+    margin-block-start: var(--flow, var(--sp-4));
+  }
+  .cluster {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--cluster-gap, var(--sp-2));
+    align-items: center;
+  }
+  .stack {
+    display: grid;
+    gap: var(--stack-gap, var(--sp-3));
+  }
+  .wrap {
+    inline-size: min(100% - 2 * var(--gutter), var(--content-max));
+    margin-inline: auto;
+  }
+  .eyebrow {
+    font-family: var(--font-mono);
+    font-size: var(--fs--1);
+    letter-spacing: 0.04em;
+    text-transform: uppercase;
+    color: var(--text-3);
+  }
+  .chip {
+    display: inline-flex;
+    align-items: center;
+    gap: var(--sp-1);
+    min-block-size: 1.9rem;
+    padding-inline: 0.65em;
+    border-radius: var(--r-pill);
+    border: var(--hairline) solid var(--border);
+    background: var(--surface-1);
+    color: var(--text-2);
+    font-size: var(--fs--1);
+    line-height: 1;
+    text-decoration: none;
+    white-space: nowrap;
+    transition:
+      background var(--dur-fast) var(--ease-standard),
+      border-color var(--dur-fast) var(--ease-standard),
+      color var(--dur-fast) var(--ease-standard),
+      transform var(--dur-fast) var(--ease-standard);
+  }
+  .chip:hover,
+  .chip:focus-visible {
+    border-color: var(--border-strong);
+    color: var(--text-1);
+    transform: translateY(-1px);
+  }
+  .chip.is-active,
+  .chip[aria-pressed='true'] {
+    background: var(--signal-soft);
+    border-color: var(--ink-signal);
+    color: var(--text-1);
+  }
+  .card {
+    background: var(--surface-1);
+    border: var(--hairline) solid var(--border);
+    border-radius: var(--r-2);
+    padding: var(--sp-5);
+  }
+  .btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: var(--sp-2);
+    min-block-size: var(--target);
+    padding: 0 var(--sp-4);
+    border-radius: var(--r-2);
+    border: var(--hairline) solid var(--border-strong);
+    background: var(--surface-1);
+    color: var(--text-1);
+    font-weight: 540;
+    text-decoration: none;
+    transition:
+      transform var(--dur-fast) var(--ease-standard),
+      background var(--dur-fast) var(--ease-standard),
+      border-color var(--dur-fast) var(--ease-standard);
+  }
+  .btn:hover {
+    transform: translateY(-1px);
+    border-color: var(--text-3);
+  }
+  .btn:active {
+    transform: scale(0.98);
+  }
+  .btn--primary {
+    background: var(--signal);
+    color: var(--signal-text);
+    border-color: transparent;
+  }
+  .btn--primary:hover {
+    background: var(--signal-strong);
+  }
+  .btn--ghost {
+    background: transparent;
+    border-color: transparent;
+    color: var(--text-2);
+  }
+  .btn--ghost:hover {
+    background: var(--surface-2);
+    color: var(--text-1);
+  }
+  .btn:disabled,
+  .btn[aria-disabled='true'] {
+    background: var(--disabled-bg);
+    color: var(--disabled-text);
+    border-color: transparent;
+    cursor: not-allowed;
+    transform: none;
+  }
+  .kind-dot {
+    inline-size: 0.6em;
+    block-size: 0.6em;
+    border-radius: 50%;
+    background: var(--kind, var(--text-3));
+    flex: none;
+  }
+  .status-pill {
+    display: inline-flex;
+    align-items: center;
+    gap: var(--sp-1);
+    padding: 0.15em 0.6em;
+    border-radius: var(--r-pill);
+    font-family: var(--font-mono);
+    font-size: var(--fs--2);
+    background: var(--surface-2);
+    color: var(--text-2);
+  }
+  .status-pill[data-tone='ok'] {
+    background: var(--ok-bg);
+    color: var(--ok);
+  }
+  .status-pill[data-tone='warn'] {
+    background: var(--warn-bg);
+    color: var(--warn);
+  }
+  .status-pill[data-tone='danger'] {
+    background: var(--danger-bg);
+    color: var(--danger);
+  }
+  .status-pill[data-tone='info'] {
+    background: var(--info-bg);
+    color: var(--info);
+  }
+  .skeleton {
+    background: linear-gradient(90deg, var(--skeleton-a), var(--skeleton-b), var(--skeleton-a));
+    background-size: 200% 100%;
+    border-radius: var(--r-1);
+    animation: skeleton var(--dur-cinematic) linear infinite;
+  }
+  @keyframes skeleton {
+    to {
+      background-position: -200% 0;
+    }
+  }
+  .reveal {
+    animation: reveal var(--dur-emphasis) var(--ease-enter) both;
+    animation-delay: calc(var(--i, 0) * var(--stagger-medium));
+  }
+  @keyframes reveal {
+    from {
+      opacity: 0;
+      transform: translateY(8px);
+    }
+  }
+  .no-print {
+    @media print {
+      display: none !important;
+    }
+  }
+}

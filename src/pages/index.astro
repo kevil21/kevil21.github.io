@@ -1,0 +1,127 @@
+---
+import Shell from '@/layouts/Shell.astro';
+import TraceWaterfall from '@/components/trace/TraceWaterfall.astro';
+import SpanDetails from '@/components/trace/SpanDetails.astro';
+import SignalField from '@/components/trace/SignalField.astro';
+import SpanSheet from '@/components/trace/SpanSheet.astro';
+import { pageData, personJsonLd } from '@/lib/page-data';
+import { routes } from '@/lib/knowledge/routes';
+import '@/components/trace/trace.css';
+import '@/styles/pages/home.css';
+
+const { data, graph, trace, signal, labels } = await pageData();
+const p = data.profile;
+const meta = {
+  title: 'Kevil Patel',
+  description: `${p.title} at Kyndryl — ${p.headline.toLowerCase()}. A career presented as a distributed trace: every role, project, skill and credential links to its evidence.`,
+  path: routes.home(),
+  type: 'profile' as const,
+};
+---
+
+<Shell meta={meta} current="trace" jsonLd={personJsonLd(data)} panel>
+  <section class="hero" aria-labelledby="hero-title">
+    <SignalField series={signal} />
+    <div class="hero__content">
+      <p class="eyebrow hero__eyebrow">
+        <span class="hero__pulse" aria-hidden="true"></span>trace · kevilpatel.in · {trace.rows.length} spans
+        · {trace.credentials.length} credentials
+      </p>
+      <h1 id="hero-title" class="hero__title">
+        {p.name}
+      </h1>
+      <p class="hero__lede">
+        <strong>{p.title}</strong> at Kyndryl, Agentic AI practice.{' '}
+        {p.headline.replace('Building', 'Building')}.
+      </p>
+      <p class="hero__tagline mono" data-taglines={JSON.stringify(p.taglines)} aria-live="off">
+        {p.taglines[0]}
+      </p>
+      <div class="hero__actions cluster">
+        <a class="btn btn--primary" href={routes.resume()}>
+          Open résumé
+        </a>
+        <button type="button" class="btn" data-open-palette>
+          Ask about my work <kbd>⌘K</kbd>
+        </button>
+        <a class="btn btn--ghost" href={routes.match()}>
+          Match a job description →
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <section class="trace-section" aria-labelledby="trace-title">
+    <header class="trace-section__head">
+      <div>
+        <h2 id="trace-title">Career trace</h2>
+        <p class="muted small">
+          Each row is a span. Hover a skill to light up everything that carries it; select a span for its
+          evidence.
+        </p>
+      </div>
+      <a class="btn btn--ghost small" href={routes.journeys()}>
+        Guided journeys →
+      </a>
+    </header>
+    <TraceWaterfall trace={trace} labels={labels} />
+  </section>
+
+  <section class="home-grid" aria-label="Quick access">
+    <a class="card tile" href="/work/">
+      <span class="eyebrow">Work</span>
+      <strong>{data.projects.length} projects</strong>
+      <span class="small muted">
+        {data.projects
+          .filter((x) => x.kind === 'flagship')
+          .map((x) => x.shortName ?? x.name)
+          .join(' · ')}{' '}
+        and {data.projects.length - 2} more
+      </span>
+    </a>
+    <a class="card tile" href={routes.skills()}>
+      <span class="eyebrow">Skills</span>
+      <strong>
+        {data.skills.length} skills · {data.technologies.length} technologies
+      </strong>
+      <span class="small muted">every skill lists the roles, projects and credentials that evidence it</span>
+    </a>
+    <a class="card tile" href={routes.credentials()}>
+      <span class="eyebrow">Credentials</span>
+      <strong>{data.certifications.length} certifications</strong>
+      <span class="small muted">AWS · Microsoft · GitHub · Founderz, each with a credential ID</span>
+    </a>
+    <a class="card tile" href={routes.observatory()}>
+      <span class="eyebrow">Behind the architecture</span>
+      <strong>Static-first, local AI</strong>
+      <span class="small muted">see which intelligence tier your device is running right now</span>
+    </a>
+  </section>
+
+  <SpanDetails slot="panel" data={data} trace={trace} graph={graph} labels={labels} />
+  <SpanSheet />
+
+  <script>
+    import { initTrace } from '@/features/trace/controller';
+    import { initTaglines } from '@/features/trace/taglines';
+    const boot = () => {
+      const root = document.querySelector<HTMLElement>('[data-trace]');
+      if (root && !root.dataset.ready) {
+        root.dataset.ready = '1';
+        initTrace(root);
+      }
+      const tag = document.querySelector<HTMLElement>('[data-taglines]');
+      if (tag && !tag.dataset.ready) {
+        tag.dataset.ready = '1';
+        initTaglines(tag);
+      }
+      const field = document.querySelector<HTMLElement>('[data-signal-field]');
+      if (field && !field.dataset.ready) {
+        field.dataset.ready = '1';
+        import('@/features/signal/mount').then((m) => m.mountSignalField(field));
+      }
+    };
+    boot();
+    document.addEventListener('astro:page-load', boot);
+  </script>
+</Shell>

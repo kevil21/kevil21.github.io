@@ -1,0 +1,203 @@
+[
+  { "id": "langgraph", "name": "LangGraph", "skill": "agentic-ai", "source": "KPOS/site/app.js#L958-L981" },
+  { "id": "langchain", "name": "LangChain", "skill": "agentic-ai", "source": "KPOS/site/app.js#L958-L981" },
+  {
+    "id": "azure-ai-foundry",
+    "name": "Azure AI Foundry",
+    "skill": "agentic-ai",
+    "url": "https://azure.microsoft.com/en-us/products/ai-foundry",
+    "source": "KPOS/site/app.js#L958-L981"
+  },
+  { "id": "vertex-ai", "name": "Vertex AI", "skill": "gcp", "source": "KPOS/site/app.js#L958-L981" },
+  {
+    "id": "gemini",
+    "name": "Gemini 2.5 Pro",
+    "skill": "agentic-ai",
+    "source": "KPOS/site/index.html#L394-L473"
+  },
+  {
+    "id": "litellm",
+    "name": "LiteLLM",
+    "skill": "agentic-ai",
+    "source": "KPOS/site/Kevil_Resume_2026.md#L73-L78"
+  },
+  { "id": "lstm", "name": "LSTM networks", "skill": "time-series", "source": "KPOS/site/app.js#L958-L981" },
+  {
+    "id": "tensorflow",
+    "name": "TensorFlow",
+    "skill": "machine-learning",
+    "source": "KPOS/site/app.js#L1571-L1632"
+  },
+
+  {
+    "id": "aks",
+    "name": "Azure Kubernetes Service",
+    "skill": "azure",
+    "source": "KPOS/site/app.js#L958-L981"
+  },
+  {
+    "id": "azure-container-apps",
+    "name": "Azure Container Apps",
+    "skill": "azure",
+    "source": "KPOS/site/app.js#L958-L981"
+  },
+  {
+    "id": "azure-functions",
+    "name": "Azure Functions",
+    "skill": "azure",
+    "source": "KPOS/site/app.js#L958-L981"
+  },
+  {
+    "id": "azure-app-service",
+    "name": "Azure App Service",
+    "skill": "azure",
+    "source": "KPOS/site/app.js#L958-L981"
+  },
+  {
+    "id": "azure-data-explorer",
+    "name": "Azure Data Explorer / KQL",
+    "skill": "observability",
+    "source": "KPOS/site/app.js#L958-L981"
+  },
+  { "id": "cosmos-db", "name": "Azure Cosmos DB", "skill": "azure", "source": "KPOS/site/app.js#L958-L981" },
+  {
+    "id": "kyndryl-bridge",
+    "name": "Kyndryl Bridge",
+    "skill": "observability",
+    "url": "https://www.kyndryl.com/in/en/services/platform",
+    "source": "KPOS/site/index.html#L481-L505"
+  },
+  {
+    "id": "aws-ec2",
+    "name": "Amazon EC2",
+    "skill": "aws",
+    "source": "KPOS/site/Kevil_Resume_2026.md#L46-L50"
+  },
+  { "id": "aws-s3", "name": "Amazon S3", "skill": "aws", "source": "KPOS/site/Kevil_Resume_2026.md#L46-L50" },
+  {
+    "id": "aws-sagemaker",
+    "name": "Amazon SageMaker",
+    "skill": "aws",
+    "source": "KPOS/site/Kevil_Resume_2026.md#L46-L50"
+  },
+  {
+    "id": "aws-kinesis",
+    "name": "Amazon Kinesis",
+    "skill": "aws",
+    "source": "KPOS/site/Kevil_Resume_2026.md#L46-L50"
+  },
+  {
+    "id": "gcp",
+    "name": "Google Cloud Platform",
+    "skill": "gcp",
+    "source": "KPOS/site/Kevil_Resume_2026.md#L46-L50"
+  },
+  {
+    "id": "cloud-run",
+    "name": "Cloud Run",
+    "skill": "gcp",
+    "source": "KPOS/site/Kevil_Resume_2026.md#L46-L50"
+  },
+  { "id": "cloud-build", "name": "Cloud Build", "skill": "gcp", "source": "KPOS/site/index.html#L466-L471" },
+  { "id": "firestore", "name": "Firestore", "skill": "gcp", "source": "KPOS/site/index.html#L466-L471" },
+  {
+    "id": "bicep",
+    "name": "Bicep",
+    "skill": "infrastructure-as-code",
+    "source": "KPOS/site/app.js#L958-L981"
+  },
+  {
+    "id": "terraform",
+    "name": "Terraform",
+    "skill": "infrastructure-as-code",
+    "source": "KPOS/site/app.js#L958-L981"
+  },
+
+  { "id": "docker", "name": "Docker", "skill": "devops", "source": "KPOS/site/app.js#L958-L981" },
+  { "id": "podman", "name": "Podman", "skill": "devops", "source": "KPOS/site/index.html#L466-L471" },
+  { "id": "git", "name": "Git", "skill": "devops", "source": "KPOS/site/app.js#L958-L981" },
+  {
+    "id": "github-actions",
+    "name": "GitHub Actions",
+    "skill": "devops",
+    "source": "KPOS/site/app.js#L958-L981"
+  },
+  {
+    "id": "fastapi",
+    "name": "FastAPI",
+    "skill": "backend-engineering",
+    "source": "KPOS/site/app.js#L958-L981"
+  },
+  {
+    "id": "pydantic",
+    "name": "Pydantic v2",
+    "skill": "backend-engineering",
+    "source": "KPOS/site/index.html#L466-L471"
+  },
+  {
+    "id": "apscheduler",
+    "name": "APScheduler",
+    "skill": "backend-engineering",
+    "source": "KPOS/site/index.html#L466-L471"
+  },
+  {
+    "id": "nodejs",
+    "name": "Node.js",
+    "skill": "backend-engineering",
+    "source": "KPOS/site/app.js#L958-L981"
+  },
+  {
+    "id": "nextjs",
+    "name": "Next.js",
+    "skill": "frontend-engineering",
+    "source": "KPOS/site/app.js#L958-L981"
+  },
+  { "id": "react", "name": "React", "skill": "frontend-engineering", "source": "KPOS/site/app.js#L958-L981" },
+  {
+    "id": "vite",
+    "name": "Vite",
+    "skill": "frontend-engineering",
+    "source": "KPOS/site/index.html#L466-L471"
+  },
+  {
+    "id": "shidoka",
+    "name": "Shidoka design system",
+    "skill": "frontend-engineering",
+    "source": "KPOS/site/Kevil_Resume_2026.md#L73-L78"
+  },
+  { "id": "typescript", "name": "TypeScript", "skill": "typescript", "source": "KPOS/site/app.js#L958-L981" },
+  { "id": "python", "name": "Python", "skill": "python", "source": "KPOS/site/app.js#L958-L981" },
+
+  {
+    "id": "elasticsearch",
+    "name": "Elasticsearch",
+    "skill": "data-engineering",
+    "source": "KPOS/site/app.js#L958-L981"
+  },
+  { "id": "kibana", "name": "Kibana", "skill": "data-engineering", "source": "KPOS/site/app.js#L958-L981" },
+  {
+    "id": "postgresql",
+    "name": "PostgreSQL",
+    "skill": "data-engineering",
+    "source": "KPOS/site/app.js#L958-L981"
+  },
+  {
+    "id": "opentelemetry",
+    "name": "OpenTelemetry",
+    "skill": "observability",
+    "source": "KPOS/site/app.js#L958-L981"
+  },
+  { "id": "pandas", "name": "pandas", "skill": "data-engineering", "source": "KPOS/site/app.js#L1571-L1632" },
+  {
+    "id": "numpy",
+    "name": "NumPy",
+    "skill": "data-engineering",
+    "source": "KPOS/site/Kevil_Resume_2026.md#L91-L92"
+  },
+  {
+    "id": "jupyter",
+    "name": "Jupyter",
+    "skill": "data-engineering",
+    "source": "KPOS/site/app.js#L1571-L1632"
+  }
+]

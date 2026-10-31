@@ -1,0 +1,121 @@
+---
+/**
+ * Signature visual. Server-renders a static SVG from the real signal series so the first paint
+ * (and no-JS, print, reduced-data) already shows the career signal. The SignalFieldGL island
+ * upgrades it to WebGL/Canvas on capable devices and reads the same tokens.
+ */
+import type { SignalSeries } from '@/lib/knowledge/signal';
+interface Props {
+  series: SignalSeries;
+}
+const { series } = Astro.props;
+const W = 1200;
+const H = 320;
+const n = series.activity.length;
+const max = Math.max(1, ...series.activity);
+const lanes = ['education', 'community', 'role', 'project', 'certification'] as const;
+const path = (vals: number[], amp: number, base: number) => {
+  const pts = vals.map((v, i) => [(i / (n - 1)) * W, base - (v / max) * amp] as const);
+  let d = `M${pts[0]![0].toFixed(1)},${pts[0]![1].toFixed(1)}`;
+  for (let i = 1; i < pts.length; i++) {
+    const [x0, y0] = pts[i - 1]!;
+    const [x1, y1] = pts[i]!;
+    const cx = (x0 + x1) / 2;
+    d += ` C${cx.toFixed(1)},${y0.toFixed(1)} ${cx.toFixed(1)},${y1.toFixed(1)} ${x1.toFixed(1)},${y1.toFixed(1)}`;
+  }
+  return d;
+};
+const json = JSON.stringify({
+  startIndex: series.startIndex,
+  activity: series.activity,
+  lanes: series.lanes,
+  labels: series.labels,
+});
+---
+
+<div class="signal-field" data-signal-field aria-hidden="true">
+  <svg class="signal-field__svg" viewBox={`0 0 ${W} ${H}`} preserveAspectRatio="none" data-signal-svg>
+    {lanes.map((lane, k) => (
+      <path
+        class="signal-field__lane"
+        data-lane={lane}
+        d={path(series.lanes[lane], 170 - k * 18, H - 20 - k * 14)}
+        style={`--lane:var(--kind-${lane});--k:${k}`}
+        fill="none"
+        stroke="currentColor"
+        stroke-width="1.5"
+        vector-effect="non-scaling-stroke"
+      />
+    ))}
+    <path
+      class="signal-field__total"
+      d={path(series.activity, 230, H - 10)}
+      fill="none"
+      stroke="currentColor"
+      stroke-width="2.2"
+      vector-effect="non-scaling-stroke"
+    />
+  </svg>
+  <script type="application/json" data-signal-series set:html={json} />
+  <div class="signal-field__gl" data-signal-gl></div>
+</div>
+
+<style>
+  @layer components {
+    .signal-field {
+      position: absolute;
+      inset: 0;
+      overflow: hidden;
+      pointer-events: none;
+      mask-image: linear-gradient(to bottom, transparent, black 15%, black 70%, transparent);
+      -webkit-mask-image: linear-gradient(to bottom, transparent, black 15%, black 70%, transparent);
+    }
+    .signal-field__svg {
+      position: absolute;
+      inset: 0;
+      inline-size: 100%;
+      block-size: 100%;
+      opacity: 0.9;
+    }
+    .signal-field__lane {
+      color: var(--lane);
+      opacity: 0.55;
+      stroke-dasharray: 4000;
+      stroke-dashoffset: 4000;
+      animation: signal-draw var(--dur-cinematic) var(--ease-enter) forwards;
+      animation-delay: calc(var(--k) * var(--stagger-medium));
+    }
+    .signal-field__total {
+      color: var(--ink-signal);
+      opacity: 0.9;
+      stroke-dasharray: 4000;
+      stroke-dashoffset: 4000;
+      animation: signal-draw calc(var(--dur-cinematic) * 1.4) var(--ease-enter) forwards;
+    }
+    .signal-field__gl {
+      position: absolute;
+      inset: 0;
+    }
+    .signal-field.is-gl .signal-field__svg {
+      opacity: 0;
+      transition: opacity var(--dur-emphasis) var(--ease-standard);
+    }
+    @keyframes signal-draw {
+      to {
+        stroke-dashoffset: 0;
+      }
+    }
+    @media (prefers-reduced-motion: reduce) {
+      .signal-field__lane,
+      .signal-field__total {
+        animation: none;
+        stroke-dashoffset: 0;
+      }
+    }
+    :root[data-motion='reduce'] .signal-field__lane,
+    :root[data-motion='reduce'] .signal-field__total {
+      animation: none;
+      stroke-dashoffset: 0;
+    }
+  }
+</style>

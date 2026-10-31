@@ -1,0 +1,35 @@
+---
+import Shell from '@/layouts/Shell.astro';
+import Ask from '@/islands/Ask';
+import { pageData } from '@/lib/page-data';
+import { routes } from '@/lib/knowledge/routes';
+import '@/styles/pages/pages.css';
+
+const { graph } = await pageData();
+const knownIds = [...graph.nodes.keys()];
+const meta = {
+  title: 'Ask about my work',
+  description:
+    'Ask questions about Kevil Patel’s experience, projects and credentials. Answers are generated on your device, grounded in the portfolio’s evidence, and always link to their sources.',
+  path: routes.ask(),
+};
+---
+
+<Shell meta={meta} current="ask">
+  <header class="page-head">
+    <span class="eyebrow">ask · on-device intelligence</span>
+    <h1 class="page-head__title">Ask about my work</h1>
+    <p class="page-head__lede">
+      Retrieve → rank → ground → answer. The Pocket Brain works on every device; the Full Brain is an optional
+      download for WebGPU-capable machines. Either way, every answer cites evidence you can open.
+    </p>
+  </header>
+  <noscript>
+    <p class="note">
+      The assistant runs in your browser and needs JavaScript. The complete portfolio is available as static
+      pages: <a href="/">trace</a>, <a href="/work/">work</a>, <a href={routes.skills()}>skills</a>,{' '}
+      <a href={routes.credentials()}>credentials</a>, <a href={routes.resume()}>résumé</a>.
+    </p>
+  </noscript>
+  <Ask client:load knownIds={knownIds} />
+</Shell>

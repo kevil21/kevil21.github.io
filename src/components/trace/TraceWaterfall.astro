@@ -1,0 +1,137 @@
+---
+/**
+ * Server-rendered career trace. Works with no JavaScript: every row is a link, every bar is
+ * positioned with CSS custom properties. The TraceController island adds hover/focus traversal,
+ * selection → evidence panel, persona re-ordering and the bottom sheet on small screens.
+ */
+import type { Trace, Span } from '@/lib/knowledge/spans';
+import { fraction } from '@/lib/knowledge/spans';
+import { indexToYM } from '@/lib/knowledge/dates';
+
+interface Props {
+  trace: Trace;
+  /** attribute → label map for chips */
+  labels: Record<string, string>;
+}
+const { trace, labels } = Astro.props;
+const { axis } = trace;
+const pos = (s: Span) => {
+  if (s.start === undefined || s.end === undefined) return { s: 0, e: 0 };
+  return { s: fraction(axis, s.start), e: fraction(axis, s.end + 1) };
+};
+const nowYM = indexToYM(axis.nowIndex);
+const personaFor = (s: Span) =>
+  s.kind === 'project' ? 'engineer' : s.kind === 'role' || s.kind === 'community' ? 'recruiter' : 'all';
+---
+
+<div class="trace" data-trace style={`--axis-years:${axis.years.length}`}>
+  <div class="trace__axis" aria-hidden="true">
+    <span class="trace__axis-label"></span>
+    <div class="trace__axis-track">
+      {axis.years
+        .filter((y, i, arr) => !(i === 0 && arr[1] && arr[1].index - y.index < 8))
+        .map((y) => (
+          <span class="trace__year" style={`--x:${fraction(axis, y.index)}`}>
+            {y.year}
+          </span>
+        ))}
+      <span
+        class="trace__now"
+        style={`--x:${fraction(axis, axis.nowIndex)}`}
+        title={`now · ${nowYM.y}`}
+      ></span>
+    </div>
+  </div>
+
+  <ol class="trace__rows" role="list">
+    {trace.rows.map((s, i) => {
+      const { s: x0, e: x1 } = pos(s);
+      return (
+        <li
+          class="span-row"
+          data-span={s.id}
+          data-kind={s.kind}
+          data-depth={s.depth}
+          data-parent={s.parentId}
+          data-attrs={s.attributes.join(' ')}
+          data-persona-weight={personaFor(s)}
+          data-inherited={s.inherited ? 'true' : undefined}
+          data-late={x1 > 0.78 ? 'true' : undefined}
+          style={`--i:${i};--s:${x0};--e:${x1};--kind:var(--kind-${s.kind})`}
+        >
+          <a class="span-row__label" href={s.url} data-span-link>
+            <span class="kind-dot" aria-hidden="true"></span>
+            <span class="span-row__title">{s.title}</span>
+            <span class="span-row__sub">{s.subtitle}</span>
+          </a>
+          <div class="span-row__track">
+            <span class="span-row__bar" aria-hidden="true"></span>
+            <span class="span-row__dates mono">
+              {s.inherited
+                ? `within ${trace.rows.find((r) => r.id === s.parentId)?.title ?? 'parent'} · `
+                : s.duration
+                  ? `${s.duration} · `
+                  : ''}
+              {s.dateLabel}
+            </span>
+            {s.events.filter((e) => e.kind === 'decision').length > 0 && (
+              <span
+                class="span-row__events mono"
+                aria-label={`${s.events.filter((e) => e.kind === 'decision').length} decisions`}
+              >
+                ◆ {s.events.filter((e) => e.kind === 'decision').length}
+              </span>
+            )}
+          </div>
+          <ul class="span-row__attrs" role="list" aria-label="Skills and technologies">
+            {s.attributes.slice(0, 6).map((a) => (
+              <li>
+                <button type="button" class="attr" data-attr={a}>
+                  {labels[a] ?? a}
+                </button>
+              </li>
+            ))}
+            {s.attributes.length > 6 && <li class="attr attr--more">+{s.attributes.length - 6}</li>}
+          </ul>
+        </li>
+      );
+    })}
+    <li
+      class="span-row span-row--lane"
+      data-span="credentials"
+      data-kind="certification"
+      data-depth="0"
+      data-persona-weight="recruiter"
+      style="--kind:var(--kind-certification)"
+    >
+      <a class="span-row__label" href="/credentials/" data-span-link>
+        <span class="kind-dot" aria-hidden="true"></span>
+        <span class="span-row__title">Credentials</span>
+        <span class="span-row__sub">{trace.credentials.length} verifiable certifications</span>
+      </a>
+      <div class="span-row__track span-row__track--events">
+        {trace.credentials
+          .filter((c) => c.at !== undefined)
+          .map((c) => (
+            <a
+              class="event"
+              href={c.url}
+              style={`--x:${fraction(axis, c.at!)}`}
+              title={c.label}
+              aria-label={c.label}
+              data-event={c.id}
+            >
+              <span aria-hidden="true"></span>
+            </a>
+          ))}
+      </div>
+      <ul class="span-row__attrs" role="list">
+        {trace.credentials
+          .filter((c) => c.at === undefined)
+          .map((c) => (
+            <li class="attr attr--more">{c.label}</li>
+          ))}
+      </ul>
+    </li>
+  </ol>
+</div>

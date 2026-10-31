@@ -1,0 +1,95 @@
+name: Build Brain → GitHub Pages
+
+on:
+  push:
+    branches: [main]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+concurrency:
+  group: 'pages'
+  cancel-in-progress: false
+
+env:
+  PUBLIC_APP_VERSION: ${{ github.sha }}
+
+jobs:
+  build:
+    name: Validate · Build Brain · Build
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Node
+        uses: actions/setup-node@v4
+        with:
+          node-version-file: .node-version
+          cache: npm
+
+      - name: Install
+        run: npm ci
+
+      - name: Cache Build Brain embedder (MiniLM, 23 MB)
+        uses: actions/cache@v4
+        with:
+          path: .cache/models
+          key: brain-models-${{ hashFiles('src/ai/pocket/embedder-config.ts', 'package-lock.json') }}
+
+      - name: Validate (Build Brain → types, lint, format, unit tests)
+        run: |
+          npm run assets
+          npm run brain
+          npm run check
+          npm run lint
+          npm run format:check
+          npm test
+
+      - name: Build (assets → ORT runtime → Build Brain → Astro → service worker → public audit)
+        run: npm run build
+
+      - name: Install Playwright Chromium
+        run: npx playwright install --with-deps chromium
+
+      - name: End-to-end smoke (desktop + mobile, light + dark, reduced motion, axe)
+        run: npx playwright test --project=desktop-dark --project=mobile-light --project=reduced-motion --project=a11y-light --project=a11y-dark
+        env:
+          CI: true
+
+      - name: Upload Playwright report on failure
+        if: failure()
+        uses: actions/upload-artifact@v4
+        with:
+          name: playwright-report
+          path: playwright-report
+          retention-days: 7
+
+      - name: Setup Pages
+        id: pages
+        uses: actions/configure-pages@v5
+
+      - name: Guard root hosting (custom domain requires an empty base path)
+        run: |
+          test -z "${{ steps.pages.outputs.base_path }}" || { echo "Pages base_path is '${{ steps.pages.outputs.base_path }}' — kevilpatel.in must be served from the root"; exit 1; }
+          test "$(cat dist/CNAME)" = "kevilpatel.in"
+
+      - name: Upload Pages artifact (dist/)
+        uses: actions/upload-pages-artifact@v3
+        with:
+          path: ./dist
+
+  deploy:
+    name: Deploy
+    needs: build
+    runs-on: ubuntu-latest
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - name: Deploy to GitHub Pages
+        id: deployment
+        uses: actions/deploy-pages@v4

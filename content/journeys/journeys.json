@@ -1,0 +1,47 @@
+[
+  {
+    "id": "recruiter",
+    "title": "Recruiter in 90 seconds",
+    "duration": "~90 s",
+    "intro": "Role, proof and reach — the shortest path through the evidence.",
+    "steps": [
+      { "node": "kyndryl-associate-sde", "why": "Current role and scope at Kyndryl's Agentic AI practice." },
+      { "node": "a360", "why": "Flagship platform work with stated scale." },
+      {
+        "node": "policy-to-pipelines",
+        "why": "Agentic governance taken from hackathon to production track."
+      },
+      { "node": "aws-saa-c03", "why": "Verifiable cloud architecture credential." },
+      { "node": "ms-ai-102", "why": "Verifiable Azure AI credential." },
+      { "node": "vit-vellore-btech", "why": "Degree, CGPA and entrance rank." }
+    ]
+  },
+  {
+    "id": "engineer",
+    "title": "Engineer deep dive",
+    "duration": "~5 min",
+    "intro": "How the systems were built: pipelines, services, models and the repositories you can read.",
+    "steps": [
+      { "node": "a360", "why": "Streaming telemetry pipeline, sync service and frontend ownership." },
+      { "node": "policy-to-pipelines", "why": "Five agents, typed state, deterministic guardrails." },
+      { "node": "observability", "why": "The skill that connects most of the work." },
+      { "node": "overlay-insights", "why": "Open-source ELK toolkit with clustering." },
+      { "node": "smart-energy-forecasting", "why": "LSTM on AWS streaming services." },
+      { "node": "python", "why": "Primary language across every project." }
+    ]
+  },
+  {
+    "id": "architect",
+    "title": "Architect: decisions and trade-offs",
+    "duration": "~5 min",
+    "intro": "Why the systems look the way they do — each decision links to its project and source.",
+    "steps": [
+      { "node": "a360-adx-source-of-truth", "why": "One analytical truth, one dashboard projection." },
+      { "node": "a360-sync-overlap", "why": "Idempotent replay-safe synchronisation." },
+      { "node": "a360-jwks-auth", "why": "Single identity enforcement point." },
+      { "node": "p2p-langgraph-state-machine", "why": "Agents as nodes with typed state." },
+      { "node": "p2p-risk-guardrails", "why": "Determinism over model judgement where it matters." },
+      { "node": "p2p-mock-mode", "why": "CI without cloud or model dependencies." }
+    ]
+  }
+]

@@ -1,0 +1,34 @@
+---
+import type { Project } from '@/lib/schema';
+import { routes } from '@/lib/knowledge/routes';
+interface Props {
+  project: Project;
+  labels: Record<string, string>;
+}
+const { project: p, labels } = Astro.props;
+---
+
+<a
+  class={`card project-card ${p.kind === 'flagship' ? 'project-card--flagship' : ''}`}
+  href={routes.project(p.id)}
+  data-project={p.id}
+  data-kind={p.kind}
+  data-skills={[...p.skills, ...p.stack].join(' ')}
+  style={`--vt:project-${p.id}`}
+  data-astro-prefetch
+>
+  <div class="project-card__meta">
+    <span class="kind-dot" style="--kind:var(--kind-project)"></span>
+    <span>{p.kind}</span>
+    {p.org && <span>· {p.org}</span>}
+    <span>· {p.period.label}</span>
+  </div>
+  <h2 class="project-card__title">{p.name}</h2>
+  <p class="project-card__tagline">{p.tagline}</p>
+  <div class="project-card__stack">
+    {p.stack.slice(0, 5).map((t) => (
+      <span class="attr">{labels[t] ?? t}</span>
+    ))}
+    {p.stack.length > 5 && <span class="attr attr--more">+{p.stack.length - 5}</span>}
+  </div>
+</a>

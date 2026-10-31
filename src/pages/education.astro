@@ -1,0 +1,79 @@
+---
+import Shell from '@/layouts/Shell.astro';
+import Picture from '@/components/Picture.astro';
+import ProjectCard from '@/components/ProjectCard.astro';
+import { pageData } from '@/lib/page-data';
+import { routes } from '@/lib/knowledge/routes';
+import { formatYM } from '@/lib/knowledge/dates';
+import '@/styles/pages/pages.css';
+
+const { data, labels } = await pageData();
+const meta = {
+  title: 'Education',
+  description: data.education
+    .map(
+      (e) =>
+        `${e.degree}, ${e.institution} (${formatYM(e.start)} → ${formatYM(e.end)}, ${e.grade.label} ${e.grade.value})`,
+    )
+    .join('; '),
+  path: routes.education(),
+};
+---
+
+<Shell meta={meta} current="trace">
+  <header class="page-head">
+    <span class="eyebrow">education · {data.education.length} spans</span>
+    <h1 class="page-head__title">Education</h1>
+  </header>
+  <div class="stack" style="--stack-gap:var(--sp-4)">
+    {data.education.map((e) => {
+      const projects = data.projects.filter((p) => p.parent === e.id);
+      const photo = e.photo ? data.profile.photos.find((p) => p.id === e.photo) : null;
+      return (
+        <article class="edu" id={e.id}>
+          <p class="eyebrow" style="color: var(--ink-kind-education)">
+            {formatYM(e.start)} → {formatYM(e.end)} · {e.location}
+          </p>
+          <h2>{e.degree}</h2>
+          <p class="muted">
+            {e.url ? (
+              <a href={e.url} target="_blank" rel="noopener noreferrer external">
+                {e.institution}
+              </a>
+            ) : (
+              e.institution
+            )}
+          </p>
+          <dl class="facts">
+            <div>
+              <dt>{e.grade.label}</dt>
+              <dd>{e.grade.value}</dd>
+            </div>
+            {e.highlights.map((h) => (
+              <div>
+                <dt>highlight</dt>
+                <dd>{h.text}</dd>
+              </div>
+            ))}
+          </dl>
+          {photo && (
+            <div class="role-photo">
+              <Picture id={photo.id} alt={photo.alt} sizes="(min-width: 64rem) 20rem, 60vw" />
+            </div>
+          )}
+          {projects.length > 0 && (
+            <>
+              <h3 class="span-detail__h">Projects during this span</h3>
+              <div class="page-grid">
+                {projects.map((p) => (
+                  <ProjectCard project={p} labels={labels} />
+                ))}
+              </div>
+            </>
+          )}
+          <p class="small faint mono">sources: {e.sources.join(' · ')}</p>
+        </article>
+      );
+    })}
+  </div>
+</Shell>

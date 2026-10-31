@@ -1,0 +1,160 @@
+[
+  {
+    "id": "python",
+    "name": "Python",
+    "category": "languages",
+    "yearsSelfReported": 5,
+    "source": "KPOS/site/app.js#L958-L981"
+  },
+  {
+    "id": "cpp",
+    "name": "C++",
+    "category": "languages",
+    "yearsSelfReported": 4,
+    "source": "KPOS/site/app.js#L958-L981"
+  },
+  {
+    "id": "java",
+    "name": "Java",
+    "category": "languages",
+    "yearsSelfReported": 3,
+    "source": "KPOS/site/app.js#L958-L981"
+  },
+  {
+    "id": "typescript",
+    "name": "TypeScript",
+    "category": "languages",
+    "yearsSelfReported": 3,
+    "source": "KPOS/site/app.js#L958-L981"
+  },
+  {
+    "id": "r",
+    "name": "R",
+    "category": "languages",
+    "yearsSelfReported": 2,
+    "source": "KPOS/site/app.js#L958-L981"
+  },
+  {
+    "id": "sql",
+    "name": "SQL",
+    "category": "languages",
+    "yearsSelfReported": 4,
+    "source": "KPOS/site/app.js#L958-L981"
+  },
+
+  {
+    "id": "agentic-ai",
+    "name": "Agentic AI",
+    "category": "ai",
+    "yearsSelfReported": 1.5,
+    "summary": "Multi-agent systems, tool use and governance of LLM agents in production.",
+    "source": "KPOS/site/app.js#L958-L981"
+  },
+  {
+    "id": "rag",
+    "name": "Retrieval-augmented generation",
+    "category": "ai",
+    "yearsSelfReported": 1.5,
+    "source": "KPOS/site/app.js#L958-L981"
+  },
+  {
+    "id": "prompt-engineering",
+    "name": "Prompt engineering",
+    "category": "ai",
+    "yearsSelfReported": 1.5,
+    "source": "KPOS/site/app.js#L958-L981"
+  },
+  {
+    "id": "time-series",
+    "name": "Time-series forecasting",
+    "category": "ai",
+    "yearsSelfReported": 2,
+    "source": "KPOS/site/app.js#L958-L981"
+  },
+  {
+    "id": "machine-learning",
+    "name": "Machine learning",
+    "category": "ai",
+    "source": "KPOS/site/Kevil_Resume_2026.md#L46-L50"
+  },
+
+  {
+    "id": "azure",
+    "name": "Microsoft Azure",
+    "category": "cloud",
+    "yearsSelfReported": 2,
+    "source": "KPOS/site/app.js#L958-L981"
+  },
+  {
+    "id": "aws",
+    "name": "Amazon Web Services",
+    "category": "cloud",
+    "yearsSelfReported": 2,
+    "source": "KPOS/site/app.js#L958-L981"
+  },
+  {
+    "id": "gcp",
+    "name": "Google Cloud",
+    "category": "cloud",
+    "yearsSelfReported": 1,
+    "source": "KPOS/site/app.js#L958-L981"
+  },
+  {
+    "id": "cloud-architecture",
+    "name": "Cloud architecture",
+    "category": "cloud",
+    "source": "KPOS/site/index.html#L481-L505"
+  },
+  {
+    "id": "infrastructure-as-code",
+    "name": "Infrastructure as code",
+    "category": "cloud",
+    "source": "KPOS/site/Kevil_Resume_2026.md#L46-L50"
+  },
+
+  {
+    "id": "backend-engineering",
+    "name": "Backend engineering",
+    "category": "dev",
+    "source": "KPOS/site/Kevil_Resume_2026.md#L46-L50"
+  },
+  {
+    "id": "frontend-engineering",
+    "name": "Frontend engineering",
+    "category": "dev",
+    "source": "KPOS/site/Kevil_Resume_2026.md#L46-L50"
+  },
+  {
+    "id": "devops",
+    "name": "DevOps & CI/CD",
+    "category": "dev",
+    "source": "KPOS/site/Kevil_Resume_2026.md#L46-L50"
+  },
+
+  {
+    "id": "observability",
+    "name": "Observability",
+    "category": "data",
+    "summary": "Telemetry pipelines, dashboards and insight generation over OpenTelemetry data.",
+    "source": "KPOS/site/index.html#L481-L505"
+  },
+  {
+    "id": "data-engineering",
+    "name": "Data engineering & analytics",
+    "category": "data",
+    "source": "KPOS/site/Kevil_Resume_2026.md#L46-L50"
+  },
+
+  {
+    "id": "leadership",
+    "name": "Technical leadership",
+    "category": "practice",
+    "source": "KPOS/site/index.html#L481-L505"
+  },
+  {
+    "id": "community",
+    "name": "Community & developer relations",
+    "category": "practice",
+    "source": "KPOS/site/index.html#L481-L505"
+  }
+]

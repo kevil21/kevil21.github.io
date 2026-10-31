@@ -1,0 +1,123 @@
+---
+import Shell from '@/layouts/Shell.astro';
+import EvidenceList from '@/components/EvidenceList.astro';
+import Picture from '@/components/Picture.astro';
+import ProjectCard from '@/components/ProjectCard.astro';
+import { pageData } from '@/lib/page-data';
+import { routes } from '@/lib/knowledge/routes';
+import { formatYM } from '@/lib/knowledge/dates';
+import { getCollection, render } from 'astro:content';
+import '@/styles/pages/pages.css';
+
+export async function getStaticPaths() {
+  const xs = await getCollection('experience');
+  return xs.map((x) => ({ params: { id: x.id }, props: { entry: x } }));
+}
+const { entry } = Astro.props;
+const { data, labels } = await pageData();
+const x = data.experience.find((e) => e.id === entry.id)!;
+const { Content } = await render(entry);
+const projects = data.projects.filter((p) => p.parent === x.id);
+const evidence = data.evidence.filter((v) => x.evidence.includes(v.id) || v.supports.includes(x.id));
+const photo = x.photo ? data.profile.photos.find((p) => p.id === x.photo) : null;
+const attrHref = (id: string) =>
+  data.skills.some((s) => s.id === id)
+    ? routes.skill(id)
+    : routes.technology(data.technologies.find((t) => t.id === id)?.skill ?? id, id);
+const meta = {
+  title: `${x.role} · ${x.org}`,
+  description: `${x.role} at ${x.org}, ${formatYM(x.start)} → ${formatYM(x.end)}. ${x.summary}`.slice(0, 300),
+  path: routes.role(x.id),
+  type: 'article' as const,
+};
+---
+
+<Shell meta={meta} current="trace">
+  <article>
+    <header class="project-head">
+      <p class="eyebrow" style={`color:var(--ink-kind-${x.kind})`}>
+        <span class="kind-dot" style={`--kind:var(--kind-${x.kind})`}></span>{' '}
+        {x.kind === 'community' ? 'community' : x.employmentType} · {formatYM(x.start)} → {formatYM(x.end)}
+        {x.location && <> · {x.location}</>}
+      </p>
+      <h1 class="project-head__title">{x.role}</h1>
+      <p class="project-head__tagline">
+        {x.orgUrl ? (
+          <a href={x.orgUrl} rel="noopener noreferrer external" target="_blank">
+            {x.org}
+          </a>
+        ) : (
+          x.org
+        )}{' '}
+        — {x.summary}
+      </p>
+    </header>
+    <div class="two-col">
+      <div class="flow" style="--flow:var(--sp-6)">
+        <section aria-labelledby="highlights">
+          <h2 id="highlights" class="section__title">
+            Highlights
+          </h2>
+          <ul class="claims" role="list">
+            {x.highlights.map((h, i) => (
+              <li class="claim" style={`--i:${i}`}>
+                <span class="claim__marker" aria-hidden="true"></span>
+                <div>
+                  <p>{h.text}</p>
+                  <div class="claim__meta">
+                    <span title={h.source}>source: {h.source.split('#')[0]}</span>
+                    {h.selfReported && (
+                      <span class="status-pill" data-tone="warn">
+                        as stated in résumé
+                      </span>
+                    )}
+                  </div>
+                </div>
+              </li>
+            ))}
+          </ul>
+        </section>
+        {projects.length > 0 && (
+          <section aria-labelledby="projects">
+            <h2 id="projects" class="section__title">
+              Projects within this span
+            </h2>
+            <div class="page-grid">
+              {projects.map((p) => (
+                <ProjectCard project={p} labels={labels} />
+              ))}
+            </div>
+          </section>
+        )}
+        <section class="prose">
+          <Content />
+        </section>
+      </div>
+      <aside class="flow">
+        {photo && (
+          <div class="role-photo">
+            <Picture id={photo.id} alt={photo.alt} sizes="(min-width: 64rem) 20rem, 80vw" />
+          </div>
+        )}
+        <h2 class="span-detail__h">Skills &amp; technologies</h2>
+        <ul class="cluster" role="list" style="--cluster-gap:4px">
+          {[...x.skills, ...x.technologies].map((a) => (
+            <li>
+              <a class="chip" href={attrHref(a)}>
+                {labels[a] ?? a}
+              </a>
+            </li>
+          ))}
+        </ul>
+        <h2 class="span-detail__h">Evidence</h2>
+        <EvidenceList evidence={evidence} />
+        <h2 class="span-detail__h">Sources</h2>
+        <ul class="span-detail__list" role="list">
+          {x.sources.map((s) => (
+            <li class="mono small">{s}</li>
+          ))}
+        </ul>
+      </aside>
+    </div>
+  </article>
+</Shell>

@@ -1,0 +1,44 @@
+---
+import Base from './Base.astro';
+import Rail from '@/components/Rail.astro';
+import BottomBar from '@/components/BottomBar.astro';
+import CommandPalette from '@/islands/CommandPalette';
+import Toasts from '@/islands/Toasts';
+import type { PageMeta } from '@/lib/seo';
+import '@/styles/shell.css';
+import '@/styles/components.css';
+
+interface Props {
+  meta: PageMeta;
+  current: string;
+  jsonLd?: Record<string, unknown> | Record<string, unknown>[];
+  /** when true the shell renders a right-hand panel slot on wide screens */
+  panel?: boolean;
+  wide?: boolean;
+}
+const { meta, current, jsonLd, panel = false, wide = false } = Astro.props;
+---
+
+<Base
+  meta={meta}
+  jsonLd={jsonLd}
+  bodyClass={`shell ${panel ? 'shell--panel' : ''} ${wide ? 'shell--wide' : ''}`}
+>
+  <slot name="head" slot="head" />
+  <Rail current={current} />
+  <main id="main" class="shell__main" tabindex="-1">
+    <slot />
+  </main>
+  {panel && (
+    <aside class="shell__panel" aria-label="Evidence panel">
+      <slot name="panel" />
+    </aside>
+  )}
+  <BottomBar current={current} />
+  <CommandPalette client:idle />
+  <Toasts client:idle />
+  <script>
+    import { bindPaletteShortcut } from '@/features/palette-shortcut';
+    bindPaletteShortcut();
+  </script>
+</Base>

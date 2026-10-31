@@ -1,0 +1,17 @@
+{
+  "name": "Kevil Patel — TRACE",
+  "short_name": "Kevil Patel",
+  "description": "A career presented as a distributed trace. Static-first portfolio with on-device AI.",
+  "id": "/",
+  "start_url": "/",
+  "scope": "/",
+  "display": "standalone",
+  "background_color": "#15171f",
+  "theme_color": "#15171f",
+  "lang": "en",
+  "icons": [
+    { "src": "/icon-192.png", "sizes": "192x192", "type": "image/png" },
+    { "src": "/icon-512.png", "sizes": "512x512", "type": "image/png" },
+    { "src": "/icon-maskable-512.png", "sizes": "512x512", "type": "image/png", "purpose": "maskable" }
+  ]
+}

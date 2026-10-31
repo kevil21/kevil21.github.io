@@ -1,0 +1,30 @@
+---
+/**
+ * Runs before first paint. Resolves saved preference → prefers-color-scheme and sets data-theme,
+ * color-scheme, persona and the theme-color meta. Kept dependency-free and tiny on purpose.
+ */
+---
+
+<script is:inline>
+  /* eslint-disable no-var, @typescript-eslint/no-unused-vars -- pre-paint script must stay ES5-safe and tiny */
+  (function () {
+    try {
+      var d = document.documentElement;
+      var saved = localStorage.getItem('trace:theme');
+      var sys = matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
+      var t = saved === 'light' || saved === 'dark' ? saved : sys;
+      d.dataset.theme = t;
+      d.style.colorScheme = t;
+      var p = localStorage.getItem('trace:persona');
+      d.dataset.persona = p === 'recruiter' || p === 'architect' ? p : 'engineer';
+      var metas = document.querySelectorAll('meta[name="theme-color"]');
+      for (var i = 0; i < metas.length; i++) {
+        var m = metas[i];
+        var v = t === 'dark' ? m.getAttribute('data-dark') : m.getAttribute('data-light');
+        if (v) m.setAttribute('content', v);
+      }
+    } catch (e) {
+      document.documentElement.dataset.theme = 'dark';
+    }
+  })();
+</script>

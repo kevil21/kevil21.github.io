@@ -1,0 +1,336 @@
+@layer components {
+  .trace {
+    --label-w: clamp(10rem, 24cqi, 16rem);
+    container-type: inline-size;
+    display: grid;
+    gap: var(--sp-2);
+    position: relative;
+  }
+  .trace__axis {
+    display: grid;
+    grid-template-columns: var(--label-w) minmax(0, 1fr);
+    gap: var(--sp-4);
+    position: sticky;
+    inset-block-start: 0;
+    z-index: 2;
+    background: color-mix(in oklab, var(--bg) 88%, transparent);
+    backdrop-filter: blur(8px);
+    padding-block: var(--sp-2);
+    border-block-end: var(--hairline) solid var(--border);
+  }
+  .trace__axis-track {
+    position: relative;
+    block-size: 1.4rem;
+    background-image: linear-gradient(to right, var(--grid-line) 1px, transparent 1px);
+    background-size: calc(100% / var(--axis-years)) 100%;
+  }
+  .trace__year {
+    position: absolute;
+    inset-inline-start: calc(var(--x) * 100%);
+    inset-block-start: 0;
+    translate: 2px 0;
+    font-family: var(--font-mono);
+    font-size: var(--fs--2);
+    color: var(--text-3);
+  }
+  .trace__now {
+    position: absolute;
+    inset-inline-start: calc(var(--x) * 100%);
+    inset-block: -0.25rem;
+    border-inline-start: 2px dashed var(--signal);
+    opacity: 0.6;
+  }
+  .trace__rows {
+    display: grid;
+    gap: 2px;
+  }
+  .span-row {
+    display: grid;
+    grid-template-columns: var(--label-w) minmax(0, 1fr);
+    grid-template-areas:
+      'label track'
+      'label attrs';
+    column-gap: var(--sp-4);
+    align-items: center;
+    padding: var(--sp-2) var(--sp-2);
+    border-radius: var(--r-2);
+    position: relative;
+    transition:
+      background var(--dur-fast) var(--ease-standard),
+      opacity var(--dur-normal) var(--ease-standard);
+    view-transition-name: var(--vt, none);
+  }
+  .span-row:hover,
+  .span-row:focus-within,
+  .span-row.is-selected {
+    background: var(--surface-1);
+  }
+  .span-row.is-selected {
+    box-shadow: inset 0 0 0 1px var(--border-strong);
+  }
+  .trace.has-highlight .span-row:not(.is-related):not(.is-selected) {
+    opacity: 0.35;
+  }
+  .span-row[data-depth='1'] .span-row__label {
+    padding-inline-start: var(--sp-5);
+  }
+  .span-row[data-depth='1'] .span-row__label::before {
+    content: '';
+    position: absolute;
+    inset-inline-start: var(--sp-3);
+    inset-block: 0;
+    border-inline-start: var(--hairline) solid var(--border-strong);
+  }
+  .span-row__label {
+    grid-area: label;
+    position: relative;
+    display: grid;
+    grid-template-columns: auto minmax(0, 1fr);
+    grid-template-areas:
+      'dot title'
+      'dot sub';
+    column-gap: var(--sp-2);
+    align-items: center;
+    color: var(--text-1);
+    text-decoration: none;
+    min-inline-size: 0;
+    min-block-size: var(--target);
+  }
+  .span-row__label .kind-dot {
+    grid-area: dot;
+  }
+  .span-row__title {
+    grid-area: title;
+    font-weight: 560;
+    font-size: var(--fs--1);
+    line-height: var(--lh-snug);
+  }
+  .span-row__sub {
+    grid-area: sub;
+    color: var(--text-3);
+    font-size: var(--fs--2);
+    line-height: var(--lh-snug);
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+  .span-row__track {
+    grid-area: track;
+    position: relative;
+    block-size: 1.75rem;
+    min-inline-size: 0;
+    background-image: linear-gradient(to right, var(--grid-line) 1px, transparent 1px);
+    background-size: calc(100% / var(--axis-years)) 100%;
+  }
+  .span-row__bar {
+    position: absolute;
+    inset-inline-start: calc(var(--s) * 100%);
+    inline-size: max(6px, calc((var(--e) - var(--s)) * 100%));
+    inset-block: 0.35rem;
+    border-radius: var(--r-pill);
+    background: var(--kind);
+    display: flex;
+    align-items: center;
+    padding-inline: var(--sp-2);
+    overflow: hidden;
+    transform-origin: left center;
+    animation: bar-in var(--dur-emphasis) var(--ease-enter) both;
+    animation-delay: calc(var(--i) * var(--stagger-medium) + 120ms);
+  }
+  .span-row[data-inherited] .span-row__bar {
+    background: transparent;
+    border: 2px dashed var(--kind);
+    inset-block: 0.3rem;
+  }
+  .span-row__dates {
+    position: absolute;
+    inset-inline-start: calc(var(--e) * 100% + var(--sp-2));
+    inset-block-start: 50%;
+    translate: 0 -50%;
+    font-size: var(--fs--2);
+    color: var(--text-3);
+    background: color-mix(in oklab, var(--bg) 80%, transparent);
+    padding-inline: var(--sp-1);
+    pointer-events: none;
+  }
+  .span-row[data-late] .span-row__dates {
+    inset-inline-start: auto;
+    inset-inline-end: calc((1 - var(--s)) * 100% + var(--sp-2));
+  }
+  @container (max-width: 4.5rem) {
+  }
+  .span-row__events {
+    position: absolute;
+    inset-inline-start: calc(var(--e) * 100% + var(--sp-2));
+    inset-block-start: 50%;
+    translate: 0 -50%;
+    font-size: var(--fs--2);
+    color: var(--ink-kind-project);
+  }
+  .span-row__attrs {
+    grid-area: attrs;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 4px;
+    padding-block-start: 4px;
+    max-block-size: 0;
+    overflow: hidden;
+    opacity: 0;
+    transition:
+      max-block-size var(--dur-normal) var(--ease-standard),
+      opacity var(--dur-normal) var(--ease-standard);
+  }
+  .span-row:hover .span-row__attrs,
+  .span-row:focus-within .span-row__attrs,
+  .span-row.is-selected .span-row__attrs,
+  .trace.show-attrs .span-row__attrs {
+    max-block-size: 6rem;
+    opacity: 1;
+  }
+  .attr {
+    display: inline-flex;
+    align-items: center;
+    min-block-size: 1.625rem;
+    padding-inline: 0.5em;
+    border-radius: var(--r-1);
+    background: var(--surface-2);
+    color: var(--text-2);
+    font-family: var(--font-mono);
+    font-size: var(--fs--2);
+    border: var(--hairline) solid transparent;
+    transition:
+      border-color var(--dur-fast) var(--ease-standard),
+      color var(--dur-fast) var(--ease-standard);
+  }
+  .attr:hover,
+  .attr:focus-visible,
+  .attr.is-active {
+    border-color: var(--ink-trace);
+    color: var(--text-1);
+  }
+  .attr--more {
+    color: var(--text-3);
+  }
+  .span-row--lane .span-row__track--events {
+    background-image: linear-gradient(to right, var(--grid-line) 1px, transparent 1px);
+  }
+  .event {
+    position: absolute;
+    inset-inline-start: calc(var(--x) * 100%);
+    inset-block-start: 50%;
+    translate: -50% -50%;
+    inline-size: var(--target);
+    block-size: var(--target);
+    display: grid;
+    place-items: center;
+  }
+  .event > span {
+    inline-size: 12px;
+    block-size: 12px;
+    rotate: 45deg;
+    background: var(--kind-certification);
+    border-radius: 2px;
+    transition: transform var(--dur-fast) var(--ease-spring);
+    animation: event-in var(--dur-emphasis) var(--ease-enter) both;
+    animation-delay: calc(var(--stagger-medium) * 12);
+  }
+  .event:hover > span,
+  .event:focus-visible > span,
+  .event.is-active > span {
+    transform: scale(1.35);
+  }
+  @keyframes bar-in {
+    from {
+      transform: scaleX(0);
+    }
+  }
+  @keyframes event-in {
+    from {
+      opacity: 0;
+      transform: scale(0);
+    }
+  }
+  @media (prefers-reduced-motion: reduce) {
+    .span-row__bar,
+    .event > span {
+      animation: none;
+    }
+  }
+  :root[data-motion='reduce'] .span-row__bar,
+  :root[data-motion='reduce'] .event > span {
+    animation: none;
+  }
+
+  /* Persona emphasis: de-emphasise rows outside the persona's focus (facts never change) */
+  :root[data-persona='recruiter']
+    .span-row[data-kind='project'][data-depth='1']:not(.is-selected):not(.is-related) {
+    opacity: 0.55;
+  }
+  :root[data-persona='architect'] .span-row__events {
+    font-weight: 600;
+    color: var(--ink-signal);
+  }
+
+  /* ---------- Narrow containers: rail timeline ---------- */
+  @container (max-width: 44rem) {
+    .trace__axis {
+      display: none;
+    }
+    .span-row {
+      grid-template-columns: minmax(0, 1fr);
+      grid-template-areas:
+        'label'
+        'track'
+        'attrs';
+      padding-inline-start: var(--sp-5);
+    }
+    .span-row::before {
+      content: '';
+      position: absolute;
+      inset-inline-start: calc(var(--sp-2) + 5px);
+      inset-block: 0;
+      border-inline-start: 2px solid var(--kind);
+      opacity: 0.5;
+    }
+    .span-row[data-depth='1'] {
+      padding-inline-start: var(--sp-7);
+    }
+    .span-row[data-depth='1'] .span-row__label {
+      padding-inline-start: 0;
+    }
+    .span-row[data-depth='1'] .span-row__label::before {
+      display: none;
+    }
+    .span-row__track {
+      block-size: auto;
+      background: none;
+      display: flex;
+      flex-wrap: wrap;
+      gap: var(--sp-2);
+      align-items: center;
+    }
+    .span-row__bar {
+      position: static;
+      inline-size: auto;
+      block-size: 1.25rem;
+      padding-inline: var(--sp-2);
+      animation: none;
+    }
+    .span-row__dates,
+    .span-row__events {
+      position: static;
+      translate: none;
+      background: none;
+    }
+    .span-row__track--events {
+      min-block-size: 2.5rem;
+      position: relative;
+      background-image: none;
+      border-block-end: var(--hairline) solid var(--border);
+    }
+    .span-row__attrs {
+      max-block-size: none;
+      opacity: 1;
+    }
+  }
+}

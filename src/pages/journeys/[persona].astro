@@ -1,0 +1,74 @@
+---
+import Shell from '@/layouts/Shell.astro';
+import { pageData } from '@/lib/page-data';
+import { routes } from '@/lib/knowledge/routes';
+import { getCollection } from 'astro:content';
+import '@/styles/pages/pages.css';
+
+export async function getStaticPaths() {
+  const js = await getCollection('journeys');
+  return js.map((j) => ({ params: { persona: j.id } }));
+}
+const { persona } = Astro.params;
+const { data, graph } = await pageData();
+const j = data.journeys.find((x) => x.id === persona)!;
+const meta = {
+  title: j.title,
+  description: `${j.intro} ${j.steps.length} steps, about ${j.duration}.`,
+  path: routes.journey(j.id),
+};
+---
+
+<Shell meta={meta} current="journeys">
+  <header class="page-head" data-journey={j.id}>
+    <span class="eyebrow">
+      journey · {j.id} · {j.duration}
+    </span>
+    <h1 class="page-head__title">{j.title}</h1>
+    <p class="page-head__lede">{j.intro}</p>
+    <p class="small faint">
+      Opening this journey switches the site to the <strong>{j.id}</strong> persona. Facts never change — only
+      emphasis and order.
+    </p>
+  </header>
+  <ol class="story" role="list">
+    {j.steps.map((s, i) => {
+      const n = graph.nodes.get(s.node)!;
+      return (
+        <li class="story__step card" style={`--i:${i}`}>
+          <span class="story__num" aria-hidden="true">
+            {i + 1}
+          </span>
+          <div class="flow" style="--flow:var(--sp-1)">
+            <span class="eyebrow" style={`color:var(--ink-${n.tone})`}>
+              {n.kind}
+            </span>
+            <h2 style="font-size:var(--fs-1)">
+              <a
+                href={n.url}
+                target={n.external ? '_blank' : undefined}
+                rel={n.external ? 'noopener noreferrer external' : undefined}
+              >
+                {n.title}
+              </a>
+            </h2>
+            {n.subtitle && <p class="small muted">{n.subtitle}</p>}
+            <p class="small" style="color: var(--ink-trace)">
+              why: {s.why}
+            </p>
+          </div>
+        </li>
+      );
+    })}
+  </ol>
+  <script>
+    import { setPersona } from '@/lib/stores/persona';
+    const boot = () => {
+      const el = document.querySelector<HTMLElement>('[data-journey]');
+      const p = el?.dataset.journey;
+      if (p === 'recruiter' || p === 'engineer' || p === 'architect') setPersona(p);
+    };
+    boot();
+    document.addEventListener('astro:page-load', boot);
+  </script>
+</Shell>

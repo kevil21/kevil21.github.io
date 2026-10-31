@@ -1,0 +1,108 @@
+{
+  "aws": {
+    "width": 3000,
+    "height": 2000,
+    "variants": []
+  },
+  "founderz": {
+    "width": 1210,
+    "height": 1210,
+    "variants": []
+  },
+  "headshot": {
+    "width": 960,
+    "height": 960,
+    "variants": [
+      {
+        "w": 320,
+        "avif": "/images/derived/headshot-320.avif",
+        "webp": "/images/derived/headshot-320.webp",
+        "jpg": "/images/derived/headshot-320.jpg"
+      },
+      {
+        "w": 640,
+        "avif": "/images/derived/headshot-640.avif",
+        "webp": "/images/derived/headshot-640.webp",
+        "jpg": "/images/derived/headshot-640.jpg"
+      },
+      {
+        "w": 960,
+        "avif": "/images/derived/headshot-960.avif",
+        "webp": "/images/derived/headshot-960.webp",
+        "jpg": "/images/derived/headshot-960.jpg"
+      }
+    ]
+  },
+  "photo1": {
+    "width": 900,
+    "height": 1200,
+    "variants": [
+      {
+        "w": 320,
+        "avif": "/images/derived/photo1-320.avif",
+        "webp": "/images/derived/photo1-320.webp",
+        "jpg": "/images/derived/photo1-320.jpg"
+      },
+      {
+        "w": 640,
+        "avif": "/images/derived/photo1-640.avif",
+        "webp": "/images/derived/photo1-640.webp",
+        "jpg": "/images/derived/photo1-640.jpg"
+      },
+      {
+        "w": 960,
+        "avif": "/images/derived/photo1-960.avif",
+        "webp": "/images/derived/photo1-960.webp",
+        "jpg": "/images/derived/photo1-960.jpg"
+      }
+    ]
+  },
+  "photo2": {
+    "width": 900,
+    "height": 1200,
+    "variants": [
+      {
+        "w": 320,
+        "avif": "/images/derived/photo2-320.avif",
+        "webp": "/images/derived/photo2-320.webp",
+        "jpg": "/images/derived/photo2-320.jpg"
+      },
+      {
+        "w": 640,
+        "avif": "/images/derived/photo2-640.avif",
+        "webp": "/images/derived/photo2-640.webp",
+        "jpg": "/images/derived/photo2-640.jpg"
+      },
+      {
+        "w": 960,
+        "avif": "/images/derived/photo2-960.avif",
+        "webp": "/images/derived/photo2-960.webp",
+        "jpg": "/images/derived/photo2-960.jpg"
+      }
+    ]
+  },
+  "photo3": {
+    "width": 900,
+    "height": 1200,
+    "variants": [
+      {
+        "w": 320,
+        "avif": "/images/derived/photo3-320.avif",
+        "webp": "/images/derived/photo3-320.webp",
+        "jpg": "/images/derived/photo3-320.jpg"
+      },
+      {
+        "w": 640,
+        "avif": "/images/derived/photo3-640.avif",
+        "webp": "/images/derived/photo3-640.webp",
+        "jpg": "/images/derived/photo3-640.jpg"
+      },
+      {
+        "w": 960,
+        "avif": "/images/derived/photo3-960.avif",
+        "webp": "/images/derived/photo3-960.webp",
+        "jpg": "/images/derived/photo3-960.jpg"
+      }
+    ]
+  }
+}

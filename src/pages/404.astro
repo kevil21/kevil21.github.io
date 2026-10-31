@@ -1,0 +1,38 @@
+---
+import Shell from '@/layouts/Shell.astro';
+import { routes } from '@/lib/knowledge/routes';
+import '@/styles/pages/pages.css';
+const meta = {
+  title: 'Span not found',
+  description: 'This URL is not part of the trace.',
+  path: '/404/',
+  noindex: true,
+};
+---
+
+<Shell meta={meta} current="">
+  <header class="page-head">
+    <span class="eyebrow" style="color:var(--danger)">
+      status · 404 · span not found
+    </span>
+    <h1 class="page-head__title">That span isn't in the trace.</h1>
+    <p class="page-head__lede">
+      The address may be from the previous generation of this site. Everything still exists — under new,
+      stable URLs.
+    </p>
+    <div class="cluster">
+      <a class="btn btn--primary" href={routes.home()}>
+        Open the trace
+      </a>
+      <a class="btn" href="/work/">
+        Projects
+      </a>
+      <a class="btn" href={routes.resume()}>
+        Résumé
+      </a>
+      <button type="button" class="btn btn--ghost" data-open-palette>
+        Search <kbd>⌘K</kbd>
+      </button>
+    </div>
+  </header>
+</Shell>

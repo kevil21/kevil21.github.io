@@ -1,0 +1,37 @@
+---
+import Shell from '@/layouts/Shell.astro';
+import { pageData } from '@/lib/page-data';
+import { routes } from '@/lib/knowledge/routes';
+import '@/styles/pages/pages.css';
+
+const { data } = await pageData();
+const meta = {
+  title: 'Journeys',
+  description:
+    'Three guided paths through the evidence: a 90-second recruiter pass, an engineering deep dive, and an architecture walk through decisions and trade-offs.',
+  path: routes.journeys(),
+};
+---
+
+<Shell meta={meta} current="journeys">
+  <header class="page-head">
+    <span class="eyebrow">journeys · guided traversal</span>
+    <h1 class="page-head__title">Pick a path</h1>
+    <p class="page-head__lede">
+      Same facts, different depth. Each journey walks a persona through the spans that matter most to them and
+      switches the whole site to that persona.
+    </p>
+  </header>
+  <div class="page-grid">
+    {data.journeys.map((j) => (
+      <a class="card tile" href={routes.journey(j.id)} data-persona-link={j.id}>
+        <span class="eyebrow">
+          {j.id} · {j.duration}
+        </span>
+        <strong>{j.title}</strong>
+        <span class="small muted">{j.intro}</span>
+        <span class="small faint mono">{j.steps.length} steps</span>
+      </a>
+    ))}
+  </div>
+</Shell>

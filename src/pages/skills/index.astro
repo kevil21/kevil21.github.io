@@ -1,0 +1,66 @@
+---
+import Shell from '@/layouts/Shell.astro';
+import { pageData } from '@/lib/page-data';
+import { routes } from '@/lib/knowledge/routes';
+import { carriersOf } from '@/lib/knowledge/graph';
+import '@/styles/pages/pages.css';
+
+const { data, graph } = await pageData();
+const cats: { id: string; label: string }[] = [
+  { id: 'ai', label: 'AI & agents' },
+  { id: 'cloud', label: 'Cloud' },
+  { id: 'data', label: 'Data & observability' },
+  { id: 'dev', label: 'Engineering' },
+  { id: 'languages', label: 'Languages' },
+  { id: 'practice', label: 'Practice' },
+];
+const meta = {
+  title: 'Skills',
+  description: `${data.skills.length} skills and ${data.technologies.length} technologies, each linked to the roles, projects and certifications that evidence it.`,
+  path: routes.skills(),
+};
+---
+
+<Shell meta={meta} current="skills">
+  <header class="page-head">
+    <span class="eyebrow">skills · attributes of the trace</span>
+    <h1 class="page-head__title">Skills &amp; technologies</h1>
+    <p class="page-head__lede">
+      A skill only appears here if a role, project or credential in the source material carries it. Open one
+      to see every span that evidences it.
+    </p>
+  </header>
+  {cats.map((cat) => {
+    const skills = data.skills.filter((s) => s.category === cat.id);
+    if (!skills.length) return null;
+    return (
+      <section class="section" aria-labelledby={`cat-${cat.id}`}>
+        <h2 id={`cat-${cat.id}`} class="section__title">
+          {cat.label}
+        </h2>
+        <div class="page-grid">
+          {skills.map((s) => {
+            const carriers = carriersOf(graph, s.id);
+            const techs = data.technologies.filter((t) => t.skill === s.id && t.id !== s.id);
+            const certs = data.certifications.filter((c) => c.skills.includes(s.id));
+            return (
+              <a class="card skill-card" href={routes.skill(s.id)} data-astro-prefetch>
+                <strong>{s.name}</strong>
+                {s.summary && <span class="small muted">{s.summary}</span>}
+                <span class="skill-card__counts">
+                  <span>{carriers.filter((c) => data.projects.some((p) => p.id === c)).length} projects</span>
+                  <span>{carriers.filter((c) => data.experience.some((p) => p.id === c)).length} roles</span>
+                  {certs.length > 0 && <span>{certs.length} certs</span>}
+                  {techs.length > 0 && <span>{techs.length} tech</span>}
+                </span>
+                {s.yearsSelfReported && (
+                  <span class="small faint mono">≈ {s.yearsSelfReported} yrs · self-reported</span>
+                )}
+              </a>
+            );
+          })}
+        </div>
+      </section>
+    );
+  })}
+</Shell>

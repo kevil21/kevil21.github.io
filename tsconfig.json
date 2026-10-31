@@ -1,0 +1,23 @@
+{
+  "extends": "astro/tsconfigs/strictest",
+  "compilerOptions": {
+    "jsx": "react-jsx",
+    "jsxImportSource": "preact",
+    "paths": { "@/*": ["./src/*"], "@content/*": ["./content/*"] },
+    "types": ["node"],
+    "lib": ["ES2023", "DOM", "DOM.Iterable", "WebWorker"],
+    "noUncheckedIndexedAccess": true,
+    "exactOptionalPropertyTypes": false,
+    "allowImportingTsExtensions": true,
+    "noEmit": true
+  },
+  "include": [
+    "src/**/*",
+    "scripts/**/*",
+    "tests/**/*",
+    "*.config.*",
+    "astro.config.mjs",
+    ".astro/types.d.ts"
+  ],
+  "exclude": ["dist", "node_modules", "legacy", "src/ai/workers/**/*"]
+}

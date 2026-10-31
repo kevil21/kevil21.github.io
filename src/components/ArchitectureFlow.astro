@@ -1,0 +1,144 @@
+---
+/** Animated diagram of the delivery and runtime path. Static SVG; edges animate with dashes. */
+const nodes = [
+  { id: 'domain', x: 40, y: 40, label: 'kevilpatel.in', sub: 'canonical domain' },
+  { id: 'dns', x: 290, y: 40, label: 'GoDaddy DNS', sub: 'A → Pages · www CNAME' },
+  { id: 'pages', x: 540, y: 40, label: 'GitHub Pages', sub: 'static hosting · TLS' },
+  { id: 'actions', x: 540, y: 170, label: 'GitHub Actions', sub: 'Build Brain' },
+  { id: 'repo', x: 290, y: 170, label: 'Repository', sub: 'content + src' },
+  { id: 'device', x: 790, y: 40, label: 'Visitor device', sub: 'executes the intelligence' },
+  { id: 't0', x: 790, y: 170, label: 'Tier 0 · Static', sub: 'complete portfolio' },
+  { id: 't1', x: 1040, y: 170, label: 'Tier 1 · Pocket', sub: 'worker · MiniLM' },
+  { id: 't2', x: 1040, y: 40, label: 'Tier 2 · Full', sub: 'worker · WebGPU LLM' },
+];
+const edges: [string, string, string?][] = [
+  ['domain', 'dns', 'resolve'],
+  ['dns', 'pages', 'A/CNAME'],
+  ['repo', 'actions', 'push main'],
+  ['actions', 'pages', 'deploy dist/'],
+  ['pages', 'device', 'HTML · indexes'],
+  ['device', 't0'],
+  ['t0', 't1', 'JS + worker'],
+  ['t1', 't2', 'WebGPU + opt-in'],
+  ['t2', 't1', 'fallback'],
+];
+const by = Object.fromEntries(nodes.map((n) => [n.id, n]));
+const W = 180;
+// node spacing is 250 → 70px gaps for edge labels
+const H = 64;
+---
+
+<svg class="flow-diagram" viewBox="0 0 1260 250" role="img" aria-labelledby="flow-title flow-desc">
+  <title id="flow-title">Delivery and runtime architecture</title>
+  <desc id="flow-desc">
+    kevilpatel.in resolves through GoDaddy DNS to GitHub Pages. A push to main runs GitHub Actions, the Build
+    Brain, which deploys dist. The visitor's device renders the static Tier 0, upgrades to the Pocket Brain
+    worker, and optionally to the Full Brain on WebGPU, which falls back to Pocket on failure.
+  </desc>
+  <defs>
+    <marker
+      id="arrow"
+      viewBox="0 0 10 10"
+      refX="9"
+      refY="5"
+      markerWidth="7"
+      markerHeight="7"
+      orient="auto-start-reverse"
+    >
+      <path d="M0 0 L10 5 L0 10 z" fill="var(--trace)"></path>
+    </marker>
+  </defs>
+  {edges.map(([a, b, label], i) => {
+    const A = by[a]!;
+    const B = by[b]!;
+    const ax = A.x + W / 2;
+    const ay = A.y + H / 2;
+    const bx = B.x + W / 2;
+    const by2 = B.y + H / 2;
+    const horizontal = Math.abs(ay - by2) < 1;
+    const x1 = horizontal ? (bx > ax ? A.x + W : A.x) : ax;
+    const x2 = horizontal ? (bx > ax ? B.x : B.x + W) : bx;
+    const y1 = horizontal ? ay : by2 > ay ? A.y + H : A.y;
+    const y2 = horizontal ? by2 : by2 > ay ? B.y : B.y + H;
+    const off = a === 't2' ? -14 : 0;
+    return (
+      <g class="flow-edge" style={`--i:${i}`}>
+        <path d={`M${x1},${y1 + off} L${x2},${y2 + off}`} marker-end="url(#arrow)" />
+        {label && (
+          <text x={(x1 + x2) / 2} y={(y1 + y2) / 2 + off - 6} text-anchor="middle">
+            {label}
+          </text>
+        )}
+      </g>
+    );
+  })}
+  {nodes.map((n, i) => (
+    <g class="flow-node" data-node={n.id} style={`--i:${i}`}>
+      <rect x={n.x} y={n.y} width={W} height={H} rx="10" />
+      <text x={n.x + 14} y={n.y + 27} class="flow-node__label">
+        {n.label}
+      </text>
+      <text x={n.x + 14} y={n.y + 47} class="flow-node__sub">
+        {n.sub}
+      </text>
+    </g>
+  ))}
+</svg>
+
+<style>
+  @layer components {
+    .flow-diagram {
+      inline-size: 100%;
+      block-size: auto;
+      overflow: visible;
+      font-family: var(--font-sans);
+    }
+    .flow-node rect {
+      fill: var(--surface-1);
+      stroke: var(--border-strong);
+      stroke-width: 1;
+      animation: reveal var(--dur-emphasis) var(--ease-enter) both;
+      animation-delay: calc(var(--i) * var(--stagger-medium));
+    }
+    .flow-node[data-node^='t'] rect {
+      stroke: var(--signal);
+    }
+    .flow-node__label {
+      fill: var(--text-1);
+      font-size: 15px;
+      font-weight: 600;
+    }
+    .flow-node__sub {
+      fill: var(--text-3);
+      font-size: 12px;
+      font-family: var(--font-mono);
+    }
+    .flow-edge path {
+      fill: none;
+      stroke: var(--trace);
+      stroke-width: 1.5;
+      stroke-dasharray: 6 6;
+      animation: flow-dash 1.6s linear infinite;
+      animation-delay: calc(var(--i) * 120ms);
+      opacity: 0.85;
+    }
+    .flow-edge text {
+      fill: var(--text-3);
+      font-size: 11px;
+      font-family: var(--font-mono);
+    }
+    @keyframes flow-dash {
+      to {
+        stroke-dashoffset: -24;
+      }
+    }
+    @media (prefers-reduced-motion: reduce) {
+      .flow-edge path {
+        animation: none;
+      }
+    }
+    :root[data-motion='reduce'] .flow-edge path {
+      animation: none;
+    }
+  }
+</style>

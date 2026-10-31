@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+Disallow: /offline/
+Sitemap: https://kevilpatel.in/sitemap-index.xml

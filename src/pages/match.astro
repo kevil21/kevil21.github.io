@@ -1,0 +1,34 @@
+---
+import Shell from '@/layouts/Shell.astro';
+import JDMatcher from '@/islands/JDMatcher';
+import { pageData } from '@/lib/page-data';
+import { routes } from '@/lib/knowledge/routes';
+import '@/styles/pages/pages.css';
+
+const { data } = await pageData();
+const meta = {
+  title: 'Match a job description',
+  description:
+    'Paste a job description and see which requirements the portfolio demonstrates with strong evidence, which are related, and which are not demonstrated — on your device, with proof links and no invented percentages.',
+  path: routes.match(),
+};
+---
+
+<Shell meta={meta} current="match">
+  <header class="page-head">
+    <span class="eyebrow">jd matcher · on-device</span>
+    <h1 class="page-head__title">Match a job description</h1>
+    <p class="page-head__lede">
+      Requirements are extracted from your text and matched against {data.projects.length} projects,{' '}
+      {data.experience.length} roles and {data.certifications.length} credentials. Results are sorted into
+      three honest buckets with proof links. <strong>No evidence = no claim.</strong>
+    </p>
+  </header>
+  <noscript>
+    <p class="note">
+      The matcher runs in your browser and needs JavaScript. Without it, the{' '}
+      <a href={routes.skills()}>skills page</a> lists everything the portfolio evidences.
+    </p>
+  </noscript>
+  <JDMatcher client:visible />
+</Shell>

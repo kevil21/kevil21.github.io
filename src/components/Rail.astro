@@ -1,0 +1,100 @@
+---
+import ThemeToggle from '@/islands/ThemeToggle';
+import PersonaSwitch from '@/islands/PersonaSwitch';
+import { routes } from '@/lib/knowledge/routes';
+
+interface Props {
+  current: string;
+}
+const { current } = Astro.props;
+const nav = [
+  { href: routes.home(), label: 'Trace', key: 'trace', d: 'M3 6h8M3 12h14M3 18h11' },
+  { href: '/work/', label: 'Work', key: 'work', d: 'M4 7h16v12H4zM9 7V4h6v3' },
+  {
+    href: routes.skills(),
+    label: 'Skills',
+    key: 'skills',
+    d: 'M12 3l2.6 5.3L20 9l-4 3.9.9 5.8L12 16l-4.9 2.7.9-5.8L4 9l5.4-.7z',
+  },
+  {
+    href: routes.credentials(),
+    label: 'Credentials',
+    key: 'credentials',
+    d: 'M12 3a5 5 0 1 0 0 10 5 5 0 0 0 0-10zM8 13l-1 8 5-3 5 3-1-8',
+  },
+  { href: routes.resume(), label: 'Résumé', key: 'resume', d: 'M6 3h9l4 4v14H6zM9 12h6M9 16h6' },
+  { href: routes.match(), label: 'JD match', key: 'match', d: 'M4 12h6l2-5 3 10 2-5h3' },
+  { href: routes.journeys(), label: 'Journeys', key: 'journeys', d: 'M4 19l5-14 4 8 3-5 4 11' },
+  {
+    href: routes.observatory(),
+    label: 'Observatory',
+    key: 'observatory',
+    d: 'M12 4a8 8 0 1 0 0 16 8 8 0 0 0 0-16zm0 3v5l3 2',
+  },
+];
+---
+
+<nav class="rail no-print" aria-label="Primary">
+  <a class="rail__brand" href="/">
+    <span class="rail__mark" aria-hidden="true">
+      <svg
+        width="28"
+        height="28"
+        viewBox="0 0 28 28"
+        fill="none"
+        stroke="currentColor"
+        stroke-width="2"
+        stroke-linecap="round"
+      >
+        <path d="M4 20h6l3-12 4 12h7" />
+      </svg>
+    </span>
+    <span class="rail__name">
+      <strong>Kevil Patel</strong>
+      <span class="rail__sub mono">trace · v{import.meta.env.PUBLIC_APP_VERSION ?? 'dev'}</span>
+    </span>
+  </a>
+
+  <ul class="rail__nav" role="list">
+    {nav.map((n) => (
+      <li>
+        <a
+          href={n.href}
+          class="rail__link"
+          aria-current={current === n.key ? 'page' : undefined}
+          data-astro-prefetch
+        >
+          <svg
+            width="18"
+            height="18"
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+            stroke-width="1.6"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+            aria-hidden="true"
+          >
+            <path d={n.d} />
+          </svg>
+          <span>{n.label}</span>
+        </a>
+      </li>
+    ))}
+  </ul>
+
+  <div class="rail__section">
+    <span class="eyebrow" id="persona-label">
+      Viewing as
+    </span>
+    <PersonaSwitch client:idle />
+  </div>
+
+  <div class="rail__section rail__section--bottom">
+    <button type="button" class="rail__cmd" data-open-palette aria-keyshortcuts="Meta+K Control+K">
+      <span>Search or ask</span>
+      <kbd>⌘K</kbd>
+    </button>
+    <ThemeToggle client:idle />
+  </div>
+</nav>

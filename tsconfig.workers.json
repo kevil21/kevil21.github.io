@@ -1,0 +1,15 @@
+{
+  "extends": "./tsconfig.json",
+  "compilerOptions": {
+    "lib": ["ES2023", "WebWorker"],
+    "types": []
+  },
+  "include": [
+    "src/ai/workers/**/*",
+    "src/ai/pocket/**/*",
+    "src/ai/full/**/*",
+    "src/ai/protocol.ts",
+    "src/lib/knowledge/**/*"
+  ],
+  "exclude": ["dist", "node_modules", "src/lib/knowledge/load.ts"]
+}

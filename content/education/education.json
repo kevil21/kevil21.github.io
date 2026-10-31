@@ -1,0 +1,53 @@
+[
+  {
+    "id": "vit-vellore-btech",
+    "institution": "Vellore Institute of Technology",
+    "url": "https://vit.ac.in",
+    "degree": "B.Tech, Computer Science Engineering",
+    "location": "Vellore, Tamil Nadu, India",
+    "start": "2021-09",
+    "end": "2025-05",
+    "grade": { "label": "CGPA", "value": "8.95 / 10" },
+    "highlights": [
+      {
+        "text": "All-India Rank 56 in VITEEE.",
+        "source": "KPOS/site/Kevil_Resume_2026.md#L13-L17",
+        "selfReported": true
+      }
+    ],
+    "photo": "photo3",
+    "sources": [
+      "KPOS/site/index.html#L742-L760",
+      "KPOS/site/Kevil_Resume_2026.md#L13-L17",
+      "KPOS/Kevil_Resume_12.docx"
+    ]
+  },
+  {
+    "id": "lp-savani-12th",
+    "institution": "L.P. Savani International School",
+    "degree": "Class 12, CBSE",
+    "location": "Surat, Gujarat, India",
+    "start": "2019-06",
+    "end": "2020-05",
+    "grade": { "label": "GPA", "value": "8.9" },
+    "sources": [
+      "KPOS/site/index.html#L742-L760",
+      "KPOS/site/Kevil_Resume_2026.md#L13-L17",
+      "KPOS/Kevil_Resume_12.docx"
+    ]
+  },
+  {
+    "id": "lp-savani-10th",
+    "institution": "L.P. Savani International School",
+    "degree": "Class 10, CBSE",
+    "location": "Surat, Gujarat, India",
+    "start": "2017-06",
+    "end": "2018-05",
+    "grade": { "label": "GPA", "value": "8" },
+    "sources": [
+      "KPOS/site/index.html#L742-L760",
+      "KPOS/site/Kevil_Resume_2026.md#L13-L17",
+      "KPOS/Kevil_Resume_12.docx"
+    ]
+  }
+]

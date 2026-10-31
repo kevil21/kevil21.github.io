@@ -1,0 +1,27 @@
+---
+import type { Project } from '@/lib/schema';
+interface Props {
+  arch: NonNullable<Project['architecture']>;
+}
+const { arch } = Astro.props;
+const cols = Math.max(...arch.nodes.map((n) => n.col)) + 1;
+---
+
+<ol
+  class="arch"
+  role="list"
+  style={`--cols:${cols}`}
+  data-arch
+  aria-label="Architecture pipeline (scrollable)"
+  tabindex="0"
+>
+  {arch.nodes
+    .slice()
+    .sort((a, b) => a.col - b.col)
+    .map((n, i) => (
+      <li class="arch__node" data-arch-node={n.id} data-arch-index={i}>
+        <strong>{n.label}</strong>
+        {n.sub && <span>{n.sub}</span>}
+      </li>
+    ))}
+</ol>

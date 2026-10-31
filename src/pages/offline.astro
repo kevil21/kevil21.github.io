@@ -1,0 +1,33 @@
+---
+import Shell from '@/layouts/Shell.astro';
+import { routes } from '@/lib/knowledge/routes';
+import '@/styles/pages/pages.css';
+const meta = {
+  title: 'Offline',
+  description: 'You are offline. Cached pages still work.',
+  path: routes.offline(),
+  noindex: true,
+};
+---
+
+<Shell meta={meta} current="">
+  <header class="page-head">
+    <span class="eyebrow" style="color:var(--warn)">
+      status · offline
+    </span>
+    <h1 class="page-head__title">You're offline.</h1>
+    <p class="page-head__lede">
+      Pages you have already visited are cached and still open. Search over the knowledge index works offline
+      once it has loaded; the Full Brain only works offline after its model has been downloaded and cached on
+      this device.
+    </p>
+    <div class="cluster">
+      <a class="btn btn--primary" href={routes.home()}>
+        Open the trace
+      </a>
+      <button type="button" class="btn" onclick="location.reload()">
+        Retry
+      </button>
+    </div>
+  </header>
+</Shell>

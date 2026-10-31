@@ -1,0 +1,114 @@
+---
+import Shell from '@/layouts/Shell.astro';
+import Observatory from '@/islands/Observatory';
+import ArchitectureFlow from '@/components/ArchitectureFlow.astro';
+import { routes } from '@/lib/knowledge/routes';
+import '@/styles/pages/pages.css';
+
+import manifestJson from '../../public/generated/ai-manifest.json';
+import type { AIManifest } from '@/ai/protocol';
+const manifest = manifestJson as unknown as AIManifest & { semanticAvailable?: boolean };
+const primary = manifest.full.models[0]!;
+const compact = manifest.full.models[1] ?? primary;
+const meta = {
+  title: 'Behind the architecture',
+  description:
+    'Live view of how kevilpatel.in runs: static-first delivery through GoDaddy DNS and GitHub Pages, a Build Brain in GitHub Actions, and three intelligence tiers that execute on your device.',
+  path: routes.observatory(),
+};
+---
+
+<Shell meta={meta} current="observatory">
+  <header class="page-head">
+    <span class="eyebrow">observatory · live</span>
+    <h1 class="page-head__title">Behind the architecture</h1>
+    <p class="page-head__lede">
+      "The hosting layer distributes the intelligence; the visitor's device executes the intelligence." The
+      tiles below are read from this very page load — nothing is fingerprinted or sent anywhere.
+    </p>
+  </header>
+
+  <section class="section" aria-labelledby="flow">
+    <h2 id="flow" class="section__title">
+      Delivery → device
+    </h2>
+    <div class="card" style="overflow-x:auto">
+      <ArchitectureFlow />
+    </div>
+  </section>
+
+  <section class="section" aria-labelledby="live">
+    <h2 id="live" class="section__title">
+      Live runtime state
+    </h2>
+    <noscript>
+      <p class="note">
+        Without JavaScript you are on Tier 0: the complete static portfolio. That is by design.
+      </p>
+    </noscript>
+    <Observatory client:load manifest={manifest} />
+  </section>
+
+  <section class="section" aria-labelledby="tiers">
+    <h2 id="tiers" class="section__title">
+      The three tiers
+    </h2>
+    <div class="page-grid">
+      <div class="card flow">
+        <span class="eyebrow">Tier 0 · static</span>
+        <strong>Everything, as HTML</strong>
+        <p class="small muted">
+          Every page, project, credential and the résumé render without JavaScript. Search falls back to the
+          static pages.
+        </p>
+      </div>
+      <div class="card flow">
+        <span class="eyebrow" style="color: var(--ink-trace)">
+          Tier 1 · pocket brain
+        </span>
+        <strong>Worker + {manifest.pocket.embedder.split('/')[1]}</strong>
+        <p class="small muted">
+          Lexical BM25 search starts instantly from a {manifest.version.split('+')[1]}-versioned index. The{' '}
+          {manifest.pocket.approxDownloadMB} MB embedder loads lazily for semantic search, evidence ranking
+          and the JD matcher.
+        </p>
+      </div>
+      <div class="card flow">
+        <span class="eyebrow" style="color: var(--ink-signal)">
+          Tier 2 · full brain
+        </span>
+        <strong>WebGPU LLM in a worker</strong>
+        <p class="small muted">
+          Opt-in only. {primary.label}: ~{primary.approxDownloadMB} MB download, {primary.license}. Compact
+          option ~{compact.approxDownloadMB} MB. Grounded on retrieved evidence; emits only validated tool
+          calls.
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <section class="section" aria-labelledby="build">
+    <h2 id="build" class="section__title">
+      Build Brain outputs
+    </h2>
+    <ul class="span-detail__list" role="list">
+      <li>
+        <code>knowledge-index.json</code> — nodes, edges and evidence chunks shared by UI and AI
+      </li>
+      <li>
+        <code>semantic-index.json</code> — {manifest.pocket.dims}-d embeddings from the same model the browser
+        uses ({manifest.semanticAvailable ? 'present' : 'not built — lexical only'})
+      </li>
+      <li>
+        <code>answer-index.json</code> — templated answers with evidence ids (no language model involved)
+      </li>
+      <li>
+        <code>skill-graph.json</code>, <code>evidence-map.json</code>, <code>trace.json</code>,{' '}
+        <code>signal-series.json</code>, <code>ai-manifest.json</code>
+      </li>
+    </ul>
+    <p class="small faint mono">
+      index {manifest.version} · generated {manifest.generatedAt}
+    </p>
+  </section>
+</Shell>

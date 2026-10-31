@@ -1,0 +1,99 @@
+[
+  {
+    "id": "repo-overlay-insights",
+    "kind": "repository",
+    "title": "kevil21/Overlay-Insights",
+    "url": "https://github.com/kevil21/Overlay-Insights",
+    "supports": ["overlay-insights", "python", "data-engineering"],
+    "source": "KPOS/site/index.html#L534-L593"
+  },
+  {
+    "id": "repo-incident-ticket-management",
+    "kind": "repository",
+    "title": "kevil21/Incident_Ticket_Management",
+    "url": "https://github.com/kevil21/Incident_Ticket_Management",
+    "supports": ["incident-ticket-management", "python", "data-engineering"],
+    "source": "KPOS/site/index.html#L534-L593"
+  },
+  {
+    "id": "repo-it-asset-analytics",
+    "kind": "repository",
+    "title": "kevil21/data-operations-it-assets_ELK",
+    "url": "https://github.com/kevil21/data-operations-it-assets_ELK",
+    "supports": ["it-asset-analytics", "python", "data-engineering"],
+    "source": "KPOS/site/index.html#L534-L593"
+  },
+  {
+    "id": "repo-climate-mitigation-tool",
+    "kind": "repository",
+    "title": "kevil21/Climate_Mitigation_Tool",
+    "url": "https://github.com/kevil21/Climate_Mitigation_Tool",
+    "supports": ["climate-mitigation-tool", "time-series", "machine-learning"],
+    "source": "KPOS/site/index.html#L534-L593"
+  },
+  {
+    "id": "repo-crop-prediction",
+    "kind": "repository",
+    "title": "kevil21/Crop-Prediction",
+    "url": "https://github.com/kevil21/Crop-Prediction",
+    "supports": ["opticrop", "machine-learning"],
+    "source": "KPOS/site/index.html#L534-L593"
+  },
+  {
+    "id": "repo-python",
+    "kind": "repository",
+    "title": "kevil21/Python",
+    "url": "https://github.com/kevil21/Python",
+    "supports": ["python-essentials", "python", "community"],
+    "source": "KPOS/site/index.html#L534-L593"
+  },
+  {
+    "id": "org-kyndryl-agentic-ai",
+    "kind": "organisation",
+    "title": "Kyndryl Agentic AI on GitHub",
+    "url": "https://github.com/kyndryl-agentic-ai",
+    "supports": ["a360"],
+    "note": "Organisation page; A360 repositories are not public.",
+    "source": "KPOS/site/index.html#L368-L379"
+  },
+  {
+    "id": "profile-github",
+    "kind": "profile",
+    "title": "GitHub profile",
+    "url": "https://github.com/kevil21",
+    "supports": ["python", "typescript"],
+    "source": "KPOS/site/index.html#L47-L54"
+  },
+  {
+    "id": "profile-linkedin",
+    "kind": "profile",
+    "title": "LinkedIn profile",
+    "url": "https://linkedin.com/in/kevil21",
+    "supports": ["kyndryl-associate-sde"],
+    "source": "KPOS/site/index.html#L47-L54"
+  },
+  {
+    "id": "profile-mslearn",
+    "kind": "credential",
+    "title": "Microsoft Learn transcript",
+    "url": "https://learn.microsoft.com/en-in/users/kevil21/",
+    "supports": ["ms-ai-102", "ms-az-104", "ms-az-900", "gh-300", "ms-excellerate-agentic-ai"],
+    "source": "KPOS/site/index.html#L47-L54"
+  },
+  {
+    "id": "profile-credly",
+    "kind": "credential",
+    "title": "Credly badges",
+    "url": "https://www.credly.com/users/kevil-patel.db5e53fa",
+    "supports": ["aws-saa-c03", "aws-clf-c02"],
+    "source": "KPOS/site/index.html#L47-L54"
+  },
+  {
+    "id": "profile-huggingface",
+    "kind": "profile",
+    "title": "Hugging Face profile",
+    "url": "https://huggingface.co/Kevil21",
+    "supports": ["machine-learning"],
+    "source": "KPOS/site/index.html#L47-L54"
+  }
+]

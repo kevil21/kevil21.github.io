@@ -1,0 +1,70 @@
+---
+import Shell from '@/layouts/Shell.astro';
+import ProjectCard from '@/components/ProjectCard.astro';
+import { pageData } from '@/lib/page-data';
+import '@/styles/pages/pages.css';
+
+const { data, labels } = await pageData();
+const kinds = [...new Set(data.projects.map((p) => p.kind))];
+const skillIds = [...new Set(data.projects.flatMap((p) => p.skills))].sort((a, b) =>
+  (labels[a] ?? a).localeCompare(labels[b] ?? b),
+);
+const meta = {
+  title: 'Work',
+  description: `${data.projects.length} projects by Kevil Patel: ${data.projects.map((p) => p.shortName ?? p.name).join(', ')}. Flagship platform work at Kyndryl plus open-source and academic projects, each with outcomes and evidence.`,
+  path: '/work/',
+};
+---
+
+<Shell meta={meta} current="work">
+  <header class="page-head">
+    <span class="eyebrow">work · {data.projects.length} spans</span>
+    <h1 class="page-head__title">Projects</h1>
+    <p class="page-head__lede">
+      Two flagship platforms at Kyndryl, and the open-source and academic work that led there. Filter by skill
+      or kind; the AI uses the same filters when you ask it to.
+    </p>
+  </header>
+
+  <div class="filters" data-project-filters>
+    <div class="filters__row">
+      <span class="filters__label">kind</span>
+      {kinds.map((k) => (
+        <button type="button" class="chip" data-filter-kind={k} aria-pressed="false">
+          {k}
+        </button>
+      ))}
+    </div>
+    <div class="filters__row">
+      <span class="filters__label">skill</span>
+      {skillIds.map((s) => (
+        <button type="button" class="chip" data-filter-skill={s} aria-pressed="false">
+          {labels[s] ?? s}
+        </button>
+      ))}
+      <button type="button" class="chip" data-filter-clear hidden>
+        clear ×
+      </button>
+    </div>
+    <p class="small faint" data-filter-status aria-live="polite"></p>
+  </div>
+
+  <div class="page-grid" data-project-grid>
+    {data.projects.map((p) => (
+      <ProjectCard project={p} labels={labels} />
+    ))}
+  </div>
+
+  <script>
+    import { initProjectFilters } from '@/features/projects/filters';
+    const boot = () => {
+      const el = document.querySelector<HTMLElement>('[data-project-filters]');
+      if (el && !el.dataset.ready) {
+        el.dataset.ready = '1';
+        initProjectFilters(el);
+      }
+    };
+    boot();
+    document.addEventListener('astro:page-load', boot);
+  </script>
+</Shell>

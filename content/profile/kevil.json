@@ -1,0 +1,108 @@
+{
+  "name": "Kevil Patel",
+  "fullName": "Kevil Rakeshbhai Patel",
+  "title": "Associate Software Development Engineer",
+  "shortTitle": "Associate SDE",
+  "headline": "Building agentic AI on cloud at Kyndryl",
+  "taglines": [
+    "I build agentic AI on cloud.",
+    "I ship multi-tenant agentic observability.",
+    "I turn policy into pipelines.",
+    "I make telemetry tell stories.",
+    "I keep dashboards honest.",
+    "I design agents that understand language."
+  ],
+  "locations": [
+    { "city": "Surat", "region": "Gujarat", "country": "India" },
+    { "city": "Bangalore", "region": "Karnataka", "country": "India" }
+  ],
+  "email": "kevilpatel24@gmail.com",
+  "links": [
+    { "id": "github", "label": "GitHub", "url": "https://github.com/kevil21", "kind": "code" },
+    { "id": "linkedin", "label": "LinkedIn", "url": "https://linkedin.com/in/kevil21", "kind": "social" },
+    {
+      "id": "huggingface",
+      "label": "Hugging Face",
+      "url": "https://huggingface.co/Kevil21",
+      "kind": "models"
+    },
+    {
+      "id": "mslearn",
+      "label": "Microsoft Learn",
+      "url": "https://learn.microsoft.com/en-in/users/kevil21/",
+      "kind": "learning"
+    },
+    {
+      "id": "credly",
+      "label": "Credly",
+      "url": "https://www.credly.com/users/kevil-patel.db5e53fa",
+      "kind": "credentials"
+    },
+    {
+      "id": "google-skills",
+      "label": "Google Skills",
+      "url": "https://www.skills.google/public_profiles/368f1807-b155-48d9-ba6c-e9ba98a384f5",
+      "kind": "learning"
+    }
+  ],
+  "about": [
+    {
+      "text": "Associate Software Development Engineer at Kyndryl, in the Agentic AI practice, engineering agentic AI systems on Azure AI Foundry for enterprise clients. B.Tech in Computer Science from VIT Vellore (CGPA 8.95, AIR 56 in VITEEE).",
+      "source": "KPOS/site/index.html#L224-L264",
+      "selfReported": true
+    },
+    {
+      "text": "Works at the intersection of machine learning, cloud architecture and developer experience: from LSTM grids predicting power loads across 500+ households, to a multi-tenant agentic observability platform (A360), to a LangGraph governance agent that turns plain-English policies into enforced cloud pipelines.",
+      "source": "KPOS/site/index.html#L224-L264",
+      "selfReported": true
+    },
+    {
+      "text": "Certified across AWS, Microsoft Azure, GitHub and Founderz.",
+      "source": "KPOS/site/index.html#L224-L264",
+      "selfReported": false
+    }
+  ],
+  "quote": {
+    "text": "The best engineers do not just write code — they listen to the system breathe.",
+    "source": "KPOS/site/index.html#L224-L264"
+  },
+  "languages": [
+    { "name": "English", "level": "fluent" },
+    { "name": "Hindi", "level": "fluent" },
+    { "name": "Gujarati", "level": "native" },
+    { "name": "Spanish", "level": "basic" }
+  ],
+  "availability": {
+    "text": "Open to: agentic AI · cloud architecture · platform engineering · collaborations.",
+    "source": "KPOS/site/app.js#L1409"
+  },
+  "photos": [
+    {
+      "id": "headshot",
+      "alt": "Kevil Patel, head-and-shoulders portrait against a teal wall, wearing a navy suit with a Kyndryl lapel pin",
+      "role": "avatar"
+    },
+    {
+      "id": "photo1",
+      "alt": "Kevil Patel in a navy suit, three-quarter portrait against a teal wall",
+      "role": "portrait"
+    },
+    {
+      "id": "photo2",
+      "alt": "Kevil Patel standing beside a red Kyndryl sign on a wooden slat wall",
+      "role": "context"
+    },
+    {
+      "id": "photo3",
+      "alt": "Kevil Patel outdoors on a tree-lined road, holding a red folder",
+      "role": "context"
+    }
+  ],
+  "sources": [
+    "KPOS/site/index.html#L6-L54",
+    "KPOS/site/index.html#L153-L183",
+    "KPOS/site/index.html#L224-L264",
+    "KPOS/site/Kevil_Resume_2026.md#L1-L6",
+    "KPOS/site/Kevil_Resume_2026.md#L109"
+  ]
+}

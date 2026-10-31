@@ -1,0 +1,49 @@
+---
+/**
+ * Responsive image from the derived set produced by scripts/prepare-assets.ts.
+ * Always has intrinsic dimensions (no CLS) and is never inverted by the theme.
+ */
+import manifest from '@/lib/assets.generated.json';
+
+interface Props {
+  id: string;
+  alt: string;
+  sizes?: string;
+  loading?: 'lazy' | 'eager';
+  class?: string;
+  widths?: number[];
+}
+const {
+  id,
+  alt,
+  sizes = '(min-width: 64rem) 20rem, 60vw',
+  loading = 'lazy',
+  class: cls = '',
+  widths,
+} = Astro.props;
+const entry = (
+  manifest as Record<
+    string,
+    { width: number; height: number; variants: { w: number; avif: string; webp: string; jpg: string }[] }
+  >
+)[id];
+if (!entry) throw new Error(`Unknown asset ${id} — run npm run assets`);
+const variants = widths ? entry.variants.filter((v) => widths.includes(v.w)) : entry.variants;
+const srcset = (k: 'avif' | 'webp' | 'jpg') => variants.map((v) => `${v[k]} ${v.w}w`).join(', ');
+const fallback = variants[variants.length - 1]!;
+---
+
+<picture class={`picture ${cls}`}>
+  <source type="image/avif" srcset={srcset('avif')} sizes={sizes} />
+  <source type="image/webp" srcset={srcset('webp')} sizes={sizes} />
+  <img
+    src={fallback.jpg}
+    srcset={srcset('jpg')}
+    sizes={sizes}
+    width={entry.width}
+    height={entry.height}
+    alt={alt}
+    loading={loading}
+    decoding="async"
+  />
+</picture>

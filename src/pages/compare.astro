@@ -1,0 +1,48 @@
+---
+import Shell from '@/layouts/Shell.astro';
+import Compare from '@/islands/Compare';
+import { pageData } from '@/lib/page-data';
+import { routes } from '@/lib/knowledge/routes';
+import '@/styles/pages/pages.css';
+
+const { data, labels } = await pageData();
+const meta = {
+  title: 'Compare projects',
+  description:
+    'Compare two or three of Kevil Patel’s projects side by side: stack, skills, outcomes and evidence.',
+  path: routes.compare(),
+};
+const projects = data.projects.map((p) => ({
+  id: p.id,
+  name: p.name,
+  kind: p.kind,
+  period: p.period.label,
+  tagline: p.tagline,
+  stack: p.stack.map((t) => labels[t] ?? t),
+  skills: p.skills.map((s) => labels[s] ?? s),
+  outcomes: p.outcomes.map((o) => o.text),
+  decisions: p.decisions.length,
+  evidence: data.evidence
+    .filter((v) => v.supports.includes(p.id))
+    .map((v) => ({ title: v.title, url: v.url })),
+  url: routes.project(p.id),
+}));
+---
+
+<Shell meta={meta} current="work">
+  <header class="page-head">
+    <span class="eyebrow">compare · side by side</span>
+    <h1 class="page-head__title">Compare projects</h1>
+    <p class="page-head__lede">
+      Pick two or three. The comparison shows only what the content model records — nothing is scored or
+      ranked.
+    </p>
+  </header>
+  <noscript>
+    <p class="note">
+      Comparison needs JavaScript. Every project is fully described on its own page under{' '}
+      <a href="/work/">Work</a>.
+    </p>
+  </noscript>
+  <Compare client:load projects={projects} />
+</Shell>

@@ -1,0 +1,13 @@
+---
+/** Bottom sheet used on narrow screens for span details. Native <dialog> for focus trapping and Esc. */
+---
+
+<dialog class="sheet" data-span-sheet aria-label="Span details">
+  <div class="sheet__handle" aria-hidden="true"></div>
+  <form method="dialog" class="sheet__close-row">
+    <button class="btn btn--ghost" type="submit" aria-label="Close details">
+      Close
+    </button>
+  </form>
+  <div class="sheet__body" data-sheet-body></div>
+</dialog>

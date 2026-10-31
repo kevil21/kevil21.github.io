@@ -1,0 +1,171 @@
+---
+/** One detail block per span. Rendered once; the controller shows the selected one (panel or sheet). */
+import type { KnowledgeData } from '@/lib/schema';
+import type { Trace } from '@/lib/knowledge/spans';
+import type { KnowledgeGraph } from '@/lib/knowledge/graph';
+import { routes } from '@/lib/knowledge/routes';
+import EvidenceList from '@/components/EvidenceList.astro';
+
+interface Props {
+  data: KnowledgeData;
+  trace: Trace;
+  graph: KnowledgeGraph;
+  labels: Record<string, string>;
+}
+const { data, trace, graph, labels } = Astro.props;
+const evidenceFor = (id: string) =>
+  (graph.out.get(id) ?? [])
+    .filter((e) => e.type === 'evidenced-by')
+    .map((e) => data.evidence.find((v) => v.id === e.to)!)
+    .filter(Boolean);
+const detailOf = (id: string) => {
+  const x = data.experience.find((e) => e.id === id);
+  if (x) return { kind: 'experience' as const, x };
+  const p = data.projects.find((e) => e.id === id);
+  if (p) return { kind: 'project' as const, p };
+  const ed = data.education.find((e) => e.id === id);
+  if (ed) return { kind: 'education' as const, ed };
+  return null;
+};
+---
+
+<div data-span-details class="span-details">
+  <div data-detail-default class="span-detail flow">
+    <span class="eyebrow">Evidence panel</span>
+    <h2 class="span-detail__title">Select a span</h2>
+    <p class="muted small">
+      Each row is a span of Kevil's career. Select one to see its attributes, events and the evidence behind
+      every claim. Hover a skill chip to light up every span that carries it.
+    </p>
+    <dl class="span-detail__facts">
+      <div>
+        <dt>Roles</dt>
+        <dd>{data.experience.length}</dd>
+      </div>
+      <div>
+        <dt>Projects</dt>
+        <dd>{data.projects.length}</dd>
+      </div>
+      <div>
+        <dt>Credentials</dt>
+        <dd>{data.certifications.length}</dd>
+      </div>
+      <div>
+        <dt>Evidence links</dt>
+        <dd>{data.evidence.length}</dd>
+      </div>
+    </dl>
+  </div>
+  {trace.rows.map((s) => {
+    const d = detailOf(s.id);
+    const ev = evidenceFor(s.id);
+    return (
+      <article data-detail={s.id} hidden class="span-detail flow" aria-labelledby={`detail-${s.id}-title`}>
+        <span class="eyebrow" style={`color:var(--ink-kind-${s.kind})`}>
+          {s.kind} · {s.dateLabel}
+        </span>
+        <h2 class="span-detail__title" id={`detail-${s.id}-title`}>
+          <a href={s.url}>{d?.kind === 'project' ? d.p.name : s.title}</a>
+        </h2>
+        <p class="muted small">{s.subtitle}</p>
+        {d?.kind === 'experience' && (
+          <ul class="span-detail__list" role="list">
+            {d.x.highlights.map((h) => (
+              <li>
+                {h.text}{' '}
+                <cite class="src mono" title={h.source}>
+                  src
+                </cite>
+              </li>
+            ))}
+          </ul>
+        )}
+        {d?.kind === 'project' && (
+          <>
+            <p class="small">{d.p.summary}</p>
+            {d.p.outcomes.length > 0 && (
+              <>
+                <h3 class="span-detail__h">Outcomes</h3>
+                <ul class="span-detail__list" role="list">
+                  {d.p.outcomes.map((o) => (
+                    <li>
+                      {o.text}{' '}
+                      <cite class="src mono" title={o.source}>
+                        src
+                      </cite>
+                    </li>
+                  ))}
+                </ul>
+              </>
+            )}
+            {d.p.decisions.length > 0 && (
+              <>
+                <h3 class="span-detail__h">Decisions</h3>
+                <ul class="span-detail__list" role="list">
+                  {d.p.decisions.map((id) => {
+                    const dec = data.decisions.find((x) => x.id === id);
+                    return dec ? (
+                      <li>
+                        <a href={routes.decision(d.p.id, id)}>◆ {dec.title}</a>
+                      </li>
+                    ) : null;
+                  })}
+                </ul>
+              </>
+            )}
+          </>
+        )}
+        {d?.kind === 'education' && (
+          <ul class="span-detail__list" role="list">
+            <li>
+              {d.ed.grade.label} {d.ed.grade.value}
+            </li>
+            {d.ed.highlights.map((h) => (
+              <li>{h.text}</li>
+            ))}
+          </ul>
+        )}
+        {s.attributes.length > 0 && (
+          <>
+            <h3 class="span-detail__h">Attributes</h3>
+            <ul class="cluster" role="list" style="--cluster-gap:4px">
+              {s.attributes.map((a) => (
+                <li>
+                  <a class="attr" href={graph.nodes.get(a)?.url ?? '#'} data-attr={a}>
+                    {labels[a] ?? a}
+                  </a>
+                </li>
+              ))}
+            </ul>
+          </>
+        )}
+        <h3 class="span-detail__h">Evidence</h3>
+        <EvidenceList evidence={ev} />
+        <a class="btn btn--primary" href={s.url} data-detail-open>
+          Open {s.kind === 'project' ? 'project' : s.kind === 'education' ? 'education' : 'role'} →
+        </a>
+      </article>
+    );
+  })}
+  <article data-detail="credentials" hidden class="span-detail flow">
+    <span class="eyebrow" style="color: var(--ink-kind-certification)">
+      credentials
+    </span>
+    <h2 class="span-detail__title">
+      <a href={routes.credentials()}>Certifications</a>
+    </h2>
+    <ul class="span-detail__list" role="list">
+      {data.certifications.map((c) => (
+        <li>
+          <a href={routes.credential(c.id)}>
+            {c.code ? `${c.code} · ` : ''}
+            {c.name}
+          </a>
+        </li>
+      ))}
+    </ul>
+    <a class="btn btn--primary" href={routes.credentials()}>
+      Open credentials →
+    </a>
+  </article>
+</div>

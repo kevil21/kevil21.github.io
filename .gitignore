@@ -1,1 +1,19 @@
+# dependencies / build
+node_modules/
+dist/
+.astro/
+.cache/
+# generated at build (Build Brain + assets); committed? no — CI regenerates
+public/generated/
+public/models/ort/
+public/images/derived/
+public/sw.js
+# tests
+test-results/
+playwright-report/
+.lighthouseci/
+# env / os
+.env
+.env.*
 .DS_Store
+*.log

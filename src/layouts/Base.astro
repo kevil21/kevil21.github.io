@@ -1,0 +1,95 @@
+---
+import '@fontsource-variable/bricolage-grotesque';
+import '@fontsource/ibm-plex-mono/400.css';
+import '@fontsource/ibm-plex-mono/500.css';
+import '@/styles/global.css';
+import bricolageUrl from '@fontsource-variable/bricolage-grotesque/files/bricolage-grotesque-latin-wght-normal.woff2?url';
+import plexUrl from '@fontsource/ibm-plex-mono/files/ibm-plex-mono-latin-400-normal.woff2?url';
+import { ClientRouter } from 'astro:transitions';
+import ThemeScript from '@/components/ThemeScript.astro';
+import { DEFAULT_OG, canonical, fullTitle, type PageMeta } from '@/lib/seo';
+
+interface Props {
+  meta: PageMeta;
+  jsonLd?: Record<string, unknown> | Record<string, unknown>[];
+  bodyClass?: string;
+}
+const { meta, jsonLd, bodyClass = '' } = Astro.props;
+const url = canonical(meta.path);
+const image = canonical(meta.image ?? DEFAULT_OG);
+const version = import.meta.env.PUBLIC_APP_VERSION ?? 'dev';
+---
+
+<!doctype html>
+<html lang="en" data-theme="dark" data-persona="engineer">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+    <ThemeScript />
+    <title>{fullTitle(meta.title)}</title>
+    <meta name="description" content={meta.description} />
+    <link rel="canonical" href={url} />
+    {meta.noindex && <meta name="robots" content="noindex" />}
+    <meta
+      name="theme-color"
+      content="oklch(0.16 0.012 260)"
+      data-dark="#15171f"
+      data-light="#f8f6f1"
+      media="(prefers-color-scheme: dark)"
+    />
+    <meta
+      name="theme-color"
+      content="#f8f6f1"
+      data-dark="#15171f"
+      data-light="#f8f6f1"
+      media="(prefers-color-scheme: light)"
+    />
+    <meta name="color-scheme" content="dark light" />
+    <meta name="generator" content={Astro.generator} />
+    <meta name="application-name" content="Kevil Patel — TRACE" />
+    <meta name="app-version" content={version} />
+    <meta property="og:type" content={meta.type ?? 'website'} />
+    <meta property="og:site_name" content="Kevil Patel" />
+    <meta property="og:title" content={fullTitle(meta.title)} />
+    <meta property="og:description" content={meta.description} />
+    <meta property="og:url" content={url} />
+    <meta property="og:image" content={image} />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content={fullTitle(meta.title)} />
+    <meta name="twitter:description" content={meta.description} />
+    <meta name="twitter:image" content={image} />
+    <link rel="preload" href={bricolageUrl} as="font" type="font/woff2" crossorigin />
+    <link rel="preload" href={plexUrl} as="font" type="font/woff2" crossorigin />
+    <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
+    <link rel="icon" href="/favicon.ico" sizes="32x32" />
+    <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
+    <link rel="manifest" href="/manifest.webmanifest" />
+    <link rel="sitemap" href="/sitemap-index.xml" />
+    {jsonLd && <script type="application/ld+json" set:html={JSON.stringify(jsonLd)} />}
+    <ClientRouter fallback="swap" />
+    <slot name="head" />
+  </head>
+  <body class={bodyClass}>
+    <a class="skip-link" href="#main">
+      Skip to content
+    </a>
+    <slot />
+    <script>
+      import { bindTheme } from '@/lib/stores/theme';
+      import { bindPersona } from '@/lib/stores/persona';
+      bindTheme();
+      bindPersona();
+      document.addEventListener('astro:after-swap', () => {
+        // ClientRouter swaps <html> attributes; re-apply the resolved theme/persona immediately.
+        bindTheme();
+        bindPersona();
+        import('@/lib/stores/theme').then(({ resolvedTheme, applyTheme }) => applyTheme(resolvedTheme.get()));
+        import('@/lib/stores/persona').then(({ persona }) => {
+          document.documentElement.dataset.persona = persona.get();
+        });
+      });
+    </script>
+  </body>
+</html>

@@ -1,0 +1,9 @@
+dist/
+node_modules/
+.astro/
+legacy/
+public/generated/
+public/images/derived/
+public/sw.js
+package-lock.json
+*.md

@@ -1,0 +1,185 @@
+---
+import Shell from '@/layouts/Shell.astro';
+import { pageData, personJsonLd } from '@/lib/page-data';
+import { routes } from '@/lib/knowledge/routes';
+import { formatYM } from '@/lib/knowledge/dates';
+import '@/styles/pages/pages.css';
+import '@/styles/pages/resume.css';
+
+const { data, labels } = await pageData();
+const p = data.profile;
+const cats = ['languages', 'ai', 'cloud', 'dev', 'data', 'practice'] as const;
+const catLabel: Record<string, string> = {
+  languages: 'Languages',
+  ai: 'AI / ML',
+  cloud: 'Cloud',
+  dev: 'Engineering',
+  data: 'Data & observability',
+  practice: 'Practice',
+};
+const meta = {
+  title: 'Résumé',
+  description: `Résumé of ${p.name}, ${p.title} at Kyndryl. Experience, projects, skills, certifications and education — the complete portfolio in one printable page.`,
+  path: routes.resume(),
+  type: 'profile' as const,
+};
+---
+
+<Shell meta={meta} current="resume" jsonLd={personJsonLd(data)}>
+  <div class="resume" id="resume">
+    <header class="resume__head">
+      <div>
+        <h1 class="resume__name">{p.name}</h1>
+        <p class="resume__title">{p.title} · Kyndryl</p>
+        <p class="resume__contact mono small">
+          {p.locations.map((l) => l.city).join(' · ')}, India · <a href={`mailto:${p.email}`}>{p.email}</a>
+          {p.links.map((l) => (
+            <>
+              {' '}
+              · <a href={l.url}>{l.label}</a>
+            </>
+          ))}
+        </p>
+      </div>
+      <div class="resume__actions no-print cluster">
+        <button type="button" class="btn btn--primary" data-print>
+          Print / Save as PDF
+        </button>
+        <a class="btn" href={routes.home()}>
+          Open the trace
+        </a>
+      </div>
+    </header>
+
+    <section class="resume__section">
+      <h2>Summary</h2>
+      {p.about.map((a) => (
+        <p>{a.text}</p>
+      ))}
+    </section>
+
+    <section class="resume__section">
+      <h2>Experience</h2>
+      {data.experience.map((x) => (
+        <article class="resume__item">
+          <div class="resume__item-head">
+            <h3>
+              {x.role} — <a href={routes.role(x.id)}>{x.org}</a>
+            </h3>
+            <span class="mono small">
+              {formatYM(x.start)} → {formatYM(x.end)}
+            </span>
+          </div>
+          <ul>
+            {x.highlights.map((h) => (
+              <li>{h.text}</li>
+            ))}
+          </ul>
+        </article>
+      ))}
+    </section>
+
+    <section class="resume__section">
+      <h2>Selected projects</h2>
+      {data.projects.map((pr) => (
+        <article class="resume__item">
+          <div class="resume__item-head">
+            <h3>
+              <a href={routes.project(pr.id)}>{pr.name}</a>
+              {pr.org && <span class="muted"> · {pr.org}</span>}
+            </h3>
+            <span class="mono small">{pr.period.label}</span>
+          </div>
+          <p>{pr.summary}</p>
+          {pr.outcomes.length > 0 && (
+            <ul>
+              {pr.outcomes.map((o) => (
+                <li>{o.text}</li>
+              ))}
+            </ul>
+          )}
+          <p class="small muted">Stack: {pr.stack.map((t) => labels[t] ?? t).join(' · ')}</p>
+        </article>
+      ))}
+    </section>
+
+    <section class="resume__section">
+      <h2>Skills</h2>
+      <dl class="resume__skills">
+        {cats.map((c) => {
+          const items = data.skills.filter((s) => s.category === c);
+          const techs = data.technologies.filter(
+            (t) => items.some((s) => s.id === t.skill) && !items.some((s) => s.id === t.id),
+          );
+          return items.length ? (
+            <div>
+              <dt>{catLabel[c]}</dt>
+              <dd>{[...items.map((s) => s.name), ...techs.map((t) => t.name)].join(' · ')}</dd>
+            </div>
+          ) : null;
+        })}
+      </dl>
+    </section>
+
+    <section class="resume__section">
+      <h2>Certifications</h2>
+      <table class="resume__table">
+        <thead>
+          <tr>
+            <th>Certification</th>
+            <th>Issuer</th>
+            <th>Issued</th>
+            <th>Credential ID</th>
+          </tr>
+        </thead>
+        <tbody>
+          {data.certifications.map((c) => (
+            <tr>
+              <td>
+                <a href={c.verifyUrl}>{c.code ? `${c.name} (${c.code})` : c.name}</a>
+              </td>
+              <td>{c.issuer}</td>
+              <td class="mono">{c.issued ? formatYM(c.issued) : '—'}</td>
+              <td class="mono">{c.credentialId ?? '—'}</td>
+            </tr>
+          ))}
+        </tbody>
+      </table>
+    </section>
+
+    <section class="resume__section">
+      <h2>Education</h2>
+      {data.education.map((e) => (
+        <article class="resume__item">
+          <div class="resume__item-head">
+            <h3>
+              {e.degree} — {e.institution}
+            </h3>
+            <span class="mono small">
+              {formatYM(e.start)} → {formatYM(e.end)}
+            </span>
+          </div>
+          <p>
+            {e.grade.label} {e.grade.value}
+            {e.highlights.length > 0 && ` · ${e.highlights.map((h) => h.text).join(' ')}`}
+          </p>
+        </article>
+      ))}
+    </section>
+
+    <section class="resume__section">
+      <h2>Languages</h2>
+      <p>{p.languages.map((l) => `${l.name} (${l.level})`).join(' · ')}</p>
+    </section>
+
+    <footer class="resume__foot small faint">
+      Generated from the same content model as kevilpatel.in · every statement traces to a source file ·
+      metrics are as stated in Kevil's résumé.
+    </footer>
+  </div>
+  <script>
+    document.addEventListener('click', (e) => {
+      if ((e.target as HTMLElement).closest('[data-print]')) window.print();
+    });
+  </script>
+</Shell>
