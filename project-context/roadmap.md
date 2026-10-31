@@ -1,0 +1,13 @@
+# Roadmap after local implementation
+
+2026-10-31. Static portfolio, UI, Build Brain, Pocket/JD, optional semantic/Full code, PWA and workflow definitions are implemented. This is a verification/maintenance roadmap, not a proposal to build them again and not release authorization.
+
+1. **Finish owner/QA handoff.** Read [quality](../docs/quality-report.md) and [performance](../docs/performance.md) when available; resolve findings in a separately authorized implementation phase. Keep source and private Memory outside website output.
+2. **Approve public material.** Confirm title, employer-safe contribution scope, credential caveats/direct links, contact/profile destinations and photo use. Unsupported quantitative claims remain excluded. VIT 2021–2025 requires no invented remediation.
+3. **Obtain genuine Full evidence.** On authorized capable hardware, perform the bounded real test; record adapter/f16, allocation/compiler/grammar, selected evidence, cancellation and cache behavior. A failure/skip must remain visible. Do not change the model silently or repeat large downloads in ordinary CI.
+4. **Extend device/accessibility/offline evidence.** Physical iOS/Android, Firefox/WebKit, manual screen readers, true zoom, constrained memory/network and optional learned/Full offline reload need distinct validation. Preserve the working no-JS/model-free baseline regardless.
+5. **Measure retrieval quality and distribution cost.** Evaluate labeled queries/abstentions, threshold choices, cold/warm payloads and optional unused runtime assets. Optimize only with real semantic/SW regressions retained; configured budgets are not benchmark results.
+6. **Reconcile metadata separately.** Review the generated AI manifest's stale `serviceWorker: false` field and remaining QA/dependency concerns. No code change is authorized by this document.
+7. **Authorize and verify release.** Confirm intended repository/root hosting, Pages source/environment protections and domain ownership. Run hosted checks, publish only audited `dist/`, then smoke-test actual HTTPS/MIME/deep-link/404/update/offline/rollback behavior. Normal releases do not change DNS. [Deployment runbook](../DEPLOYMENT.md).
+
+Revisit ADRs only for a demonstrated need, with alternatives, consequences and validation recorded. Free-form generated biographies, automatic large-model downloads, arbitrary agent execution and decorative 3D are not implicit next steps.

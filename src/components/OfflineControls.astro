@@ -1,0 +1,13 @@
+<section class="no-print" aria-label="Offline portfolio" data-offline-controls hidden>
+  <!-- Operational status stays fully opaque; generic disclosure fades lower text contrast. -->
+  <details class="record"><summary>Offline pages &amp; updates</summary><div class="offline-body">
+    <p data-offline-status role="status" aria-live="polite">Offline installation has not started.</p>
+    <p class="note">Only public static pages, small interface assets and knowledge indexes. No automatic model download. Full model offline inference is unproven.</p>
+    <div class="actions"><button type="button" data-offline-check>Check offline state &amp; updates</button><button type="button" data-offline-clear>Clear offline pages only</button><a href="/offline/">Offline help</a></div>
+  </div></details>
+  <section class="record" data-offline-update hidden aria-label="Portfolio update available">
+    <p>A complete new portfolio version is ready. Refreshing updates <strong>all open Atlas tabs</strong>; unsaved questions and pasted JD text will be lost. Leave this pending to keep working.</p>
+    <button type="button" class="primary" data-offline-refresh>Refresh all Atlas tabs</button>
+  </section>
+</section>
+<style>.offline-body { padding-block: var(--space-3); }</style>

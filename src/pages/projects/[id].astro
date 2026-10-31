@@ -1,0 +1,27 @@
+---
+import { portfolio } from '../../lib/content';
+import type { Project } from '../../lib/content';
+import { evidenceFor, skillsFor } from '../../lib/presentation';
+import Layout from '../../layouts/Layout.astro';
+import ProjectReading from '../../components/ProjectReading.astro';
+import PersonaControl from '../../components/PersonaControl.astro';
+export function getStaticPaths() { return portfolio.projects.map((project) => ({ params: { id: project.id }, props: { project } })); }
+interface Props { project: Project }
+const { project } = Astro.props;
+const skills = skillsFor(project);
+const related = portfolio.projects.filter((item) => item.id !== project.id && skillsFor(item).some((skill) => skills.some((current) => current.id === skill.id)));
+---
+<Layout title={project.title} description={project.summary} project={project}>
+  <div class="reading">
+    <a class="text-link" href="/">← Back to the atlas</a>
+    <header class="page-intro"><p class="eyebrow">Project dossier / {project.domain}</p><h1>{project.title}</h1><p>{project.subtitle}</p></header>
+    <div class="actions no-print"><a class="button-link" href={`/compare/?left=${project.id}`}>Compare with another project</a><a class="text-link" href="#source-trail">Follow the source trail ↓</a></div>
+    <section aria-label="Project perspectives"><PersonaControl /><button type="button" data-show-perspectives data-enhancement hidden aria-pressed="false">Show all perspectives</button><ProjectReading project={project} /></section>
+    <section id="source-trail"><h2>The source trail</h2><p class="note">Excerpts from supplied public sources. These are not independent verification or private implementation details.</p>
+      {evidenceFor(project.evidenceIds).map((evidence) => <article class="record"><h3>{evidence.title}</h3><blockquote>{evidence.text}</blockquote><p class="record-meta">{evidence.source}<span>{evidence.sourceSection}</span></p><a class="text-link" href={`/evidence/#${evidence.id}`}>Open evidence record →</a></article>)}
+    </section>
+    <section><h2>Continue the investigation</h2><p>Projects below share explicitly evidence-linked skills. That does not imply shared infrastructure or a personal proficiency rating.</p>
+      {related.length ? <ul>{related.map((item) => <li><a class="text-link" href={`/projects/${item.id}/`}>{item.title}</a></li>)}</ul> : <a class="text-link" href="/">Explore another domain →</a>}
+    </section>
+  </div>
+</Layout>

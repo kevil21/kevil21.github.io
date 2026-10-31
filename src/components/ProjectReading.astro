@@ -1,0 +1,25 @@
+---
+import type { Project } from '../lib/content';
+import { skillsFor } from '../lib/presentation';
+import { personas } from '../lib/routes';
+import EvidenceLinks from './EvidenceLinks.astro';
+interface Props { project: Project; compact?: boolean }
+const { project, compact = false } = Astro.props;
+---
+<article class="project-reading" data-reading-project={project.id}>
+  <p class="eyebrow">{project.domain} / {project.subtitle}</p>
+  <h2><a href={`/projects/${project.id}/`}>{project.title}</a></h2>
+  <p>{project.summary}</p>
+  <div class="perspectives">
+    {personas.map((persona) => <section data-perspective={persona}>
+      <h3 class="label">{persona} perspective</h3><p>{project.perspectives[persona]}</p>
+    </section>)}
+  </div>
+  <h3 class="label">Source-listed technologies</h3>
+  <ul class="chips">{project.technologies.map((technology) => <li>{technology}</li>)}</ul>
+  <h3 class="label">Supporting evidence</h3>
+  <EvidenceLinks ids={project.evidenceIds} />
+  {!compact && <><h3 class="label">Evidence-linked skills</h3>
+    <ul class="chips">{skillsFor(project).map((skill) => <li><a href={`/evidence/#${skill.id}`}>{skill.name}</a></li>)}</ul></>}
+  {project.url ? <a class="text-link" href={project.url}>Open public project ↗</a> : <p class="note">No project-specific public link is supplied in the source.</p>}
+</article>

@@ -1,0 +1,59 @@
+{
+  "contentHash": "f4597070147fc516dd947732c1302deb85d8ae8b702a36a44dd8f6ff58f84fd6",
+  "data": {
+    "documentCount": 118,
+    "files": [
+      {
+        "bytes": 2046,
+        "name": "ai-manifest.json",
+        "sha256": "63a721a7ee203c0cfa9fb69991ae32ea0c6d23f127e1f06281945c2117b91cdd"
+      },
+      {
+        "bytes": 35157,
+        "name": "answer-index.json",
+        "sha256": "d311192dbf52daf9934fc261e4c4915d6197569b9c8f79bec1fc987793ae5fa9"
+      },
+      {
+        "bytes": 24876,
+        "name": "evidence-map.json",
+        "sha256": "7864dc1868916eded714d931eaaed227cf541acb18332c0db02e3b988e59344c"
+      },
+      {
+        "bytes": 1359,
+        "name": "journeys.json",
+        "sha256": "e3dff6cb1b39f772c52666872654c7a392d63157ffb693de9c16b4af6ea09217"
+      },
+      {
+        "bytes": 41761,
+        "name": "knowledge-index.json",
+        "sha256": "147357d4aca69710857681da930c017df87b20ad8a07c60400fb6bbee772ffc1"
+      },
+      {
+        "bytes": 35214,
+        "name": "pocket-corpus.json",
+        "sha256": "c58d4b51be2e73c9190f7a4ca18c5e884ac25c38cb4cc06b2574ea9ffbfa302d"
+      },
+      {
+        "bytes": 84555,
+        "name": "search-index.json",
+        "sha256": "26645d62918d397c0253244e20c192c2cd476343cb113c5242677af6e1e58871"
+      },
+      {
+        "bytes": 292248,
+        "name": "semantic-index.json",
+        "sha256": "b67fdee352fb55757f5fb4b2eba46ef086f5f314a9ea7a61ecc93ca9380a1a3e"
+      },
+      {
+        "bytes": 11541,
+        "name": "skill-graph.json",
+        "sha256": "eb927ec09f8f51d121a340cc829c4b13c651f57306e5c94c92e5c83b67eaf739"
+      }
+    ],
+    "selfHash": "excluded-to-avoid-recursion",
+    "sourceLabels": [
+      "Public portfolio (source snapshot)",
+      "Public résumé (2026)"
+    ]
+  },
+  "schemaVersion": 1
+}

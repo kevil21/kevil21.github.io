@@ -1,0 +1,3246 @@
+{
+  "contentHash": "f4597070147fc516dd947732c1302deb85d8ae8b702a36a44dd8f6ff58f84fd6",
+  "data": {
+    "documents": [
+      {
+        "evidenceIds": [
+          "e-a360",
+          "e-a360-flow",
+          "e-a360-stack"
+        ],
+        "id": "a360",
+        "kind": "project",
+        "terms": [
+          "a",
+          "a360",
+          "agent",
+          "ai",
+          "and",
+          "architecture",
+          "at",
+          "azure",
+          "combines",
+          "conversational",
+          "cosmos",
+          "dashboards",
+          "data",
+          "db",
+          "describes",
+          "drill-downs",
+          "elasticsearch",
+          "elasticsearch-backed",
+          "embedded",
+          "enterprise",
+          "executive",
+          "explorer",
+          "fastapi",
+          "finops",
+          "frontend",
+          "frontend.",
+          "gateway",
+          "interface",
+          "kibana",
+          "kpi",
+          "kubernetes",
+          "kyndryl",
+          "kyndryl.",
+          "litellm",
+          "llm",
+          "moving",
+          "multi-tenant",
+          "next.js",
+          "observability",
+          "opentelemetry",
+          "over",
+          "pipelines",
+          "platform",
+          "postgres",
+          "public",
+          "queries",
+          "react",
+          "s",
+          "service",
+          "services",
+          "shidoka",
+          "shidoka.",
+          "spanning",
+          "staging",
+          "telemetry",
+          "telemetry.",
+          "the",
+          "through",
+          "to",
+          "with",
+          "work"
+        ],
+        "text": "Multi-tenant AI agent observability observability Kyndryl's multi-tenant AI agent observability platform, with executive dashboards, KPI drill-downs, embedded Kibana, LLM FinOps, and a conversational interface over telemetry. Next.js React Shidoka FastAPI Azure Data Explorer Elasticsearch Cosmos DB Azure Kubernetes Service LiteLLM Postgres OpenTelemetry Kibana Enterprise agent observability work spanning telemetry services and frontend dashboards at Kyndryl. A360 combines telemetry pipelines, Elasticsearch-backed queries, a FastAPI gateway, and a Next.js frontend with Shidoka. The public architecture describes telemetry moving through OpenTelemetry, Postgres staging, Azure Data Explorer, and Elasticsearch to the frontend.",
+        "title": "A360"
+      },
+      {
+        "evidenceIds": [
+          "e-education-vit"
+        ],
+        "id": "achievement-academics",
+        "kind": "achievement",
+        "terms": [
+          "10",
+          "56",
+          "8.95",
+          "academic",
+          "air",
+          "and",
+          "as",
+          "cgpa",
+          "in",
+          "listed",
+          "public",
+          "record",
+          "résumé.",
+          "the",
+          "vit",
+          "viteee"
+        ],
+        "text": "CGPA 8.95 / 10 and AIR 56 in VITEEE, as listed in the public résumé.",
+        "title": "VIT academic record"
+      },
+      {
+        "evidenceIds": [
+          "e-python-guide"
+        ],
+        "id": "achievement-python-guide",
+        "kind": "achievement",
+        "terms": [
+          "community",
+          "during",
+          "essentials",
+          "gdsc",
+          "guide",
+          "learning",
+          "published",
+          "python",
+          "resource",
+          "the",
+          "used",
+          "vit",
+          "workshops."
+        ],
+        "text": "Published the Python Essentials learning guide, used during GDSC VIT workshops.",
+        "title": "Community learning resource"
+      },
+      {
+        "evidenceIds": [
+          "e-p2p-approval",
+          "e-p2p-evidence"
+        ],
+        "id": "architecture-approval-evidence",
+        "kind": "decision",
+        "terms": [
+          "a",
+          "about",
+          "after",
+          "and",
+          "approval",
+          "approved",
+          "architecture",
+          "before",
+          "behaviour",
+          "bundles",
+          "chosen.",
+          "claim",
+          "documented",
+          "evidence",
+          "executes",
+          "execution",
+          "findings",
+          "into",
+          "logs",
+          "not",
+          "p2p",
+          "packs.",
+          "plans",
+          "policy",
+          "records",
+          "source-described",
+          "state",
+          "technology",
+          "this",
+          "was",
+          "why"
+        ],
+        "text": "P2P executes approved plans and bundles policy, findings, plans, before/after state, and execution logs into evidence packs. This records source-described behaviour, not a claim about why a technology was chosen.",
+        "title": "Documented architecture: approval and evidence"
+      },
+      {
+        "evidenceIds": [
+          "e-a360-flow"
+        ],
+        "id": "architecture-telemetry-flow",
+        "kind": "decision",
+        "terms": [
+          "a",
+          "a360",
+          "an",
+          "and",
+          "architecture",
+          "azure",
+          "data",
+          "describes",
+          "documented",
+          "elasticsearch",
+          "explorer",
+          "flow",
+          "from",
+          "inferred",
+          "next.js.",
+          "not",
+          "opentelemetry",
+          "personal",
+          "pipeline",
+          "postgres",
+          "public",
+          "rationale.",
+          "records",
+          "source",
+          "streaming",
+          "telemetry",
+          "the",
+          "this",
+          "through",
+          "to",
+          "tradeoff"
+        ],
+        "text": "The public source describes a streaming pipeline from OpenTelemetry through Postgres, Azure Data Explorer, and Elasticsearch to Next.js. This records architecture, not an inferred personal tradeoff rationale.",
+        "title": "Documented architecture: A360 telemetry flow"
+      },
+      {
+        "evidenceIds": [
+          "e-cert-commander"
+        ],
+        "id": "cert-agent-commander",
+        "kind": "certification",
+        "terms": [
+          "agent",
+          "bbf6e80b-21cc-4306-9aea-77d03d0de28c",
+          "commander",
+          "credential-specific",
+          "credential.",
+          "founderz",
+          "homepage",
+          "https",
+          "is",
+          "issuer",
+          "link",
+          "not",
+          "pending.",
+          "proof.",
+          "remains",
+          "source-listed",
+          "the",
+          "this",
+          "verification",
+          "www.founderz.com"
+        ],
+        "text": "Founderz bbf6e80b-21cc-4306-9aea-77d03d0de28c https://www.founderz.com/ Source-listed credential. This link is the issuer homepage, not credential-specific proof. Verification remains pending.",
+        "title": "Agent Commander"
+      },
+      {
+        "evidenceIds": [
+          "e-cert-explorer"
+        ],
+        "id": "cert-agent-explorer",
+        "kind": "certification",
+        "terms": [
+          "09b81d9b-3aa0-4734-a85a-b9cd42c09e29",
+          "agent",
+          "credential-specific",
+          "credential.",
+          "explorer",
+          "founderz",
+          "homepage",
+          "https",
+          "is",
+          "issuer",
+          "link",
+          "not",
+          "pending.",
+          "proof.",
+          "remains",
+          "source-listed",
+          "the",
+          "this",
+          "verification",
+          "www.founderz.com"
+        ],
+        "text": "Founderz 09b81d9b-3aa0-4734-a85a-b9cd42c09e29 https://www.founderz.com/ Source-listed credential. This link is the issuer homepage, not credential-specific proof. Verification remains pending.",
+        "title": "Agent Explorer"
+      },
+      {
+        "evidenceIds": [
+          "e-cert-master"
+        ],
+        "id": "cert-agent-master",
+        "kind": "certification",
+        "terms": [
+          "a2df505f-955c-41b6-a071-f21178c8a5bb",
+          "agent",
+          "credential-specific",
+          "credential.",
+          "founderz",
+          "homepage",
+          "https",
+          "is",
+          "issuer",
+          "link",
+          "master",
+          "not",
+          "pending.",
+          "proof.",
+          "remains",
+          "source-listed",
+          "the",
+          "this",
+          "verification",
+          "www.founderz.com"
+        ],
+        "text": "Founderz a2df505f-955c-41b6-a071-f21178c8a5bb https://www.founderz.com/ Source-listed credential. This link is the issuer homepage, not credential-specific proof. Verification remains pending.",
+        "title": "Agent Master"
+      },
+      {
+        "evidenceIds": [
+          "e-cert-aws-cp"
+        ],
+        "id": "cert-aws-cloud-practitioner",
+        "kind": "certification",
+        "terms": [
+          "aws",
+          "aws.amazon.com",
+          "b1f4b1e59f194f5da6872a5f1b79c824",
+          "been",
+          "certified",
+          "clf-c02",
+          "cloud",
+          "credential",
+          "credential.",
+          "current",
+          "enter",
+          "generic",
+          "has",
+          "https",
+          "id.",
+          "independently",
+          "not",
+          "portal",
+          "practitioner",
+          "source-listed",
+          "the",
+          "validity",
+          "verification",
+          "verified."
+        ],
+        "text": "AWS b1f4b1e59f194f5da6872a5f1b79c824 https://aws.amazon.com/verification Source-listed credential. Generic AWS verification portal; enter the credential ID. Current validity has not been independently verified.",
+        "title": "AWS Certified Cloud Practitioner (CLF-C02)"
+      },
+      {
+        "evidenceIds": [
+          "e-cert-aws-sa"
+        ],
+        "id": "cert-aws-solutions-architect",
+        "kind": "certification",
+        "terms": [
+          "3d7ecea14b4342659eb4d68cdc9fbc37",
+          "architect",
+          "associate",
+          "aws",
+          "aws.amazon.com",
+          "been",
+          "credential",
+          "credential.",
+          "current",
+          "enter",
+          "generic",
+          "has",
+          "https",
+          "id.",
+          "independently",
+          "not",
+          "portal",
+          "saa-c03",
+          "solutions",
+          "source-listed",
+          "the",
+          "validity",
+          "verification",
+          "verified."
+        ],
+        "text": "AWS 3d7ecea14b4342659eb4d68cdc9fbc37 https://aws.amazon.com/verification Source-listed credential. Generic AWS verification portal; enter the credential ID. Current validity has not been independently verified.",
+        "title": "AWS Solutions Architect — Associate (SAA-C03)"
+      },
+      {
+        "evidenceIds": [
+          "e-cert-az104"
+        ],
+        "id": "cert-azure-administrator",
+        "kind": "certification",
+        "terms": [
+          "141508ff683c2bfe",
+          "2026",
+          "administrator",
+          "and",
+          "api",
+          "are",
+          "associate",
+          "az-104",
+          "azure",
+          "been",
+          "credential",
+          "credentials",
+          "current",
+          "day",
+          "en-us",
+          "exact",
+          "expiry",
+          "has",
+          "https",
+          "independently",
+          "kevilpatel-7029",
+          "learn.microsoft.com",
+          "link.",
+          "lists",
+          "microsoft",
+          "not",
+          "october",
+          "renewal",
+          "share",
+          "sharingid",
+          "source",
+          "source-provided",
+          "the",
+          "unknown.",
+          "validity",
+          "verified."
+        ],
+        "text": "Microsoft 141508FF683C2BFE https://learn.microsoft.com/api/credentials/share/en-us/KevilPatel-7029/141508FF683C2BFE?sharingId Source-provided Microsoft credential share link. The source lists October 2026 expiry; exact day and renewal are unknown. Current validity has not been independently verified.",
+        "title": "Azure Administrator — Associate (AZ-104)"
+      },
+      {
+        "evidenceIds": [
+          "e-cert-ai102"
+        ],
+        "id": "cert-azure-ai-engineer",
+        "kind": "certification",
+        "terms": [
+          "661b55ba40148a87",
+          "ai",
+          "ai-102",
+          "api",
+          "associate",
+          "azure",
+          "been",
+          "credential",
+          "credentials",
+          "current",
+          "en-us",
+          "engineer",
+          "has",
+          "https",
+          "independently",
+          "kevilpatel-7029",
+          "learn.microsoft.com",
+          "link.",
+          "microsoft",
+          "not",
+          "share",
+          "sharingid",
+          "source-provided",
+          "validity",
+          "verified."
+        ],
+        "text": "Microsoft 661B55BA40148A87 https://learn.microsoft.com/api/credentials/share/en-us/KevilPatel-7029/661B55BA40148A87?sharingId Source-provided Microsoft credential share link. Current validity has not been independently verified.",
+        "title": "Azure AI Engineer — Associate (AI-102)"
+      },
+      {
+        "evidenceIds": [
+          "e-cert-az900"
+        ],
+        "id": "cert-azure-fundamentals",
+        "kind": "certification",
+        "terms": [
+          "api",
+          "az-900",
+          "azure",
+          "been",
+          "cbef8794cadfa2f1",
+          "credential",
+          "credentials",
+          "en-us",
+          "fundamentals",
+          "has",
+          "https",
+          "independently",
+          "kevilpatel-7029",
+          "learn.microsoft.com",
+          "link.",
+          "microsoft",
+          "not",
+          "record",
+          "share",
+          "sharingid",
+          "source-provided",
+          "the",
+          "verified."
+        ],
+        "text": "Microsoft CBEF8794CADFA2F1 https://learn.microsoft.com/api/credentials/share/en-us/KevilPatel-7029/CBEF8794CADFA2F1?sharingId Source-provided Microsoft credential share link. The credential record has not been independently verified.",
+        "title": "Azure Fundamentals (AZ-900)"
+      },
+      {
+        "evidenceIds": [
+          "e-cert-excellerate"
+        ],
+        "id": "cert-excellerate",
+        "kind": "certification",
+        "terms": [
+          "a",
+          "agentic",
+          "ai",
+          "and",
+          "attribution",
+          "credential-specific",
+          "credentials",
+          "en-us",
+          "excellerate",
+          "general",
+          "https",
+          "issuer",
+          "kevilpatel",
+          "learn.microsoft.com",
+          "link.",
+          "microsoft",
+          "pending.",
+          "remain",
+          "share",
+          "source-listed",
+          "verification",
+          "with"
+        ],
+        "text": "Microsoft https://learn.microsoft.com/credentials/share/en-us/KevilPatel Source-listed Microsoft attribution with a general share link. Issuer and credential-specific verification remain pending.",
+        "title": "Excellerate Agentic AI"
+      },
+      {
+        "evidenceIds": [
+          "e-cert-gh300"
+        ],
+        "id": "cert-github-copilot",
+        "kind": "certification",
+        "terms": [
+          "505c219976cd2e5d",
+          "api",
+          "been",
+          "copilot",
+          "credential",
+          "credentials",
+          "current",
+          "en-us",
+          "gh-300",
+          "github",
+          "has",
+          "https",
+          "independently",
+          "kevilpatel-7029",
+          "learn.microsoft.com",
+          "link.",
+          "microsoft",
+          "not",
+          "share",
+          "sharingid",
+          "source-provided",
+          "validity",
+          "verified."
+        ],
+        "text": "GitHub / Microsoft 505C219976CD2E5D https://learn.microsoft.com/api/credentials/share/en-us/KevilPatel-7029/505C219976CD2E5D?sharingId Source-provided Microsoft credential share link. Current validity has not been independently verified.",
+        "title": "GitHub Copilot (GH-300)"
+      },
+      {
+        "evidenceIds": [
+          "e-climate"
+        ],
+        "id": "climate-mitigation",
+        "kind": "project",
+        "terms": [
+          "an",
+          "and",
+          "api",
+          "apis",
+          "applied",
+          "be",
+          "choices.",
+          "climate",
+          "climate-induced",
+          "data.",
+          "describes",
+          "does",
+          "engineering",
+          "establish",
+          "explore",
+          "for",
+          "forecasting",
+          "forecasting.",
+          "gaps",
+          "github.com",
+          "handled",
+          "how",
+          "https",
+          "inputs.",
+          "intelligence",
+          "kevil21",
+          "lstm",
+          "migration",
+          "mitigation",
+          "model",
+          "modelling",
+          "multi-modal",
+          "not",
+          "question",
+          "should",
+          "source",
+          "temporal",
+          "the",
+          "those",
+          "time-series",
+          "to",
+          "tool",
+          "using",
+          "validation",
+          "weather",
+          "weather-data"
+        ],
+        "text": "Climate-induced migration forecasting intelligence An LSTM multi-modal time-series model for climate-induced migration forecasting using weather data. LSTM Time-series forecasting Weather APIs Applied time-series modelling for climate-induced migration forecasting. The source describes an LSTM multi-modal time-series model and weather API inputs. Engineering question to explore: how should temporal validation and weather-data gaps be handled? The source does not establish those choices. https://github.com/kevil21/Climate_Mitigation_Tool",
+        "title": "Climate Mitigation Tool"
+      },
+      {
+        "evidenceIds": [
+          "e-a360"
+        ],
+        "id": "e-a360",
+        "kind": "evidence",
+        "terms": [
+          "2026",
+          "a360",
+          "agent",
+          "ai",
+          "behave",
+          "conversational",
+          "dashboards",
+          "description",
+          "drill-downs",
+          "embedded",
+          "enterprise",
+          "executive",
+          "finops",
+          "fleets",
+          "for",
+          "how",
+          "in",
+          "interface",
+          "kibana",
+          "kpi",
+          "kyndryl",
+          "llm",
+          "over",
+          "platform",
+          "production.",
+          "project",
+          "projects",
+          "public",
+          "résumé",
+          "s",
+          "scores",
+          "selected",
+          "telemetry.",
+          "trust",
+          "watching"
+        ],
+        "text": "Kyndryl's platform for watching how enterprise AI agent fleets behave in production. Executive dashboards, KPI drill-downs, embedded Kibana, agent trust scores, LLM FinOps, conversational interface over telemetry. Public résumé (2026) Selected Projects / A360",
+        "title": "A360 public project description"
+      },
+      {
+        "evidenceIds": [
+          "e-a360-flow"
+        ],
+        "id": "e-a360-flow",
+        "kind": "evidence",
+        "terms": [
+          "a",
+          "a360",
+          "azure",
+          "data",
+          "elasticsearch",
+          "explorer",
+          "flow",
+          "from",
+          "high-level",
+          "introduction",
+          "next.js",
+          "on",
+          "otel",
+          "pipeline",
+          "portfolio",
+          "postgres",
+          "project",
+          "public",
+          "running",
+          "snapshot",
+          "source",
+          "streaming",
+          "telemetry"
+        ],
+        "text": "running on a streaming pipeline from OTEL → Postgres → Azure Data Explorer → Elasticsearch → Next.js Public portfolio (source snapshot) A360 / project introduction",
+        "title": "A360 high-level telemetry flow"
+      },
+      {
+        "evidenceIds": [
+          "e-a360-stack"
+        ],
+        "id": "e-a360-stack",
+        "kind": "evidence",
+        "terms": [
+          "16",
+          "19",
+          "2026",
+          "a360",
+          "azure",
+          "cosmos",
+          "data",
+          "db",
+          "design",
+          "elasticsearch",
+          "explorer",
+          "fastapi",
+          "kubernetes",
+          "litellm",
+          "next.js",
+          "projects",
+          "public",
+          "react",
+          "résumé",
+          "selected",
+          "service",
+          "shidoka",
+          "source-listed",
+          "stack",
+          "system"
+        ],
+        "text": "Next.js 16 · React 19 · Shidoka design system · FastAPI · Azure Data Explorer · Elasticsearch · Cosmos DB · Azure Kubernetes Service · LiteLLM Public résumé (2026) Selected Projects / A360 / Stack",
+        "title": "A360 source-listed stack"
+      },
+      {
+        "evidenceIds": [
+          "e-assets"
+        ],
+        "id": "e-assets",
+        "kind": "evidence",
+        "terms": [
+          "2026",
+          "analytics",
+          "and",
+          "asset",
+          "cleaning",
+          "data.",
+          "elasticsearch",
+          "end-to-end",
+          "excerpt",
+          "indexing",
+          "it",
+          "kibana",
+          "numpy",
+          "pandas",
+          "pipeline",
+          "projects",
+          "public",
+          "résumé",
+          "selected",
+          "transforming",
+          "using",
+          "visualising"
+        ],
+        "text": "End-to-end IT asset analytics pipeline using pandas / NumPy / Elasticsearch / Kibana — cleaning, indexing, transforming, and visualising asset data. Public résumé (2026) Selected Projects / IT Asset Analytics",
+        "title": "IT asset analytics excerpt"
+      },
+      {
+        "evidenceIds": [
+          "e-cert-ai102"
+        ],
+        "id": "e-cert-ai102",
+        "kind": "evidence",
+        "terms": [
+          "2026",
+          "661b55ba40148a87",
+          "ai",
+          "ai-102",
+          "associate",
+          "azure",
+          "certifications",
+          "engineer",
+          "microsoft",
+          "public",
+          "record",
+          "résumé",
+          "source"
+        ],
+        "text": "Azure AI Engineer — Associate (AI-102) · Microsoft · 661B55BA40148A87 Public résumé (2026) Certifications / AI-102",
+        "title": "AI-102 source record"
+      },
+      {
+        "evidenceIds": [
+          "e-cert-aws-cp"
+        ],
+        "id": "e-cert-aws-cp",
+        "kind": "evidence",
+        "terms": [
+          "2026",
+          "aws",
+          "b1f4b1e59f194f5da6872a5f1b79c824",
+          "certifications",
+          "certified",
+          "clf-c02",
+          "cloud",
+          "practitioner",
+          "public",
+          "record",
+          "résumé",
+          "source"
+        ],
+        "text": "AWS Certified Cloud Practitioner (CLF-C02) · AWS · b1f4b1e59f194f5da6872a5f1b79c824 Public résumé (2026) Certifications / AWS Cloud Practitioner",
+        "title": "AWS practitioner source record"
+      },
+      {
+        "evidenceIds": [
+          "e-cert-aws-sa"
+        ],
+        "id": "e-cert-aws-sa",
+        "kind": "evidence",
+        "terms": [
+          "2026",
+          "3d7ecea14b4342659eb4d68cdc9fbc37",
+          "architect",
+          "associate",
+          "aws",
+          "certifications",
+          "public",
+          "record",
+          "résumé",
+          "saa-c03",
+          "solutions",
+          "source"
+        ],
+        "text": "AWS Solutions Architect — Associate (SAA-C03) · AWS · 3d7ecea14b4342659eb4d68cdc9fbc37 Public résumé (2026) Certifications / AWS Solutions Architect",
+        "title": "AWS architect source record"
+      },
+      {
+        "evidenceIds": [
+          "e-cert-az104"
+        ],
+        "id": "e-cert-az104",
+        "kind": "evidence",
+        "terms": [
+          "141508ff683c2bfe",
+          "2026",
+          "administrator",
+          "associate",
+          "az-104",
+          "azure",
+          "certifications",
+          "microsoft",
+          "public",
+          "record",
+          "résumé",
+          "source"
+        ],
+        "text": "Azure Administrator — Associate (AZ-104) · Microsoft · 141508FF683C2BFE Public résumé (2026) Certifications / AZ-104",
+        "title": "AZ-104 source record"
+      },
+      {
+        "evidenceIds": [
+          "e-cert-az900"
+        ],
+        "id": "e-cert-az900",
+        "kind": "evidence",
+        "terms": [
+          "2026",
+          "az-900",
+          "azure",
+          "cbef8794cadfa2f1",
+          "certifications",
+          "fundamentals",
+          "microsoft",
+          "public",
+          "record",
+          "résumé",
+          "source"
+        ],
+        "text": "Azure Fundamentals (AZ-900) · Microsoft · CBEF8794CADFA2F1 Public résumé (2026) Certifications / AZ-900",
+        "title": "AZ-900 source record"
+      },
+      {
+        "evidenceIds": [
+          "e-cert-commander"
+        ],
+        "id": "e-cert-commander",
+        "kind": "evidence",
+        "terms": [
+          "2026",
+          "agent",
+          "bbf6e80b-21cc-4306-9aea-77d03d0de28c",
+          "certifications",
+          "commander",
+          "founderz",
+          "public",
+          "record",
+          "résumé",
+          "source"
+        ],
+        "text": "Agent Commander · Founderz · bbf6e80b-21cc-4306-9aea-77d03d0de28c Public résumé (2026) Certifications / Agent Commander",
+        "title": "Agent Commander source record"
+      },
+      {
+        "evidenceIds": [
+          "e-cert-excellerate"
+        ],
+        "id": "e-cert-excellerate",
+        "kind": "evidence",
+        "terms": [
+          "2026",
+          "agentic",
+          "ai",
+          "certifications",
+          "excellerate",
+          "microsoft",
+          "public",
+          "record",
+          "résumé",
+          "source"
+        ],
+        "text": "Excellerate Agentic AI · Microsoft Public résumé (2026) Certifications / Excellerate Agentic AI",
+        "title": "Excellerate source record"
+      },
+      {
+        "evidenceIds": [
+          "e-cert-explorer"
+        ],
+        "id": "e-cert-explorer",
+        "kind": "evidence",
+        "terms": [
+          "09b81d9b-3aa0-4734-a85a-b9cd42c09e29",
+          "2026",
+          "agent",
+          "certifications",
+          "explorer",
+          "founderz",
+          "public",
+          "record",
+          "résumé",
+          "source"
+        ],
+        "text": "Agent Explorer · Founderz · 09b81d9b-3aa0-4734-a85a-b9cd42c09e29 Public résumé (2026) Certifications / Agent Explorer",
+        "title": "Agent Explorer source record"
+      },
+      {
+        "evidenceIds": [
+          "e-cert-gh300"
+        ],
+        "id": "e-cert-gh300",
+        "kind": "evidence",
+        "terms": [
+          "2026",
+          "505c219976cd2e5d",
+          "certifications",
+          "copilot",
+          "gh-300",
+          "github",
+          "microsoft",
+          "public",
+          "record",
+          "résumé",
+          "source"
+        ],
+        "text": "GitHub Copilot (GH-300) · GitHub / Microsoft · 505C219976CD2E5D Public résumé (2026) Certifications / GitHub Copilot",
+        "title": "GH-300 source record"
+      },
+      {
+        "evidenceIds": [
+          "e-cert-master"
+        ],
+        "id": "e-cert-master",
+        "kind": "evidence",
+        "terms": [
+          "2026",
+          "a2df505f-955c-41b6-a071-f21178c8a5bb",
+          "agent",
+          "certifications",
+          "founderz",
+          "master",
+          "public",
+          "record",
+          "résumé",
+          "source"
+        ],
+        "text": "Agent Master · Founderz · a2df505f-955c-41b6-a071-f21178c8a5bb Public résumé (2026) Certifications / Agent Master",
+        "title": "Agent Master source record"
+      },
+      {
+        "evidenceIds": [
+          "e-charly"
+        ],
+        "id": "e-charly",
+        "kind": "evidence",
+        "terms": [
+          "2026",
+          "architectures",
+          "aws.",
+          "business",
+          "charly",
+          "cloud",
+          "computers",
+          "engineered",
+          "excerpt",
+          "experience",
+          "internship",
+          "legacy",
+          "migration",
+          "of",
+          "omitted",
+          "operations",
+          "orchestrated",
+          "outcome",
+          "public",
+          "résumé",
+          "to"
+        ],
+        "text": "Engineered cloud architectures … Orchestrated migration of legacy business operations to AWS. Public résumé (2026) Experience / Charly Computers (outcome omitted)",
+        "title": "Cloud internship excerpt"
+      },
+      {
+        "evidenceIds": [
+          "e-climate"
+        ],
+        "id": "e-climate",
+        "kind": "evidence",
+        "terms": [
+          "2026",
+          "apis",
+          "climate",
+          "climate-induced",
+          "count",
+          "data",
+          "excerpt",
+          "for",
+          "forecasting",
+          "forecasting.",
+          "from",
+          "lstm",
+          "migration",
+          "mitigation",
+          "model",
+          "multi-modal",
+          "omitted",
+          "projects",
+          "public",
+          "real-time",
+          "résumé",
+          "selected",
+          "time-series",
+          "tool",
+          "weather"
+        ],
+        "text": "LSTM multi-modal time-series model for climate-induced migration forecasting. Real-time data from … weather APIs Public résumé (2026) Selected Projects / Climate Mitigation Tool (count omitted)",
+        "title": "Climate forecasting excerpt"
+      },
+      {
+        "evidenceIds": [
+          "e-education-tenth"
+        ],
+        "id": "e-education-tenth",
+        "kind": "evidence",
+        "terms": [
+          "10th",
+          "2017",
+          "2018",
+          "2026",
+          "8",
+          "cbse",
+          "education",
+          "gpa",
+          "international",
+          "l.p.",
+          "public",
+          "record",
+          "résumé",
+          "savani",
+          "school",
+          "secondary",
+          "source",
+          "surat"
+        ],
+        "text": "10th CBSE — L.P. Savani International School, Surat · 2017 – 2018 · GPA 8 Public résumé (2026) Education / 10th CBSE",
+        "title": "Secondary school source record"
+      },
+      {
+        "evidenceIds": [
+          "e-education-twelfth"
+        ],
+        "id": "e-education-twelfth",
+        "kind": "evidence",
+        "terms": [
+          "12th",
+          "2019",
+          "2020",
+          "2026",
+          "8.9",
+          "cbse",
+          "education",
+          "gpa",
+          "international",
+          "l.p.",
+          "public",
+          "record",
+          "résumé",
+          "savani",
+          "school",
+          "senior",
+          "source",
+          "surat"
+        ],
+        "text": "12th CBSE — L.P. Savani International School, Surat · 2019 – 2020 · GPA 8.9 Public résumé (2026) Education / 12th CBSE",
+        "title": "Senior school source record"
+      },
+      {
+        "evidenceIds": [
+          "e-education-vit"
+        ],
+        "id": "e-education-vit",
+        "kind": "evidence",
+        "terms": [
+          "10",
+          "2021",
+          "2025.",
+          "2026",
+          "56",
+          "8.95",
+          "air",
+          "b.tech",
+          "cgpa",
+          "computer",
+          "education",
+          "engineering",
+          "in",
+          "institute",
+          "of",
+          "public",
+          "record",
+          "résumé",
+          "science",
+          "source",
+          "technology",
+          "vellore",
+          "vit",
+          "viteee"
+        ],
+        "text": "B.Tech, Computer Science Engineering — Vellore Institute of Technology, Vellore · 2021 – 2025. CGPA 8.95 / 10 · AIR 56 in VITEEE Public résumé (2026) Education / VIT",
+        "title": "VIT education source record"
+      },
+      {
+        "evidenceIds": [
+          "e-energy"
+        ],
+        "id": "e-energy",
+        "kind": "evidence",
+        "terms": [
+          "2026",
+          "aws",
+          "energy",
+          "excerpt",
+          "forecasting",
+          "kinesis",
+          "lstm",
+          "on",
+          "projects",
+          "public",
+          "résumé",
+          "s3",
+          "sagemaker",
+          "scope",
+          "selected",
+          "smart"
+        ],
+        "text": "LSTM forecasting on AWS Kinesis / S3 / SageMaker Public résumé (2026) Selected Projects / Smart Energy Forecasting (scope excerpt)",
+        "title": "Energy forecasting excerpt"
+      },
+      {
+        "evidenceIds": [
+          "e-gdsc"
+        ],
+        "id": "e-gdsc",
+        "kind": "evidence",
+        "terms": [
+          "2026",
+          "and",
+          "challenges",
+          "coding",
+          "community",
+          "contribution",
+          "counts",
+          "excerpt",
+          "experience",
+          "gdsc",
+          "hackathons",
+          "initiatives",
+          "led",
+          "omitted",
+          "public",
+          "ran",
+          "résumé",
+          "technical",
+          "vit"
+        ],
+        "text": "Led … technical initiatives, ran … hackathons and … coding challenges Public résumé (2026) Experience / GDSC VIT (counts omitted)",
+        "title": "GDSC community contribution excerpt"
+      },
+      {
+        "evidenceIds": [
+          "e-incident"
+        ],
+        "id": "e-incident",
+        "kind": "evidence",
+        "terms": [
+          "2026",
+          "and",
+          "cleans",
+          "data",
+          "elk",
+          "end-to-end",
+          "excerpt",
+          "fully",
+          "incident",
+          "incident-ticket",
+          "indexes",
+          "management",
+          "pipeline",
+          "projects",
+          "public",
+          "reproducible.",
+          "résumé",
+          "script-driven",
+          "selected",
+          "that",
+          "ticket",
+          "transforms",
+          "visualises"
+        ],
+        "text": "End-to-end ELK pipeline that cleans, indexes, transforms, and visualises incident-ticket data — fully script-driven and reproducible. Public résumé (2026) Selected Projects / Incident Ticket Management",
+        "title": "Incident pipeline excerpt"
+      },
+      {
+        "evidenceIds": [
+          "e-incident-stack"
+        ],
+        "id": "e-incident-stack",
+        "kind": "evidence",
+        "terms": [
+          "archive",
+          "chips",
+          "csv",
+          "elk",
+          "incident",
+          "mgmt",
+          "portfolio",
+          "public",
+          "python",
+          "snapshot",
+          "source",
+          "stack",
+          "technology",
+          "ticket"
+        ],
+        "text": "ELK · Python · CSV Public portfolio (source snapshot) Archive / Incident Ticket Mgmt / technology chips",
+        "title": "Incident archive stack"
+      },
+      {
+        "evidenceIds": [
+          "e-kyndryl"
+        ],
+        "id": "e-kyndryl",
+        "kind": "evidence",
+        "terms": [
+          "agentic",
+          "ai",
+          "and",
+          "associate",
+          "azure",
+          "bridge",
+          "cases",
+          "delivering",
+          "designing",
+          "enterprise",
+          "excerpt",
+          "experience",
+          "foundry.",
+          "insights",
+          "kyndryl",
+          "kyndryl.",
+          "mission-critical",
+          "modelling",
+          "observability.",
+          "on",
+          "pocs",
+          "portfolio",
+          "predictive",
+          "public",
+          "role",
+          "sde",
+          "shipping",
+          "snapshot",
+          "source",
+          "use",
+          "via",
+          "with"
+        ],
+        "text": "Associate SDE — Kyndryl. Designing & shipping Agentic AI POCs and enterprise use cases on Azure AI Foundry. Delivering mission-critical insights via Kyndryl Bridge with predictive modelling and observability. Public portfolio (source snapshot) Experience / Kyndryl",
+        "title": "Kyndryl public role excerpt"
+      },
+      {
+        "evidenceIds": [
+          "e-opticrop"
+        ],
+        "id": "e-opticrop",
+        "kind": "evidence",
+        "terms": [
+          "2026",
+          "agriculture.",
+          "allocation",
+          "and",
+          "apis",
+          "built",
+          "engines.",
+          "excerpt",
+          "for",
+          "in",
+          "indian",
+          "ml",
+          "opticrop",
+          "precision",
+          "projects",
+          "public",
+          "python",
+          "qualitative",
+          "rule",
+          "résumé",
+          "selected",
+          "water",
+          "weather",
+          "with"
+        ],
+        "text": "ML for precision water allocation in Indian agriculture. Built with Python, weather APIs, and rule engines. Public résumé (2026) Selected Projects / OptiCrop",
+        "title": "OptiCrop qualitative excerpt"
+      },
+      {
+        "evidenceIds": [
+          "e-overlay"
+        ],
+        "id": "e-overlay",
+        "kind": "evidence",
+        "terms": [
+          ".",
+          "2026",
+          "across",
+          "analysis.",
+          "and",
+          "brand",
+          "business",
+          "cost",
+          "elk",
+          "excerpt",
+          "finds",
+          "for",
+          "hostnames",
+          "impact",
+          "jupyter",
+          "notebooks",
+          "overlay",
+          "overlay-insights",
+          "patterns",
+          "pipeline",
+          "project",
+          "projects",
+          "public",
+          "python",
+          "quantifies",
+          "repeated",
+          "résumé",
+          "selected",
+          "that",
+          "toolkit",
+          "value",
+          "with"
+        ],
+        "text": "Python toolkit that finds repeated overlay patterns across hostnames and quantifies business impact (cost / brand value). ELK pipeline with Jupyter notebooks for analysis. Public résumé (2026) Selected Projects / Overlay-Insights",
+        "title": "Overlay-Insights project excerpt"
+      },
+      {
+        "evidenceIds": [
+          "e-overlay-stack"
+        ],
+        "id": "e-overlay-stack",
+        "kind": "evidence",
+        "terms": [
+          "archive",
+          "chips",
+          "elasticsearch",
+          "jupyter",
+          "kibana",
+          "overlay-insights",
+          "portfolio",
+          "public",
+          "python",
+          "snapshot",
+          "source",
+          "stack",
+          "technology"
+        ],
+        "text": "Python · Elasticsearch · Kibana · Jupyter Public portfolio (source snapshot) Archive / Overlay-Insights / technology chips",
+        "title": "Overlay-Insights archive stack"
+      },
+      {
+        "evidenceIds": [
+          "e-p2p"
+        ],
+        "id": "e-p2p",
+        "kind": "evidence",
+        "terms": [
+          "2026",
+          "and",
+          "approvals",
+          "audit-ready",
+          "compiled",
+          "constraints",
+          "detection",
+          "drift",
+          "evidence",
+          "excerpt",
+          "governance",
+          "human-in-the-loop",
+          "live",
+          "p2p",
+          "packs.",
+          "pipelines",
+          "plans",
+          "policy",
+          "projects",
+          "public",
+          "remediation",
+          "risk-scored",
+          "résumé",
+          "selected",
+          "workflow"
+        ],
+        "text": "compiled constraints, live drift detection, risk-scored remediation plans, human-in-the-loop approvals, and audit-ready evidence packs. Public résumé (2026) Selected Projects / Policy → Pipelines",
+        "title": "P2P governance workflow excerpt"
+      },
+      {
+        "evidenceIds": [
+          "e-p2p-approval"
+        ],
+        "id": "e-p2p-approval",
+        "kind": "evidence",
+        "terms": [
+          "approval-aware",
+          "approved",
+          "change",
+          "commands",
+          "execution",
+          "executor",
+          "for",
+          "gcloud",
+          "p2p",
+          "pipelines",
+          "plans.",
+          "policy",
+          "portfolio",
+          "post-state",
+          "proof",
+          "public",
+          "re-queries",
+          "refuses",
+          "resource",
+          "runs",
+          "snapshot",
+          "source",
+          "the",
+          "unapproved",
+          "via"
+        ],
+        "text": "Runs approved commands via gcloud, re-queries the resource for post-state proof, refuses unapproved plans. Public portfolio (source snapshot) Policy → Pipelines / Change Executor",
+        "title": "P2P approval-aware execution"
+      },
+      {
+        "evidenceIds": [
+          "e-p2p-evidence"
+        ],
+        "id": "e-p2p-evidence",
+        "kind": "evidence",
+        "terms": [
+          "+",
+          "after",
+          "audit-ready",
+          "before",
+          "bundles",
+          "contents",
+          "evidence",
+          "evidencepack",
+          "execution",
+          "finding",
+          "firestore.",
+          "log.",
+          "p2p",
+          "pack",
+          "persisted",
+          "pipelines",
+          "plan",
+          "policy",
+          "portfolio",
+          "public",
+          "snapshot",
+          "source",
+          "state",
+          "to"
+        ],
+        "text": "EvidencePack bundles: policy + finding + plan + before/after state + execution log. Persisted to Firestore. Public portfolio (source snapshot) Policy → Pipelines / Audit-ready",
+        "title": "P2P evidence pack contents"
+      },
+      {
+        "evidenceIds": [
+          "e-p2p-stack"
+        ],
+        "id": "e-p2p-stack",
+        "kind": "evidence",
+        "terms": [
+          "+",
+          "2.5",
+          "2026",
+          "ai",
+          "apscheduler",
+          "build",
+          "cloud",
+          "fastapi",
+          "firestore",
+          "gemini",
+          "langchain",
+          "langgraph",
+          "on",
+          "p2p",
+          "pipelines",
+          "podman",
+          "policy",
+          "pro",
+          "projects",
+          "public",
+          "pydantic",
+          "react",
+          "résumé",
+          "selected",
+          "source-listed",
+          "stack",
+          "v2",
+          "vertex",
+          "vite"
+        ],
+        "text": "LangGraph · LangChain · Gemini 2.5 Pro on Vertex AI · FastAPI · Pydantic v2 · React + Vite · APScheduler · Cloud Build · Firestore · Podman Public résumé (2026) Selected Projects / Policy → Pipelines / Stack",
+        "title": "P2P source-listed stack"
+      },
+      {
+        "evidenceIds": [
+          "e-python-guide"
+        ],
+        "id": "e-python-guide",
+        "kind": "evidence",
+        "terms": [
+          "2026",
+          "a",
+          "and",
+          "artefact",
+          "as",
+          "beginner-to-mastery",
+          "during",
+          "essentials",
+          "gdsc",
+          "guide",
+          "kept",
+          "learning",
+          "projects",
+          "public",
+          "python",
+          "résumé",
+          "selected",
+          "use",
+          "used",
+          "vit",
+          "workshop",
+          "workshops."
+        ],
+        "text": "A beginner-to-mastery Python guide kept as a public learning artefact — used during GDSC VIT workshops. Public résumé (2026) Selected Projects / Python Essentials",
+        "title": "Python guide and workshop use"
+      },
+      {
+        "evidenceIds": [
+          "e-skills-ai"
+        ],
+        "id": "e-skills-ai",
+        "kind": "evidence",
+        "terms": [
+          "2026",
+          "agentic",
+          "ai",
+          "and",
+          "azure",
+          "engineering",
+          "forecasting",
+          "foundry",
+          "langchain",
+          "langgraph",
+          "lstm",
+          "ml",
+          "prompt",
+          "public",
+          "rag",
+          "résumé",
+          "skills",
+          "source-listed",
+          "time-series",
+          "vertex"
+        ],
+        "text": "Agentic AI · RAG · LangGraph · LangChain · LSTM · Time-series forecasting · Azure AI Foundry · Vertex AI · Prompt Engineering Public résumé (2026) Skills / AI / ML",
+        "title": "Source-listed AI and ML skills"
+      },
+      {
+        "evidenceIds": [
+          "e-skills-cloud"
+        ],
+        "id": "e-skills-cloud",
+        "kind": "evidence",
+        "terms": [
+          "2026",
+          "adx",
+          "aks",
+          "app",
+          "apps",
+          "aws",
+          "azure",
+          "bicep",
+          "cloud",
+          "container",
+          "cosmos",
+          "db",
+          "ec2",
+          "functions",
+          "gcp",
+          "gcs",
+          "kinesis",
+          "public",
+          "run",
+          "résumé",
+          "s3",
+          "sagemaker",
+          "service",
+          "skills",
+          "source-listed",
+          "terraform",
+          "vertex"
+        ],
+        "text": "Azure (AKS, Container Apps, Functions, App Service, ADX, Cosmos DB) · AWS (EC2, S3, SageMaker, Kinesis) · GCP (Cloud Run, Vertex, GCS) · Bicep · Terraform Public résumé (2026) Skills / Cloud",
+        "title": "Source-listed cloud skills"
+      },
+      {
+        "evidenceIds": [
+          "e-skills-data"
+        ],
+        "id": "e-skills-data",
+        "kind": "evidence",
+        "terms": [
+          "2026",
+          "and",
+          "azure",
+          "data",
+          "elasticsearch",
+          "explorer",
+          "kibana",
+          "kql",
+          "observability",
+          "opentelemetry",
+          "postgres",
+          "public",
+          "résumé",
+          "skills",
+          "source-listed"
+        ],
+        "text": "Azure Data Explorer / KQL · Elasticsearch · Kibana · Postgres · OpenTelemetry Public résumé (2026) Skills / Data / Observability",
+        "title": "Source-listed data and observability skills"
+      },
+      {
+        "evidenceIds": [
+          "e-skills-dev"
+        ],
+        "id": "e-skills-dev",
+        "kind": "evidence",
+        "terms": [
+          "2026",
+          "actions",
+          "dev",
+          "development",
+          "docker",
+          "fastapi",
+          "git",
+          "github",
+          "next.js",
+          "node.js",
+          "public",
+          "react",
+          "résumé",
+          "skills",
+          "source-listed",
+          "tools"
+        ],
+        "text": "Docker · Git · GitHub Actions · FastAPI · Next.js · React · Node.js Public résumé (2026) Skills / Dev / Tools",
+        "title": "Source-listed development tools"
+      },
+      {
+        "evidenceIds": [
+          "e-skills-languages"
+        ],
+        "id": "e-skills-languages",
+        "kind": "evidence",
+        "terms": [
+          "2026",
+          "c++",
+          "java",
+          "languages",
+          "programming",
+          "public",
+          "python",
+          "r",
+          "résumé",
+          "skills",
+          "source-listed",
+          "sql",
+          "typescript"
+        ],
+        "text": "Python · C++ · Java · R · TypeScript · SQL Public résumé (2026) Skills / Languages",
+        "title": "Source-listed programming languages"
+      },
+      {
+        "evidenceIds": [
+          "e-education-tenth"
+        ],
+        "id": "education-cbse-tenth",
+        "kind": "education",
+        "terms": [
+          "10th",
+          "2017",
+          "2018",
+          "8",
+          "cbse",
+          "gpa",
+          "international",
+          "l.p.",
+          "savani",
+          "school",
+          "surat"
+        ],
+        "text": "L.P. Savani International School, Surat 2017 – 2018 GPA 8",
+        "title": "10th CBSE"
+      },
+      {
+        "evidenceIds": [
+          "e-education-twelfth"
+        ],
+        "id": "education-cbse-twelfth",
+        "kind": "education",
+        "terms": [
+          "12th",
+          "2019",
+          "2020",
+          "8.9",
+          "cbse",
+          "gpa",
+          "international",
+          "l.p.",
+          "savani",
+          "school",
+          "surat"
+        ],
+        "text": "L.P. Savani International School, Surat 2019 – 2020 GPA 8.9",
+        "title": "12th CBSE"
+      },
+      {
+        "evidenceIds": [
+          "e-education-vit"
+        ],
+        "id": "education-vit",
+        "kind": "education",
+        "terms": [
+          "10",
+          "2021",
+          "2025",
+          "56",
+          "8.95",
+          "air",
+          "b.tech",
+          "cgpa",
+          "computer",
+          "engineering",
+          "in",
+          "institute",
+          "of",
+          "science",
+          "technology",
+          "vellore",
+          "viteee"
+        ],
+        "text": "Vellore Institute of Technology, Vellore 2021 – 2025 CGPA 8.95 / 10 · AIR 56 in VITEEE",
+        "title": "B.Tech, Computer Science Engineering"
+      },
+      {
+        "evidenceIds": [
+          "e-charly"
+        ],
+        "id": "experience-charly",
+        "kind": "experience",
+        "terms": [
+          "2024",
+          "and",
+          "architectures",
+          "august",
+          "aws.",
+          "business",
+          "charly",
+          "cloud",
+          "computers",
+          "engineered",
+          "intern",
+          "july",
+          "legacy",
+          "migration",
+          "of",
+          "operations",
+          "orchestrated",
+          "to"
+        ],
+        "text": "Charly Computers July 2024 – August 2024 Engineered cloud architectures and orchestrated migration of legacy business operations to AWS.",
+        "title": "Cloud Intern"
+      },
+      {
+        "evidenceIds": [
+          "e-gdsc",
+          "e-python-guide"
+        ],
+        "id": "experience-gdsc",
+        "kind": "experience",
+        "terms": [
+          "2023",
+          "2024",
+          "and",
+          "august",
+          "challenges.",
+          "coding",
+          "core",
+          "during",
+          "essentials",
+          "gdsc",
+          "guide",
+          "hackathons",
+          "initiatives",
+          "led",
+          "member",
+          "python",
+          "september",
+          "technical",
+          "the",
+          "used",
+          "vit",
+          "was",
+          "workshops."
+        ],
+        "text": "GDSC VIT August 2023 – September 2024 Led technical initiatives, hackathons, and coding challenges. The Python Essentials guide was used during GDSC VIT workshops.",
+        "title": "Technical Core Member"
+      },
+      {
+        "evidenceIds": [
+          "e-a360",
+          "e-kyndryl",
+          "e-p2p"
+        ],
+        "id": "experience-kyndryl",
+        "kind": "experience",
+        "terms": [
+          "2025",
+          "a360",
+          "agentic",
+          "ai",
+          "and",
+          "associate",
+          "azure",
+          "bridge.",
+          "cases",
+          "contributions",
+          "designing",
+          "development",
+          "engineer",
+          "enterprise",
+          "foundry.",
+          "frontend",
+          "include",
+          "july",
+          "kyndryl",
+          "modelling",
+          "observability",
+          "on",
+          "pipelines",
+          "pocs",
+          "policy",
+          "predictive",
+          "present",
+          "services",
+          "shipping",
+          "software",
+          "telemetry",
+          "through",
+          "use",
+          "work"
+        ],
+        "text": "Kyndryl July 2025 – present Designing and shipping agentic AI POCs and enterprise use cases on Azure AI Foundry. Contributions include A360 telemetry services and frontend work, Policy → Pipelines, and predictive modelling and observability through Kyndryl Bridge.",
+        "title": "Associate Software Development Engineer"
+      },
+      {
+        "evidenceIds": [
+          "e-incident",
+          "e-incident-stack"
+        ],
+        "id": "incident-ticket-management",
+        "kind": "project",
+        "terms": [
+          "a",
+          "an",
+          "analytics",
+          "analytics.",
+          "and",
+          "be",
+          "changes",
+          "cleaning",
+          "cleans",
+          "connects",
+          "csv",
+          "data",
+          "elk",
+          "elk.",
+          "end-to-end",
+          "engineering",
+          "explore",
+          "from",
+          "github.com",
+          "how",
+          "https",
+          "incident",
+          "incident-data",
+          "incident-ticket",
+          "indexes",
+          "indexing",
+          "kevil21",
+          "managed",
+          "management",
+          "observability",
+          "pipeline",
+          "processing",
+          "python",
+          "question",
+          "records",
+          "reproducible",
+          "schema",
+          "script-driven",
+          "scripts.",
+          "should",
+          "that",
+          "ticket",
+          "to",
+          "transformation",
+          "transforms",
+          "using",
+          "visualisation",
+          "visualisation.",
+          "visualises",
+          "with"
+        ],
+        "text": "Script-driven incident analytics observability An end-to-end ELK pipeline that cleans, indexes, transforms, and visualises incident-ticket data using reproducible scripts. Python ELK CSV Incident-data processing from cleaning to visualisation. Script-driven cleaning, indexing, transformation, and visualisation with Python and ELK. A reproducible data pipeline connects incident records to analytics. Engineering question to explore: how should schema changes be managed? https://github.com/kevil21/Incident_Ticket_Management",
+        "title": "Incident Ticket Management"
+      },
+      {
+        "evidenceIds": [
+          "e-assets"
+        ],
+        "id": "it-asset-analytics",
+        "kind": "project",
+        "terms": [
+          "a",
+          "an",
+          "analysis.",
+          "analytics",
+          "and",
+          "asset",
+          "asset-data",
+          "at",
+          "be",
+          "checked",
+          "cleaning",
+          "covers",
+          "data",
+          "data-engineering",
+          "data-operations-it-assets",
+          "data.",
+          "elasticsearch",
+          "elk",
+          "engineering",
+          "explore",
+          "focused",
+          "for",
+          "github.com",
+          "how",
+          "https",
+          "indexing",
+          "ingestion",
+          "it",
+          "kevil21",
+          "kibana",
+          "making",
+          "numpy",
+          "observability",
+          "on",
+          "pandas",
+          "pipeline",
+          "preparation",
+          "presentation.",
+          "processing",
+          "project",
+          "quality",
+          "question",
+          "should",
+          "support",
+          "the",
+          "through",
+          "to",
+          "transforming",
+          "usable",
+          "using",
+          "visualisation",
+          "visualisation.",
+          "visualising",
+          "with"
+        ],
+        "text": "Asset-data processing and visualisation observability An IT asset analytics pipeline using pandas, NumPy, Elasticsearch, and Kibana for cleaning, indexing, transforming, and visualising asset data. pandas NumPy Elasticsearch Kibana A data-engineering project focused on making IT asset data usable for analysis. pandas and NumPy support data preparation, with Elasticsearch and Kibana for indexing and visualisation. The pipeline covers asset-data preparation through presentation. Engineering question to explore: how should data quality be checked at ingestion? https://github.com/kevil21/data-operations-it-assets_ELK",
+        "title": "IT Asset Analytics"
+      },
+      {
+        "evidenceIds": [
+          "e-a360",
+          "e-a360-flow",
+          "e-a360-stack",
+          "e-energy",
+          "e-opticrop",
+          "e-p2p",
+          "e-p2p-approval",
+          "e-p2p-evidence",
+          "e-p2p-stack"
+        ],
+        "id": "journey-architect",
+        "kind": "journey",
+        "terms": [
+          "and",
+          "architect",
+          "documented",
+          "engineering",
+          "explicitly",
+          "explore",
+          "flows",
+          "forecasting",
+          "governance",
+          "observability",
+          "open",
+          "questions",
+          "questions.",
+          "read",
+          "systems",
+          "the",
+          "then"
+        ],
+        "text": "Read the documented observability and governance flows, then explore explicitly open forecasting questions. architect",
+        "title": "Systems and engineering questions"
+      },
+      {
+        "evidenceIds": [
+          "e-a360",
+          "e-a360-flow",
+          "e-a360-stack",
+          "e-assets",
+          "e-climate",
+          "e-incident",
+          "e-incident-stack",
+          "e-overlay",
+          "e-overlay-stack"
+        ],
+        "id": "journey-engineer",
+        "kind": "journey",
+        "terms": [
+          "analytics",
+          "and",
+          "asset-data",
+          "data",
+          "engineer",
+          "follow",
+          "forecasting",
+          "implementation",
+          "incident",
+          "pipelines",
+          "preparation",
+          "projects.",
+          "telemetry"
+        ],
+        "text": "Follow telemetry, incident analytics, asset-data preparation, and forecasting projects. engineer",
+        "title": "Data pipelines and implementation"
+      },
+      {
+        "evidenceIds": [
+          "e-a360",
+          "e-a360-flow",
+          "e-a360-stack",
+          "e-p2p",
+          "e-p2p-approval",
+          "e-p2p-evidence",
+          "e-p2p-stack",
+          "e-python-guide"
+        ],
+        "id": "journey-recruiter",
+        "kind": "journey",
+        "terms": [
+          "a",
+          "agent",
+          "and",
+          "cloud",
+          "community",
+          "contribution",
+          "explore",
+          "governance",
+          "learning",
+          "observability",
+          "overview",
+          "recruiter",
+          "resource.",
+          "role"
+        ],
+        "text": "Explore agent observability, cloud governance, and a community learning resource. recruiter",
+        "title": "Role and contribution overview"
+      },
+      {
+        "evidenceIds": [],
+        "id": "kevil-patel",
+        "kind": "profile",
+        "terms": [
+          "368f1807-b155-48d9-ba6c-e9ba98a384f5",
+          "agentic",
+          "ai",
+          "and",
+          "associate",
+          "at",
+          "basic",
+          "cloud",
+          "credly",
+          "dashboards.",
+          "development",
+          "en-in",
+          "engineer",
+          "english",
+          "face",
+          "fluent",
+          "github",
+          "github.com",
+          "gmail.com",
+          "google",
+          "gujarati",
+          "hindi",
+          "https",
+          "hugging",
+          "huggingface.co",
+          "in",
+          "india",
+          "kevil",
+          "kevil-patel.db5e53fa",
+          "kevil21",
+          "kevilpatel24",
+          "kyndryl",
+          "learn",
+          "learn.microsoft.com",
+          "linkedin",
+          "linkedin.com",
+          "microsoft",
+          "native",
+          "observability",
+          "on",
+          "patel",
+          "pipelines",
+          "profiles",
+          "public",
+          "skills",
+          "software",
+          "spanish",
+          "surat",
+          "systems",
+          "telemetry",
+          "users",
+          "working",
+          "www.credly.com",
+          "www.skills.google"
+        ],
+        "text": "Associate Software Development Engineer Surat, India Associate Software Development Engineer at Kyndryl, working on agentic AI, cloud systems, telemetry pipelines, and observability dashboards. kevilpatel24@gmail.com English (fluent) Hindi (fluent) Gujarati (native) Spanish (basic) LinkedIn: https://linkedin.com/in/kevil21 GitHub: https://github.com/kevil21 Hugging Face: https://huggingface.co/Kevil21 Microsoft Learn: https://learn.microsoft.com/en-in/users/kevil21/ Credly: https://www.credly.com/users/kevil-patel.db5e53fa Google Skills: https://www.skills.google/public_profiles/368f1807-b155-48d9-ba6c-e9ba98a384f5",
+        "title": "Kevil Patel"
+      },
+      {
+        "evidenceIds": [
+          "e-opticrop"
+        ],
+        "id": "opticrop",
+        "kind": "project",
+        "terms": [
+          "affect",
+          "agriculture",
+          "agriculture-focused",
+          "allocation",
+          "allocation.",
+          "an",
+          "and",
+          "api",
+          "apis",
+          "applying",
+          "built",
+          "by",
+          "case.",
+          "crop-prediction",
+          "decision",
+          "engineering",
+          "engines",
+          "engines.",
+          "established",
+          "explore",
+          "for",
+          "github.com",
+          "how",
+          "https",
+          "in",
+          "indian",
+          "inputs",
+          "intelligence",
+          "is",
+          "kevil21",
+          "learning",
+          "machine",
+          "no",
+          "opticrop",
+          "personal",
+          "precision",
+          "project",
+          "python",
+          "question",
+          "recommendations",
+          "rule",
+          "should",
+          "source.",
+          "support",
+          "the",
+          "to",
+          "tradeoff",
+          "uncertainty",
+          "use",
+          "water",
+          "water-allocation",
+          "weather",
+          "with"
+        ],
+        "text": "Precision water allocation intelligence Machine learning for precision water allocation in Indian agriculture, built with Python, weather APIs, and rule engines. Python Weather APIs Rule engines Machine learning An agriculture-focused project applying machine learning to water allocation. Python, weather API inputs, and rule engines support the water-allocation use case. Engineering question to explore: how should weather uncertainty affect allocation recommendations? No personal tradeoff decision is established by the source. https://github.com/kevil21/Crop-Prediction",
+        "title": "OptiCrop"
+      },
+      {
+        "evidenceIds": [
+          "e-overlay",
+          "e-overlay-stack"
+        ],
+        "id": "overlay-insights",
+        "kind": "project",
+        "terms": [
+          "a",
+          "across",
+          "an",
+          "analysing",
+          "analysis",
+          "and",
+          "are",
+          "brand",
+          "business",
+          "business-impact",
+          "connecting",
+          "cost",
+          "dimensions.",
+          "elasticsearch",
+          "elk",
+          "finding",
+          "for",
+          "github.com",
+          "hostname",
+          "hostnames",
+          "https",
+          "impact",
+          "impact.",
+          "jupyter",
+          "kevil21",
+          "kibana",
+          "notebooks.",
+          "observability",
+          "overlay",
+          "overlay-insights",
+          "overlays",
+          "pattern",
+          "patterns",
+          "pipeline",
+          "public",
+          "python",
+          "repeated",
+          "stated",
+          "subject",
+          "technical",
+          "the",
+          "through",
+          "toolkit",
+          "value",
+          "value.",
+          "with"
+        ],
+        "text": "Overlay pattern analysis observability A Python toolkit for finding repeated overlay patterns across hostnames and analysing business impact through cost and brand value. Python Elasticsearch Kibana Jupyter A public analysis toolkit connecting technical patterns with business impact. Python analysis with an ELK pipeline and Jupyter notebooks. Repeated hostname overlays are the analysis subject; cost and brand value are the stated business-impact dimensions. https://github.com/kevil21/Overlay-Insights",
+        "title": "Overlay-Insights"
+      },
+      {
+        "evidenceIds": [
+          "e-p2p",
+          "e-p2p-approval",
+          "e-p2p-evidence",
+          "e-p2p-stack"
+        ],
+        "id": "policy-to-pipelines",
+        "kind": "project",
+        "terms": [
+          "2.5",
+          "a",
+          "after",
+          "ai",
+          "an",
+          "and",
+          "approval-aware",
+          "approvals",
+          "apscheduler",
+          "as",
+          "audit",
+          "audit-ready",
+          "before",
+          "build",
+          "cloud",
+          "command.",
+          "compilation",
+          "compiled",
+          "connecting",
+          "connects",
+          "constraints",
+          "detection",
+          "drift",
+          "evidence",
+          "evidence.",
+          "execution",
+          "fastapi",
+          "findings",
+          "firestore",
+          "for",
+          "gcp",
+          "gemini",
+          "governance",
+          "human-in-the-loop",
+          "interface",
+          "interpretation",
+          "into",
+          "langchain",
+          "langgraph",
+          "logs",
+          "natural-language",
+          "p2p",
+          "packs.",
+          "pipelines",
+          "plain-english",
+          "plans",
+          "platform",
+          "podman",
+          "policies",
+          "policy",
+          "pro",
+          "pydantic",
+          "rather",
+          "react",
+          "remediation",
+          "review",
+          "risk-scored",
+          "state",
+          "support",
+          "than",
+          "that",
+          "the",
+          "treating",
+          "turns",
+          "unreviewed",
+          "vertex",
+          "vite",
+          "with",
+          "work"
+        ],
+        "text": "Natural-language governance for GCP governance A LangGraph platform that turns plain-English policies into compiled constraints, drift detection, risk-scored remediation plans, human-in-the-loop approvals, and audit-ready evidence packs. LangGraph LangChain Gemini 2.5 Pro Vertex AI FastAPI Pydantic React Vite APScheduler Cloud Build Firestore Podman Cloud governance work connecting policy interpretation, remediation review, and audit evidence. LangGraph and FastAPI support policy compilation and remediation, with React and Vite for the interface and Firestore for evidence packs. Approval-aware execution connects policy, findings, plans, before/after state, and execution logs rather than treating remediation as an unreviewed command.",
+        "title": "Policy → Pipelines (P2P)"
+      },
+      {
+        "evidenceIds": [
+          "e-python-guide"
+        ],
+        "id": "python-essentials",
+        "kind": "project",
+        "terms": [
+          "a",
+          "an",
+          "and",
+          "architecture.",
+          "artefact",
+          "as",
+          "beginner",
+          "beginner-to-mastery",
+          "claimed",
+          "community",
+          "concepts",
+          "connected",
+          "craft",
+          "during",
+          "educational",
+          "essentials",
+          "from",
+          "gdsc",
+          "github.com",
+          "guide",
+          "https",
+          "intended",
+          "is",
+          "kept",
+          "kevil21",
+          "learning",
+          "not",
+          "onward.",
+          "production-system",
+          "public",
+          "python",
+          "resource",
+          "support",
+          "this",
+          "to",
+          "used",
+          "vit",
+          "workshops."
+        ],
+        "text": "A public Python learning guide craft A beginner-to-mastery Python guide kept as a public learning artefact and used during GDSC VIT workshops. Python A public learning resource connected to community workshops. A Python guide intended to support learning from beginner concepts onward. This is an educational artefact, not a claimed production-system architecture. https://github.com/kevil21/Python",
+        "title": "Python Essentials"
+      },
+      {
+        "evidenceIds": [],
+        "id": "resume",
+        "kind": "resume",
+        "terms": [
+          "agentic",
+          "ai",
+          "and",
+          "are",
+          "below.",
+          "cloud",
+          "credential",
+          "credentials",
+          "education",
+          "engineering",
+          "experience",
+          "kevil",
+          "limitations",
+          "observability.",
+          "patel",
+          "pipelines",
+          "projects",
+          "retained",
+          "résumé",
+          "skills",
+          "source-listed",
+          "telemetry",
+          "verification"
+        ],
+        "text": "Agentic AI, cloud engineering, telemetry pipelines, and observability. Source-listed experience, education, projects, skills, and credentials; credential verification limitations are retained below.",
+        "title": "Kevil Patel — Résumé"
+      },
+      {
+        "evidenceIds": [
+          "e-a360-flow",
+          "e-a360-stack",
+          "e-skills-cloud",
+          "e-skills-data"
+        ],
+        "id": "skill-adx",
+        "kind": "skill",
+        "terms": [
+          "adx",
+          "azure",
+          "data",
+          "explorer",
+          "observability"
+        ],
+        "text": "Data / Observability Azure Data Explorer (ADX)",
+        "title": "Azure Data Explorer (ADX)"
+      },
+      {
+        "evidenceIds": [
+          "e-kyndryl",
+          "e-skills-ai"
+        ],
+        "id": "skill-agentic-ai",
+        "kind": "skill",
+        "terms": [
+          "agentic",
+          "ai",
+          "ml"
+        ],
+        "text": "AI / ML Agentic AI",
+        "title": "Agentic AI"
+      },
+      {
+        "evidenceIds": [
+          "e-a360-stack",
+          "e-skills-cloud"
+        ],
+        "id": "skill-aks",
+        "kind": "skill",
+        "terms": [
+          "aks",
+          "azure",
+          "cloud",
+          "kubernetes",
+          "service"
+        ],
+        "text": "Cloud Azure Kubernetes Service (AKS)",
+        "title": "Azure Kubernetes Service (AKS)"
+      },
+      {
+        "evidenceIds": [
+          "e-skills-cloud"
+        ],
+        "id": "skill-app-service",
+        "kind": "skill",
+        "terms": [
+          "app",
+          "azure",
+          "cloud",
+          "service"
+        ],
+        "text": "Cloud Azure App Service",
+        "title": "Azure App Service"
+      },
+      {
+        "evidenceIds": [
+          "e-charly",
+          "e-energy",
+          "e-skills-cloud"
+        ],
+        "id": "skill-aws",
+        "kind": "skill",
+        "terms": [
+          "aws",
+          "cloud"
+        ],
+        "text": "Cloud AWS",
+        "title": "AWS"
+      },
+      {
+        "evidenceIds": [
+          "e-skills-cloud"
+        ],
+        "id": "skill-azure",
+        "kind": "skill",
+        "terms": [
+          "azure",
+          "cloud"
+        ],
+        "text": "Cloud Azure",
+        "title": "Azure"
+      },
+      {
+        "evidenceIds": [
+          "e-kyndryl",
+          "e-skills-ai"
+        ],
+        "id": "skill-azure-ai-foundry",
+        "kind": "skill",
+        "terms": [
+          "ai",
+          "azure",
+          "foundry",
+          "ml"
+        ],
+        "text": "AI / ML Azure AI Foundry",
+        "title": "Azure AI Foundry"
+      },
+      {
+        "evidenceIds": [
+          "e-skills-cloud"
+        ],
+        "id": "skill-bicep",
+        "kind": "skill",
+        "terms": [
+          "bicep",
+          "cloud"
+        ],
+        "text": "Cloud Bicep",
+        "title": "Bicep"
+      },
+      {
+        "evidenceIds": [
+          "e-skills-cloud"
+        ],
+        "id": "skill-cloud-run",
+        "kind": "skill",
+        "terms": [
+          "cloud",
+          "gcp",
+          "run"
+        ],
+        "text": "Cloud GCP Cloud Run",
+        "title": "GCP Cloud Run"
+      },
+      {
+        "evidenceIds": [
+          "e-skills-cloud"
+        ],
+        "id": "skill-container-apps",
+        "kind": "skill",
+        "terms": [
+          "apps",
+          "azure",
+          "cloud",
+          "container"
+        ],
+        "text": "Cloud Azure Container Apps",
+        "title": "Azure Container Apps"
+      },
+      {
+        "evidenceIds": [
+          "e-a360-stack",
+          "e-skills-cloud"
+        ],
+        "id": "skill-cosmos-db",
+        "kind": "skill",
+        "terms": [
+          "cloud",
+          "cosmos",
+          "db"
+        ],
+        "text": "Cloud Cosmos DB",
+        "title": "Cosmos DB"
+      },
+      {
+        "evidenceIds": [
+          "e-skills-languages"
+        ],
+        "id": "skill-cpp",
+        "kind": "skill",
+        "terms": [
+          "c++",
+          "languages"
+        ],
+        "text": "Languages C++",
+        "title": "C++"
+      },
+      {
+        "evidenceIds": [
+          "e-skills-dev"
+        ],
+        "id": "skill-docker",
+        "kind": "skill",
+        "terms": [
+          "dev",
+          "docker",
+          "tools"
+        ],
+        "text": "Dev / Tools Docker",
+        "title": "Docker"
+      },
+      {
+        "evidenceIds": [
+          "e-skills-cloud"
+        ],
+        "id": "skill-ec2",
+        "kind": "skill",
+        "terms": [
+          "aws",
+          "cloud",
+          "ec2"
+        ],
+        "text": "Cloud AWS EC2",
+        "title": "AWS EC2"
+      },
+      {
+        "evidenceIds": [
+          "e-a360-flow",
+          "e-a360-stack",
+          "e-assets",
+          "e-overlay-stack",
+          "e-skills-data"
+        ],
+        "id": "skill-elasticsearch",
+        "kind": "skill",
+        "terms": [
+          "data",
+          "elasticsearch",
+          "observability"
+        ],
+        "text": "Data / Observability Elasticsearch",
+        "title": "Elasticsearch"
+      },
+      {
+        "evidenceIds": [
+          "e-a360-stack",
+          "e-p2p-stack",
+          "e-skills-dev"
+        ],
+        "id": "skill-fastapi",
+        "kind": "skill",
+        "terms": [
+          "dev",
+          "fastapi",
+          "tools"
+        ],
+        "text": "Dev / Tools FastAPI",
+        "title": "FastAPI"
+      },
+      {
+        "evidenceIds": [
+          "e-skills-cloud"
+        ],
+        "id": "skill-functions",
+        "kind": "skill",
+        "terms": [
+          "azure",
+          "cloud",
+          "functions"
+        ],
+        "text": "Cloud Azure Functions",
+        "title": "Azure Functions"
+      },
+      {
+        "evidenceIds": [
+          "e-skills-cloud"
+        ],
+        "id": "skill-gcp",
+        "kind": "skill",
+        "terms": [
+          "cloud",
+          "gcp"
+        ],
+        "text": "Cloud GCP",
+        "title": "GCP"
+      },
+      {
+        "evidenceIds": [
+          "e-skills-cloud"
+        ],
+        "id": "skill-gcs",
+        "kind": "skill",
+        "terms": [
+          "cloud",
+          "gcs",
+          "google",
+          "storage"
+        ],
+        "text": "Cloud Google Cloud Storage (GCS)",
+        "title": "Google Cloud Storage (GCS)"
+      },
+      {
+        "evidenceIds": [
+          "e-skills-dev"
+        ],
+        "id": "skill-git",
+        "kind": "skill",
+        "terms": [
+          "dev",
+          "git",
+          "tools"
+        ],
+        "text": "Dev / Tools Git",
+        "title": "Git"
+      },
+      {
+        "evidenceIds": [
+          "e-skills-dev"
+        ],
+        "id": "skill-github-actions",
+        "kind": "skill",
+        "terms": [
+          "actions",
+          "dev",
+          "github",
+          "tools"
+        ],
+        "text": "Dev / Tools GitHub Actions",
+        "title": "GitHub Actions"
+      },
+      {
+        "evidenceIds": [
+          "e-skills-languages"
+        ],
+        "id": "skill-java",
+        "kind": "skill",
+        "terms": [
+          "java",
+          "languages"
+        ],
+        "text": "Languages Java",
+        "title": "Java"
+      },
+      {
+        "evidenceIds": [
+          "e-overlay",
+          "e-overlay-stack"
+        ],
+        "id": "skill-jupyter",
+        "kind": "skill",
+        "terms": [
+          "dev",
+          "jupyter",
+          "tools"
+        ],
+        "text": "Dev / Tools Jupyter",
+        "title": "Jupyter"
+      },
+      {
+        "evidenceIds": [
+          "e-a360",
+          "e-assets",
+          "e-overlay-stack",
+          "e-skills-data"
+        ],
+        "id": "skill-kibana",
+        "kind": "skill",
+        "terms": [
+          "data",
+          "kibana",
+          "observability"
+        ],
+        "text": "Data / Observability Kibana",
+        "title": "Kibana"
+      },
+      {
+        "evidenceIds": [
+          "e-energy",
+          "e-skills-cloud"
+        ],
+        "id": "skill-kinesis",
+        "kind": "skill",
+        "terms": [
+          "aws",
+          "cloud",
+          "kinesis"
+        ],
+        "text": "Cloud AWS Kinesis",
+        "title": "AWS Kinesis"
+      },
+      {
+        "evidenceIds": [
+          "e-skills-data"
+        ],
+        "id": "skill-kql",
+        "kind": "skill",
+        "terms": [
+          "data",
+          "kql",
+          "observability"
+        ],
+        "text": "Data / Observability KQL",
+        "title": "KQL"
+      },
+      {
+        "evidenceIds": [
+          "e-p2p-stack",
+          "e-skills-ai"
+        ],
+        "id": "skill-langchain",
+        "kind": "skill",
+        "terms": [
+          "ai",
+          "langchain",
+          "ml"
+        ],
+        "text": "AI / ML LangChain",
+        "title": "LangChain"
+      },
+      {
+        "evidenceIds": [
+          "e-p2p-stack",
+          "e-skills-ai"
+        ],
+        "id": "skill-langgraph",
+        "kind": "skill",
+        "terms": [
+          "ai",
+          "langgraph",
+          "ml"
+        ],
+        "text": "AI / ML LangGraph",
+        "title": "LangGraph"
+      },
+      {
+        "evidenceIds": [
+          "e-climate",
+          "e-energy",
+          "e-skills-ai"
+        ],
+        "id": "skill-lstm",
+        "kind": "skill",
+        "terms": [
+          "ai",
+          "lstm",
+          "ml"
+        ],
+        "text": "AI / ML LSTM",
+        "title": "LSTM"
+      },
+      {
+        "evidenceIds": [
+          "e-a360-stack",
+          "e-skills-dev"
+        ],
+        "id": "skill-nextjs",
+        "kind": "skill",
+        "terms": [
+          "dev",
+          "next.js",
+          "tools"
+        ],
+        "text": "Dev / Tools Next.js",
+        "title": "Next.js"
+      },
+      {
+        "evidenceIds": [
+          "e-skills-dev"
+        ],
+        "id": "skill-nodejs",
+        "kind": "skill",
+        "terms": [
+          "dev",
+          "node.js",
+          "tools"
+        ],
+        "text": "Dev / Tools Node.js",
+        "title": "Node.js"
+      },
+      {
+        "evidenceIds": [
+          "e-assets"
+        ],
+        "id": "skill-numpy",
+        "kind": "skill",
+        "terms": [
+          "data",
+          "numpy",
+          "observability"
+        ],
+        "text": "Data / Observability NumPy",
+        "title": "NumPy"
+      },
+      {
+        "evidenceIds": [
+          "e-a360-flow",
+          "e-skills-data"
+        ],
+        "id": "skill-opentelemetry",
+        "kind": "skill",
+        "terms": [
+          "data",
+          "observability",
+          "opentelemetry"
+        ],
+        "text": "Data / Observability OpenTelemetry",
+        "title": "OpenTelemetry"
+      },
+      {
+        "evidenceIds": [
+          "e-assets"
+        ],
+        "id": "skill-pandas",
+        "kind": "skill",
+        "terms": [
+          "data",
+          "observability",
+          "pandas"
+        ],
+        "text": "Data / Observability pandas",
+        "title": "pandas"
+      },
+      {
+        "evidenceIds": [
+          "e-a360-flow",
+          "e-skills-data"
+        ],
+        "id": "skill-postgres",
+        "kind": "skill",
+        "terms": [
+          "data",
+          "observability",
+          "postgres"
+        ],
+        "text": "Data / Observability Postgres",
+        "title": "Postgres"
+      },
+      {
+        "evidenceIds": [
+          "e-skills-ai"
+        ],
+        "id": "skill-prompt-engineering",
+        "kind": "skill",
+        "terms": [
+          "ai",
+          "engineering",
+          "ml",
+          "prompt"
+        ],
+        "text": "AI / ML Prompt Engineering",
+        "title": "Prompt Engineering"
+      },
+      {
+        "evidenceIds": [
+          "e-incident-stack",
+          "e-opticrop",
+          "e-overlay",
+          "e-python-guide",
+          "e-skills-languages"
+        ],
+        "id": "skill-python",
+        "kind": "skill",
+        "terms": [
+          "languages",
+          "python"
+        ],
+        "text": "Languages Python",
+        "title": "Python"
+      },
+      {
+        "evidenceIds": [
+          "e-skills-languages"
+        ],
+        "id": "skill-r",
+        "kind": "skill",
+        "terms": [
+          "languages",
+          "r"
+        ],
+        "text": "Languages R",
+        "title": "R"
+      },
+      {
+        "evidenceIds": [
+          "e-skills-ai"
+        ],
+        "id": "skill-rag",
+        "kind": "skill",
+        "terms": [
+          "ai",
+          "ml",
+          "rag"
+        ],
+        "text": "AI / ML RAG",
+        "title": "RAG"
+      },
+      {
+        "evidenceIds": [
+          "e-a360-stack",
+          "e-p2p-stack",
+          "e-skills-dev"
+        ],
+        "id": "skill-react",
+        "kind": "skill",
+        "terms": [
+          "dev",
+          "react",
+          "tools"
+        ],
+        "text": "Dev / Tools React",
+        "title": "React"
+      },
+      {
+        "evidenceIds": [
+          "e-energy",
+          "e-skills-cloud"
+        ],
+        "id": "skill-s3",
+        "kind": "skill",
+        "terms": [
+          "aws",
+          "cloud",
+          "s3"
+        ],
+        "text": "Cloud AWS S3",
+        "title": "AWS S3"
+      },
+      {
+        "evidenceIds": [
+          "e-energy",
+          "e-skills-cloud"
+        ],
+        "id": "skill-sagemaker",
+        "kind": "skill",
+        "terms": [
+          "aws",
+          "cloud",
+          "sagemaker"
+        ],
+        "text": "Cloud AWS SageMaker",
+        "title": "AWS SageMaker"
+      },
+      {
+        "evidenceIds": [
+          "e-skills-languages"
+        ],
+        "id": "skill-sql",
+        "kind": "skill",
+        "terms": [
+          "languages",
+          "sql"
+        ],
+        "text": "Languages SQL",
+        "title": "SQL"
+      },
+      {
+        "evidenceIds": [
+          "e-skills-cloud"
+        ],
+        "id": "skill-terraform",
+        "kind": "skill",
+        "terms": [
+          "cloud",
+          "terraform"
+        ],
+        "text": "Cloud Terraform",
+        "title": "Terraform"
+      },
+      {
+        "evidenceIds": [
+          "e-climate",
+          "e-skills-ai"
+        ],
+        "id": "skill-time-series",
+        "kind": "skill",
+        "terms": [
+          "ai",
+          "forecasting",
+          "ml",
+          "time-series"
+        ],
+        "text": "AI / ML Time-series forecasting",
+        "title": "Time-series forecasting"
+      },
+      {
+        "evidenceIds": [
+          "e-skills-languages"
+        ],
+        "id": "skill-typescript",
+        "kind": "skill",
+        "terms": [
+          "languages",
+          "typescript"
+        ],
+        "text": "Languages TypeScript",
+        "title": "TypeScript"
+      },
+      {
+        "evidenceIds": [
+          "e-p2p-stack",
+          "e-skills-ai",
+          "e-skills-cloud"
+        ],
+        "id": "skill-vertex-ai",
+        "kind": "skill",
+        "terms": [
+          "ai",
+          "ml",
+          "vertex"
+        ],
+        "text": "AI / ML Vertex AI",
+        "title": "Vertex AI"
+      },
+      {
+        "evidenceIds": [
+          "e-energy"
+        ],
+        "id": "smart-energy-forecasting",
+        "kind": "project",
+        "terms": [
+          "a",
+          "and",
+          "artifact",
+          "aws",
+          "combining",
+          "energy",
+          "engineering",
+          "evaluation",
+          "explore",
+          "fits",
+          "forecasting",
+          "intelligence",
+          "is",
+          "kinesis",
+          "learning",
+          "lstm",
+          "machine",
+          "names",
+          "not",
+          "on",
+          "project-specific",
+          "public",
+          "question",
+          "retraining",
+          "s3",
+          "sagemaker",
+          "sagemaker.",
+          "services.",
+          "smart",
+          "source",
+          "strategy",
+          "supplied.",
+          "the",
+          "this",
+          "to",
+          "using",
+          "what",
+          "with",
+          "work",
+          "workload"
+        ],
+        "text": "LSTM forecasting on AWS intelligence LSTM energy forecasting using AWS Kinesis, S3, and SageMaker. LSTM AWS Kinesis AWS S3 AWS SageMaker Energy forecasting work combining machine learning and AWS services. The source names LSTM forecasting with AWS Kinesis, S3, and SageMaker. Engineering question to explore: what evaluation and retraining strategy fits this forecasting workload? A project-specific public artifact is not supplied.",
+        "title": "Smart Energy Forecasting"
+      }
+    ]
+  },
+  "schemaVersion": 1
+}

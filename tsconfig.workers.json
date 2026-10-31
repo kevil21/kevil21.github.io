@@ -1,0 +1,9 @@
+{
+  "compilerOptions": {
+    "target": "ES2023", "module": "ESNext", "moduleResolution": "Bundler",
+    "lib": ["ES2023", "WebWorker"], "types": [], "strict": true,
+    "noUncheckedIndexedAccess": true, "exactOptionalPropertyTypes": true,
+    "skipLibCheck": true, "noEmit": true, "allowImportingTsExtensions": true
+  },
+  "include": ["src/ai/workers/**/*.ts", "src/pwa/service-worker.ts"]
+}

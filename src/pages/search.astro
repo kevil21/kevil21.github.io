@@ -1,0 +1,14 @@
+---
+import { createKnowledgeDocuments } from '../lib/knowledge';
+import { portfolio } from '../lib/content';
+import { documentHref } from '../lib/routes';
+import Layout from '../layouts/Layout.astro';
+const documents = createKnowledgeDocuments(portfolio);
+const kinds = [...new Set(documents.map((doc) => doc.kind))];
+---
+<Layout title="Source index" description="A complete, browsable index of the public profile, projects, experience, skills, credentials, education, evidence, and journeys.">
+  <div class="reading"><header class="page-intro"><p class="eyebrow">The complete catalog</p><h1>Find your<br />next thread.</h1><p>Use the search above, or browse every record below. This index works without JavaScript.</p></header>
+    <nav class="reading-nav" aria-label="Source categories">{kinds.map((kind) => <a href={`#kind-${kind}`}>{kind}</a>)}</nav>
+    {kinds.map((kind) => <section id={`kind-${kind}`}><h2>{kind.charAt(0).toUpperCase() + kind.slice(1)} records</h2><ul class="static-search">{documents.filter((doc) => doc.kind === kind).map((doc) => <li class="record" id={doc.id}><h3><a href={documentHref(doc.kind, doc.id)}>{doc.title} →</a></h3><p>{doc.text}</p></li>)}</ul></section>)}
+  </div>
+</Layout>

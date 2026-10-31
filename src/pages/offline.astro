@@ -1,0 +1,12 @@
+---
+import Layout from '../layouts/Layout.astro';
+---
+<Layout title="Offline help" description="How to read the static Evidence Atlas offline, recover unavailable routes, and keep model storage separate." noindex>
+  <div class="reading"><header class="page-intro"><p class="eyebrow">Offline / local copies</p><h1>A useful atlas,<br />even disconnected.</h1><p>If this page replaced your destination, that route is unavailable offline. Reconnect and try again; it is not the home page or a successful response for a missing route.</p></header>
+    <p>After the offline controls report a complete snapshot, all published reading routes are available—even ones you have not visited. The source catalog and model-free Pocket search/JD can run locally. Browsers may evict storage; first visits, interrupted downloads and cleared caches still require a connection.</p>
+    <div class="actions"><a class="button-link primary" href="/">Read the atlas</a><a class="button-link" href="/search/">Browse the index</a><a class="button-link" href="/resume/">Read the résumé</a></div>
+    <h2>Separate from model downloads</h2><p>Optional semantic and Full models are never installed by offline-page caching. Model consent and model-cache clearing remain separate. A cached model is not proof that Full inference works offline. External profile, project and credential links require a network.</p>
+    <h2>Updates and recovery</h2><p>A verified update waits for your approval. “Refresh all Atlas tabs” discards unsaved local input in every open Atlas tab and switches the complete snapshot. Close older tabs if storage prevents an update. “Clear offline pages only” removes this site's static copies, not model caches; reload online to install them again.</p>
+    <p>JavaScript and a secure context are needed to install offline copies. Without JavaScript, the original static portfolio still works online. No sensitive queries, pasted JD text, private paths or query-string history are stored by offline caching.</p>
+  </div>
+</Layout>

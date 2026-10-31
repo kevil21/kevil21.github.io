@@ -1,0 +1,739 @@
+{
+  "contentHash": "f4597070147fc516dd947732c1302deb85d8ae8b702a36a44dd8f6ff58f84fd6",
+  "data": {
+    "evidence": {
+      "e-a360": {
+        "id": "e-a360",
+        "projectIds": [
+          "a360"
+        ],
+        "provenance": "source-provided",
+        "referencedBy": [
+          "a360",
+          "experience-kyndryl",
+          "journey-architect",
+          "journey-engineer",
+          "journey-recruiter",
+          "skill-kibana"
+        ],
+        "skillIds": [
+          "skill-kibana"
+        ],
+        "source": "Public résumé (2026)",
+        "sourceSection": "Selected Projects / A360",
+        "text": "Kyndryl's platform for watching how enterprise AI agent fleets behave in production. Executive dashboards, KPI drill-downs, embedded Kibana, agent trust scores, LLM FinOps, conversational interface over telemetry.",
+        "title": "A360 public project description"
+      },
+      "e-a360-flow": {
+        "id": "e-a360-flow",
+        "projectIds": [
+          "a360"
+        ],
+        "provenance": "source-provided",
+        "referencedBy": [
+          "a360",
+          "architecture-telemetry-flow",
+          "journey-architect",
+          "journey-engineer",
+          "journey-recruiter",
+          "skill-adx",
+          "skill-elasticsearch",
+          "skill-opentelemetry",
+          "skill-postgres"
+        ],
+        "skillIds": [
+          "skill-opentelemetry",
+          "skill-postgres",
+          "skill-adx",
+          "skill-elasticsearch"
+        ],
+        "source": "Public portfolio (source snapshot)",
+        "sourceSection": "A360 / project introduction",
+        "text": "running on a streaming pipeline from OTEL → Postgres → Azure Data Explorer → Elasticsearch → Next.js",
+        "title": "A360 high-level telemetry flow"
+      },
+      "e-a360-stack": {
+        "id": "e-a360-stack",
+        "projectIds": [
+          "a360"
+        ],
+        "provenance": "source-provided",
+        "referencedBy": [
+          "a360",
+          "journey-architect",
+          "journey-engineer",
+          "journey-recruiter",
+          "skill-adx",
+          "skill-aks",
+          "skill-cosmos-db",
+          "skill-elasticsearch",
+          "skill-fastapi",
+          "skill-nextjs",
+          "skill-react"
+        ],
+        "skillIds": [
+          "skill-nextjs",
+          "skill-react",
+          "skill-fastapi",
+          "skill-adx",
+          "skill-elasticsearch",
+          "skill-cosmos-db",
+          "skill-aks"
+        ],
+        "source": "Public résumé (2026)",
+        "sourceSection": "Selected Projects / A360 / Stack",
+        "text": "Next.js 16 · React 19 · Shidoka design system · FastAPI · Azure Data Explorer · Elasticsearch · Cosmos DB · Azure Kubernetes Service · LiteLLM",
+        "title": "A360 source-listed stack"
+      },
+      "e-assets": {
+        "id": "e-assets",
+        "projectIds": [
+          "it-asset-analytics"
+        ],
+        "provenance": "source-provided",
+        "referencedBy": [
+          "it-asset-analytics",
+          "journey-engineer",
+          "skill-elasticsearch",
+          "skill-kibana",
+          "skill-numpy",
+          "skill-pandas"
+        ],
+        "skillIds": [
+          "skill-pandas",
+          "skill-numpy",
+          "skill-elasticsearch",
+          "skill-kibana"
+        ],
+        "source": "Public résumé (2026)",
+        "sourceSection": "Selected Projects / IT Asset Analytics",
+        "text": "End-to-end IT asset analytics pipeline using pandas / NumPy / Elasticsearch / Kibana — cleaning, indexing, transforming, and visualising asset data.",
+        "title": "IT asset analytics excerpt"
+      },
+      "e-cert-ai102": {
+        "id": "e-cert-ai102",
+        "projectIds": [],
+        "provenance": "source-provided",
+        "referencedBy": [
+          "cert-azure-ai-engineer"
+        ],
+        "skillIds": [],
+        "source": "Public résumé (2026)",
+        "sourceSection": "Certifications / AI-102",
+        "text": "Azure AI Engineer — Associate (AI-102) · Microsoft · 661B55BA40148A87",
+        "title": "AI-102 source record"
+      },
+      "e-cert-aws-cp": {
+        "id": "e-cert-aws-cp",
+        "projectIds": [],
+        "provenance": "source-provided",
+        "referencedBy": [
+          "cert-aws-cloud-practitioner"
+        ],
+        "skillIds": [],
+        "source": "Public résumé (2026)",
+        "sourceSection": "Certifications / AWS Cloud Practitioner",
+        "text": "AWS Certified Cloud Practitioner (CLF-C02) · AWS · b1f4b1e59f194f5da6872a5f1b79c824",
+        "title": "AWS practitioner source record"
+      },
+      "e-cert-aws-sa": {
+        "id": "e-cert-aws-sa",
+        "projectIds": [],
+        "provenance": "source-provided",
+        "referencedBy": [
+          "cert-aws-solutions-architect"
+        ],
+        "skillIds": [],
+        "source": "Public résumé (2026)",
+        "sourceSection": "Certifications / AWS Solutions Architect",
+        "text": "AWS Solutions Architect — Associate (SAA-C03) · AWS · 3d7ecea14b4342659eb4d68cdc9fbc37",
+        "title": "AWS architect source record"
+      },
+      "e-cert-az104": {
+        "id": "e-cert-az104",
+        "projectIds": [],
+        "provenance": "source-provided",
+        "referencedBy": [
+          "cert-azure-administrator"
+        ],
+        "skillIds": [],
+        "source": "Public résumé (2026)",
+        "sourceSection": "Certifications / AZ-104",
+        "text": "Azure Administrator — Associate (AZ-104) · Microsoft · 141508FF683C2BFE",
+        "title": "AZ-104 source record"
+      },
+      "e-cert-az900": {
+        "id": "e-cert-az900",
+        "projectIds": [],
+        "provenance": "source-provided",
+        "referencedBy": [
+          "cert-azure-fundamentals"
+        ],
+        "skillIds": [],
+        "source": "Public résumé (2026)",
+        "sourceSection": "Certifications / AZ-900",
+        "text": "Azure Fundamentals (AZ-900) · Microsoft · CBEF8794CADFA2F1",
+        "title": "AZ-900 source record"
+      },
+      "e-cert-commander": {
+        "id": "e-cert-commander",
+        "projectIds": [],
+        "provenance": "source-provided",
+        "referencedBy": [
+          "cert-agent-commander"
+        ],
+        "skillIds": [],
+        "source": "Public résumé (2026)",
+        "sourceSection": "Certifications / Agent Commander",
+        "text": "Agent Commander · Founderz · bbf6e80b-21cc-4306-9aea-77d03d0de28c",
+        "title": "Agent Commander source record"
+      },
+      "e-cert-excellerate": {
+        "id": "e-cert-excellerate",
+        "projectIds": [],
+        "provenance": "source-provided",
+        "referencedBy": [
+          "cert-excellerate"
+        ],
+        "skillIds": [],
+        "source": "Public résumé (2026)",
+        "sourceSection": "Certifications / Excellerate Agentic AI",
+        "text": "Excellerate Agentic AI · Microsoft",
+        "title": "Excellerate source record"
+      },
+      "e-cert-explorer": {
+        "id": "e-cert-explorer",
+        "projectIds": [],
+        "provenance": "source-provided",
+        "referencedBy": [
+          "cert-agent-explorer"
+        ],
+        "skillIds": [],
+        "source": "Public résumé (2026)",
+        "sourceSection": "Certifications / Agent Explorer",
+        "text": "Agent Explorer · Founderz · 09b81d9b-3aa0-4734-a85a-b9cd42c09e29",
+        "title": "Agent Explorer source record"
+      },
+      "e-cert-gh300": {
+        "id": "e-cert-gh300",
+        "projectIds": [],
+        "provenance": "source-provided",
+        "referencedBy": [
+          "cert-github-copilot"
+        ],
+        "skillIds": [],
+        "source": "Public résumé (2026)",
+        "sourceSection": "Certifications / GitHub Copilot",
+        "text": "GitHub Copilot (GH-300) · GitHub / Microsoft · 505C219976CD2E5D",
+        "title": "GH-300 source record"
+      },
+      "e-cert-master": {
+        "id": "e-cert-master",
+        "projectIds": [],
+        "provenance": "source-provided",
+        "referencedBy": [
+          "cert-agent-master"
+        ],
+        "skillIds": [],
+        "source": "Public résumé (2026)",
+        "sourceSection": "Certifications / Agent Master",
+        "text": "Agent Master · Founderz · a2df505f-955c-41b6-a071-f21178c8a5bb",
+        "title": "Agent Master source record"
+      },
+      "e-charly": {
+        "id": "e-charly",
+        "projectIds": [],
+        "provenance": "source-provided",
+        "referencedBy": [
+          "experience-charly",
+          "skill-aws"
+        ],
+        "skillIds": [
+          "skill-aws"
+        ],
+        "source": "Public résumé (2026)",
+        "sourceSection": "Experience / Charly Computers (outcome omitted)",
+        "text": "Engineered cloud architectures … Orchestrated migration of legacy business operations to AWS.",
+        "title": "Cloud internship excerpt"
+      },
+      "e-climate": {
+        "id": "e-climate",
+        "projectIds": [
+          "climate-mitigation"
+        ],
+        "provenance": "source-provided",
+        "referencedBy": [
+          "climate-mitigation",
+          "journey-engineer",
+          "skill-lstm",
+          "skill-time-series"
+        ],
+        "skillIds": [
+          "skill-lstm",
+          "skill-time-series"
+        ],
+        "source": "Public résumé (2026)",
+        "sourceSection": "Selected Projects / Climate Mitigation Tool (count omitted)",
+        "text": "LSTM multi-modal time-series model for climate-induced migration forecasting. Real-time data from … weather APIs",
+        "title": "Climate forecasting excerpt"
+      },
+      "e-education-tenth": {
+        "id": "e-education-tenth",
+        "projectIds": [],
+        "provenance": "source-provided",
+        "referencedBy": [
+          "education-cbse-tenth"
+        ],
+        "skillIds": [],
+        "source": "Public résumé (2026)",
+        "sourceSection": "Education / 10th CBSE",
+        "text": "10th CBSE — L.P. Savani International School, Surat · 2017 – 2018 · GPA 8",
+        "title": "Secondary school source record"
+      },
+      "e-education-twelfth": {
+        "id": "e-education-twelfth",
+        "projectIds": [],
+        "provenance": "source-provided",
+        "referencedBy": [
+          "education-cbse-twelfth"
+        ],
+        "skillIds": [],
+        "source": "Public résumé (2026)",
+        "sourceSection": "Education / 12th CBSE",
+        "text": "12th CBSE — L.P. Savani International School, Surat · 2019 – 2020 · GPA 8.9",
+        "title": "Senior school source record"
+      },
+      "e-education-vit": {
+        "id": "e-education-vit",
+        "projectIds": [],
+        "provenance": "source-provided",
+        "referencedBy": [
+          "achievement-academics",
+          "education-vit"
+        ],
+        "skillIds": [],
+        "source": "Public résumé (2026)",
+        "sourceSection": "Education / VIT",
+        "text": "B.Tech, Computer Science Engineering — Vellore Institute of Technology, Vellore · 2021 – 2025. CGPA 8.95 / 10 · AIR 56 in VITEEE",
+        "title": "VIT education source record"
+      },
+      "e-energy": {
+        "id": "e-energy",
+        "projectIds": [
+          "smart-energy-forecasting"
+        ],
+        "provenance": "source-provided",
+        "referencedBy": [
+          "journey-architect",
+          "skill-aws",
+          "skill-kinesis",
+          "skill-lstm",
+          "skill-s3",
+          "skill-sagemaker",
+          "smart-energy-forecasting"
+        ],
+        "skillIds": [
+          "skill-lstm",
+          "skill-aws",
+          "skill-kinesis",
+          "skill-s3",
+          "skill-sagemaker"
+        ],
+        "source": "Public résumé (2026)",
+        "sourceSection": "Selected Projects / Smart Energy Forecasting (scope excerpt)",
+        "text": "LSTM forecasting on AWS Kinesis / S3 / SageMaker",
+        "title": "Energy forecasting excerpt"
+      },
+      "e-gdsc": {
+        "id": "e-gdsc",
+        "projectIds": [],
+        "provenance": "source-provided",
+        "referencedBy": [
+          "experience-gdsc"
+        ],
+        "skillIds": [],
+        "source": "Public résumé (2026)",
+        "sourceSection": "Experience / GDSC VIT (counts omitted)",
+        "text": "Led … technical initiatives, ran … hackathons and … coding challenges",
+        "title": "GDSC community contribution excerpt"
+      },
+      "e-incident": {
+        "id": "e-incident",
+        "projectIds": [
+          "incident-ticket-management"
+        ],
+        "provenance": "source-provided",
+        "referencedBy": [
+          "incident-ticket-management",
+          "journey-engineer"
+        ],
+        "skillIds": [],
+        "source": "Public résumé (2026)",
+        "sourceSection": "Selected Projects / Incident Ticket Management",
+        "text": "End-to-end ELK pipeline that cleans, indexes, transforms, and visualises incident-ticket data — fully script-driven and reproducible.",
+        "title": "Incident pipeline excerpt"
+      },
+      "e-incident-stack": {
+        "id": "e-incident-stack",
+        "projectIds": [
+          "incident-ticket-management"
+        ],
+        "provenance": "source-provided",
+        "referencedBy": [
+          "incident-ticket-management",
+          "journey-engineer",
+          "skill-python"
+        ],
+        "skillIds": [
+          "skill-python"
+        ],
+        "source": "Public portfolio (source snapshot)",
+        "sourceSection": "Archive / Incident Ticket Mgmt / technology chips",
+        "text": "ELK · Python · CSV",
+        "title": "Incident archive stack"
+      },
+      "e-kyndryl": {
+        "id": "e-kyndryl",
+        "projectIds": [],
+        "provenance": "source-provided",
+        "referencedBy": [
+          "experience-kyndryl",
+          "skill-agentic-ai",
+          "skill-azure-ai-foundry"
+        ],
+        "skillIds": [
+          "skill-agentic-ai",
+          "skill-azure-ai-foundry"
+        ],
+        "source": "Public portfolio (source snapshot)",
+        "sourceSection": "Experience / Kyndryl",
+        "text": "Associate SDE — Kyndryl. Designing & shipping Agentic AI POCs and enterprise use cases on Azure AI Foundry. Delivering mission-critical insights via Kyndryl Bridge with predictive modelling and observability.",
+        "title": "Kyndryl public role excerpt"
+      },
+      "e-opticrop": {
+        "id": "e-opticrop",
+        "projectIds": [
+          "opticrop"
+        ],
+        "provenance": "source-provided",
+        "referencedBy": [
+          "journey-architect",
+          "opticrop",
+          "skill-python"
+        ],
+        "skillIds": [
+          "skill-python"
+        ],
+        "source": "Public résumé (2026)",
+        "sourceSection": "Selected Projects / OptiCrop",
+        "text": "ML for precision water allocation in Indian agriculture. Built with Python, weather APIs, and rule engines.",
+        "title": "OptiCrop qualitative excerpt"
+      },
+      "e-overlay": {
+        "id": "e-overlay",
+        "projectIds": [
+          "overlay-insights"
+        ],
+        "provenance": "source-provided",
+        "referencedBy": [
+          "journey-engineer",
+          "overlay-insights",
+          "skill-jupyter",
+          "skill-python"
+        ],
+        "skillIds": [
+          "skill-python",
+          "skill-jupyter"
+        ],
+        "source": "Public résumé (2026)",
+        "sourceSection": "Selected Projects / Overlay-Insights",
+        "text": "Python toolkit that finds repeated overlay patterns across hostnames and quantifies business impact (cost / brand value). ELK pipeline with Jupyter notebooks for analysis.",
+        "title": "Overlay-Insights project excerpt"
+      },
+      "e-overlay-stack": {
+        "id": "e-overlay-stack",
+        "projectIds": [
+          "overlay-insights"
+        ],
+        "provenance": "source-provided",
+        "referencedBy": [
+          "journey-engineer",
+          "overlay-insights",
+          "skill-elasticsearch",
+          "skill-jupyter",
+          "skill-kibana"
+        ],
+        "skillIds": [
+          "skill-elasticsearch",
+          "skill-kibana",
+          "skill-jupyter"
+        ],
+        "source": "Public portfolio (source snapshot)",
+        "sourceSection": "Archive / Overlay-Insights / technology chips",
+        "text": "Python · Elasticsearch · Kibana · Jupyter",
+        "title": "Overlay-Insights archive stack"
+      },
+      "e-p2p": {
+        "id": "e-p2p",
+        "projectIds": [
+          "policy-to-pipelines"
+        ],
+        "provenance": "source-provided",
+        "referencedBy": [
+          "experience-kyndryl",
+          "journey-architect",
+          "journey-recruiter",
+          "policy-to-pipelines"
+        ],
+        "skillIds": [],
+        "source": "Public résumé (2026)",
+        "sourceSection": "Selected Projects / Policy → Pipelines",
+        "text": "compiled constraints, live drift detection, risk-scored remediation plans, human-in-the-loop approvals, and audit-ready evidence packs.",
+        "title": "P2P governance workflow excerpt"
+      },
+      "e-p2p-approval": {
+        "id": "e-p2p-approval",
+        "projectIds": [
+          "policy-to-pipelines"
+        ],
+        "provenance": "source-provided",
+        "referencedBy": [
+          "architecture-approval-evidence",
+          "journey-architect",
+          "journey-recruiter",
+          "policy-to-pipelines"
+        ],
+        "skillIds": [],
+        "source": "Public portfolio (source snapshot)",
+        "sourceSection": "Policy → Pipelines / Change Executor",
+        "text": "Runs approved commands via gcloud, re-queries the resource for post-state proof, refuses unapproved plans.",
+        "title": "P2P approval-aware execution"
+      },
+      "e-p2p-evidence": {
+        "id": "e-p2p-evidence",
+        "projectIds": [
+          "policy-to-pipelines"
+        ],
+        "provenance": "source-provided",
+        "referencedBy": [
+          "architecture-approval-evidence",
+          "journey-architect",
+          "journey-recruiter",
+          "policy-to-pipelines"
+        ],
+        "skillIds": [],
+        "source": "Public portfolio (source snapshot)",
+        "sourceSection": "Policy → Pipelines / Audit-ready",
+        "text": "EvidencePack bundles: policy + finding + plan + before/after state + execution log. Persisted to Firestore.",
+        "title": "P2P evidence pack contents"
+      },
+      "e-p2p-stack": {
+        "id": "e-p2p-stack",
+        "projectIds": [
+          "policy-to-pipelines"
+        ],
+        "provenance": "source-provided",
+        "referencedBy": [
+          "journey-architect",
+          "journey-recruiter",
+          "policy-to-pipelines",
+          "skill-fastapi",
+          "skill-langchain",
+          "skill-langgraph",
+          "skill-react",
+          "skill-vertex-ai"
+        ],
+        "skillIds": [
+          "skill-langgraph",
+          "skill-langchain",
+          "skill-vertex-ai",
+          "skill-fastapi",
+          "skill-react"
+        ],
+        "source": "Public résumé (2026)",
+        "sourceSection": "Selected Projects / Policy → Pipelines / Stack",
+        "text": "LangGraph · LangChain · Gemini 2.5 Pro on Vertex AI · FastAPI · Pydantic v2 · React + Vite · APScheduler · Cloud Build · Firestore · Podman",
+        "title": "P2P source-listed stack"
+      },
+      "e-python-guide": {
+        "id": "e-python-guide",
+        "projectIds": [
+          "python-essentials"
+        ],
+        "provenance": "source-provided",
+        "referencedBy": [
+          "achievement-python-guide",
+          "experience-gdsc",
+          "journey-recruiter",
+          "python-essentials",
+          "skill-python"
+        ],
+        "skillIds": [
+          "skill-python"
+        ],
+        "source": "Public résumé (2026)",
+        "sourceSection": "Selected Projects / Python Essentials",
+        "text": "A beginner-to-mastery Python guide kept as a public learning artefact — used during GDSC VIT workshops.",
+        "title": "Python guide and workshop use"
+      },
+      "e-skills-ai": {
+        "id": "e-skills-ai",
+        "projectIds": [],
+        "provenance": "source-provided",
+        "referencedBy": [
+          "skill-agentic-ai",
+          "skill-azure-ai-foundry",
+          "skill-langchain",
+          "skill-langgraph",
+          "skill-lstm",
+          "skill-prompt-engineering",
+          "skill-rag",
+          "skill-time-series",
+          "skill-vertex-ai"
+        ],
+        "skillIds": [
+          "skill-agentic-ai",
+          "skill-rag",
+          "skill-langgraph",
+          "skill-langchain",
+          "skill-lstm",
+          "skill-time-series",
+          "skill-azure-ai-foundry",
+          "skill-vertex-ai",
+          "skill-prompt-engineering"
+        ],
+        "source": "Public résumé (2026)",
+        "sourceSection": "Skills / AI / ML",
+        "text": "Agentic AI · RAG · LangGraph · LangChain · LSTM · Time-series forecasting · Azure AI Foundry · Vertex AI · Prompt Engineering",
+        "title": "Source-listed AI and ML skills"
+      },
+      "e-skills-cloud": {
+        "id": "e-skills-cloud",
+        "projectIds": [],
+        "provenance": "source-provided",
+        "referencedBy": [
+          "skill-adx",
+          "skill-aks",
+          "skill-app-service",
+          "skill-aws",
+          "skill-azure",
+          "skill-bicep",
+          "skill-cloud-run",
+          "skill-container-apps",
+          "skill-cosmos-db",
+          "skill-ec2",
+          "skill-functions",
+          "skill-gcp",
+          "skill-gcs",
+          "skill-kinesis",
+          "skill-s3",
+          "skill-sagemaker",
+          "skill-terraform",
+          "skill-vertex-ai"
+        ],
+        "skillIds": [
+          "skill-azure",
+          "skill-aks",
+          "skill-container-apps",
+          "skill-functions",
+          "skill-app-service",
+          "skill-adx",
+          "skill-cosmos-db",
+          "skill-aws",
+          "skill-ec2",
+          "skill-s3",
+          "skill-sagemaker",
+          "skill-kinesis",
+          "skill-gcp",
+          "skill-cloud-run",
+          "skill-vertex-ai",
+          "skill-gcs",
+          "skill-bicep",
+          "skill-terraform"
+        ],
+        "source": "Public résumé (2026)",
+        "sourceSection": "Skills / Cloud",
+        "text": "Azure (AKS, Container Apps, Functions, App Service, ADX, Cosmos DB) · AWS (EC2, S3, SageMaker, Kinesis) · GCP (Cloud Run, Vertex, GCS) · Bicep · Terraform",
+        "title": "Source-listed cloud skills"
+      },
+      "e-skills-data": {
+        "id": "e-skills-data",
+        "projectIds": [],
+        "provenance": "source-provided",
+        "referencedBy": [
+          "skill-adx",
+          "skill-elasticsearch",
+          "skill-kibana",
+          "skill-kql",
+          "skill-opentelemetry",
+          "skill-postgres"
+        ],
+        "skillIds": [
+          "skill-adx",
+          "skill-kql",
+          "skill-elasticsearch",
+          "skill-kibana",
+          "skill-postgres",
+          "skill-opentelemetry"
+        ],
+        "source": "Public résumé (2026)",
+        "sourceSection": "Skills / Data / Observability",
+        "text": "Azure Data Explorer / KQL · Elasticsearch · Kibana · Postgres · OpenTelemetry",
+        "title": "Source-listed data and observability skills"
+      },
+      "e-skills-dev": {
+        "id": "e-skills-dev",
+        "projectIds": [],
+        "provenance": "source-provided",
+        "referencedBy": [
+          "skill-docker",
+          "skill-fastapi",
+          "skill-git",
+          "skill-github-actions",
+          "skill-nextjs",
+          "skill-nodejs",
+          "skill-react"
+        ],
+        "skillIds": [
+          "skill-docker",
+          "skill-git",
+          "skill-github-actions",
+          "skill-fastapi",
+          "skill-nextjs",
+          "skill-react",
+          "skill-nodejs"
+        ],
+        "source": "Public résumé (2026)",
+        "sourceSection": "Skills / Dev / Tools",
+        "text": "Docker · Git · GitHub Actions · FastAPI · Next.js · React · Node.js",
+        "title": "Source-listed development tools"
+      },
+      "e-skills-languages": {
+        "id": "e-skills-languages",
+        "projectIds": [],
+        "provenance": "source-provided",
+        "referencedBy": [
+          "skill-cpp",
+          "skill-java",
+          "skill-python",
+          "skill-r",
+          "skill-sql",
+          "skill-typescript"
+        ],
+        "skillIds": [
+          "skill-python",
+          "skill-cpp",
+          "skill-java",
+          "skill-r",
+          "skill-typescript",
+          "skill-sql"
+        ],
+        "source": "Public résumé (2026)",
+        "sourceSection": "Skills / Languages",
+        "text": "Python · C++ · Java · R · TypeScript · SQL",
+        "title": "Source-listed programming languages"
+      }
+    }
+  },
+  "schemaVersion": 1
+}

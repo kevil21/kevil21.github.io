@@ -1,0 +1,26 @@
+{
+  "background_color": "#f7f3eb",
+  "description": "Associate Software Development Engineer at Kyndryl, working on agentic AI, cloud systems, telemetry pipelines, and observability dashboards.",
+  "display": "standalone",
+  "icons": [
+    {
+      "purpose": "any",
+      "sizes": "192x192",
+      "src": "/assets/icon-192.png",
+      "type": "image/png"
+    },
+    {
+      "purpose": "any",
+      "sizes": "512x512",
+      "src": "/assets/icon-512.png",
+      "type": "image/png"
+    }
+  ],
+  "id": "/",
+  "lang": "en",
+  "name": "Kevil Patel — Portfolio",
+  "scope": "/",
+  "short_name": "Kevil Patel",
+  "start_url": "/",
+  "theme_color": "#f7f3eb"
+}

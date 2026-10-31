@@ -1,0 +1,65 @@
+name: Publish validated Pages artifact
+on:
+  push:
+    branches: [main]
+  workflow_dispatch:
+permissions:
+  contents: read
+concurrency:
+  group: github-pages
+  cancel-in-progress: false
+jobs:
+  build:
+    if: github.ref == 'refs/heads/main'
+    runs-on: ubuntu-24.04
+    timeout-minutes: 20
+    permissions:
+      contents: read
+      pages: read
+    steps:
+      - uses: actions/checkout@v7
+        with:
+          persist-credentials: false
+      - uses: actions/setup-node@v7
+        with:
+          node-version: '24.9.0'
+          cache: npm
+          cache-dependency-path: package-lock.json
+      - uses: actions/cache@v6
+        with:
+          path: .cache/atlas-models
+          key: atlas-minilm-${{ runner.os }}-${{ runner.arch }}-${{ hashFiles('package-lock.json', 'src/ai/models.ts', 'scripts/build-semantic.ts') }}
+      - run: npm ci
+      - run: npm run validate
+      - run: npm exec playwright install --with-deps chromium
+      - run: npm run test:e2e -- --workers=2
+        env:
+          ATLAS_TEST_PORT: '4337'
+          ATLAS_TEST_SKIP_BUILD: '1'
+      - run: npm run audit:public
+      - uses: actions/configure-pages@v6
+        id: pages
+        with:
+          enablement: false
+      - name: Require origin-root hosting
+        run: test -z "$PAGES_BASE_PATH"
+        env:
+          PAGES_BASE_PATH: ${{ steps.pages.outputs.base_path }}
+      - uses: actions/upload-pages-artifact@v5
+        with:
+          path: dist
+          include-hidden-files: false
+  deploy:
+    if: github.ref == 'refs/heads/main'
+    needs: build
+    runs-on: ubuntu-24.04
+    timeout-minutes: 10
+    permissions:
+      pages: write
+      id-token: write
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - uses: actions/deploy-pages@v5
+        id: deployment

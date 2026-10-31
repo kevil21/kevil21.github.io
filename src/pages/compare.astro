@@ -1,0 +1,17 @@
+---
+import { portfolio } from '../lib/content';
+import Layout from '../layouts/Layout.astro';
+import ProjectReading from '../components/ProjectReading.astro';
+import PersonaControl from '../components/PersonaControl.astro';
+---
+<Layout title="Compare projects" description="Compare source-backed project summaries, perspectives, technologies and evidence without fit scores or inferred claims." wide>
+  <header class="page-intro"><p class="eyebrow">Parallel reading</p><h1>Two projects.<br />The same standard.</h1><p>Compare what the sources actually say. No scores. No invented winner.</p></header>
+  <PersonaControl /><button type="button" data-show-perspectives data-enhancement hidden aria-pressed="false">Show all perspectives</button>
+  <form class="comparison-controls" data-compare-form data-enhancement hidden>
+    {['left', 'right'].map((side, index) => <label>{index === 0 ? 'First project' : 'Second project'}<select name={side} data-compare-select={side}>{portfolio.projects.map((project, projectIndex) => <option value={project.id} selected={projectIndex === index}>{project.title}</option>)}</select></label>)}
+    <button class="primary" type="submit">Compare evidence</button>
+  </form>
+  <p class="note" data-compare-status role="status">Without JavaScript, all project dossiers are available below for parallel reading.</p>
+  <div class="comparison-grid" data-comparison>{portfolio.projects.map((project) => <article id={`compare-${project.id}`} data-compare-project={project.id}><ProjectReading project={project} /></article>)}</div>
+  <script>import { initializeComparison } from '../scripts/comparison'; initializeComparison();</script>
+</Layout>

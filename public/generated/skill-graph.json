@@ -1,0 +1,526 @@
+{
+  "contentHash": "f4597070147fc516dd947732c1302deb85d8ae8b702a36a44dd8f6ff58f84fd6",
+  "data": {
+    "edges": [
+      {
+        "evidenceIds": [
+          "e-a360-stack"
+        ],
+        "projectId": "a360",
+        "skillId": "skill-aks"
+      },
+      {
+        "evidenceIds": [
+          "e-a360-stack"
+        ],
+        "projectId": "a360",
+        "skillId": "skill-cosmos-db"
+      },
+      {
+        "evidenceIds": [
+          "e-a360-stack"
+        ],
+        "projectId": "a360",
+        "skillId": "skill-fastapi"
+      },
+      {
+        "evidenceIds": [
+          "e-a360-stack"
+        ],
+        "projectId": "a360",
+        "skillId": "skill-nextjs"
+      },
+      {
+        "evidenceIds": [
+          "e-a360-stack"
+        ],
+        "projectId": "a360",
+        "skillId": "skill-react"
+      },
+      {
+        "evidenceIds": [
+          "e-a360-flow",
+          "e-a360-stack"
+        ],
+        "projectId": "a360",
+        "skillId": "skill-adx"
+      },
+      {
+        "evidenceIds": [
+          "e-a360-flow",
+          "e-a360-stack"
+        ],
+        "projectId": "a360",
+        "skillId": "skill-elasticsearch"
+      },
+      {
+        "evidenceIds": [
+          "e-a360"
+        ],
+        "projectId": "a360",
+        "skillId": "skill-kibana"
+      },
+      {
+        "evidenceIds": [
+          "e-a360-flow"
+        ],
+        "projectId": "a360",
+        "skillId": "skill-postgres"
+      },
+      {
+        "evidenceIds": [
+          "e-a360-flow"
+        ],
+        "projectId": "a360",
+        "skillId": "skill-opentelemetry"
+      },
+      {
+        "evidenceIds": [
+          "e-p2p-stack"
+        ],
+        "projectId": "policy-to-pipelines",
+        "skillId": "skill-langgraph"
+      },
+      {
+        "evidenceIds": [
+          "e-p2p-stack"
+        ],
+        "projectId": "policy-to-pipelines",
+        "skillId": "skill-langchain"
+      },
+      {
+        "evidenceIds": [
+          "e-p2p-stack"
+        ],
+        "projectId": "policy-to-pipelines",
+        "skillId": "skill-vertex-ai"
+      },
+      {
+        "evidenceIds": [
+          "e-p2p-stack"
+        ],
+        "projectId": "policy-to-pipelines",
+        "skillId": "skill-fastapi"
+      },
+      {
+        "evidenceIds": [
+          "e-p2p-stack"
+        ],
+        "projectId": "policy-to-pipelines",
+        "skillId": "skill-react"
+      },
+      {
+        "evidenceIds": [
+          "e-overlay"
+        ],
+        "projectId": "overlay-insights",
+        "skillId": "skill-python"
+      },
+      {
+        "evidenceIds": [
+          "e-overlay-stack"
+        ],
+        "projectId": "overlay-insights",
+        "skillId": "skill-elasticsearch"
+      },
+      {
+        "evidenceIds": [
+          "e-overlay-stack"
+        ],
+        "projectId": "overlay-insights",
+        "skillId": "skill-kibana"
+      },
+      {
+        "evidenceIds": [
+          "e-overlay",
+          "e-overlay-stack"
+        ],
+        "projectId": "overlay-insights",
+        "skillId": "skill-jupyter"
+      },
+      {
+        "evidenceIds": [
+          "e-incident-stack"
+        ],
+        "projectId": "incident-ticket-management",
+        "skillId": "skill-python"
+      },
+      {
+        "evidenceIds": [
+          "e-assets"
+        ],
+        "projectId": "it-asset-analytics",
+        "skillId": "skill-elasticsearch"
+      },
+      {
+        "evidenceIds": [
+          "e-assets"
+        ],
+        "projectId": "it-asset-analytics",
+        "skillId": "skill-kibana"
+      },
+      {
+        "evidenceIds": [
+          "e-assets"
+        ],
+        "projectId": "it-asset-analytics",
+        "skillId": "skill-pandas"
+      },
+      {
+        "evidenceIds": [
+          "e-assets"
+        ],
+        "projectId": "it-asset-analytics",
+        "skillId": "skill-numpy"
+      },
+      {
+        "evidenceIds": [
+          "e-climate"
+        ],
+        "projectId": "climate-mitigation",
+        "skillId": "skill-lstm"
+      },
+      {
+        "evidenceIds": [
+          "e-climate"
+        ],
+        "projectId": "climate-mitigation",
+        "skillId": "skill-time-series"
+      },
+      {
+        "evidenceIds": [
+          "e-opticrop"
+        ],
+        "projectId": "opticrop",
+        "skillId": "skill-python"
+      },
+      {
+        "evidenceIds": [
+          "e-energy"
+        ],
+        "projectId": "smart-energy-forecasting",
+        "skillId": "skill-lstm"
+      },
+      {
+        "evidenceIds": [
+          "e-energy"
+        ],
+        "projectId": "smart-energy-forecasting",
+        "skillId": "skill-aws"
+      },
+      {
+        "evidenceIds": [
+          "e-energy"
+        ],
+        "projectId": "smart-energy-forecasting",
+        "skillId": "skill-s3"
+      },
+      {
+        "evidenceIds": [
+          "e-energy"
+        ],
+        "projectId": "smart-energy-forecasting",
+        "skillId": "skill-sagemaker"
+      },
+      {
+        "evidenceIds": [
+          "e-energy"
+        ],
+        "projectId": "smart-energy-forecasting",
+        "skillId": "skill-kinesis"
+      },
+      {
+        "evidenceIds": [
+          "e-python-guide"
+        ],
+        "projectId": "python-essentials",
+        "skillId": "skill-python"
+      }
+    ],
+    "projects": [
+      {
+        "domain": "observability",
+        "id": "a360",
+        "title": "A360"
+      },
+      {
+        "domain": "governance",
+        "id": "policy-to-pipelines",
+        "title": "Policy → Pipelines (P2P)"
+      },
+      {
+        "domain": "observability",
+        "id": "overlay-insights",
+        "title": "Overlay-Insights"
+      },
+      {
+        "domain": "observability",
+        "id": "incident-ticket-management",
+        "title": "Incident Ticket Management"
+      },
+      {
+        "domain": "observability",
+        "id": "it-asset-analytics",
+        "title": "IT Asset Analytics"
+      },
+      {
+        "domain": "intelligence",
+        "id": "climate-mitigation",
+        "title": "Climate Mitigation Tool"
+      },
+      {
+        "domain": "intelligence",
+        "id": "opticrop",
+        "title": "OptiCrop"
+      },
+      {
+        "domain": "intelligence",
+        "id": "smart-energy-forecasting",
+        "title": "Smart Energy Forecasting"
+      },
+      {
+        "domain": "craft",
+        "id": "python-essentials",
+        "title": "Python Essentials"
+      }
+    ],
+    "skills": [
+      {
+        "category": "Languages",
+        "id": "skill-python",
+        "name": "Python"
+      },
+      {
+        "category": "Languages",
+        "id": "skill-cpp",
+        "name": "C++"
+      },
+      {
+        "category": "Languages",
+        "id": "skill-java",
+        "name": "Java"
+      },
+      {
+        "category": "Languages",
+        "id": "skill-r",
+        "name": "R"
+      },
+      {
+        "category": "Languages",
+        "id": "skill-typescript",
+        "name": "TypeScript"
+      },
+      {
+        "category": "Languages",
+        "id": "skill-sql",
+        "name": "SQL"
+      },
+      {
+        "category": "AI / ML",
+        "id": "skill-agentic-ai",
+        "name": "Agentic AI"
+      },
+      {
+        "category": "AI / ML",
+        "id": "skill-rag",
+        "name": "RAG"
+      },
+      {
+        "category": "AI / ML",
+        "id": "skill-langgraph",
+        "name": "LangGraph"
+      },
+      {
+        "category": "AI / ML",
+        "id": "skill-langchain",
+        "name": "LangChain"
+      },
+      {
+        "category": "AI / ML",
+        "id": "skill-lstm",
+        "name": "LSTM"
+      },
+      {
+        "category": "AI / ML",
+        "id": "skill-time-series",
+        "name": "Time-series forecasting"
+      },
+      {
+        "category": "AI / ML",
+        "id": "skill-azure-ai-foundry",
+        "name": "Azure AI Foundry"
+      },
+      {
+        "category": "AI / ML",
+        "id": "skill-vertex-ai",
+        "name": "Vertex AI"
+      },
+      {
+        "category": "AI / ML",
+        "id": "skill-prompt-engineering",
+        "name": "Prompt Engineering"
+      },
+      {
+        "category": "Cloud",
+        "id": "skill-azure",
+        "name": "Azure"
+      },
+      {
+        "category": "Cloud",
+        "id": "skill-aks",
+        "name": "Azure Kubernetes Service (AKS)"
+      },
+      {
+        "category": "Cloud",
+        "id": "skill-container-apps",
+        "name": "Azure Container Apps"
+      },
+      {
+        "category": "Cloud",
+        "id": "skill-functions",
+        "name": "Azure Functions"
+      },
+      {
+        "category": "Cloud",
+        "id": "skill-app-service",
+        "name": "Azure App Service"
+      },
+      {
+        "category": "Cloud",
+        "id": "skill-cosmos-db",
+        "name": "Cosmos DB"
+      },
+      {
+        "category": "Cloud",
+        "id": "skill-aws",
+        "name": "AWS"
+      },
+      {
+        "category": "Cloud",
+        "id": "skill-ec2",
+        "name": "AWS EC2"
+      },
+      {
+        "category": "Cloud",
+        "id": "skill-s3",
+        "name": "AWS S3"
+      },
+      {
+        "category": "Cloud",
+        "id": "skill-sagemaker",
+        "name": "AWS SageMaker"
+      },
+      {
+        "category": "Cloud",
+        "id": "skill-kinesis",
+        "name": "AWS Kinesis"
+      },
+      {
+        "category": "Cloud",
+        "id": "skill-gcp",
+        "name": "GCP"
+      },
+      {
+        "category": "Cloud",
+        "id": "skill-cloud-run",
+        "name": "GCP Cloud Run"
+      },
+      {
+        "category": "Cloud",
+        "id": "skill-gcs",
+        "name": "Google Cloud Storage (GCS)"
+      },
+      {
+        "category": "Cloud",
+        "id": "skill-bicep",
+        "name": "Bicep"
+      },
+      {
+        "category": "Cloud",
+        "id": "skill-terraform",
+        "name": "Terraform"
+      },
+      {
+        "category": "Dev / Tools",
+        "id": "skill-docker",
+        "name": "Docker"
+      },
+      {
+        "category": "Dev / Tools",
+        "id": "skill-git",
+        "name": "Git"
+      },
+      {
+        "category": "Dev / Tools",
+        "id": "skill-github-actions",
+        "name": "GitHub Actions"
+      },
+      {
+        "category": "Dev / Tools",
+        "id": "skill-fastapi",
+        "name": "FastAPI"
+      },
+      {
+        "category": "Dev / Tools",
+        "id": "skill-nextjs",
+        "name": "Next.js"
+      },
+      {
+        "category": "Dev / Tools",
+        "id": "skill-react",
+        "name": "React"
+      },
+      {
+        "category": "Dev / Tools",
+        "id": "skill-nodejs",
+        "name": "Node.js"
+      },
+      {
+        "category": "Data / Observability",
+        "id": "skill-adx",
+        "name": "Azure Data Explorer (ADX)"
+      },
+      {
+        "category": "Data / Observability",
+        "id": "skill-kql",
+        "name": "KQL"
+      },
+      {
+        "category": "Data / Observability",
+        "id": "skill-elasticsearch",
+        "name": "Elasticsearch"
+      },
+      {
+        "category": "Data / Observability",
+        "id": "skill-kibana",
+        "name": "Kibana"
+      },
+      {
+        "category": "Data / Observability",
+        "id": "skill-postgres",
+        "name": "Postgres"
+      },
+      {
+        "category": "Data / Observability",
+        "id": "skill-opentelemetry",
+        "name": "OpenTelemetry"
+      },
+      {
+        "category": "Data / Observability",
+        "id": "skill-pandas",
+        "name": "pandas"
+      },
+      {
+        "category": "Data / Observability",
+        "id": "skill-numpy",
+        "name": "NumPy"
+      },
+      {
+        "category": "Dev / Tools",
+        "id": "skill-jupyter",
+        "name": "Jupyter"
+      }
+    ]
+  },
+  "schemaVersion": 1
+}

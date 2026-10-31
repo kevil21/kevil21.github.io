@@ -1,0 +1,20 @@
+*, *::before, *::after { box-sizing: border-box; }
+html { text-size-adjust: 100%; scroll-behavior: auto; }
+body { margin: 0; background: var(--bg); color: var(--text); font-family: var(--font-body); line-height: var(--leading-body); overflow-wrap: anywhere; }
+img, picture, svg, video, canvas { display: block; max-width: 100%; }
+img, video { height: auto; }
+button, input, select, textarea { font: inherit; }
+input, select, textarea { font-size: max(1rem, 1em); }
+button { color: inherit; }
+p, h1, h2, h3, h4, h5, h6, a { overflow-wrap: anywhere; }
+a { color: var(--accent); text-underline-offset: 0.2em; }
+code, pre { font-family: var(--font-code); }
+:focus-visible { outline: var(--focus-width) solid var(--focus); outline-offset: var(--focus-offset); }
+::selection { background: var(--selection-bg); color: var(--selection-text); }
+[hidden] { display: none !important; }
+/* Reserve only enhancement controls when the bootstrap actually ran. Without JS,
+   hidden controls stay absent; core content is never hidden while modules load. */
+html[data-js] [data-enhancement][hidden], html[data-js] [data-ai-controls][hidden] { display: revert !important; visibility: hidden; }
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after { animation: none !important; transition: none !important; scroll-behavior: auto !important; }
+}

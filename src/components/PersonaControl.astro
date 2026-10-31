@@ -1,0 +1,9 @@
+---
+import { personas } from '../lib/routes';
+---
+<fieldset class="persona-control" data-enhancement hidden>
+  <legend>Reading lens <span class="muted">/ same facts, different emphasis</span></legend>
+  <div class="segmented">
+    {personas.map((persona) => <button type="button" data-persona={persona} aria-pressed={persona === 'recruiter'}>{persona.charAt(0).toUpperCase() + persona.slice(1)}</button>)}
+  </div>
+</fieldset>

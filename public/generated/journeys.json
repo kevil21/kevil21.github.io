@@ -1,0 +1,44 @@
+{
+  "contentHash": "f4597070147fc516dd947732c1302deb85d8ae8b702a36a44dd8f6ff58f84fd6",
+  "data": {
+    "journeys": [
+      {
+        "description": "Explore agent observability, cloud governance, and a community learning resource.",
+        "id": "journey-recruiter",
+        "persona": "recruiter",
+        "projectIds": [
+          "a360",
+          "policy-to-pipelines",
+          "python-essentials"
+        ],
+        "title": "Role and contribution overview"
+      },
+      {
+        "description": "Follow telemetry, incident analytics, asset-data preparation, and forecasting projects.",
+        "id": "journey-engineer",
+        "persona": "engineer",
+        "projectIds": [
+          "a360",
+          "overlay-insights",
+          "incident-ticket-management",
+          "it-asset-analytics",
+          "climate-mitigation"
+        ],
+        "title": "Data pipelines and implementation"
+      },
+      {
+        "description": "Read the documented observability and governance flows, then explore explicitly open forecasting questions.",
+        "id": "journey-architect",
+        "persona": "architect",
+        "projectIds": [
+          "a360",
+          "policy-to-pipelines",
+          "smart-energy-forecasting",
+          "opticrop"
+        ],
+        "title": "Systems and engineering questions"
+      }
+    ]
+  },
+  "schemaVersion": 1
+}

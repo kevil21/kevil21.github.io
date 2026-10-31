@@ -1,0 +1,46 @@
+---
+import { FULL, SEMANTIC } from '../ai/models';
+---
+<section class="command-surface" aria-label="Commands and local intelligence">
+  <form role="search" action="/search/" method="get" data-command-form>
+    <label for="atlas-command" class="label">Find a project, skill, or source <kbd aria-hidden="true">⌘ / Ctrl K</kbd></label>
+    <div class="command-row">
+      <input id="atlas-command" data-command-input type="search" name="q" maxlength="200" placeholder="Try Azure, AI, or telemetry…" autocomplete="off" />
+      <button type="submit" class="primary">Search <span aria-hidden="true">↗</span></button>
+    </div>
+  </form>
+  <nav class="presets" aria-label="Quick exploration">
+    <a href="/search/#skill-azure" data-query="azure">Azure</a>
+    <a href="/search/#skill-agentic-ai" data-query="AI">AI</a>
+    <a href="/architecture/">Architecture</a><a href="/resume/">Résumé</a>
+    <a href="/architecture/#job-description">JD <span class="muted">/ local</span></a><a href="/compare/">Compare</a>
+  </nav>
+  <details class="ai-controls" data-ai-controls hidden>
+    <summary>Local intelligence <span class="muted">/ optional downloads</span></summary>
+    <div class="disclosure-body">
+      <p class="note">Ask “What does A360 do?” or “Show Azure work”. Pocket uses local canonical excerpts without a model download. Plain keywords keep deterministic search.</p>
+      <div class="runtime-grid">
+        <fieldset><legend class="label">Pocket semantic enhancement</legend>
+          <p class="note">MiniLM q8: {SEMANTIC.onnxBytes.toLocaleString('en-US')} bytes of weights (~23 MB), tokenizer/config and ~14 MB WASM. Fixed public assets from Hugging Face and this site; inference stays here.</p>
+          <label class="consent"><input type="checkbox" data-semantic-consent /> Allow the optional semantic download</label>
+          <button type="button" data-semantic-enable>Load / retry semantic</button>
+        </fieldset>
+        <fieldset><legend class="label">Full · optional WebGPU</legend>
+          <p class="note">Qwen2.5 0.5B q4f16: {FULL.weightBytes.toLocaleString('en-US')} bytes of weights (~278 MB), ~7 MB tokenizer plus runtime. Vendor VRAM estimate ~945 MB, not a device measurement. Requires WebGPU and shader-f16; support is checked before download.</p>
+          <label class="consent"><input type="checkbox" data-full-consent /> Allow the Full download from Hugging Face / GitHub</label>
+          <button type="button" data-full-enable>Load / retry Full</button>
+        </fieldset>
+      </div>
+      <p data-ai-status role="status" aria-live="polite">No models loaded. Queries and pasted text stay in memory, never in storage or telemetry.</p>
+      <div class="actions"><button type="button" data-ai-cancel>Cancel pending work</button><button type="button" data-ai-unload>Unload workers</button><button type="button" data-ai-clear-cache>Clear model caches</button><a href="/architecture/#observatory">Runtime observatory →</a></div>
+      <p class="note">Consent lasts only for this page. Unload releases workers; cache clearing removes this model’s Cache API entries, not the browser HTTP cache. Static content stays available.</p>
+    </div>
+  </details>
+  <section class="search-results" data-search-panel aria-labelledby="search-heading" hidden>
+    <div class="section-heading"><h2 id="search-heading">Search the evidence</h2><button type="button" data-search-close>Close results</button></div>
+    <p data-search-status role="status" aria-live="polite"></p>
+    <ul data-search-results></ul>
+    <a class="text-link" href="/search/">Browse the complete source index →</a>
+  </section>
+  <noscript><p class="note">Search opens a browsable static index. All content is available without JavaScript.</p></noscript>
+</section>

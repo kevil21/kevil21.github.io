@@ -1,0 +1,57 @@
+{
+  "card": {
+    "height": 336,
+    "src": "/assets/card.png",
+    "width": 640
+  },
+  "headshots": [
+    {
+      "bytes": 2850,
+      "format": "webp",
+      "height": 160,
+      "src": "/assets/headshot-160.webp",
+      "width": 160
+    },
+    {
+      "bytes": 5247,
+      "format": "jpg",
+      "height": 160,
+      "src": "/assets/headshot-160.jpg",
+      "width": 160
+    },
+    {
+      "bytes": 11894,
+      "format": "webp",
+      "height": 480,
+      "src": "/assets/headshot-480.webp",
+      "width": 480
+    },
+    {
+      "bytes": 26622,
+      "format": "jpg",
+      "height": 480,
+      "src": "/assets/headshot-480.jpg",
+      "width": 480
+    },
+    {
+      "bytes": 30396,
+      "format": "webp",
+      "height": 960,
+      "src": "/assets/headshot-960.webp",
+      "width": 960
+    },
+    {
+      "bytes": 79948,
+      "format": "jpg",
+      "height": 960,
+      "src": "/assets/headshot-960.jpg",
+      "width": 960
+    }
+  ],
+  "og": {
+    "height": 630,
+    "src": "/assets/og.png",
+    "width": 1200
+  },
+  "sourceHash": "cc9eb5bbcd28509049c27e37233a579452c432b7f4e15b70025f406717427e16"
+}

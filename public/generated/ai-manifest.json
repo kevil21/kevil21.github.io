@@ -1,0 +1,50 @@
+{
+  "contentHash": "f4597070147fc516dd947732c1302deb85d8ae8b702a36a44dd8f6ff58f84fd6",
+  "data": {
+    "answers": "answer-index.json",
+    "automaticModelDownload": false,
+    "citationPolicy": "Source-provided excerpts, not independent verification. Do not infer credential validity or personal tradeoff decisions.",
+    "corpus": "pocket-corpus.json",
+    "evidence": "evidence-map.json",
+    "full": "implemented-conditional-WebGPU",
+    "generation": "opt-in-local-evidence-id-selection-only",
+    "jobDescription": "local-conservative-evidence-matching",
+    "knowledge": "knowledge-index.json",
+    "models": [
+      {
+        "dimensions": 384,
+        "dtype": "q8",
+        "id": "Xenova/all-MiniLM-L6-v2",
+        "license": "Apache-2.0",
+        "normalize": true,
+        "onnxBytes": 22972370,
+        "pooling": "mean",
+        "revision": "751bff37182d3f1213fa05d7196b954e230abad9",
+        "runtime": "4.3.2",
+        "tokenizerBytes": 711661
+      },
+      {
+        "compilerRevision": "146ed9cd4b4062e967b017fd2291f7106b50599f",
+        "context": 2048,
+        "id": "Qwen2.5-0.5B-Instruct-q4f16_1-MLC",
+        "license": "Apache-2.0 (upstream Qwen)",
+        "model": "https://huggingface.co/mlc-ai/Qwen2.5-0.5B-Instruct-q4f16_1-MLC/resolve/32ff081fe7e4dfe4ffb167b94c66fdf11e02b8ad/",
+        "modelLib": "https://raw.githubusercontent.com/mlc-ai/binary-mlc-llm-libs/146ed9cd4b4062e967b017fd2291f7106b50599f/web-llm-models/v0_2_87/base/Qwen2-0.5B-Instruct-q4f16_1_cs1k-webgpu.wasm",
+        "revision": "32ff081fe7e4dfe4ffb167b94c66fdf11e02b8ad",
+        "runtime": "0.2.87",
+        "tokenizerBytes": 7031645,
+        "vendorVramMB": 944.62,
+        "weightBytes": 277996288
+      }
+    ],
+    "pocket": "implemented",
+    "queryPersistence": false,
+    "requiresBackend": false,
+    "requiresCredentials": false,
+    "retrieval": "worker-lexical-concepts-with-optional-learned-embeddings",
+    "runtimeSearchImplemented": true,
+    "semantic": "semantic-index.json",
+    "serviceWorker": false
+  },
+  "schemaVersion": 1
+}

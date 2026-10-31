@@ -1,0 +1,24 @@
+---
+import { portfolio } from '../lib/content';
+import Layout from '../layouts/Layout.astro';
+import EvidenceLinks from '../components/EvidenceLinks.astro';
+const { profile } = portfolio;
+---
+<Layout title="Résumé" description={portfolio.resume.summary}>
+  <div class="reading resume-document">
+    <header class="page-intro"><p class="eyebrow">Canonical résumé / print-ready</p><h1>{profile.name}</h1><p>{profile.role}</p></header>
+    <p>{profile.location} · <a class="text-link" href={`mailto:${profile.email}`}>{profile.email}</a></p>
+    <ul class="chips">{profile.links.map((link) => <li><a href={link.url}>{link.label}</a></li>)}</ul>
+    <p>{portfolio.resume.summary}</p>
+    <div class="actions no-print"><button type="button" data-print data-enhancement hidden>Print / save as PDF</button><a class="button-link" href="/assets/kevil-patel-resume.md" download>Download canonical Markdown</a></div>
+    <noscript><p class="note">Use your browser’s Print command to print or save as PDF.</p></noscript>
+    <section><h2>Profile</h2><p>{profile.summary}</p></section>
+    <section><h2>Experience</h2>{portfolio.experience.map((item) => <article class="record"><h3>{item.title} · {item.organization}</h3><p class="record-meta">{item.period}</p><p>{item.summary}</p><EvidenceLinks ids={item.evidenceIds} /></article>)}</section>
+    <section><h2>Projects</h2>{portfolio.projects.map((item) => <article class="record"><h3><a href={`/projects/${item.id}/`}>{item.title}</a></h3><p>{item.summary}</p><p class="note">{item.technologies.join(' · ')}</p>{item.url && <a class="text-link" href={item.url}>Public project ↗</a>}<EvidenceLinks ids={item.evidenceIds} /></article>)}</section>
+    <section><h2>Skills</h2>{[...new Set(portfolio.skills.map((skill) => skill.category))].map((category) => <div class="resume-section"><h3>{category}</h3><ul class="chips">{portfolio.skills.filter((skill) => skill.category === category).map((skill) => <li><a href={`/evidence/#${skill.id}`}>{skill.name}</a></li>)}</ul></div>)}</section>
+    <section><h2>Certifications</h2>{portfolio.certifications.map((item) => <article class="record"><h3>{item.title}</h3><p>{item.issuer}{item.credentialId && ` · ${item.credentialId}`}</p><p class="note">{item.verificationNote}</p><a class="text-link" href={item.url}>Source-provided credential / issuer link ↗</a><EvidenceLinks ids={item.evidenceIds} /></article>)}</section>
+    <section><h2>Education</h2>{portfolio.education.map((item) => <article class="record"><h3>{item.title}</h3><p>{item.institution} · {item.period}</p><p>{item.detail}</p><EvidenceLinks ids={item.evidenceIds} /></article>)}</section>
+    <section><h2>Achievements</h2>{portfolio.achievements.map((item) => <article class="record"><h3>{item.title}</h3><p>{item.summary}</p><EvidenceLinks ids={item.evidenceIds} /></article>)}</section>
+    <section><h2>Languages</h2><p>{profile.languages.join(' · ')}</p></section>
+  </div>
+</Layout>

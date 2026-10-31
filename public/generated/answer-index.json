@@ -1,0 +1,871 @@
+{
+  "contentHash": "f4597070147fc516dd947732c1302deb85d8ae8b702a36a44dd8f6ff58f84fd6",
+  "data": {
+    "answers": [
+      {
+        "answer": "Multi-tenant AI agent observability observability Kyndryl's multi-tenant AI agent observability platform, with executive dashboards, KPI drill-downs, embedded Kibana, LLM FinOps, and a conversational interface over telemetry. Next.js React Shidoka FastAPI Azure Data Explorer Elasticsearch Cosmos DB Azure Kubernetes Service LiteLLM Postgres OpenTelemetry Kibana Enterprise agent observability work spanning telemetry services and frontend dashboards at Kyndryl. A360 combines telemetry pipelines, Elasticsearch-backed queries, a FastAPI gateway, and a Next.js frontend with Shidoka. The public architecture describes telemetry moving through OpenTelemetry, Postgres staging, Azure Data Explorer, and Elasticsearch to the frontend.",
+        "documentId": "a360",
+        "evidenceIds": [
+          "e-a360",
+          "e-a360-flow",
+          "e-a360-stack"
+        ],
+        "id": "answer-a360",
+        "mode": "source-derived",
+        "question": "What does the public source say about A360?"
+      },
+      {
+        "answer": "CGPA 8.95 / 10 and AIR 56 in VITEEE, as listed in the public résumé.",
+        "documentId": "achievement-academics",
+        "evidenceIds": [
+          "e-education-vit"
+        ],
+        "id": "answer-achievement-academics",
+        "mode": "source-derived",
+        "question": "What does the public source say about VIT academic record?"
+      },
+      {
+        "answer": "Published the Python Essentials learning guide, used during GDSC VIT workshops.",
+        "documentId": "achievement-python-guide",
+        "evidenceIds": [
+          "e-python-guide"
+        ],
+        "id": "answer-achievement-python-guide",
+        "mode": "source-derived",
+        "question": "What does the public source say about Community learning resource?"
+      },
+      {
+        "answer": "P2P executes approved plans and bundles policy, findings, plans, before/after state, and execution logs into evidence packs. This records source-described behaviour, not a claim about why a technology was chosen.",
+        "documentId": "architecture-approval-evidence",
+        "evidenceIds": [
+          "e-p2p-approval",
+          "e-p2p-evidence"
+        ],
+        "id": "answer-architecture-approval-evidence",
+        "mode": "source-derived",
+        "question": "What does the public source say about Documented architecture: approval and evidence?"
+      },
+      {
+        "answer": "The public source describes a streaming pipeline from OpenTelemetry through Postgres, Azure Data Explorer, and Elasticsearch to Next.js. This records architecture, not an inferred personal tradeoff rationale.",
+        "documentId": "architecture-telemetry-flow",
+        "evidenceIds": [
+          "e-a360-flow"
+        ],
+        "id": "answer-architecture-telemetry-flow",
+        "mode": "source-derived",
+        "question": "What does the public source say about Documented architecture: A360 telemetry flow?"
+      },
+      {
+        "answer": "Founderz bbf6e80b-21cc-4306-9aea-77d03d0de28c https://www.founderz.com/ Source-listed credential. This link is the issuer homepage, not credential-specific proof. Verification remains pending.",
+        "documentId": "cert-agent-commander",
+        "evidenceIds": [
+          "e-cert-commander"
+        ],
+        "id": "answer-cert-agent-commander",
+        "mode": "source-derived",
+        "question": "What does the public source say about Agent Commander?"
+      },
+      {
+        "answer": "Founderz 09b81d9b-3aa0-4734-a85a-b9cd42c09e29 https://www.founderz.com/ Source-listed credential. This link is the issuer homepage, not credential-specific proof. Verification remains pending.",
+        "documentId": "cert-agent-explorer",
+        "evidenceIds": [
+          "e-cert-explorer"
+        ],
+        "id": "answer-cert-agent-explorer",
+        "mode": "source-derived",
+        "question": "What does the public source say about Agent Explorer?"
+      },
+      {
+        "answer": "Founderz a2df505f-955c-41b6-a071-f21178c8a5bb https://www.founderz.com/ Source-listed credential. This link is the issuer homepage, not credential-specific proof. Verification remains pending.",
+        "documentId": "cert-agent-master",
+        "evidenceIds": [
+          "e-cert-master"
+        ],
+        "id": "answer-cert-agent-master",
+        "mode": "source-derived",
+        "question": "What does the public source say about Agent Master?"
+      },
+      {
+        "answer": "AWS b1f4b1e59f194f5da6872a5f1b79c824 https://aws.amazon.com/verification Source-listed credential. Generic AWS verification portal; enter the credential ID. Current validity has not been independently verified.",
+        "documentId": "cert-aws-cloud-practitioner",
+        "evidenceIds": [
+          "e-cert-aws-cp"
+        ],
+        "id": "answer-cert-aws-cloud-practitioner",
+        "mode": "source-derived",
+        "question": "What does the public source say about AWS Certified Cloud Practitioner (CLF-C02)?"
+      },
+      {
+        "answer": "AWS 3d7ecea14b4342659eb4d68cdc9fbc37 https://aws.amazon.com/verification Source-listed credential. Generic AWS verification portal; enter the credential ID. Current validity has not been independently verified.",
+        "documentId": "cert-aws-solutions-architect",
+        "evidenceIds": [
+          "e-cert-aws-sa"
+        ],
+        "id": "answer-cert-aws-solutions-architect",
+        "mode": "source-derived",
+        "question": "What does the public source say about AWS Solutions Architect — Associate (SAA-C03)?"
+      },
+      {
+        "answer": "Microsoft 141508FF683C2BFE https://learn.microsoft.com/api/credentials/share/en-us/KevilPatel-7029/141508FF683C2BFE?sharingId Source-provided Microsoft credential share link. The source lists October 2026 expiry; exact day and renewal are unknown. Current validity has not been independently verified.",
+        "documentId": "cert-azure-administrator",
+        "evidenceIds": [
+          "e-cert-az104"
+        ],
+        "id": "answer-cert-azure-administrator",
+        "mode": "source-derived",
+        "question": "What does the public source say about Azure Administrator — Associate (AZ-104)?"
+      },
+      {
+        "answer": "Microsoft 661B55BA40148A87 https://learn.microsoft.com/api/credentials/share/en-us/KevilPatel-7029/661B55BA40148A87?sharingId Source-provided Microsoft credential share link. Current validity has not been independently verified.",
+        "documentId": "cert-azure-ai-engineer",
+        "evidenceIds": [
+          "e-cert-ai102"
+        ],
+        "id": "answer-cert-azure-ai-engineer",
+        "mode": "source-derived",
+        "question": "What does the public source say about Azure AI Engineer — Associate (AI-102)?"
+      },
+      {
+        "answer": "Microsoft CBEF8794CADFA2F1 https://learn.microsoft.com/api/credentials/share/en-us/KevilPatel-7029/CBEF8794CADFA2F1?sharingId Source-provided Microsoft credential share link. The credential record has not been independently verified.",
+        "documentId": "cert-azure-fundamentals",
+        "evidenceIds": [
+          "e-cert-az900"
+        ],
+        "id": "answer-cert-azure-fundamentals",
+        "mode": "source-derived",
+        "question": "What does the public source say about Azure Fundamentals (AZ-900)?"
+      },
+      {
+        "answer": "Microsoft https://learn.microsoft.com/credentials/share/en-us/KevilPatel Source-listed Microsoft attribution with a general share link. Issuer and credential-specific verification remain pending.",
+        "documentId": "cert-excellerate",
+        "evidenceIds": [
+          "e-cert-excellerate"
+        ],
+        "id": "answer-cert-excellerate",
+        "mode": "source-derived",
+        "question": "What does the public source say about Excellerate Agentic AI?"
+      },
+      {
+        "answer": "GitHub / Microsoft 505C219976CD2E5D https://learn.microsoft.com/api/credentials/share/en-us/KevilPatel-7029/505C219976CD2E5D?sharingId Source-provided Microsoft credential share link. Current validity has not been independently verified.",
+        "documentId": "cert-github-copilot",
+        "evidenceIds": [
+          "e-cert-gh300"
+        ],
+        "id": "answer-cert-github-copilot",
+        "mode": "source-derived",
+        "question": "What does the public source say about GitHub Copilot (GH-300)?"
+      },
+      {
+        "answer": "Climate-induced migration forecasting intelligence An LSTM multi-modal time-series model for climate-induced migration forecasting using weather data. LSTM Time-series forecasting Weather APIs Applied time-series modelling for climate-induced migration forecasting. The source describes an LSTM multi-modal time-series model and weather API inputs. Engineering question to explore: how should temporal validation and weather-data gaps be handled? The source does not establish those choices. https://github.com/kevil21/Climate_Mitigation_Tool",
+        "documentId": "climate-mitigation",
+        "evidenceIds": [
+          "e-climate"
+        ],
+        "id": "answer-climate-mitigation",
+        "mode": "source-derived",
+        "question": "What does the public source say about Climate Mitigation Tool?"
+      },
+      {
+        "answer": "L.P. Savani International School, Surat 2017 – 2018 GPA 8",
+        "documentId": "education-cbse-tenth",
+        "evidenceIds": [
+          "e-education-tenth"
+        ],
+        "id": "answer-education-cbse-tenth",
+        "mode": "source-derived",
+        "question": "What does the public source say about 10th CBSE?"
+      },
+      {
+        "answer": "L.P. Savani International School, Surat 2019 – 2020 GPA 8.9",
+        "documentId": "education-cbse-twelfth",
+        "evidenceIds": [
+          "e-education-twelfth"
+        ],
+        "id": "answer-education-cbse-twelfth",
+        "mode": "source-derived",
+        "question": "What does the public source say about 12th CBSE?"
+      },
+      {
+        "answer": "Vellore Institute of Technology, Vellore 2021 – 2025 CGPA 8.95 / 10 · AIR 56 in VITEEE",
+        "documentId": "education-vit",
+        "evidenceIds": [
+          "e-education-vit"
+        ],
+        "id": "answer-education-vit",
+        "mode": "source-derived",
+        "question": "What does the public source say about B.Tech, Computer Science Engineering?"
+      },
+      {
+        "answer": "Charly Computers July 2024 – August 2024 Engineered cloud architectures and orchestrated migration of legacy business operations to AWS.",
+        "documentId": "experience-charly",
+        "evidenceIds": [
+          "e-charly"
+        ],
+        "id": "answer-experience-charly",
+        "mode": "source-derived",
+        "question": "What does the public source say about Cloud Intern?"
+      },
+      {
+        "answer": "GDSC VIT August 2023 – September 2024 Led technical initiatives, hackathons, and coding challenges. The Python Essentials guide was used during GDSC VIT workshops.",
+        "documentId": "experience-gdsc",
+        "evidenceIds": [
+          "e-gdsc",
+          "e-python-guide"
+        ],
+        "id": "answer-experience-gdsc",
+        "mode": "source-derived",
+        "question": "What does the public source say about Technical Core Member?"
+      },
+      {
+        "answer": "Kyndryl July 2025 – present Designing and shipping agentic AI POCs and enterprise use cases on Azure AI Foundry. Contributions include A360 telemetry services and frontend work, Policy → Pipelines, and predictive modelling and observability through Kyndryl Bridge.",
+        "documentId": "experience-kyndryl",
+        "evidenceIds": [
+          "e-a360",
+          "e-kyndryl",
+          "e-p2p"
+        ],
+        "id": "answer-experience-kyndryl",
+        "mode": "source-derived",
+        "question": "What does the public source say about Associate Software Development Engineer?"
+      },
+      {
+        "answer": "Script-driven incident analytics observability An end-to-end ELK pipeline that cleans, indexes, transforms, and visualises incident-ticket data using reproducible scripts. Python ELK CSV Incident-data processing from cleaning to visualisation. Script-driven cleaning, indexing, transformation, and visualisation with Python and ELK. A reproducible data pipeline connects incident records to analytics. Engineering question to explore: how should schema changes be managed? https://github.com/kevil21/Incident_Ticket_Management",
+        "documentId": "incident-ticket-management",
+        "evidenceIds": [
+          "e-incident",
+          "e-incident-stack"
+        ],
+        "id": "answer-incident-ticket-management",
+        "mode": "source-derived",
+        "question": "What does the public source say about Incident Ticket Management?"
+      },
+      {
+        "answer": "Asset-data processing and visualisation observability An IT asset analytics pipeline using pandas, NumPy, Elasticsearch, and Kibana for cleaning, indexing, transforming, and visualising asset data. pandas NumPy Elasticsearch Kibana A data-engineering project focused on making IT asset data usable for analysis. pandas and NumPy support data preparation, with Elasticsearch and Kibana for indexing and visualisation. The pipeline covers asset-data preparation through presentation. Engineering question to explore: how should data quality be checked at ingestion? https://github.com/kevil21/data-operations-it-assets_ELK",
+        "documentId": "it-asset-analytics",
+        "evidenceIds": [
+          "e-assets"
+        ],
+        "id": "answer-it-asset-analytics",
+        "mode": "source-derived",
+        "question": "What does the public source say about IT Asset Analytics?"
+      },
+      {
+        "answer": "Read the documented observability and governance flows, then explore explicitly open forecasting questions. architect",
+        "documentId": "journey-architect",
+        "evidenceIds": [
+          "e-a360",
+          "e-a360-flow",
+          "e-a360-stack",
+          "e-energy",
+          "e-opticrop",
+          "e-p2p",
+          "e-p2p-approval",
+          "e-p2p-evidence",
+          "e-p2p-stack"
+        ],
+        "id": "answer-journey-architect",
+        "mode": "source-derived",
+        "question": "What does the public source say about Systems and engineering questions?"
+      },
+      {
+        "answer": "Follow telemetry, incident analytics, asset-data preparation, and forecasting projects. engineer",
+        "documentId": "journey-engineer",
+        "evidenceIds": [
+          "e-a360",
+          "e-a360-flow",
+          "e-a360-stack",
+          "e-assets",
+          "e-climate",
+          "e-incident",
+          "e-incident-stack",
+          "e-overlay",
+          "e-overlay-stack"
+        ],
+        "id": "answer-journey-engineer",
+        "mode": "source-derived",
+        "question": "What does the public source say about Data pipelines and implementation?"
+      },
+      {
+        "answer": "Explore agent observability, cloud governance, and a community learning resource. recruiter",
+        "documentId": "journey-recruiter",
+        "evidenceIds": [
+          "e-a360",
+          "e-a360-flow",
+          "e-a360-stack",
+          "e-p2p",
+          "e-p2p-approval",
+          "e-p2p-evidence",
+          "e-p2p-stack",
+          "e-python-guide"
+        ],
+        "id": "answer-journey-recruiter",
+        "mode": "source-derived",
+        "question": "What does the public source say about Role and contribution overview?"
+      },
+      {
+        "answer": "Precision water allocation intelligence Machine learning for precision water allocation in Indian agriculture, built with Python, weather APIs, and rule engines. Python Weather APIs Rule engines Machine learning An agriculture-focused project applying machine learning to water allocation. Python, weather API inputs, and rule engines support the water-allocation use case. Engineering question to explore: how should weather uncertainty affect allocation recommendations? No personal tradeoff decision is established by the source. https://github.com/kevil21/Crop-Prediction",
+        "documentId": "opticrop",
+        "evidenceIds": [
+          "e-opticrop"
+        ],
+        "id": "answer-opticrop",
+        "mode": "source-derived",
+        "question": "What does the public source say about OptiCrop?"
+      },
+      {
+        "answer": "Overlay pattern analysis observability A Python toolkit for finding repeated overlay patterns across hostnames and analysing business impact through cost and brand value. Python Elasticsearch Kibana Jupyter A public analysis toolkit connecting technical patterns with business impact. Python analysis with an ELK pipeline and Jupyter notebooks. Repeated hostname overlays are the analysis subject; cost and brand value are the stated business-impact dimensions. https://github.com/kevil21/Overlay-Insights",
+        "documentId": "overlay-insights",
+        "evidenceIds": [
+          "e-overlay",
+          "e-overlay-stack"
+        ],
+        "id": "answer-overlay-insights",
+        "mode": "source-derived",
+        "question": "What does the public source say about Overlay-Insights?"
+      },
+      {
+        "answer": "Natural-language governance for GCP governance A LangGraph platform that turns plain-English policies into compiled constraints, drift detection, risk-scored remediation plans, human-in-the-loop approvals, and audit-ready evidence packs. LangGraph LangChain Gemini 2.5 Pro Vertex AI FastAPI Pydantic React Vite APScheduler Cloud Build Firestore Podman Cloud governance work connecting policy interpretation, remediation review, and audit evidence. LangGraph and FastAPI support policy compilation and remediation, with React and Vite for the interface and Firestore for evidence packs. Approval-aware execution connects policy, findings, plans, before/after state, and execution logs rather than treating remediation as an unreviewed command.",
+        "documentId": "policy-to-pipelines",
+        "evidenceIds": [
+          "e-p2p",
+          "e-p2p-approval",
+          "e-p2p-evidence",
+          "e-p2p-stack"
+        ],
+        "id": "answer-policy-to-pipelines",
+        "mode": "source-derived",
+        "question": "What does the public source say about Policy → Pipelines (P2P)?"
+      },
+      {
+        "answer": "A public Python learning guide craft A beginner-to-mastery Python guide kept as a public learning artefact and used during GDSC VIT workshops. Python A public learning resource connected to community workshops. A Python guide intended to support learning from beginner concepts onward. This is an educational artefact, not a claimed production-system architecture. https://github.com/kevil21/Python",
+        "documentId": "python-essentials",
+        "evidenceIds": [
+          "e-python-guide"
+        ],
+        "id": "answer-python-essentials",
+        "mode": "source-derived",
+        "question": "What does the public source say about Python Essentials?"
+      },
+      {
+        "answer": "Data / Observability Azure Data Explorer (ADX)",
+        "documentId": "skill-adx",
+        "evidenceIds": [
+          "e-a360-flow",
+          "e-a360-stack",
+          "e-skills-cloud",
+          "e-skills-data"
+        ],
+        "id": "answer-skill-adx",
+        "mode": "source-derived",
+        "question": "What does the public source say about Azure Data Explorer (ADX)?"
+      },
+      {
+        "answer": "AI / ML Agentic AI",
+        "documentId": "skill-agentic-ai",
+        "evidenceIds": [
+          "e-kyndryl",
+          "e-skills-ai"
+        ],
+        "id": "answer-skill-agentic-ai",
+        "mode": "source-derived",
+        "question": "What does the public source say about Agentic AI?"
+      },
+      {
+        "answer": "Cloud Azure Kubernetes Service (AKS)",
+        "documentId": "skill-aks",
+        "evidenceIds": [
+          "e-a360-stack",
+          "e-skills-cloud"
+        ],
+        "id": "answer-skill-aks",
+        "mode": "source-derived",
+        "question": "What does the public source say about Azure Kubernetes Service (AKS)?"
+      },
+      {
+        "answer": "Cloud Azure App Service",
+        "documentId": "skill-app-service",
+        "evidenceIds": [
+          "e-skills-cloud"
+        ],
+        "id": "answer-skill-app-service",
+        "mode": "source-derived",
+        "question": "What does the public source say about Azure App Service?"
+      },
+      {
+        "answer": "Cloud AWS",
+        "documentId": "skill-aws",
+        "evidenceIds": [
+          "e-charly",
+          "e-energy",
+          "e-skills-cloud"
+        ],
+        "id": "answer-skill-aws",
+        "mode": "source-derived",
+        "question": "What does the public source say about AWS?"
+      },
+      {
+        "answer": "Cloud Azure",
+        "documentId": "skill-azure",
+        "evidenceIds": [
+          "e-skills-cloud"
+        ],
+        "id": "answer-skill-azure",
+        "mode": "source-derived",
+        "question": "What does the public source say about Azure?"
+      },
+      {
+        "answer": "AI / ML Azure AI Foundry",
+        "documentId": "skill-azure-ai-foundry",
+        "evidenceIds": [
+          "e-kyndryl",
+          "e-skills-ai"
+        ],
+        "id": "answer-skill-azure-ai-foundry",
+        "mode": "source-derived",
+        "question": "What does the public source say about Azure AI Foundry?"
+      },
+      {
+        "answer": "Cloud Bicep",
+        "documentId": "skill-bicep",
+        "evidenceIds": [
+          "e-skills-cloud"
+        ],
+        "id": "answer-skill-bicep",
+        "mode": "source-derived",
+        "question": "What does the public source say about Bicep?"
+      },
+      {
+        "answer": "Cloud GCP Cloud Run",
+        "documentId": "skill-cloud-run",
+        "evidenceIds": [
+          "e-skills-cloud"
+        ],
+        "id": "answer-skill-cloud-run",
+        "mode": "source-derived",
+        "question": "What does the public source say about GCP Cloud Run?"
+      },
+      {
+        "answer": "Cloud Azure Container Apps",
+        "documentId": "skill-container-apps",
+        "evidenceIds": [
+          "e-skills-cloud"
+        ],
+        "id": "answer-skill-container-apps",
+        "mode": "source-derived",
+        "question": "What does the public source say about Azure Container Apps?"
+      },
+      {
+        "answer": "Cloud Cosmos DB",
+        "documentId": "skill-cosmos-db",
+        "evidenceIds": [
+          "e-a360-stack",
+          "e-skills-cloud"
+        ],
+        "id": "answer-skill-cosmos-db",
+        "mode": "source-derived",
+        "question": "What does the public source say about Cosmos DB?"
+      },
+      {
+        "answer": "Languages C++",
+        "documentId": "skill-cpp",
+        "evidenceIds": [
+          "e-skills-languages"
+        ],
+        "id": "answer-skill-cpp",
+        "mode": "source-derived",
+        "question": "What does the public source say about C++?"
+      },
+      {
+        "answer": "Dev / Tools Docker",
+        "documentId": "skill-docker",
+        "evidenceIds": [
+          "e-skills-dev"
+        ],
+        "id": "answer-skill-docker",
+        "mode": "source-derived",
+        "question": "What does the public source say about Docker?"
+      },
+      {
+        "answer": "Cloud AWS EC2",
+        "documentId": "skill-ec2",
+        "evidenceIds": [
+          "e-skills-cloud"
+        ],
+        "id": "answer-skill-ec2",
+        "mode": "source-derived",
+        "question": "What does the public source say about AWS EC2?"
+      },
+      {
+        "answer": "Data / Observability Elasticsearch",
+        "documentId": "skill-elasticsearch",
+        "evidenceIds": [
+          "e-a360-flow",
+          "e-a360-stack",
+          "e-assets",
+          "e-overlay-stack",
+          "e-skills-data"
+        ],
+        "id": "answer-skill-elasticsearch",
+        "mode": "source-derived",
+        "question": "What does the public source say about Elasticsearch?"
+      },
+      {
+        "answer": "Dev / Tools FastAPI",
+        "documentId": "skill-fastapi",
+        "evidenceIds": [
+          "e-a360-stack",
+          "e-p2p-stack",
+          "e-skills-dev"
+        ],
+        "id": "answer-skill-fastapi",
+        "mode": "source-derived",
+        "question": "What does the public source say about FastAPI?"
+      },
+      {
+        "answer": "Cloud Azure Functions",
+        "documentId": "skill-functions",
+        "evidenceIds": [
+          "e-skills-cloud"
+        ],
+        "id": "answer-skill-functions",
+        "mode": "source-derived",
+        "question": "What does the public source say about Azure Functions?"
+      },
+      {
+        "answer": "Cloud GCP",
+        "documentId": "skill-gcp",
+        "evidenceIds": [
+          "e-skills-cloud"
+        ],
+        "id": "answer-skill-gcp",
+        "mode": "source-derived",
+        "question": "What does the public source say about GCP?"
+      },
+      {
+        "answer": "Cloud Google Cloud Storage (GCS)",
+        "documentId": "skill-gcs",
+        "evidenceIds": [
+          "e-skills-cloud"
+        ],
+        "id": "answer-skill-gcs",
+        "mode": "source-derived",
+        "question": "What does the public source say about Google Cloud Storage (GCS)?"
+      },
+      {
+        "answer": "Dev / Tools Git",
+        "documentId": "skill-git",
+        "evidenceIds": [
+          "e-skills-dev"
+        ],
+        "id": "answer-skill-git",
+        "mode": "source-derived",
+        "question": "What does the public source say about Git?"
+      },
+      {
+        "answer": "Dev / Tools GitHub Actions",
+        "documentId": "skill-github-actions",
+        "evidenceIds": [
+          "e-skills-dev"
+        ],
+        "id": "answer-skill-github-actions",
+        "mode": "source-derived",
+        "question": "What does the public source say about GitHub Actions?"
+      },
+      {
+        "answer": "Languages Java",
+        "documentId": "skill-java",
+        "evidenceIds": [
+          "e-skills-languages"
+        ],
+        "id": "answer-skill-java",
+        "mode": "source-derived",
+        "question": "What does the public source say about Java?"
+      },
+      {
+        "answer": "Dev / Tools Jupyter",
+        "documentId": "skill-jupyter",
+        "evidenceIds": [
+          "e-overlay",
+          "e-overlay-stack"
+        ],
+        "id": "answer-skill-jupyter",
+        "mode": "source-derived",
+        "question": "What does the public source say about Jupyter?"
+      },
+      {
+        "answer": "Data / Observability Kibana",
+        "documentId": "skill-kibana",
+        "evidenceIds": [
+          "e-a360",
+          "e-assets",
+          "e-overlay-stack",
+          "e-skills-data"
+        ],
+        "id": "answer-skill-kibana",
+        "mode": "source-derived",
+        "question": "What does the public source say about Kibana?"
+      },
+      {
+        "answer": "Cloud AWS Kinesis",
+        "documentId": "skill-kinesis",
+        "evidenceIds": [
+          "e-energy",
+          "e-skills-cloud"
+        ],
+        "id": "answer-skill-kinesis",
+        "mode": "source-derived",
+        "question": "What does the public source say about AWS Kinesis?"
+      },
+      {
+        "answer": "Data / Observability KQL",
+        "documentId": "skill-kql",
+        "evidenceIds": [
+          "e-skills-data"
+        ],
+        "id": "answer-skill-kql",
+        "mode": "source-derived",
+        "question": "What does the public source say about KQL?"
+      },
+      {
+        "answer": "AI / ML LangChain",
+        "documentId": "skill-langchain",
+        "evidenceIds": [
+          "e-p2p-stack",
+          "e-skills-ai"
+        ],
+        "id": "answer-skill-langchain",
+        "mode": "source-derived",
+        "question": "What does the public source say about LangChain?"
+      },
+      {
+        "answer": "AI / ML LangGraph",
+        "documentId": "skill-langgraph",
+        "evidenceIds": [
+          "e-p2p-stack",
+          "e-skills-ai"
+        ],
+        "id": "answer-skill-langgraph",
+        "mode": "source-derived",
+        "question": "What does the public source say about LangGraph?"
+      },
+      {
+        "answer": "AI / ML LSTM",
+        "documentId": "skill-lstm",
+        "evidenceIds": [
+          "e-climate",
+          "e-energy",
+          "e-skills-ai"
+        ],
+        "id": "answer-skill-lstm",
+        "mode": "source-derived",
+        "question": "What does the public source say about LSTM?"
+      },
+      {
+        "answer": "Dev / Tools Next.js",
+        "documentId": "skill-nextjs",
+        "evidenceIds": [
+          "e-a360-stack",
+          "e-skills-dev"
+        ],
+        "id": "answer-skill-nextjs",
+        "mode": "source-derived",
+        "question": "What does the public source say about Next.js?"
+      },
+      {
+        "answer": "Dev / Tools Node.js",
+        "documentId": "skill-nodejs",
+        "evidenceIds": [
+          "e-skills-dev"
+        ],
+        "id": "answer-skill-nodejs",
+        "mode": "source-derived",
+        "question": "What does the public source say about Node.js?"
+      },
+      {
+        "answer": "Data / Observability NumPy",
+        "documentId": "skill-numpy",
+        "evidenceIds": [
+          "e-assets"
+        ],
+        "id": "answer-skill-numpy",
+        "mode": "source-derived",
+        "question": "What does the public source say about NumPy?"
+      },
+      {
+        "answer": "Data / Observability OpenTelemetry",
+        "documentId": "skill-opentelemetry",
+        "evidenceIds": [
+          "e-a360-flow",
+          "e-skills-data"
+        ],
+        "id": "answer-skill-opentelemetry",
+        "mode": "source-derived",
+        "question": "What does the public source say about OpenTelemetry?"
+      },
+      {
+        "answer": "Data / Observability pandas",
+        "documentId": "skill-pandas",
+        "evidenceIds": [
+          "e-assets"
+        ],
+        "id": "answer-skill-pandas",
+        "mode": "source-derived",
+        "question": "What does the public source say about pandas?"
+      },
+      {
+        "answer": "Data / Observability Postgres",
+        "documentId": "skill-postgres",
+        "evidenceIds": [
+          "e-a360-flow",
+          "e-skills-data"
+        ],
+        "id": "answer-skill-postgres",
+        "mode": "source-derived",
+        "question": "What does the public source say about Postgres?"
+      },
+      {
+        "answer": "AI / ML Prompt Engineering",
+        "documentId": "skill-prompt-engineering",
+        "evidenceIds": [
+          "e-skills-ai"
+        ],
+        "id": "answer-skill-prompt-engineering",
+        "mode": "source-derived",
+        "question": "What does the public source say about Prompt Engineering?"
+      },
+      {
+        "answer": "Languages Python",
+        "documentId": "skill-python",
+        "evidenceIds": [
+          "e-incident-stack",
+          "e-opticrop",
+          "e-overlay",
+          "e-python-guide",
+          "e-skills-languages"
+        ],
+        "id": "answer-skill-python",
+        "mode": "source-derived",
+        "question": "What does the public source say about Python?"
+      },
+      {
+        "answer": "Languages R",
+        "documentId": "skill-r",
+        "evidenceIds": [
+          "e-skills-languages"
+        ],
+        "id": "answer-skill-r",
+        "mode": "source-derived",
+        "question": "What does the public source say about R?"
+      },
+      {
+        "answer": "AI / ML RAG",
+        "documentId": "skill-rag",
+        "evidenceIds": [
+          "e-skills-ai"
+        ],
+        "id": "answer-skill-rag",
+        "mode": "source-derived",
+        "question": "What does the public source say about RAG?"
+      },
+      {
+        "answer": "Dev / Tools React",
+        "documentId": "skill-react",
+        "evidenceIds": [
+          "e-a360-stack",
+          "e-p2p-stack",
+          "e-skills-dev"
+        ],
+        "id": "answer-skill-react",
+        "mode": "source-derived",
+        "question": "What does the public source say about React?"
+      },
+      {
+        "answer": "Cloud AWS S3",
+        "documentId": "skill-s3",
+        "evidenceIds": [
+          "e-energy",
+          "e-skills-cloud"
+        ],
+        "id": "answer-skill-s3",
+        "mode": "source-derived",
+        "question": "What does the public source say about AWS S3?"
+      },
+      {
+        "answer": "Cloud AWS SageMaker",
+        "documentId": "skill-sagemaker",
+        "evidenceIds": [
+          "e-energy",
+          "e-skills-cloud"
+        ],
+        "id": "answer-skill-sagemaker",
+        "mode": "source-derived",
+        "question": "What does the public source say about AWS SageMaker?"
+      },
+      {
+        "answer": "Languages SQL",
+        "documentId": "skill-sql",
+        "evidenceIds": [
+          "e-skills-languages"
+        ],
+        "id": "answer-skill-sql",
+        "mode": "source-derived",
+        "question": "What does the public source say about SQL?"
+      },
+      {
+        "answer": "Cloud Terraform",
+        "documentId": "skill-terraform",
+        "evidenceIds": [
+          "e-skills-cloud"
+        ],
+        "id": "answer-skill-terraform",
+        "mode": "source-derived",
+        "question": "What does the public source say about Terraform?"
+      },
+      {
+        "answer": "AI / ML Time-series forecasting",
+        "documentId": "skill-time-series",
+        "evidenceIds": [
+          "e-climate",
+          "e-skills-ai"
+        ],
+        "id": "answer-skill-time-series",
+        "mode": "source-derived",
+        "question": "What does the public source say about Time-series forecasting?"
+      },
+      {
+        "answer": "Languages TypeScript",
+        "documentId": "skill-typescript",
+        "evidenceIds": [
+          "e-skills-languages"
+        ],
+        "id": "answer-skill-typescript",
+        "mode": "source-derived",
+        "question": "What does the public source say about TypeScript?"
+      },
+      {
+        "answer": "AI / ML Vertex AI",
+        "documentId": "skill-vertex-ai",
+        "evidenceIds": [
+          "e-p2p-stack",
+          "e-skills-ai",
+          "e-skills-cloud"
+        ],
+        "id": "answer-skill-vertex-ai",
+        "mode": "source-derived",
+        "question": "What does the public source say about Vertex AI?"
+      },
+      {
+        "answer": "LSTM forecasting on AWS intelligence LSTM energy forecasting using AWS Kinesis, S3, and SageMaker. LSTM AWS Kinesis AWS S3 AWS SageMaker Energy forecasting work combining machine learning and AWS services. The source names LSTM forecasting with AWS Kinesis, S3, and SageMaker. Engineering question to explore: what evaluation and retraining strategy fits this forecasting workload? A project-specific public artifact is not supplied.",
+        "documentId": "smart-energy-forecasting",
+        "evidenceIds": [
+          "e-energy"
+        ],
+        "id": "answer-smart-energy-forecasting",
+        "mode": "source-derived",
+        "question": "What does the public source say about Smart Energy Forecasting?"
+      }
+    ],
+    "fallback": "Not evidenced in the public portfolio sources."
+  },
+  "schemaVersion": 1
+}

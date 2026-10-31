@@ -1,0 +1,90 @@
+---
+import { portfolio } from '../lib/content';
+import { createCorpus, createArtifacts, sha256 } from '../lib/knowledge';
+import { jsonForHtml } from '../lib/presentation';
+import assets from '../lib/assets.generated.json';
+import Command from '../components/Command.astro';
+import OfflineControls from '../components/OfflineControls.astro';
+import '../styles/tokens.css';
+import '../styles/themes.css';
+import '../styles/reset.css';
+import '../styles/workspace.css';
+interface Props { title: string; description?: string; wide?: boolean; noindex?: boolean; project?: { id: string; title: string; summary: string } }
+const { title, description = portfolio.profile.summary, wide = false, noindex = false, project } = Astro.props;
+const { profile } = portfolio;
+const pocketCorpus = createCorpus(portfolio);
+const searchHash = sha256(createArtifacts(portfolio)['search-index.json']!);
+const canonical = new URL(Astro.url.pathname === '/404/' ? '/404.html' : Astro.url.pathname, Astro.site);
+const fullTitle = `${title} — ${profile.name}`;
+const portrait = assets.headshots.find((image) => image.width === 160 && image.format === 'jpg')!;
+const nav = [['/', 'Atlas', '01'], ['/experience/', 'Profile & experience', '02'], ['/evidence/', 'Evidence & skills', '03'], ['/credentials/', 'Credentials', '04'], ['/architecture/', 'Architecture', '05'], ['/resume/', 'Résumé', '06']];
+const person = { '@type': 'Person', '@id': new URL('/#person', Astro.site).href, name: profile.name, jobTitle: profile.role, description: profile.summary, email: `mailto:${profile.email}`, sameAs: profile.links.map((link) => link.url), image: new URL(portrait.src, Astro.site).href };
+const structured = { '@context': 'https://schema.org', '@graph': [person, { '@type': 'WebPage', '@id': canonical.href, url: canonical.href, name: fullTitle, description, about: { '@id': person['@id'] } }, ...(project ? [{ '@type': 'CreativeWork', name: project.title, description: project.summary, url: canonical.href, subjectOf: { '@id': canonical.href } }] : [])] };
+---
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="color-scheme" content="light dark" />
+    <meta name="atlas-build" content="__ATLAS_BUILD__" />
+    <script is:inline>
+      (() => {
+        document.documentElement.dataset.js = 'true';
+        let theme = 'system';
+        try { const saved = localStorage.getItem('atlas:theme'); if (saved === 'light' || saved === 'dark') theme = saved; } catch { /* CSS follows OS if storage is denied. */ }
+        document.documentElement.dataset.theme = theme;
+      })();
+    </script>
+    <title>{fullTitle}</title><meta name="description" content={description} />
+    {noindex && <meta name="robots" content="noindex" />}
+    <link rel="canonical" href={canonical} />
+    <link rel="icon" type="image/png" href="/assets/favicon.png" />
+    <link rel="apple-touch-icon" href="/assets/apple-touch-icon.png" />
+    <link rel="manifest" href="/manifest.webmanifest" />
+    <meta property="og:type" content="website" /><meta property="og:title" content={fullTitle} />
+    <meta property="og:description" content={description} /><meta property="og:url" content={canonical} />
+    <meta property="og:image" content={new URL(assets.og.src, Astro.site)} />
+    <meta property="og:image:width" content={String(assets.og.width)} /><meta property="og:image:height" content={String(assets.og.height)} />
+    <meta property="og:image:alt" content={`${profile.name}, ${profile.role}`} />
+    <meta name="twitter:card" content="summary_large_image" />
+    <script type="application/ld+json" is:inline set:html={jsonForHtml(structured)} />
+  </head>
+  <body data-content-hash={pocketCorpus.contentHash} data-corpus-hash={pocketCorpus.corpusHash} data-search-hash={searchHash}>
+    <a class="skip-link" href="#main">Skip to content</a>
+    <div class="site-shell">
+      <header class="identity-rail">
+        <a class="wordmark" href="/"><span class="monogram" aria-hidden="true">kp.</span><span>Evidence <br />Atlas</span></a>
+        <div class="identity">
+          <picture><source type="image/webp" srcset={assets.headshots.filter((image) => image.format === 'webp').map((image) => `${image.src} ${image.width}w`).join(', ')} sizes="(min-width: 1000px) 104px, 64px" />
+            <img src={portrait.src} width={portrait.width} height={portrait.height} alt={`Portrait of ${profile.name}`} fetchpriority="high" />
+          </picture>
+          <div><a class="identity-name" href="/experience/#profile">{profile.name}</a><p>{profile.role}</p><p class="note">{profile.location}</p></div>
+        </div>
+        <nav aria-label="Primary"><ul class="rail-nav">{nav.map(([href, label, number]) => <li><a href={href} aria-current={Astro.url.pathname === href ? 'page' : undefined}><span class="nav-number" aria-hidden="true">{number}</span>{label}<span class="nav-arrow" aria-hidden="true">↗</span></a></li>)}</ul></nav>
+        <div class="rail-bottom">
+          <a class="text-link" href="/experience/#contact">Let’s connect ↗</a>
+          <fieldset class="theme-control" data-enhancement hidden><legend class="label">Appearance</legend><div class="segmented">{['system', 'light', 'dark'].map((theme) => <button type="button" data-theme-choice={theme} aria-pressed={theme === 'system'}>{theme.charAt(0).toUpperCase() + theme.slice(1)}</button>)}</div></fieldset>
+          <p class="note rail-caption">A portfolio you can trace<br />back to its sources.</p>
+        </div>
+      </header>
+      <div class:list={['workspace-main', { 'wide-page': wide }]}>
+        <section class="workspace-bar" aria-label="Workspace identity"><a href="/">KP / Evidence Atlas</a><span>Personal portfolio <span aria-hidden="true">·</span> Source-led</span></section>
+        <Command />
+        <main id="main" tabindex="-1"><slot /></main>
+        <OfflineControls />
+        <footer class="site-footer"><span>{profile.name} / {profile.location}</span><a href="/architecture/#runtime">How this site works</a><a href="/assets/kevil-patel-resume.md" download>Download résumé (Markdown)</a></footer>
+      </div>
+    </div>
+    <p class="sr-only" role="status" aria-live="polite" aria-atomic="true" data-atlas-status></p>
+    <script id="pocket-fallback" type="application/json" is:inline set:html={jsonForHtml(pocketCorpus)} />
+    <script>
+      import { initializeShell } from '../scripts/shell';
+      import { initializeIntelligence } from '../ai/runtime';
+      import { initializeOffline } from '../pwa/client';
+      initializeShell();
+      initializeIntelligence();
+      initializeOffline();
+    </script>
+  </body>
+</html>

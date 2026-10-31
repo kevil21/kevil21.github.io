@@ -1,0 +1,36 @@
+/* All literal colors live here, including colors used by generated artwork.
+   light-dark follows the OS unless data-theme explicitly selects a palette. */
+:root {
+  color-scheme: light dark;
+  --bg: light-dark(#f7f3eb, #18131f);
+  --surface: light-dark(#fffdf8, #231c2e);
+  --surface-alt: light-dark(#eee7df, #30273d);
+  --text: light-dark(#241c32, #f6f0e6);
+  --muted: light-dark(#62586d, #c0b4cd);
+  --border: light-dark(#887f98, #827795);
+  --accent: light-dark(#6238b5, #c6a7ff);
+  --accent-soft: light-dark(#eee5ff, #37234f);
+  --on-accent: light-dark(#fffdf8, #18131f);
+  --success: light-dark(#12645d, #81d7c9);
+  --warning: light-dark(#80500a, #f1c074);
+  --danger: light-dark(#b12643, #ff9eaf);
+  --focus: var(--accent);
+  --shadow: 0 0.75rem 2.5rem light-dark(#241c321f, #00000066);
+  --overlay: light-dark(#241c3299, #08050dbb);
+  --diagram-line: var(--border);
+  --transparent: transparent;
+  --status-positive: var(--success);
+  --status-pending: var(--warning);
+  --status-negative: var(--danger);
+  --status-neutral: var(--muted);
+  --code-bg: var(--surface-alt);
+  --code-text: var(--text);
+  --code-keyword: var(--accent);
+  --code-string: var(--success);
+  --code-comment: var(--muted);
+  --selection-bg: var(--accent-soft);
+  --selection-text: var(--text);
+}
+
+:root[data-theme="light"] { color-scheme: light; }
+:root[data-theme="dark"] { color-scheme: dark; }

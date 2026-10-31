@@ -1,0 +1,26 @@
+---
+import { portfolio } from '../lib/content';
+import { createKnowledgeDocuments } from '../lib/knowledge';
+import { documentHref } from '../lib/routes';
+import Layout from '../layouts/Layout.astro';
+import EvidenceLinks from '../components/EvidenceLinks.astro';
+const documents = createKnowledgeDocuments(portfolio);
+const categories = [...new Set(portfolio.skills.map((skill) => skill.category))];
+---
+<Layout title="Evidence & skills" description="Source-provided excerpts, explicit project relationships, and the complete skill index.">
+  <div class="reading"><header class="page-intro"><p class="eyebrow">The reference desk</p><h1>Claims with<br />a paper trail.</h1><p>{portfolio.evidence.length} source excerpts. {portfolio.skills.length} source-listed skills. No inferred proficiency scores.</p></header>
+    <nav class="reading-nav" aria-label="Evidence sections"><a href="#excerpts">All evidence</a><a href="#skills">All skills</a><a href="/credentials/">Credential caveats</a></nav>
+    <section id="excerpts"><h2>Evidence register</h2><p class="note">Source-provided, not independently verified. Ellipses indicate omitted source quantities; excerpts do not establish unreported outcomes.</p>
+      {portfolio.evidence.map((evidence) => <article class="record" id={evidence.id}>
+        <p class="eyebrow">{evidence.id}</p><h3>{evidence.title}</h3><blockquote>{evidence.text}</blockquote>
+        <p class="record-meta">{evidence.source}<span>{evidence.sourceSection}</span></p>
+        <details><summary>Referenced by</summary><div class="disclosure-body"><ul>{documents.filter((doc) => doc.kind !== 'evidence' && doc.evidenceIds.includes(evidence.id)).map((doc) => <li><a class="text-link" href={documentHref(doc.kind, doc.id)}>{doc.title} <span class="note"> / {doc.kind}</span></a></li>)}</ul></div></details>
+      </article>)}
+    </section>
+    <section id="skills"><h2>Skills, linked to sources</h2><p>Category-level source evidence is not evidence of use on every project. Project relationships require an excerpt that explicitly names both.</p>
+      {categories.map((category) => <section><h3>{category}</h3>{portfolio.skills.filter((skill) => skill.category === category).map((skill) => <article class="record" id={skill.id}>
+        <h4>{skill.name}</h4><EvidenceLinks ids={skill.evidenceIds} />
+      </article>)}</section>)}
+    </section>
+  </div>
+</Layout>

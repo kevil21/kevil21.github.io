@@ -1,0 +1,8 @@
+---
+import { evidenceFor } from '../lib/presentation';
+interface Props { ids: string[] }
+const { ids } = Astro.props;
+---
+<ul class="evidence-links" aria-label="Supporting evidence">
+  {evidenceFor(ids).map((item) => <li><a href={`/evidence/#${item.id}`}><span aria-hidden="true">↳</span> {item.title}</a></li>)}
+</ul>

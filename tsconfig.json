@@ -1,0 +1,16 @@
+{
+  "extends": "./node_modules/astro/tsconfigs/strict.json",
+  "compilerOptions": {
+    "strict": true,
+    "noUncheckedIndexedAccess": true,
+    "exactOptionalPropertyTypes": true,
+    "noEmit": true,
+    "resolveJsonModule": true,
+    "allowImportingTsExtensions": true,
+    "lib": ["ES2023", "DOM", "DOM.Iterable"],
+    "types": ["node", "astro/client"],
+    "paths": { "@/*": ["./src/*"] }
+  },
+  "include": [".astro/types.d.ts", "src/**/*", "scripts/**/*.ts", "tests/**/*.ts", "*.ts"],
+  "exclude": ["node_modules", "dist", "public", "assets-source", "coverage", "playwright-report", "test-results", "src/ai/workers/**", "src/pwa/service-worker.ts"]
+}
