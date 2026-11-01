@@ -1,0 +1,77 @@
+---
+/** The maintenance hatch egg: a <details> that reveals every plaque fact's real source pointer (ledger id, file, line). */
+import type { Claim } from '@/lib/schema';
+import { sourceHref, sourceLabel, LABEL_CAPTION } from '@/lib/sources';
+
+interface Props {
+  claims: Claim[];
+  machine: string;
+}
+const { claims, machine } = Astro.props;
+---
+
+<details class="hatch" data-egg="maintenance-hatch" data-machine={machine}>
+  <summary class="hatch__summary">
+    Maintenance hatch <span class="as-stated">· source pointers behind this plaque</span>
+  </summary>
+  <ul class="hatch__list" role="list">
+    {claims.map((c) => (
+      <li class="hatch__row">
+        <span class="mono hatch__id">{c.ledger ?? '—'}</span>
+        <span class="hatch__text">{c.text}</span>
+        <span class="mono hatch__src">
+          {sourceHref(c.source) ? (
+            <a href={sourceHref(c.source)!} rel="noopener noreferrer external">
+              {sourceLabel(c.source)}
+            </a>
+          ) : (
+            sourceLabel(c.source)
+          )}
+          {LABEL_CAPTION[c.label] && <> · {LABEL_CAPTION[c.label]}</>}
+        </span>
+      </li>
+    ))}
+  </ul>
+</details>
+
+<style>
+  @layer components {
+    .hatch {
+      border: 1px dashed var(--line-strong);
+      border-radius: var(--radius-md);
+      padding: var(--space-2) var(--space-3);
+    }
+    .hatch__summary {
+      cursor: pointer;
+      min-height: var(--touch);
+      display: flex;
+      align-items: center;
+      gap: var(--space-2);
+      color: var(--ink-2);
+    }
+    .hatch__list {
+      display: grid;
+      gap: var(--space-2);
+      padding-block: var(--space-2);
+      font-size: var(--text-sm);
+    }
+    .hatch__row {
+      display: grid;
+      grid-template-columns: minmax(0, 5rem) minmax(0, 1fr);
+      gap: var(--space-1) var(--space-3);
+    }
+    .hatch__id {
+      color: var(--ink-brass);
+      font-size: var(--text-xs);
+    }
+    .hatch__text {
+      color: var(--ink-2);
+    }
+    .hatch__src {
+      grid-column: 2;
+      font-size: var(--text-xs);
+      color: var(--ink-3);
+      overflow-wrap: anywhere;
+    }
+  }
+</style>

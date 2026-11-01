@@ -1,0 +1,90 @@
+---
+/** Work index: every project grouped by the machine that embodies it. */
+import Shell from '@/layouts/Shell.astro';
+import Claim from '@/components/Claim.astro';
+import { loadMachines, loadProjects } from '@/lib/content';
+
+const [machines, projects] = await Promise.all([loadMachines(), loadProjects()]);
+const groups = machines
+  .map((m) => ({ machine: m, projects: projects.filter((p) => p.data.machine === m.id) }))
+  .filter((g) => g.projects.length > 0);
+---
+
+<Shell
+  title="Work"
+  description="Case studies of the systems Kevil Patel built: A360, Policy → Pipelines, forecasting and ELK pipelines."
+  path="/work/"
+>
+  <section class="wrap work">
+    <header class="work__head">
+      <p class="eyebrow">Case studies</p>
+      <h1>The systems behind the machines.</h1>
+      <p class="work__lead">
+        Each case study states the problem, the approach, the architecture and the outcomes with their
+        sources, and ends with the decision log the Operator narrates from.
+      </p>
+    </header>
+    {groups.map((g) => (
+      <section class="work__group" aria-labelledby={`g-${g.machine.id}`}>
+        <h2 id={`g-${g.machine.id}`}>
+          <a href={`/machines/${g.machine.data.slug}/`}>{g.machine.data.name}</a>
+          <span class="work__bay mono"> · bay {String(g.machine.data.bay).padStart(2, '0')}</span>
+        </h2>
+        <ul class="work__list" role="list">
+          {g.projects.map((p) => (
+            <li class="work__item">
+              <h3>
+                <a href={`/work/${p.id}/`}>{p.data.name}</a>
+                {p.data.year && <span class="work__year mono"> · {p.data.year}</span>}
+              </h3>
+              <Claim claim={p.data.summary} compact />
+            </li>
+          ))}
+        </ul>
+      </section>
+    ))}
+  </section>
+</Shell>
+
+<style>
+  @layer components {
+    .work {
+      padding-block: var(--space-7);
+      display: grid;
+      gap: var(--space-6);
+    }
+    .work__head {
+      display: grid;
+      gap: var(--space-3);
+    }
+    .work__lead {
+      color: var(--ink-2);
+      font-size: var(--text-lg);
+    }
+    .work__group {
+      display: grid;
+      gap: var(--space-3);
+    }
+    .work__bay,
+    .work__year {
+      color: var(--ink-3);
+      font-size: var(--text-sm);
+      font-weight: 400;
+    }
+    .work__list {
+      display: grid;
+      gap: var(--space-3);
+    }
+    .work__item {
+      background: var(--surface);
+      border: 1px solid var(--line);
+      border-radius: var(--radius-lg);
+      padding: var(--space-4);
+      display: grid;
+      gap: var(--space-2);
+    }
+    .work__item h3 {
+      font-size: var(--text-lg);
+    }
+  }
+</style>

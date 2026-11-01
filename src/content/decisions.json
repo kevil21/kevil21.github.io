@@ -1,0 +1,210 @@
+[
+  {
+    "id": "D-A360-SYNC-OVERLAP",
+    "machine": "telemetry-refinery",
+    "title": "Idempotent overlapping sync windows",
+    "statement": {
+      "text": "Hourly views with 70-min overlap, daily with 25-hour overlap.",
+      "source": "KPOS/site/index.html#L389",
+      "ledger": "F-C15",
+      "label": "public"
+    },
+    "narration": "Opening the sync manifold with a 70-minute overlap on hourly views (25 hours on daily), because the A360 sync decision chose idempotent overlapping windows over exact cut-offs.",
+    "control": "sync-interval"
+  },
+  {
+    "id": "D-A360-DOC-IDS",
+    "machine": "telemetry-refinery",
+    "title": "Deterministic document IDs",
+    "statement": {
+      "text": "SHA-256 doc IDs from natural keys; incremental timestamps for deterministic upserts.",
+      "source": "KPOS/site/index.html#L389",
+      "ledger": "F-C15",
+      "label": "public"
+    },
+    "narration": "Re-running the sync is safe: documents carry SHA-256 IDs derived from their natural keys, so overlapping windows upsert instead of duplicating.",
+    "control": "sync-interval"
+  },
+  {
+    "id": "D-A360-JWKS",
+    "machine": "telemetry-refinery",
+    "title": "JWKS-validated gateway",
+    "statement": {
+      "text": "Frontend → Azure AD token → API gateway validates against JWKS.",
+      "source": "KPOS/site/index.html#L388",
+      "ledger": "F-C14",
+      "label": "public"
+    },
+    "narration": "The gateway valve opens only for requests whose Azure AD token validates against the JWKS; the Elasticsearch proxy behind it is read-only.",
+    "control": "gateway"
+  },
+  {
+    "id": "D-A360-DOGFOOD",
+    "machine": "telemetry-refinery",
+    "title": "Dogfooding",
+    "statement": {
+      "text": "A360 emits its own traces into A360 — eat your own observability.",
+      "source": "KPOS/site/index.html#L387",
+      "ledger": "F-C13",
+      "label": "public"
+    },
+    "narration": "Switching on the dogfooding feed: the platform observes itself as one more tenant, which is how its own regressions get caught.",
+    "control": "dogfooding"
+  },
+  {
+    "id": "D-A360-BOARDING",
+    "machine": "telemetry-refinery",
+    "title": "Per-tenant provisioning by a boarding function",
+    "statement": {
+      "text": "Boarding function (Flex Consumption) provisions per-tenant ADX DB, Cosmos containers, ES index templates and registers the tenant.",
+      "source": "KPOS/site/index.html#L386",
+      "ledger": "F-C12",
+      "label": "public"
+    },
+    "narration": "Adding a tenant chamber: a boarding function provisions the tenant's ADX database, Cosmos containers and Elasticsearch index templates, then registers it.",
+    "control": "tenant-count"
+  },
+  {
+    "id": "D-P2P-GUARDRAILS-FIRST",
+    "machine": "policy-sorter",
+    "title": "Guardrails before the model",
+    "statement": {
+      "text": "Guardrails first (BLOCKED / HIGH_RISK), then LLM rubric scoring 0–10. BLOCKED patterns force score=10. HIGH_RISK patterns boost LLM score by +6.",
+      "source": "KPOS/site/index.html#L467",
+      "ledger": "F-C36",
+      "label": "public"
+    },
+    "narration": "The risk gauge pins to 10 for BLOCKED patterns and adds +6 for HIGH_RISK ones before the model's rubric score is even read, because deterministic guardrails outrank the LLM.",
+    "control": "policy"
+  },
+  {
+    "id": "D-P2P-AUTO-APPROVE",
+    "machine": "policy-sorter",
+    "title": "Auto-approve below 4, human gate above",
+    "statement": {
+      "text": "LLM rubric scoring 0–10. Auto-approve below 4.",
+      "source": "KPOS/site/index.html#L426-L454",
+      "ledger": "F-C34",
+      "label": "public"
+    },
+    "narration": "Plans scoring below 4 pass the gate on their own; everything else waits for a human to pull the approval lever.",
+    "control": "approve"
+  },
+  {
+    "id": "D-P2P-ROUTERS",
+    "machine": "policy-sorter",
+    "title": "Conditional routers short-circuit",
+    "statement": {
+      "text": "LangGraph state machine: conditional routers short-circuit on rejection or cloud-error; per-stage timings let the UI render a Gantt of agent execution.",
+      "source": "KPOS/site/index.html#L466",
+      "ledger": "F-C37",
+      "label": "public"
+    },
+    "narration": "A rejected policy or a cloud error stops the belt immediately: the LangGraph routers short-circuit instead of running the remaining agents.",
+    "control": "policy"
+  },
+  {
+    "id": "D-P2P-PROVIDERS",
+    "machine": "policy-sorter",
+    "title": "Pluggable providers and a mock mode for CI",
+    "statement": {
+      "text": "Provider pluggable: Mock / LiteLLM / Vertex AI for LLM. Mock / GCP for cloud. AWS & Azure scaffolded next.",
+      "source": "KPOS/site/index.html#L469",
+      "ledger": "F-C39",
+      "label": "public"
+    },
+    "narration": "Flipping to mock mode: the same five agents run fully offline against mock LLM and cloud providers, which is how the pipeline is tested in CI.",
+    "control": "mock-mode"
+  },
+  {
+    "id": "D-P2P-EVIDENCE",
+    "machine": "policy-sorter",
+    "title": "Evidence packs for every change",
+    "statement": {
+      "text": "EvidencePack bundles: policy + finding + plan + before/after state + execution log. Persisted to Firestore.",
+      "source": "KPOS/site/index.html#L470",
+      "ledger": "F-C40",
+      "label": "public"
+    },
+    "narration": "Filing the evidence pack: policy, finding, plan, before/after state and execution log go into the cabinet together, so every remediation is auditable.",
+    "control": "approve"
+  },
+  {
+    "id": "D-FC-MULTIMODAL",
+    "machine": "forecast-engine",
+    "title": "Separate encoders per modality",
+    "statement": {
+      "text": "Multi-modal LSTM with separate encoders for weather, displacement history and infra exposure.",
+      "source": "KPOS/site/app.js#L1602-L1611",
+      "ledger": "F-C51",
+      "label": "public"
+    },
+    "narration": "Selecting the migration stream: weather, displacement history and infrastructure exposure each pass through their own encoder before the recurrent coil.",
+    "control": "stream"
+  },
+  {
+    "id": "D-FC-ROLLING-CV",
+    "machine": "forecast-engine",
+    "title": "Rolling-window validation on held-out districts",
+    "statement": {
+      "text": "Rolling-window cross-validation against held-out districts.",
+      "source": "KPOS/site/app.js#L1602-L1611",
+      "ledger": "F-C51",
+      "label": "public"
+    },
+    "narration": "Showing the baseline: accuracy was measured with rolling-window cross-validation on districts the model never saw.",
+    "control": "baseline"
+  },
+  {
+    "id": "D-FC-SHARED-EMBEDDINGS",
+    "machine": "forecast-engine",
+    "title": "Per-transformer models with shared embeddings",
+    "statement": {
+      "text": "Per-transformer LSTM trained on SageMaker with shared embeddings.",
+      "source": "KPOS/site/app.js#L1622-L1631",
+      "ledger": "F-C53",
+      "label": "public"
+    },
+    "narration": "Selecting the grid stream: one LSTM per transformer, sharing embeddings so sparse transformers learn from the dense ones.",
+    "control": "stream"
+  },
+  {
+    "id": "D-FC-HYBRID",
+    "machine": "forecast-engine",
+    "title": "Regression + rule hybrid",
+    "statement": {
+      "text": "Crop + soil + weather features fed into a regression + rule hybrid for daily water targets.",
+      "source": "KPOS/site/app.js#L1612-L1621",
+      "ledger": "F-C54",
+      "label": "public"
+    },
+    "narration": "Selecting the irrigation stream: daily water targets come from a regression model constrained by agronomic rules, not an LSTM.",
+    "control": "stream"
+  },
+  {
+    "id": "D-WB-SIGNATURES",
+    "machine": "data-workbench",
+    "title": "Cluster by HTML signature",
+    "statement": {
+      "text": "Cluster overlay HTML signatures with token-level n-grams + cosine similarity; score each cluster by frequency × user-impact × support tickets.",
+      "source": "KPOS/site/app.js#L1572-L1581",
+      "ledger": "F-C61",
+      "label": "public"
+    },
+    "narration": "Running the overlays station: overlays are clustered by token n-gram cosine similarity and ranked by frequency × user impact × support tickets.",
+    "control": "run-overlays"
+  },
+  {
+    "id": "D-WB-DOC-IDS",
+    "machine": "data-workbench",
+    "title": "Deterministic doc IDs for reproducible indexing",
+    "statement": {
+      "text": "Bulk-indexed into Elasticsearch with deterministic doc IDs.",
+      "source": "KPOS/site/app.js#L1582-L1591",
+      "ledger": "F-C63",
+      "label": "public"
+    },
+    "narration": "Running the incidents station: tickets are bulk-indexed with deterministic IDs so re-running a dump never duplicates a record.",
+    "control": "run-incidents"
+  }
+]

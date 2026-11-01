@@ -1,0 +1,33 @@
+---
+/**
+ * Pre-paint theme resolution. Inline, ES5, runs before any stylesheet applies so there is no flash.
+ * Reads the persisted preference (sr:theme ∈ light|dark|night, else system), sets data-theme on <html>,
+ * and copies the matching data-* colour onto <meta name="theme-color">. Falls back to dark on any error.
+ */
+---
+
+<script is:inline>
+  /* eslint-disable no-var, @typescript-eslint/no-unused-vars -- deliberately ES5, runs before any bundle */
+  (function () {
+    try {
+      var p = localStorage.getItem('sr:theme');
+      var t =
+        p === 'light' || p === 'dark' || p === 'night'
+          ? p
+          : window.matchMedia('(prefers-color-scheme: light)').matches
+            ? 'light'
+            : 'dark';
+      var d = document.documentElement;
+      d.classList.add('js');
+      d.setAttribute('data-theme', t);
+      d.setAttribute('data-theme-pref', p || 'system');
+      var m = document.querySelector('meta[name="theme-color"]');
+      if (m) {
+        var c = m.getAttribute('data-' + t);
+        if (c) m.setAttribute('content', c);
+      }
+    } catch (e) {
+      document.documentElement.setAttribute('data-theme', 'dark');
+    }
+  })();
+</script>

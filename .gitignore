@@ -1,0 +1,44 @@
+# OS / editor
+.DS_Store
+Thumbs.db
+*.swp
+.idea/
+.vscode/*
+!.vscode/extensions.json
+
+# dependencies
+node_modules/
+
+# build output
+dist/
+.astro/
+.cache/
+.lighthouseci/
+playwright-report/
+test-results/
+blob-report/
+screenshots/
+
+# generated at build time (Build Brain, derived images, OG, service worker)
+public/generated/
+public/models/ort/
+public/images/derived/
+public/og/
+public/sw.js
+src/content/_generated/
+
+# model runtimes and weights are never committed
+*.onnx
+*.wasm
+!public/vendor/**/*.wasm
+
+# logs and env
+npm-debug.log*
+*.log
+.env
+.env.*
+!.env.example
+
+# résumé binaries are never published
+*.docx
+*.pdf

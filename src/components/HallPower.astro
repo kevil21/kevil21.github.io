@@ -1,0 +1,142 @@
+---
+/**
+ * Static twin of the hall power meter: an inline SVG bar chart of dated milestones per month from events.json.
+ * Month-precision events are solid bars; year-only events are a lighter band (1/12 per month). Every bar is real.
+ */
+import { buildPowerSeries, POWER_EVENTS } from '@/hall/data/power';
+
+interface Props {
+  from?: string;
+}
+const { from = '2023-01' } = Astro.props;
+const series = buildPowerSeries(POWER_EVENTS).filter((p) => p.month >= from);
+const W = 960;
+const H = 220;
+const pad = { l: 28, r: 12, t: 16, b: 34 };
+const n = series.length;
+const bw = (W - pad.l - pad.r) / n;
+const max = Math.max(1, ...series.map((p) => p.count + p.yearShare));
+const y = (v: number) => pad.t + (H - pad.t - pad.b) * (1 - v / max);
+const years = Array.from(new Set(series.map((p) => p.month.slice(0, 4))));
+const monthEvents = POWER_EVENTS.filter((e) => /^\d{4}-\d{2}$/.test(e.month) && e.month >= from);
+const yearEvents = POWER_EVENTS.filter((e) => /^\d{4}$/.test(e.month) && e.month >= from.slice(0, 4));
+---
+
+<figure class="power">
+  <svg
+    viewBox={`0 0 ${W} ${H}`}
+    role="img"
+    aria-labelledby="power-svg-title power-svg-desc"
+    class="power__svg"
+  >
+    <title id="power-svg-title">Hall power: dated milestones per month, {series[0]?.month} to {series[n - 1]?.month}</title>
+    <desc id="power-svg-desc">
+      {monthEvents.length} month-dated milestones and {yearEvents.length} year-only milestones. Peak month:{' '}
+      {series.reduce((a, b) => (b.count > a.count ? b : a), series[0]!).month}.
+    </desc>
+    <line x1={pad.l} x2={W - pad.r} y1={y(0)} y2={y(0)} class="power__axis" />
+    {series.map((p, i) => {
+      const x = pad.l + i * bw;
+      const h = y(0) - y(p.count);
+      const bh = y(0) - y(p.yearShare);
+      return (
+        <g>
+          {p.count > 0 && (
+            <rect x={x + bw * 0.15} y={y(p.count)} width={bw * 0.7} height={h} class="power__bar" rx="2" />
+          )}
+          {p.yearShare > 0 && (
+            <rect
+              x={x + bw * 0.15}
+              y={y(p.count) - bh}
+              width={bw * 0.7}
+              height={bh}
+              class="power__band"
+              rx="1"
+            />
+          )}
+        </g>
+      );
+    })}
+    {years.map((yr) => {
+      const i = series.findIndex((p) => p.month.startsWith(yr));
+      return (
+        <text x={pad.l + i * bw + 2} y={H - 12} class="power__year">
+          {yr}
+        </text>
+      );
+    })}
+    <text x={pad.l - 6} y={y(max) + 4} text-anchor="end" class="power__tick">
+      {max.toFixed(0)}
+    </text>
+    <text x={pad.l - 6} y={y(0) + 4} text-anchor="end" class="power__tick">
+      0
+    </text>
+  </svg>
+  <figcaption class="power__caption">
+    Dated milestones per month from the fact ledger (roles, certifications, projects, community). Solid =
+    month-dated; light band = year-only milestones spread across their year.{' '}
+    <span class="as-stated">No activity data is invented.</span>
+  </figcaption>
+  <details class="power__list">
+    <summary>Every milestone behind the meter ({POWER_EVENTS.length})</summary>
+    <ul role="list">
+      {POWER_EVENTS.slice()
+        .sort((a, b) => a.month.localeCompare(b.month))
+        .map((e) => (
+          <li>
+            <span class="mono">{e.month}</span> {e.label}{' '}
+            <span class="as-stated">· {e.source.replace(/^KPOS\//, '')}</span>
+          </li>
+        ))}
+    </ul>
+  </details>
+</figure>
+
+<style>
+  @layer components {
+    .power {
+      margin: 0;
+      display: grid;
+      gap: var(--space-2);
+    }
+    .power__svg {
+      width: 100%;
+      height: auto;
+      background: var(--surface);
+      border: 1px solid var(--line);
+      border-radius: var(--radius-lg);
+      font-family: var(--font-mono);
+    }
+    .power__axis {
+      stroke: var(--line-strong);
+    }
+    .power__bar {
+      fill: var(--fill-amber);
+    }
+    .power__band {
+      fill: var(--fill-amber-dim);
+    }
+    .power__year,
+    .power__tick {
+      fill: var(--ink-2);
+      font-size: 12px;
+    }
+    .power__caption {
+      font-size: var(--text-sm);
+      color: var(--ink-3);
+    }
+    .power__list summary {
+      cursor: pointer;
+      min-height: var(--touch);
+      display: flex;
+      align-items: center;
+      color: var(--ink-2);
+    }
+    .power__list ul {
+      display: grid;
+      gap: var(--space-1);
+      font-size: var(--text-sm);
+      color: var(--ink-2);
+    }
+  }
+</style>

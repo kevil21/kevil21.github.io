@@ -1,0 +1,69 @@
+name: Build Brain → GitHub Pages
+
+on:
+  push:
+    branches: [main]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+concurrency:
+  group: pages
+  cancel-in-progress: false
+
+env:
+  PUBLIC_APP_VERSION: ${{ github.sha }}
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version-file: .node-version
+          cache: npm
+      - run: npm ci
+      - name: Cache the pinned embedder for the Build Brain
+        uses: actions/cache@v4
+        with:
+          path: .cache/models
+          key: brain-models-${{ hashFiles('src/ai/config.ts', 'package-lock.json') }}
+      - run: npm run check
+      - run: npm run lint
+      - run: npm run format:check
+      - run: npm test
+      - name: Build (prebuild = assets + ORT runtime + Build Brain; postbuild = service worker + public-output audit)
+        run: npm run build
+      - run: npm run tokens:lint
+      - name: Smoke e2e (WebGL path; CI Chromium has no WebGPU)
+        run: |
+          npx playwright install --with-deps chromium
+          npx playwright test --project desktop-dark --project pixel7-light --project reduced-motion --project a11y-light --project a11y-dark
+      - uses: actions/upload-artifact@v4
+        if: failure()
+        with:
+          name: playwright-report
+          path: playwright-report
+      - id: pages
+        uses: actions/configure-pages@v5
+      - name: Root-path guard (kevilpatel.in must be served from the root)
+        run: |
+          test -z "${{ steps.pages.outputs.base_path }}" || { echo "Pages base_path is '${{ steps.pages.outputs.base_path }}' — kevilpatel.in must be served from the root"; exit 1; }
+          test "$(cat dist/CNAME)" = "kevilpatel.in" || { echo "dist/CNAME is not kevilpatel.in"; exit 1; }
+      - uses: actions/upload-pages-artifact@v3
+        with:
+          path: ./dist
+
+  deploy:
+    needs: build
+    runs-on: ubuntu-latest
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - id: deployment
+        uses: actions/deploy-pages@v4

@@ -1,0 +1,84 @@
+[
+  {
+    "id": "vit",
+    "institution": "Vellore Institute of Technology, Vellore",
+    "institutionUrl": "https://vit.ac.in",
+    "degree": {
+      "text": "B.Tech, Computer Science Engineering",
+      "source": "KPOS/site/Kevil_Resume_2026.md#L13",
+      "ledger": "F-F01",
+      "label": "public"
+    },
+    "dates": {
+      "start": "2021",
+      "end": "2025",
+      "precision": "year",
+      "source": "KPOS/site/Kevil_Resume_2026.md#L13"
+    },
+    "details": [
+      {
+        "text": "CGPA 8.95 / 10",
+        "source": "KPOS/site/Kevil_Resume_2026.md#L14",
+        "ledger": "F-F01",
+        "label": "resume"
+      },
+      {
+        "text": "AIR 56 in VITEEE",
+        "source": "KPOS/site/Kevil_Resume_2026.md#L14",
+        "ledger": "F-F01",
+        "label": "resume"
+      }
+    ],
+    "order": 1
+  },
+  {
+    "id": "school-12",
+    "institution": "L.P. Savani International School, Surat",
+    "degree": {
+      "text": "12th CBSE",
+      "source": "KPOS/site/Kevil_Resume_2026.md#L16",
+      "ledger": "F-F02",
+      "label": "public"
+    },
+    "dates": {
+      "start": "2019",
+      "end": "2020",
+      "precision": "year",
+      "source": "KPOS/site/Kevil_Resume_2026.md#L16"
+    },
+    "details": [
+      {
+        "text": "GPA 8.9",
+        "source": "KPOS/site/Kevil_Resume_2026.md#L16",
+        "ledger": "F-F02",
+        "label": "resume"
+      }
+    ],
+    "order": 2
+  },
+  {
+    "id": "school-10",
+    "institution": "L.P. Savani International School, Surat",
+    "degree": {
+      "text": "10th CBSE",
+      "source": "KPOS/site/Kevil_Resume_2026.md#L17",
+      "ledger": "F-F03",
+      "label": "public"
+    },
+    "dates": {
+      "start": "2017",
+      "end": "2018",
+      "precision": "year",
+      "source": "KPOS/site/Kevil_Resume_2026.md#L17"
+    },
+    "details": [
+      {
+        "text": "GPA 8",
+        "source": "KPOS/site/Kevil_Resume_2026.md#L17",
+        "ledger": "F-F03",
+        "label": "resume"
+      }
+    ],
+    "order": 3
+  }
+]

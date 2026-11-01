@@ -1,0 +1,161 @@
+---
+/** 404 — lights out. The alarm lamp flashes (token colours, pauses under reduced motion) and the Operator guides you back. */
+import Shell from '@/layouts/Shell.astro';
+---
+
+<Shell
+  title="Lights out"
+  description="This corridor does not exist in the laboratory. The Operator can guide you back."
+  path="/404/"
+  noindex
+  bodyClass="page-404"
+>
+  <section class="wrap notfound" data-egg="lights-out-404">
+    <div class="alarm" aria-hidden="true">
+      <svg viewBox="0 0 120 120" class="alarm__svg">
+        <rect x="35" y="70" width="50" height="14" rx="4" class="alarm__base" />
+        <path d="M42 70 Q60 18 78 70 Z" class="alarm__dome" />
+        <circle cx="60" cy="56" r="7" class="alarm__bulb" />
+        <path d="M60 40 L60 30 M44 46 L37 39 M76 46 L83 39" class="alarm__rays" />
+      </svg>
+    </div>
+    <p class="eyebrow">404 · lights out</p>
+    <h1>That corridor is not on the floor plan.</h1>
+    <p class="notfound__lead">
+      The alarm is only a lamp. The hall, the résumé and the contact desk are still lit, and the Operator can
+      take you to what you were looking for.
+    </p>
+    <p class="notfound__links">
+      <a class="button button--primary" href="/">
+        Back to the floor
+      </a>
+      <a class="button" href="/resume/">
+        Résumé
+      </a>
+      <a class="button" href="/work/">
+        Case studies
+      </a>
+      <a class="button" href="/contact/">
+        Contact
+      </a>
+    </p>
+    <form class="notfound__ask" action="/operator/" method="get">
+      <label for="nf-q">Ask the Operator what you came for</label>
+      <div class="notfound__row">
+        <input
+          id="nf-q"
+          name="q"
+          type="text"
+          placeholder="e.g. the A360 case study, certifications, contact"
+        />
+        <button type="submit" class="button">
+          Ask
+        </button>
+      </div>
+    </form>
+    <p class="as-stated" id="nf-path"></p>
+  </section>
+  <script>
+    const el = document.getElementById('nf-path');
+    if (el) el.textContent = `Requested: ${window.location.pathname}`;
+    const region = document.getElementById('live-region');
+    if (region)
+      region.textContent =
+        'Lights out: this page does not exist. Links to the floor, résumé and contact are below.';
+  </script>
+</Shell>
+
+<style>
+  @layer components {
+    .notfound {
+      padding-block: var(--space-8);
+      display: grid;
+      gap: var(--space-4);
+    }
+    .alarm__svg {
+      width: 96px;
+      height: 96px;
+    }
+    .alarm__base {
+      fill: var(--fill-steel-dark);
+    }
+    .alarm__dome {
+      fill: var(--fill-ember);
+      opacity: 0.75;
+    }
+    .alarm__bulb {
+      fill: var(--ink-ember);
+      animation: alarm 1.1s ease-in-out infinite alternate;
+    }
+    .alarm__rays {
+      stroke: var(--ink-ember);
+      stroke-width: 3;
+      stroke-linecap: round;
+      animation: alarm 1.1s ease-in-out infinite alternate-reverse;
+    }
+    @keyframes alarm {
+      from {
+        opacity: 0.25;
+      }
+      to {
+        opacity: 1;
+      }
+    }
+    @media (prefers-reduced-motion: reduce) {
+      .alarm__bulb,
+      .alarm__rays {
+        animation: none;
+      }
+    }
+    .notfound__lead {
+      color: var(--ink-2);
+      font-size: var(--text-lg);
+    }
+    .notfound__links {
+      display: flex;
+      flex-wrap: wrap;
+      gap: var(--space-2);
+      max-width: none;
+    }
+    .button {
+      display: inline-flex;
+      align-items: center;
+      min-height: var(--touch);
+      padding-inline: var(--space-4);
+      border-radius: var(--radius-pill);
+      border: 1px solid var(--line-strong);
+      color: var(--ink);
+      text-decoration: none;
+      font-weight: 500;
+      background: var(--surface);
+      cursor: pointer;
+    }
+    .button--primary {
+      background: var(--fill-amber);
+      border-color: var(--fill-amber);
+      color: var(--on-amber);
+    }
+    .notfound__ask {
+      display: grid;
+      gap: var(--space-2);
+      max-width: 40rem;
+    }
+    .notfound__ask label {
+      color: var(--ink-2);
+    }
+    .notfound__row {
+      display: grid;
+      grid-template-columns: minmax(0, 1fr) auto;
+      gap: var(--space-2);
+    }
+    .notfound__row input {
+      min-height: var(--touch);
+      background: var(--surface-2);
+      border: 1px solid var(--line-strong);
+      border-radius: var(--radius-md);
+      padding-inline: var(--space-3);
+      color: var(--ink);
+      min-width: 0;
+    }
+  }
+</style>

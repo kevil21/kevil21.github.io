@@ -1,0 +1,97 @@
+[
+  {
+    "id": "kevil",
+    "name": {
+      "text": "Kevil Patel",
+      "source": "KPOS/site/index.html#L38",
+      "ledger": "F-A01",
+      "label": "public"
+    },
+    "title": {
+      "text": "Associate Software Development Engineer",
+      "source": "KPOS/site/index.html#L40",
+      "ledger": "F-A03",
+      "label": "public"
+    },
+    "titleShort": "Associate SDE",
+    "headline": {
+      "text": "building agentic AI on cloud",
+      "source": "KPOS/site/index.html#L166",
+      "ledger": "F-A18",
+      "label": "public"
+    },
+    "employer": {
+      "text": "Kyndryl",
+      "source": "KPOS/site/index.html#L41",
+      "ledger": "F-A04",
+      "label": "public"
+    },
+    "employerUrl": "https://www.kyndryl.com",
+    "location": {
+      "text": "Surat, Gujarat · Bangalore, India",
+      "source": "KPOS/site/index.html#L153",
+      "ledger": "F-A05",
+      "label": "public"
+    },
+    "email": {
+      "text": "kevilpatel24@gmail.com",
+      "source": "KPOS/site/index.html#L43",
+      "ledger": "F-A06",
+      "label": "public"
+    },
+    "lead": [
+      {
+        "text": "I am an Associate SDE at Kyndryl, fresh out of VIT (CGPA 8.95, AIR 56 in VITEEE), engineering agentic AI systems on Azure AI Foundry for enterprise clients.",
+        "source": "KPOS/site/index.html#L227-L232",
+        "ledger": "F-A19",
+        "label": "resume"
+      },
+      {
+        "text": "I live at the intersection of machine learning, cloud architecture and developer experience — from LSTM grids predicting power loads across 500+ households, to a multi-tenant agentic observability platform (A360), to a LangGraph governance agent that turns plain-English policies into enforced cloud pipelines.",
+        "source": "KPOS/site/index.html#L233-L240",
+        "ledger": "F-A20",
+        "label": "resume"
+      },
+      {
+        "text": "Certified across AWS, Microsoft Azure, GitHub and Founderz.",
+        "source": "KPOS/site/index.html#L241-L246",
+        "ledger": "F-A21",
+        "label": "public"
+      }
+    ],
+    "openTo": {
+      "text": "open to collaborations on agentic AI, cloud architecture and platform engineering",
+      "source": "KPOS/site/app.js#L1670",
+      "ledger": "F-A24",
+      "label": "public"
+    },
+    "languages": {
+      "text": "English (fluent) · Hindi (fluent) · Gujarati (native) · Spanish (basic)",
+      "source": "KPOS/site/Kevil_Resume_2026.md#L109",
+      "ledger": "F-A26",
+      "label": "public"
+    },
+    "quote": {
+      "text": "The best engineers do not just write code — they listen to the system breathe.",
+      "source": "KPOS/site/index.html#L250",
+      "ledger": "F-A22",
+      "label": "public"
+    },
+    "links": [
+      { "label": "LinkedIn", "href": "https://linkedin.com/in/kevil21", "kind": "profile" },
+      { "label": "GitHub", "href": "https://github.com/kevil21", "kind": "profile" },
+      { "label": "Hugging Face", "href": "https://huggingface.co/Kevil21", "kind": "profile" },
+      {
+        "label": "Microsoft Learn",
+        "href": "https://learn.microsoft.com/en-in/users/kevil21/",
+        "kind": "profile"
+      },
+      { "label": "Credly", "href": "https://www.credly.com/users/kevil-patel.db5e53fa", "kind": "profile" },
+      {
+        "label": "Google Skills",
+        "href": "https://www.skills.google/public_profiles/368f1807-b155-48d9-ba6c-e9ba98a384f5",
+        "kind": "profile"
+      }
+    ]
+  }
+]

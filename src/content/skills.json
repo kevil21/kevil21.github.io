@@ -1,0 +1,238 @@
+[
+  {
+    "id": "python",
+    "name": "Python",
+    "group": "languages",
+    "source": "KPOS/site/Kevil_Resume_2026.md#L46",
+    "usedIn": ["telemetry-refinery", "policy-sorter", "forecast-engine", "data-workbench"],
+    "usedInSource": "KPOS/site/app.js#L982",
+    "aliases": ["py"]
+  },
+  {
+    "id": "cpp",
+    "name": "C++",
+    "group": "languages",
+    "source": "KPOS/site/Kevil_Resume_2026.md#L46",
+    "aliases": ["cpp"]
+  },
+  { "id": "java", "name": "Java", "group": "languages", "source": "KPOS/site/Kevil_Resume_2026.md#L46" },
+  { "id": "r", "name": "R", "group": "languages", "source": "KPOS/site/Kevil_Resume_2026.md#L46" },
+  {
+    "id": "typescript",
+    "name": "TypeScript",
+    "group": "languages",
+    "source": "KPOS/site/Kevil_Resume_2026.md#L46",
+    "usedIn": ["telemetry-refinery", "policy-sorter"],
+    "usedInSource": "KPOS/site/app.js#L982",
+    "aliases": ["ts"]
+  },
+  { "id": "sql", "name": "SQL", "group": "languages", "source": "KPOS/site/Kevil_Resume_2026.md#L46" },
+
+  {
+    "id": "agentic-ai",
+    "name": "Agentic AI",
+    "group": "ai-ml",
+    "source": "KPOS/site/Kevil_Resume_2026.md#L47",
+    "usedIn": ["telemetry-refinery", "policy-sorter"],
+    "aliases": ["agents", "ai agents"]
+  },
+  {
+    "id": "rag",
+    "name": "RAG",
+    "group": "ai-ml",
+    "source": "KPOS/site/Kevil_Resume_2026.md#L47",
+    "usedIn": ["telemetry-refinery"],
+    "usedInSource": "KPOS/site/app.js#L982",
+    "aliases": ["retrieval-augmented generation"]
+  },
+  {
+    "id": "langgraph",
+    "name": "LangGraph",
+    "group": "ai-ml",
+    "source": "KPOS/site/Kevil_Resume_2026.md#L47",
+    "usedIn": ["policy-sorter"],
+    "usedInSource": "KPOS/site/app.js#L982"
+  },
+  {
+    "id": "langchain",
+    "name": "LangChain",
+    "group": "ai-ml",
+    "source": "KPOS/site/Kevil_Resume_2026.md#L47",
+    "usedIn": ["policy-sorter"]
+  },
+  {
+    "id": "lstm",
+    "name": "LSTM",
+    "group": "ai-ml",
+    "source": "KPOS/site/Kevil_Resume_2026.md#L47",
+    "usedIn": ["forecast-engine"],
+    "usedInSource": "KPOS/site/app.js#L982",
+    "aliases": ["recurrent", "rnn"]
+  },
+  {
+    "id": "time-series",
+    "name": "Time-series forecasting",
+    "group": "ai-ml",
+    "source": "KPOS/site/Kevil_Resume_2026.md#L47",
+    "usedIn": ["forecast-engine"],
+    "aliases": ["forecasting"]
+  },
+  {
+    "id": "azure-ai-foundry",
+    "name": "Azure AI Foundry",
+    "group": "ai-ml",
+    "source": "KPOS/site/Kevil_Resume_2026.md#L47",
+    "usedIn": ["telemetry-refinery"],
+    "aliases": ["ai foundry", "foundry"]
+  },
+  {
+    "id": "vertex-ai",
+    "name": "Vertex AI",
+    "group": "ai-ml",
+    "source": "KPOS/site/Kevil_Resume_2026.md#L47",
+    "usedIn": ["policy-sorter"],
+    "usedInSource": "KPOS/site/app.js#L982",
+    "aliases": ["gemini"]
+  },
+  {
+    "id": "prompt-engineering",
+    "name": "Prompt Engineering",
+    "group": "ai-ml",
+    "source": "KPOS/site/Kevil_Resume_2026.md#L47",
+    "usedIn": ["policy-sorter", "telemetry-refinery"]
+  },
+
+  {
+    "id": "azure",
+    "name": "Azure (AKS, Container Apps, Functions, App Service, ADX, Cosmos DB)",
+    "group": "cloud",
+    "source": "KPOS/site/Kevil_Resume_2026.md#L48",
+    "usedIn": ["telemetry-refinery"],
+    "usedInSource": "KPOS/site/app.js#L982",
+    "aliases": ["azure", "aks", "cosmos db", "app service", "azure functions", "container apps"]
+  },
+  {
+    "id": "aws",
+    "name": "AWS (EC2, S3, SageMaker, Kinesis)",
+    "group": "cloud",
+    "source": "KPOS/site/Kevil_Resume_2026.md#L48",
+    "usedIn": ["forecast-engine"],
+    "aliases": ["aws", "s3", "sagemaker", "kinesis", "ec2"]
+  },
+  {
+    "id": "gcp",
+    "name": "GCP (Cloud Run, Vertex, GCS)",
+    "group": "cloud",
+    "source": "KPOS/site/Kevil_Resume_2026.md#L48",
+    "usedIn": ["policy-sorter"],
+    "aliases": ["gcp", "google cloud", "gcs", "cloud run"]
+  },
+  {
+    "id": "bicep",
+    "name": "Bicep",
+    "group": "cloud",
+    "source": "KPOS/site/Kevil_Resume_2026.md#L48",
+    "usedIn": ["telemetry-refinery"]
+  },
+  {
+    "id": "terraform",
+    "name": "Terraform",
+    "group": "cloud",
+    "source": "KPOS/site/Kevil_Resume_2026.md#L48",
+    "usedIn": ["telemetry-refinery"],
+    "usedInSource": "KPOS/site/app.js#L1872"
+  },
+
+  {
+    "id": "docker",
+    "name": "Docker",
+    "group": "dev-tools",
+    "source": "KPOS/site/Kevil_Resume_2026.md#L49",
+    "usedIn": ["telemetry-refinery", "policy-sorter", "forecast-engine", "data-workbench"],
+    "usedInSource": "KPOS/site/app.js#L982",
+    "aliases": ["podman", "containers"]
+  },
+  { "id": "git", "name": "Git", "group": "dev-tools", "source": "KPOS/site/Kevil_Resume_2026.md#L49" },
+  {
+    "id": "github-actions",
+    "name": "GitHub Actions",
+    "group": "dev-tools",
+    "source": "KPOS/site/Kevil_Resume_2026.md#L49",
+    "usedIn": ["telemetry-refinery"],
+    "usedInSource": "KPOS/site/app.js#L1873",
+    "aliases": ["ci/cd", "ci"]
+  },
+  {
+    "id": "fastapi",
+    "name": "FastAPI",
+    "group": "dev-tools",
+    "source": "KPOS/site/Kevil_Resume_2026.md#L49",
+    "usedIn": ["telemetry-refinery", "policy-sorter"],
+    "usedInSource": "KPOS/site/app.js#L982"
+  },
+  {
+    "id": "nextjs",
+    "name": "Next.js",
+    "group": "dev-tools",
+    "source": "KPOS/site/Kevil_Resume_2026.md#L49",
+    "usedIn": ["telemetry-refinery"],
+    "usedInSource": "KPOS/site/app.js#L982",
+    "aliases": ["next"]
+  },
+  {
+    "id": "react",
+    "name": "React",
+    "group": "dev-tools",
+    "source": "KPOS/site/Kevil_Resume_2026.md#L49",
+    "usedIn": ["telemetry-refinery", "policy-sorter"]
+  },
+  {
+    "id": "nodejs",
+    "name": "Node.js",
+    "group": "dev-tools",
+    "source": "KPOS/site/Kevil_Resume_2026.md#L49",
+    "aliases": ["node"]
+  },
+
+  {
+    "id": "adx-kql",
+    "name": "Azure Data Explorer / KQL",
+    "group": "data-observability",
+    "source": "KPOS/site/Kevil_Resume_2026.md#L50",
+    "usedIn": ["telemetry-refinery"],
+    "usedInSource": "KPOS/site/app.js#L982",
+    "aliases": ["adx", "kql", "kusto", "data explorer"]
+  },
+  {
+    "id": "elasticsearch",
+    "name": "Elasticsearch",
+    "group": "data-observability",
+    "source": "KPOS/site/Kevil_Resume_2026.md#L50",
+    "usedIn": ["telemetry-refinery", "data-workbench"],
+    "usedInSource": "KPOS/site/app.js#L982",
+    "aliases": ["elastic", "es", "elk"]
+  },
+  {
+    "id": "kibana",
+    "name": "Kibana",
+    "group": "data-observability",
+    "source": "KPOS/site/Kevil_Resume_2026.md#L50",
+    "usedIn": ["telemetry-refinery", "data-workbench"]
+  },
+  {
+    "id": "postgres",
+    "name": "Postgres",
+    "group": "data-observability",
+    "source": "KPOS/site/Kevil_Resume_2026.md#L50",
+    "usedIn": ["telemetry-refinery"],
+    "aliases": ["postgresql"]
+  },
+  {
+    "id": "opentelemetry",
+    "name": "OpenTelemetry",
+    "group": "data-observability",
+    "source": "KPOS/site/Kevil_Resume_2026.md#L50",
+    "usedIn": ["telemetry-refinery"],
+    "aliases": ["otel", "otlp", "traces", "spans"]
+  }
+]

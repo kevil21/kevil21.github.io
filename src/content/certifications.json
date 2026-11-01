@@ -1,0 +1,154 @@
+[
+  {
+    "id": "aws-saa-c03",
+    "name": "AWS Certified Solutions Architect – Associate (SAA-C03)",
+    "issuer": "AWS",
+    "credentialId": "3d7ecea14b4342659eb4d68cdc9fbc37",
+    "verify": { "label": "Verify at AWS", "href": "https://aws.amazon.com/verification", "kind": "verify" },
+    "verifyNote": "AWS verification portal; enter the credential ID.",
+    "issued": "2024-09",
+    "issuedSource": "info.md#L104",
+    "expires": "2027-09",
+    "source": "KPOS/site/index.html#L649-L655",
+    "ledger": "F-E01",
+    "order": 1
+  },
+  {
+    "id": "aws-clf-c02",
+    "name": "AWS Certified Cloud Practitioner (CLF-C02)",
+    "issuer": "AWS",
+    "credentialId": "b1f4b1e59f194f5da6872a5f1b79c824",
+    "verify": { "label": "Verify at AWS", "href": "https://aws.amazon.com/verification", "kind": "verify" },
+    "verifyNote": "AWS verification portal; enter the credential ID.",
+    "issued": "2024-03",
+    "issuedSource": "info.md#L116",
+    "expires": "2027-03",
+    "source": "KPOS/site/index.html#L657-L663",
+    "ledger": "F-E02",
+    "order": 2
+  },
+  {
+    "id": "ms-ai-102",
+    "name": "Microsoft Certified: Azure AI Engineer Associate (AI-102)",
+    "issuer": "Microsoft",
+    "credentialId": "661B55BA40148A87",
+    "verify": {
+      "label": "Verify at Microsoft Learn",
+      "href": "https://learn.microsoft.com/api/credentials/share/en-us/KevilPatel-7029/661B55BA40148A87?sharingId",
+      "kind": "verify"
+    },
+    "issued": "2026-01",
+    "issuedSource": "info.md#L32",
+    "expires": "2027-01",
+    "source": "KPOS/site/index.html#L665-L673",
+    "ledger": "F-E03",
+    "order": 3
+  },
+  {
+    "id": "ms-az-104",
+    "name": "Microsoft Certified: Azure Administrator Associate (AZ-104)",
+    "issuer": "Microsoft",
+    "credentialId": "141508FF683C2BFE",
+    "verify": {
+      "label": "Verify at Microsoft Learn",
+      "href": "https://learn.microsoft.com/api/credentials/share/en-us/KevilPatel-7029/141508FF683C2BFE?sharingId",
+      "kind": "verify"
+    },
+    "issued": "2025-09",
+    "issuedSource": "info.md#L80",
+    "expires": "2026-10",
+    "source": "KPOS/site/index.html#L675-L683",
+    "ledger": "F-E04",
+    "order": 4
+  },
+  {
+    "id": "ms-az-900",
+    "name": "Microsoft Certified: Azure Fundamentals (AZ-900)",
+    "issuer": "Microsoft",
+    "credentialId": "CBEF8794CADFA2F1",
+    "verify": {
+      "label": "Verify at Microsoft Learn",
+      "href": "https://learn.microsoft.com/api/credentials/share/en-us/KevilPatel-7029/CBEF8794CADFA2F1?sharingId",
+      "kind": "verify"
+    },
+    "issued": "2025-09",
+    "issuedSource": "info.md#L92",
+    "lifetime": true,
+    "source": "KPOS/site/index.html#L685-L693",
+    "ledger": "F-E05",
+    "order": 5
+  },
+  {
+    "id": "ms-gh-300",
+    "name": "GitHub Copilot (GH-300)",
+    "issuer": "Microsoft",
+    "credentialId": "505C219976CD2E5D",
+    "verify": {
+      "label": "Verify at Microsoft Learn",
+      "href": "https://learn.microsoft.com/api/credentials/share/en-us/KevilPatel-7029/505C219976CD2E5D?sharingId",
+      "kind": "verify"
+    },
+    "verifyNote": "Issued through Microsoft Learn as the GitHub Copilot certification.",
+    "issued": "2025-12",
+    "issuedSource": "info.md#L68",
+    "expires": "2027-12",
+    "source": "KPOS/site/index.html#L695-L703",
+    "ledger": "F-E06",
+    "order": 6
+  },
+  {
+    "id": "ms-excellerate",
+    "name": "Excellerate Agentic AI",
+    "issuer": "Microsoft",
+    "verify": {
+      "label": "Microsoft Learn profile",
+      "href": "https://learn.microsoft.com/credentials/share/en-us/KevilPatel",
+      "kind": "profile"
+    },
+    "verifyNote": "No per-credential link is published; the Microsoft Learn profile lists it.",
+    "issued": "2026-03",
+    "issuedSource": "info.md#L45",
+    "source": "KPOS/site/index.html#L705-L713",
+    "ledger": "F-E07",
+    "order": 7
+  },
+  {
+    "id": "founderz-agent-master",
+    "name": "Agent Master",
+    "issuer": "Founderz",
+    "credentialId": "a2df505f-955c-41b6-a071-f21178c8a5bb",
+    "verify": { "label": "Founderz", "href": "https://www.founderz.com/", "kind": "issuer" },
+    "verifyNote": "Founderz publishes no per-credential verification page; the issuer site is linked.",
+    "issued": "2026-05",
+    "issuedSource": "info.md#L10",
+    "source": "KPOS/site/index.html#L715-L721",
+    "ledger": "F-E08",
+    "order": 8
+  },
+  {
+    "id": "founderz-agent-commander",
+    "name": "Agent Commander",
+    "issuer": "Founderz",
+    "credentialId": "bbf6e80b-21cc-4306-9aea-77d03d0de28c",
+    "verify": { "label": "Founderz", "href": "https://www.founderz.com/", "kind": "issuer" },
+    "verifyNote": "Founderz publishes no per-credential verification page; the issuer site is linked.",
+    "issued": "2026-05",
+    "issuedSource": "info.md#L21",
+    "source": "KPOS/site/index.html#L723-L729",
+    "ledger": "F-E09",
+    "order": 9
+  },
+  {
+    "id": "founderz-agent-explorer",
+    "name": "Agent Explorer",
+    "issuer": "Founderz",
+    "credentialId": "09b81d9b-3aa0-4734-a85a-b9cd42c09e29",
+    "verify": { "label": "Founderz", "href": "https://www.founderz.com/", "kind": "issuer" },
+    "verifyNote": "Founderz publishes no per-credential verification page; the issuer site is linked.",
+    "issued": "2026-02",
+    "issuedSource": "info.md#L55",
+    "source": "KPOS/site/index.html#L731-L737",
+    "ledger": "F-E10",
+    "order": 10
+  }
+]

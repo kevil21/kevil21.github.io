@@ -1,0 +1,36 @@
+---
+/** JD matcher entry: the Operator console opened in "match a job description" mode. */
+import Shell from '@/layouts/Shell.astro';
+import Operator from '@/islands/Operator';
+import '@/styles/operator.css';
+---
+
+<Shell
+  title="Match a job description"
+  description="Paste a job description; the Operator classifies each requirement as Strong, Related or Not demonstrated against Kevil Patel's evidence, with proof links and no percentages."
+  path="/match/"
+>
+  <section class="wrap operator">
+    <p class="eyebrow">Operator · JD matcher</p>
+    <h1>Strong, Related, or Not demonstrated.</h1>
+    <p class="operator__lead">
+      No percentages. Each requirement points at the evidence that supports it, or says plainly that the lab
+      has none.
+    </p>
+    <Operator client:load mode="jd" />
+  </section>
+</Shell>
+
+<style>
+  @layer components {
+    .operator {
+      padding-block: var(--space-7);
+      display: grid;
+      gap: var(--space-4);
+    }
+    .operator__lead {
+      font-size: var(--text-lg);
+      color: var(--ink-2);
+    }
+  }
+</style>

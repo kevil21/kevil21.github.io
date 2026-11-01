@@ -1,0 +1,100 @@
+---
+/** Contact — email and profiles only (the phone number is excluded by the fact ledger). */
+import Shell from '@/layouts/Shell.astro';
+import { getEntry } from 'astro:content';
+
+const profile = await getEntry('profile', 'kevil');
+if (!profile) throw new Error('profile content missing');
+const p = profile.data;
+---
+
+<Shell
+  title="Contact"
+  description={`Contact ${p.name.text} by email or on LinkedIn, GitHub and Hugging Face.`}
+  path="/contact/"
+>
+  <section class="wrap contact">
+    <picture class="contact__portrait">
+      <source type="image/avif" srcset="/images/derived/headshot-320.avif" />
+      <source type="image/webp" srcset="/images/derived/headshot-320.webp" />
+      <img
+        src="/images/derived/headshot-320.jpg"
+        width="128"
+        height="128"
+        alt="Kevil Patel, portrait photograph"
+        loading="lazy"
+        decoding="async"
+      />
+    </picture>
+    <p class="eyebrow">Contact desk</p>
+    <h1>Reach the control room.</h1>
+    <p class="contact__lead">{p.openTo.text}.</p>
+    <p class="contact__email">
+      <a class="button button--primary" href={`mailto:${p.email.text}`}>
+        {p.email.text}
+      </a>
+    </p>
+    <ul class="contact__links" role="list">
+      {p.links.map((l) => (
+        <li>
+          <a href={l.href} rel="noopener noreferrer external me">
+            {l.label}
+          </a>
+        </li>
+      ))}
+    </ul>
+    <p class="as-stated">
+      Based in {p.location.text}. Languages: {p.languages.text}.
+    </p>
+  </section>
+</Shell>
+
+<style>
+  @layer components {
+    .contact {
+      padding-block: var(--space-7);
+      display: grid;
+      gap: var(--space-4);
+    }
+    .contact__portrait img {
+      width: 128px;
+      height: 128px;
+      border-radius: 50%;
+      object-fit: cover;
+      border: 2px solid var(--fill-brass);
+    }
+    .contact__lead {
+      font-size: var(--text-lg);
+      color: var(--ink-2);
+    }
+    .contact__email {
+      max-width: none;
+    }
+    .button {
+      display: inline-flex;
+      align-items: center;
+      min-height: var(--touch);
+      padding-inline: var(--space-5);
+      border-radius: var(--radius-pill);
+      border: 1px solid var(--line-strong);
+      text-decoration: none;
+      font-weight: 500;
+      overflow-wrap: anywhere;
+    }
+    .button--primary {
+      background: var(--fill-amber);
+      border-color: var(--fill-amber);
+      color: var(--on-amber);
+    }
+    .contact__links {
+      display: flex;
+      flex-wrap: wrap;
+      gap: var(--space-2) var(--space-4);
+    }
+    .contact__links a {
+      display: inline-flex;
+      align-items: center;
+      min-height: var(--touch);
+    }
+  }
+</style>

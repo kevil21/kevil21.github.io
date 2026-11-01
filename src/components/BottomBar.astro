@@ -1,0 +1,131 @@
+---
+/**
+ * Phone bottom bar (prompt §6): Résumé · Contact · Operator · Tour · Map in the thumb zone with safe-area insets.
+ * Present from first paint; hidden on ≥ 60rem where the strip carries the actions. Tour and Map are buttons whose
+ * behaviour is bound by src/scripts/shell.ts (outside any island, so they work before hydration).
+ */
+interface Props {
+  current?: string;
+}
+const { current = Astro.url.pathname } = Astro.props;
+const isActive = (href: string) => (current === href ? 'page' : undefined);
+---
+
+<nav class="bar" aria-label="Primary" id="bottom-bar">
+  <a class="bar__item" href="/resume/" aria-current={isActive('/resume/')}>
+    <svg class="bar__icon" viewBox="0 0 24 24" aria-hidden="true">
+      <path d="M6 3h9l4 4v14H6z M14 3v5h5 M9 12h7 M9 16h7" />
+    </svg>
+    <span>Résumé</span>
+  </a>
+  <a class="bar__item" href="/contact/" aria-current={isActive('/contact/')}>
+    <svg class="bar__icon" viewBox="0 0 24 24" aria-hidden="true">
+      <path d="M3 6h18v12H3z M3 7l9 6 9-6" />
+    </svg>
+    <span>Contact</span>
+  </a>
+  <a class="bar__item bar__item--operator" href="/operator/" aria-current={isActive('/operator/')}>
+    <svg class="bar__icon" viewBox="0 0 24 24" aria-hidden="true">
+      <circle cx="12" cy="12" r="8" />
+      <path d="M12 8v4l3 2" />
+    </svg>
+    <span>Operator</span>
+  </a>
+  <button class="bar__item" type="button" data-action="tour" aria-describedby="bar-tour-hint">
+    <svg class="bar__icon" viewBox="0 0 24 24" aria-hidden="true">
+      <path d="M5 4l14 8-14 8z" />
+    </svg>
+    <span>Tour</span>
+  </button>
+  <button
+    class="bar__item"
+    type="button"
+    data-action="map"
+    aria-expanded="false"
+    aria-controls="minimap-sheet"
+  >
+    <svg class="bar__icon" viewBox="0 0 24 24" aria-hidden="true">
+      <path d="M3 6l6-2 6 2 6-2v14l-6 2-6-2-6 2z M9 4v14 M15 6v14" />
+    </svg>
+    <span>Map</span>
+  </button>
+  <span id="bar-tour-hint" class="visually-hidden">
+    Guided 90-second tour of every machine on the floor
+  </span>
+</nav>
+
+<style>
+  @layer components {
+    .bar {
+      position: fixed;
+      inset-inline: 0;
+      inset-block-end: 0;
+      z-index: 60;
+      display: grid;
+      grid-template-columns: repeat(5, minmax(0, 1fr));
+      height: var(--bar-height);
+      padding-block-end: env(safe-area-inset-bottom, 0px);
+      padding-inline: env(safe-area-inset-left, 0px) env(safe-area-inset-right, 0px);
+      background: var(--surface-glass);
+      -webkit-backdrop-filter: blur(16px) saturate(1.2);
+      backdrop-filter: blur(16px) saturate(1.2);
+      border-block-start: 1px solid var(--line);
+    }
+    .bar__item {
+      min-width: 0;
+      min-height: var(--touch);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 2px;
+      padding: var(--space-1);
+      background: none;
+      border: 0;
+      color: var(--ink-2);
+      text-decoration: none;
+      font-family: var(--font-mono);
+      font-size: var(--text-xs);
+      letter-spacing: 0.02em;
+      cursor: pointer;
+      transition: color var(--dur-fast) var(--ease-standard);
+    }
+    .bar__item:hover,
+    .bar__item:focus-visible,
+    .bar__item[aria-current='page'],
+    .bar__item[aria-expanded='true'] {
+      color: var(--ink-amber);
+    }
+    .bar__item--operator {
+      color: var(--ink-amber);
+    }
+    .bar__icon {
+      width: 22px;
+      height: 22px;
+      fill: none;
+      stroke: currentColor;
+      stroke-width: 1.6;
+      stroke-linecap: round;
+      stroke-linejoin: round;
+    }
+    @media (min-width: 60rem) {
+      .bar {
+        display: none;
+      }
+    }
+    /* Landscape phones: a slim side rail instead of a bottom bar */
+    @media (max-width: 59.99rem) and (orientation: landscape) and (max-height: 30rem) {
+      .bar {
+        inset-inline: auto 0;
+        inset-block: 0;
+        height: auto;
+        width: calc(64px + env(safe-area-inset-right, 0px));
+        grid-template-columns: 1fr;
+        grid-auto-rows: minmax(0, 1fr);
+        border-block-start: 0;
+        border-inline-start: 1px solid var(--line);
+        padding-block-end: 0;
+      }
+    }
+  }
+</style>

@@ -1,0 +1,356 @@
+---
+/** Résumé — Tier 0. Complete without JavaScript; printable; every number verbatim and labelled. */
+import Shell from '@/layouts/Shell.astro';
+import Claim from '@/components/Claim.astro';
+import { getEntry } from 'astro:content';
+import {
+  fmtRange,
+  fmtMonth,
+  loadCertifications,
+  loadEducation,
+  loadExperience,
+  loadProjects,
+  loadSkills,
+  SKILL_GROUP_LABEL,
+} from '@/lib/content';
+import { SITE } from '@/lib/site';
+
+const profile = await getEntry('profile', 'kevil');
+if (!profile) throw new Error('profile content missing');
+const p = profile.data;
+const [experience, education, certifications, projects, skills] = await Promise.all([
+  loadExperience(),
+  loadEducation(),
+  loadCertifications(),
+  loadProjects(),
+  loadSkills(),
+]);
+const groups = (Object.keys(SKILL_GROUP_LABEL) as Array<keyof typeof SKILL_GROUP_LABEL>).map((g) => ({
+  group: g,
+  label: SKILL_GROUP_LABEL[g],
+  items: skills.filter((s) => s.data.group === g).map((s) => s.data.name),
+}));
+const jsonLd = {
+  '@context': 'https://schema.org',
+  '@type': 'ProfilePage',
+  mainEntity: {
+    '@type': 'Person',
+    name: p.name.text,
+    jobTitle: p.title.text,
+    worksFor: { '@type': 'Organization', name: p.employer.text },
+    url: SITE.origin,
+    hasCredential: certifications.map((c) => ({
+      '@type': 'EducationalOccupationalCredential',
+      name: c.data.name,
+      credentialCategory: 'certification',
+      recognizedBy: { '@type': 'Organization', name: c.data.issuer },
+    })),
+  },
+};
+---
+
+<Shell
+  title="Résumé"
+  description={`Résumé of ${p.name.text}, ${p.title.text} at ${p.employer.text} — experience, projects, skills, ten certifications, education.`}
+  path="/resume/"
+  ogType="profile"
+  jsonLd={jsonLd}
+>
+  <article class="wrap resume" id="resume">
+    <header class="resume__head">
+      <p class="eyebrow">Résumé · {p.headline.text}</p>
+      <h1>{p.name.text}</h1>
+      <p class="resume__title">
+        {p.title.text} ·{' '}
+        <a href={p.employerUrl} rel="noopener noreferrer external">
+          {p.employer.text}
+        </a>
+      </p>
+      <p class="resume__meta mono">
+        {p.location.text} · <a href={`mailto:${p.email.text}`}>{p.email.text}</a> ·
+        {p.links.slice(0, 3).map((l, i) => (
+          <>
+            <a href={l.href} rel="noopener noreferrer external me">
+              {l.label}
+            </a>
+            {i < 2 ? ' · ' : ''}
+          </>
+        ))}
+      </p>
+      <p class="as-stated resume__note">
+        Numbers appear verbatim from the résumé and are labelled "as stated in résumé". Each line links to its
+        source.
+        <button type="button" class="resume__print" data-action="print" onclick="window.print()">
+          Print / save as PDF
+        </button>
+      </p>
+    </header>
+
+    <section class="resume__section" aria-labelledby="r-summary">
+      <h2 id="r-summary">Summary</h2>
+      {p.lead.map((c) => (
+        <Claim claim={c} />
+      ))}
+    </section>
+
+    <section class="resume__section" aria-labelledby="r-experience">
+      <h2 id="r-experience">Experience</h2>
+      {experience.map((e) => (
+        <article class="entry">
+          <header class="entry__head">
+            <h3 class="entry__title">
+              {e.data.title.text}{' '}
+              <span class="entry__org">
+                —{' '}
+                {e.data.orgUrl ? (
+                  <a href={e.data.orgUrl} rel="noopener noreferrer external">
+                    {e.data.org}
+                  </a>
+                ) : (
+                  e.data.org
+                )}
+              </span>
+            </h3>
+            <p class="entry__dates mono">
+              {fmtRange(e.data.dates)}
+              {e.data.location && <span> · {e.data.location}</span>}
+            </p>
+          </header>
+          <ul class="entry__bullets" role="list">
+            {e.data.bullets.map((b) => (
+              <Claim claim={b} as="li" />
+            ))}
+          </ul>
+          {e.data.tags.length > 0 && <p class="entry__tags mono">{e.data.tags.join(' · ')}</p>}
+        </article>
+      ))}
+    </section>
+
+    <section class="resume__section" aria-labelledby="r-projects">
+      <h2 id="r-projects">Projects</h2>
+      {projects.map((pr) => (
+        <article class="entry">
+          <header class="entry__head">
+            <h3 class="entry__title">
+              <a href={`/work/${pr.id}/`}>{pr.data.name}</a>
+              {pr.data.year && <span class="entry__year mono"> · {pr.data.year}</span>}
+            </h3>
+          </header>
+          <Claim claim={pr.data.summary} />
+          {pr.data.stack.length > 0 && <p class="entry__tags mono">{pr.data.stack.join(' · ')}</p>}
+        </article>
+      ))}
+    </section>
+
+    <section class="resume__section" aria-labelledby="r-skills">
+      <h2 id="r-skills">Skills</h2>
+      <dl class="skills">
+        {groups.map((g) => (
+          <div class="skills__row">
+            <dt>{g.label}</dt>
+            <dd>{g.items.join(' · ')}</dd>
+          </div>
+        ))}
+      </dl>
+      <p class="as-stated">
+        Grouped as in the résumé (
+        <a
+          href="https://github.com/kevil21/kevilpatel/blob/main/site/Kevil_Resume_2026.md#L46-L50"
+          rel="noopener noreferrer external"
+        >
+          source
+        </a>
+        ).
+      </p>
+    </section>
+
+    <section class="resume__section" aria-labelledby="r-certs">
+      <h2 id="r-certs">Certifications</h2>
+      <ol class="certs" role="list">
+        {certifications.map((c) => (
+          <li class="cert">
+            <span class="cert__name">{c.data.name}</span>
+            <span class="cert__meta mono">
+              {c.data.issuer}
+              {c.data.issued && (
+                <>
+                  {' '}
+                  · issued {fmtMonth(c.data.issued)} <span class="as-stated">[source: info.md]</span>
+                </>
+              )}
+              {c.data.expires && <> · expires {fmtMonth(c.data.expires)}</>}
+              {c.data.lifetime && <> · no expiry</>}
+              {c.data.credentialId && <> · ID {c.data.credentialId}</>}
+              {c.data.verify && (
+                <>
+                  {' · '}
+                  <a href={c.data.verify.href} rel="noopener noreferrer external">
+                    {c.data.verify.label}
+                  </a>
+                </>
+              )}
+            </span>
+          </li>
+        ))}
+      </ol>
+      <p class="as-stated">
+        <a href="/certifications/">All ten with verification notes →</a>
+      </p>
+    </section>
+
+    <section class="resume__section" aria-labelledby="r-education">
+      <h2 id="r-education">Education</h2>
+      {education.map((e) => (
+        <article class="entry">
+          <header class="entry__head">
+            <h3 class="entry__title">
+              {e.data.degree.text}
+              <span class="entry__org">
+                {' '}
+                —{' '}
+                {e.data.institutionUrl ? (
+                  <a href={e.data.institutionUrl} rel="noopener noreferrer external">
+                    {e.data.institution}
+                  </a>
+                ) : (
+                  e.data.institution
+                )}
+              </span>
+            </h3>
+            <p class="entry__dates mono">{fmtRange(e.data.dates)}</p>
+          </header>
+          {e.data.details.length > 0 && (
+            <ul class="entry__bullets" role="list">
+              {e.data.details.map((d) => (
+                <Claim claim={d} as="li" compact />
+              ))}
+            </ul>
+          )}
+        </article>
+      ))}
+    </section>
+
+    <section class="resume__section" aria-labelledby="r-languages">
+      <h2 id="r-languages">Languages</h2>
+      <Claim claim={p.languages} />
+    </section>
+  </article>
+</Shell>
+
+<style>
+  @layer components {
+    .resume {
+      padding-block: var(--space-7);
+      display: grid;
+      gap: var(--space-7);
+    }
+    .resume__head {
+      display: grid;
+      gap: var(--space-2);
+    }
+    .resume__title {
+      font-size: var(--text-lg);
+      color: var(--ink-2);
+    }
+    .resume__meta {
+      color: var(--ink-3);
+      font-size: var(--text-sm);
+      max-width: none;
+    }
+    .resume__note {
+      display: flex;
+      flex-wrap: wrap;
+      gap: var(--space-3);
+      align-items: center;
+      max-width: none;
+    }
+    .resume__print {
+      min-height: var(--touch);
+      padding-inline: var(--space-3);
+      border-radius: var(--radius-pill);
+      border: 1px solid var(--line-strong);
+      background: var(--surface);
+      color: var(--ink);
+      cursor: pointer;
+    }
+    .resume__section {
+      display: grid;
+      gap: var(--space-4);
+    }
+    .entry {
+      display: grid;
+      gap: var(--space-2);
+      padding-block-end: var(--space-4);
+      border-block-end: 1px solid var(--line);
+    }
+    .entry:last-child {
+      border-block-end: 0;
+    }
+    .entry__head {
+      display: grid;
+      gap: var(--space-1);
+    }
+    .entry__title {
+      font-size: var(--text-lg);
+    }
+    .entry__org {
+      color: var(--ink-2);
+      font-weight: 400;
+    }
+    .entry__dates,
+    .entry__tags,
+    .entry__year {
+      color: var(--ink-3);
+      font-size: var(--text-sm);
+    }
+    .entry__bullets {
+      display: grid;
+      gap: var(--space-2);
+      padding-inline-start: 0;
+    }
+    .skills {
+      display: grid;
+      gap: var(--space-2);
+      margin: 0;
+    }
+    .skills__row {
+      display: grid;
+      grid-template-columns: minmax(0, 10rem) minmax(0, 1fr);
+      gap: var(--space-3);
+    }
+    .skills dt {
+      color: var(--ink-3);
+      font-family: var(--font-mono);
+      font-size: var(--text-sm);
+    }
+    .skills dd {
+      margin: 0;
+    }
+    @media (max-width: 30rem) {
+      .skills__row {
+        grid-template-columns: minmax(0, 1fr);
+        gap: var(--space-1);
+      }
+    }
+    .certs {
+      display: grid;
+      gap: var(--space-3);
+    }
+    .cert {
+      display: grid;
+      gap: 2px;
+    }
+    .cert__name {
+      font-weight: 600;
+    }
+    .cert__meta {
+      color: var(--ink-3);
+      font-size: var(--text-sm);
+    }
+  }
+  @media print {
+    .resume__print {
+      display: none;
+    }
+  }
+</style>

@@ -1,0 +1,6 @@
+User-agent: *
+Allow: /
+Disallow: /lab-notebook/
+Disallow: /offline/
+
+Sitemap: https://kevilpatel.in/sitemap-index.xml

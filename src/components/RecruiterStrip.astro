@@ -1,0 +1,164 @@
+---
+/**
+ * The recruiter strip: name · title · Kyndryl · Résumé · Contact — in the DOM before any light comes on,
+ * fixed at the top on every page. Phone: compact (name + short title); the actions live in the bottom bar.
+ */
+import ThemeToggle from '@/islands/ThemeToggle';
+import { PROFILE } from '@/lib/profile';
+
+interface Props {
+  current?: string;
+}
+const { current = Astro.url.pathname } = Astro.props;
+const isActive = (href: string) => (current === href ? 'page' : undefined);
+---
+
+<header class="strip" id="recruiter-strip">
+  <div class="strip__inner">
+    <a class="strip__name" href="/" aria-label="Kevil Patel — home, the laboratory floor">
+      <span class="strip__name-text">{PROFILE.name}</span>
+    </a>
+    <p class="strip__title">
+      <span class="strip__role strip__role--full">{PROFILE.title}</span>
+      <span class="strip__role strip__role--short" aria-hidden="true">
+        {PROFILE.titleShort}
+      </span>
+      <span class="strip__sep" aria-hidden="true">
+        ·
+      </span>
+      <a class="strip__org" href={PROFILE.employerUrl} rel="noopener noreferrer external">
+        {PROFILE.employer}
+      </a>
+    </p>
+    <nav class="strip__nav" aria-label="Recruiter shortcuts">
+      <a class="strip__link" href="/resume/" aria-current={isActive('/resume/')}>
+        Résumé
+      </a>
+      <a class="strip__link strip__link--primary" href="/contact/" aria-current={isActive('/contact/')}>
+        Contact
+      </a>
+      <ThemeToggle client:idle />
+    </nav>
+  </div>
+</header>
+
+<style>
+  @layer components {
+    .strip {
+      position: sticky;
+      inset-block-start: 0;
+      z-index: 50;
+      min-height: var(--strip-height);
+      background: var(--surface-glass);
+      -webkit-backdrop-filter: blur(14px) saturate(1.2);
+      backdrop-filter: blur(14px) saturate(1.2);
+      border-block-end: 1px solid var(--line);
+      padding-block-start: env(safe-area-inset-top, 0px);
+    }
+    .strip__inner {
+      width: min(100% - 2 * var(--gutter), var(--content-max));
+      margin-inline: auto;
+      min-height: var(--strip-height);
+      display: grid;
+      grid-template-columns: auto minmax(0, 1fr) auto;
+      align-items: center;
+      gap: var(--space-3);
+    }
+    .strip__name {
+      font-weight: 700;
+      font-size: var(--text-lg);
+      letter-spacing: var(--tracking-tight);
+      color: var(--ink);
+      text-decoration: none;
+      white-space: nowrap;
+      min-height: var(--touch);
+      display: inline-flex;
+      align-items: center;
+    }
+    .strip__title {
+      min-width: 0;
+      font-family: var(--font-mono);
+      font-size: var(--text-sm);
+      color: var(--ink-2);
+      display: flex;
+      align-items: center;
+      gap: var(--space-2);
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      max-width: none;
+    }
+    .strip__role--short {
+      display: none;
+    }
+    .strip__org {
+      color: var(--ink-amber);
+      text-decoration: none;
+      font-weight: 500;
+    }
+    .strip__nav {
+      display: flex;
+      align-items: center;
+      gap: var(--space-2);
+    }
+    .strip__link {
+      display: inline-flex;
+      align-items: center;
+      min-height: var(--touch);
+      padding-inline: var(--space-3);
+      border-radius: var(--radius-pill);
+      border: 1px solid var(--line-strong);
+      color: var(--ink);
+      text-decoration: none;
+      font-weight: 500;
+      font-size: var(--text-sm);
+      transition:
+        background var(--dur-fast) var(--ease-standard),
+        color var(--dur-fast) var(--ease-standard);
+    }
+    .strip__link:hover,
+    .strip__link[aria-current='page'] {
+      background: var(--surface-2);
+    }
+    .strip__link--primary {
+      background: var(--fill-amber);
+      border-color: var(--fill-amber);
+      color: var(--on-amber);
+    }
+    .strip__link--primary:hover {
+      background: var(--fill-amber);
+      color: var(--on-amber);
+      text-decoration: underline;
+    }
+    /* Current page keeps the amber fill (text-safe in every theme) and shows a ring instead of a darker fill. */
+    .strip__link--primary[aria-current='page'] {
+      background: var(--fill-amber);
+      color: var(--on-amber);
+      box-shadow:
+        inset 0 0 0 2px var(--surface),
+        0 0 0 1px var(--ink-amber);
+    }
+
+    /* Phone: compact strip; actions are in the bottom bar */
+    @media (max-width: 59.99rem) {
+      .strip__inner {
+        grid-template-columns: auto minmax(0, 1fr) auto;
+      }
+      .strip__role--full {
+        display: none;
+      }
+      .strip__role--short {
+        display: inline;
+      }
+      .strip__link {
+        display: none;
+      }
+    }
+    @media (max-width: 26rem) {
+      .strip__title .strip__sep,
+      .strip__title .strip__org {
+        display: none;
+      }
+    }
+  }
+</style>

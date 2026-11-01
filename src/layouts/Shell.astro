@@ -1,0 +1,93 @@
+---
+/**
+ * The page shell: skip link, recruiter strip, main, phone bottom bar, footer, and the shell client script that binds
+ * global behaviour outside islands (theme start, bottom-bar actions, keyboard shortcuts).
+ */
+import Base from './Base.astro';
+import RecruiterStrip from '@/components/RecruiterStrip.astro';
+import BottomBar from '@/components/BottomBar.astro';
+import Toast from '@/islands/Toast';
+import { SITE } from '@/lib/site';
+
+interface Props {
+  title: string;
+  description?: string;
+  path?: string;
+  ogImage?: string;
+  ogType?: 'website' | 'article' | 'profile';
+  noindex?: boolean;
+  jsonLd?: Record<string, unknown> | Record<string, unknown>[];
+  bodyClass?: string;
+  /** Hide the footer (the hall page draws its own). */
+  bare?: boolean;
+}
+const { bare = false, ...base } = Astro.props;
+const year = new Date().getUTCFullYear();
+---
+
+<Base {...base}>
+  <slot name="head" slot="head" />
+  <a class="skip-link" href="#main">
+    Skip to content
+  </a>
+  <RecruiterStrip />
+  <main id="main" tabindex="-1">
+    <slot />
+  </main>
+  {!bare && (
+    <footer class="footer wrap">
+      <p class="footer__line">
+        <span>© {year} Kevil Patel</span>
+        <span aria-hidden="true">·</span>
+        <span>
+          Every fact traces to a source. Simulations run on <span class="sample-tag">sample data</span>.
+        </span>
+      </p>
+      <p class="footer__line eyebrow">
+        <a href="/lab-notebook/" rel="nofollow" class="footer__quiet">
+          v{SITE.version}
+        </a>
+      </p>
+    </footer>
+  )}
+  <BottomBar />
+  <Toast client:idle />
+  <div id="live-region" class="visually-hidden" aria-live="polite" aria-atomic="true"></div>
+  <script>
+    import { startTheme } from '@/theme/store';
+    import { bindShell } from '@/scripts/shell';
+    import { startLens } from '@/ai/runtime/lens';
+    import { registerServiceWorker } from '@/scripts/sw-register';
+    startTheme();
+    startLens();
+    bindShell();
+    registerServiceWorker();
+  </script>
+</Base>
+
+<style>
+  @layer components {
+    .footer {
+      margin-block: var(--space-9) var(--space-7);
+      padding-block-start: var(--space-5);
+      border-block-start: 1px solid var(--line);
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: space-between;
+      gap: var(--space-3);
+      color: var(--ink-3);
+      font-size: var(--text-sm);
+    }
+    .footer__line {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      gap: var(--space-2);
+      max-width: none;
+    }
+    .footer__quiet {
+      color: var(--ink-3);
+      text-decoration: none;
+    }
+  }
+</style>

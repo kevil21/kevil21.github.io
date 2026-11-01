@@ -1,0 +1,9 @@
+{
+  "extends": "./tsconfig.json",
+  "compilerOptions": {
+    "lib": ["ES2023", "WebWorker"],
+    "types": ["@webgpu/types"]
+  },
+  "include": ["src/ai/workers/**/*", "src/ai/protocol.ts", "src/ai/pocket/**/*", "src/ai/full/**/*"],
+  "exclude": ["dist", "node_modules"]
+}

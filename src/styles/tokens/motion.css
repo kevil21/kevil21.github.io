@@ -1,0 +1,57 @@
+/*
+ * Motion tokens (prompt §5). Durations: instant / fast / normal / emphasis / cinematic. Easings: standard / enter /
+ * exit / spring. Stagger. JS reads them via src/motion/tokens.ts so GSAP, WAAPI and the 3D camera share one vocabulary.
+ * Reduced motion keeps every feature and collapses durations to calm fades.
+ */
+@layer tokens {
+  :root {
+    --dur-instant: 80ms;
+    --dur-fast: 160ms;
+    --dur-normal: 240ms;
+    --dur-emphasis: 400ms;
+    --dur-cinematic: 1200ms;
+    --stagger: 60ms;
+
+    --ease-standard: cubic-bezier(0.2, 0, 0, 1);
+    --ease-enter: cubic-bezier(0, 0, 0, 1);
+    --ease-exit: cubic-bezier(0.3, 0, 1, 1);
+    --ease-spring: linear(
+      0,
+      0.009,
+      0.035 2.1%,
+      0.141 4.4%,
+      0.723 12.9%,
+      0.938 16.7%,
+      1.017,
+      1.077,
+      1.121,
+      1.149 24.3%,
+      1.159,
+      1.163,
+      1.161,
+      1.154 29.9%,
+      1.129 32.8%,
+      1.051 39.6%,
+      1.017 43.1%,
+      0.991,
+      0.977 51%,
+      0.974 53.8%,
+      0.975 57.1%,
+      0.997 69.8%,
+      1.003 76.9%,
+      1
+    );
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    :root {
+      --dur-instant: 0ms;
+      --dur-fast: 0ms;
+      --dur-normal: 120ms;
+      --dur-emphasis: 160ms;
+      --dur-cinematic: 200ms;
+      --stagger: 0ms;
+      --ease-spring: var(--ease-standard);
+    }
+  }
+}

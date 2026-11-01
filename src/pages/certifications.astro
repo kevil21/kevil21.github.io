@@ -1,0 +1,194 @@
+---
+/** Certifications — all ten with credential IDs, issue months [info.md], expiry dates and verify links. No "active" badges. */
+import Shell from '@/layouts/Shell.astro';
+import FlowDiagram from '@/components/FlowDiagram.astro';
+import { DIAGRAMS } from '@/lib/diagrams';
+import { fmtMonth, loadCertifications, sourceHref, sourceLabel } from '@/lib/content';
+
+const certs = await loadCertifications();
+const issuers = ['AWS', 'Microsoft', 'Founderz'] as const;
+const LOGO: Record<(typeof issuers)[number], { src: string; w: number; h: number } | null> = {
+  AWS: { src: '/images/derived/logo-aws-240.png', w: 240, h: 160 },
+  Microsoft: null,
+  Founderz: { src: '/images/derived/logo-founderz-192.png', w: 192, h: 192 },
+};
+---
+
+<Shell
+  title="Certifications"
+  description="Ten certifications held by Kevil Patel across AWS, Microsoft and Founderz, with credential IDs, issue months and verification links."
+  path="/certifications/"
+>
+  <section class="wrap certs-page">
+    <header class="certs-page__head">
+      <p class="eyebrow">Calibration Bench · bay 05</p>
+      <h1>Ten certifications, each with its credential ID.</h1>
+      <p class="certs-page__lead">
+        Issue months come from Kevil's private certification notes (info.md) and are labelled as such; expiry
+        dates are as listed on each credential. Dates only — no "active" badges.
+      </p>
+    </header>
+
+    <FlowDiagram diagram={DIAGRAMS['calibration-bench']!} id="certs-diagram" />
+
+    {issuers.map((issuer) => (
+      <section class="issuer" aria-labelledby={`issuer-${issuer}`}>
+        <h2 id={`issuer-${issuer}`} class="issuer__head">
+          {LOGO[issuer] && (
+            <span class="issuer__logo">
+              <img
+                src={LOGO[issuer]!.src}
+                width={LOGO[issuer]!.w}
+                height={LOGO[issuer]!.h}
+                alt=""
+                loading="lazy"
+                decoding="async"
+              />
+            </span>
+          )}
+          {issuer}
+        </h2>
+        <ol class="instruments" role="list">
+          {certs
+            .filter((c) => c.data.issuer === issuer)
+            .map((c) => (
+              <li class="instrument" id={c.id}>
+                <h3 class="instrument__name">{c.data.name}</h3>
+                <dl class="instrument__dl">
+                  {c.data.credentialId && (
+                    <div>
+                      <dt>Credential ID</dt>
+                      <dd class="mono">{c.data.credentialId}</dd>
+                    </div>
+                  )}
+                  {c.data.issued && (
+                    <div>
+                      <dt>Issued</dt>
+                      <dd>
+                        {fmtMonth(c.data.issued)} <span class="as-stated">[source: info.md]</span>
+                      </dd>
+                    </div>
+                  )}
+                  <div>
+                    <dt>Expires</dt>
+                    <dd>
+                      {c.data.lifetime
+                        ? 'No expiry'
+                        : c.data.expires
+                          ? fmtMonth(c.data.expires)
+                          : 'Not stated'}
+                    </dd>
+                  </div>
+                  <div>
+                    <dt>Verify</dt>
+                    <dd>
+                      {c.data.verify ? (
+                        <a href={c.data.verify.href} rel="noopener noreferrer external">
+                          {c.data.verify.label}
+                        </a>
+                      ) : (
+                        'No public link'
+                      )}
+                      {c.data.verifyNote && <span class="instrument__note"> — {c.data.verifyNote}</span>}
+                    </dd>
+                  </div>
+                  <div>
+                    <dt>Source</dt>
+                    <dd class="mono">
+                      {sourceHref(c.data.source) ? (
+                        <a href={sourceHref(c.data.source)!} rel="noopener noreferrer external">
+                          {sourceLabel(c.data.source)}
+                        </a>
+                      ) : (
+                        sourceLabel(c.data.source)
+                      )}
+                    </dd>
+                  </div>
+                </dl>
+              </li>
+            ))}
+        </ol>
+      </section>
+    ))}
+  </section>
+</Shell>
+
+<style>
+  @layer components {
+    .certs-page {
+      padding-block: var(--space-7);
+      display: grid;
+      gap: var(--space-6);
+    }
+    .certs-page__head {
+      display: grid;
+      gap: var(--space-3);
+    }
+    .certs-page__lead {
+      color: var(--ink-2);
+      font-size: var(--text-lg);
+    }
+    .issuer {
+      display: grid;
+      gap: var(--space-4);
+    }
+    .issuer__head {
+      display: flex;
+      align-items: center;
+      gap: var(--space-3);
+      font-size: var(--text-xl);
+    }
+    .issuer__logo {
+      display: inline-grid;
+      place-items: center;
+      width: 56px;
+      height: 40px;
+      padding: 4px;
+      border-radius: var(--radius-sm);
+      background: var(--surface-logo);
+    }
+    .issuer__logo img {
+      width: 100%;
+      height: 100%;
+      object-fit: contain;
+    }
+    .instruments {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(min(22rem, 100%), 1fr));
+      gap: var(--space-3);
+    }
+    .instrument {
+      min-width: 0;
+      background: var(--surface);
+      border: 1px solid var(--line);
+      border-radius: var(--radius-lg);
+      padding: var(--space-4);
+      display: grid;
+      gap: var(--space-3);
+    }
+    .instrument__name {
+      font-size: var(--text-lg);
+    }
+    .instrument__dl {
+      margin: 0;
+      display: grid;
+      gap: var(--space-2);
+    }
+    .instrument__dl div {
+      display: grid;
+      grid-template-columns: minmax(0, 7rem) minmax(0, 1fr);
+      gap: var(--space-2);
+      font-size: var(--text-sm);
+    }
+    .instrument__dl dt {
+      color: var(--ink-3);
+    }
+    .instrument__dl dd {
+      margin: 0;
+      overflow-wrap: anywhere;
+    }
+    .instrument__note {
+      color: var(--ink-3);
+    }
+  }
+</style>

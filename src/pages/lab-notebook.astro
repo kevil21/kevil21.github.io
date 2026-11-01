@@ -1,0 +1,71 @@
+---
+/** The lab notebook: every easter egg and how to find it. Hidden from navigation and search (noindex, robots), never from people who ask. */
+import Shell from '@/layouts/Shell.astro';
+import { EGG_LIST } from '@/hall/eggs';
+---
+
+<Shell
+  title="Lab notebook"
+  description="Every hidden switch on the floor, and how to reach it by keyboard and touch."
+  path="/lab-notebook/"
+  noindex
+>
+  <section class="wrap notebook">
+    <p class="eyebrow">Lab notebook · unlisted</p>
+    <h1>Every secret on the floor.</h1>
+    <p class="notebook__lead">
+      Eight hidden switches. Each is reachable by keyboard and touch, announces itself to assistive technology
+      when it fires, and carries no invented fact.
+    </p>
+    <ol class="eggs" role="list">
+      {EGG_LIST.map((e, i) => (
+        <li class="egg" id={e.id}>
+          <span class="egg__num mono">{String(i + 1).padStart(2, '0')}</span>
+          <h2 class="egg__name">{e.name}</h2>
+          <p class="egg__how">{e.howTo}</p>
+          <p class="egg__where as-stated">{e.where}</p>
+        </li>
+      ))}
+    </ol>
+    <p class="as-stated">
+      Rules: no egg is required to use the site; none shows a fact that is not in the fact ledger.
+    </p>
+  </section>
+</Shell>
+
+<style>
+  @layer components {
+    .notebook {
+      padding-block: var(--space-7);
+      display: grid;
+      gap: var(--space-5);
+    }
+    .notebook__lead {
+      font-size: var(--text-lg);
+      color: var(--ink-2);
+    }
+    .eggs {
+      display: grid;
+      gap: var(--space-3);
+    }
+    .egg {
+      display: grid;
+      grid-template-columns: auto minmax(0, 1fr);
+      gap: var(--space-1) var(--space-3);
+      background: var(--surface);
+      border: 1px dashed var(--line-strong);
+      border-radius: var(--radius-lg);
+      padding: var(--space-4);
+    }
+    .egg__num {
+      color: var(--ink-brass);
+      grid-row: span 3;
+    }
+    .egg__name {
+      font-size: var(--text-lg);
+    }
+    .egg__how {
+      color: var(--ink-2);
+    }
+  }
+</style>

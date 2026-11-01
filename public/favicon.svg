@@ -1,0 +1,16 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" role="img" aria-label="Kevil Patel — The Simulation Room">
+  <style>
+    .hall { fill: #0f141c; }
+    .lamp { fill: #f3a52b; }
+    .glass { fill: none; stroke: #ffc667; stroke-width: 3; }
+    @media (prefers-color-scheme: light) {
+      .hall { fill: #f7f3eb; }
+      .lamp { fill: #894200; }
+      .glass { stroke: #894200; }
+    }
+  </style>
+  <rect class="hall" width="64" height="64" rx="12"/>
+  <circle class="lamp" cx="32" cy="18" r="6"/>
+  <path class="glass" d="M14 46V30h36v16M20 46V36h8v10M36 46V36h8v10"/>
+  <path class="glass" d="M10 46h44"/>
+</svg>

@@ -1,0 +1,553 @@
+[
+  {
+    "id": "a360",
+    "name": "A360 — multi-tenant AI agent observability",
+    "kind": "flagship",
+    "machine": "telemetry-refinery",
+    "summary": {
+      "text": "Kyndryl's platform for watching how enterprise AI agent fleets actually behave in production. Executive dashboards, KPI drill-downs, embedded Kibana, agent trust scores, multi-persona dashboards, LLM FinOps, and a conversational interface over telemetry — running on a streaming pipeline from OTEL → Postgres → Azure Data Explorer → Elasticsearch → Next.js.",
+      "source": "KPOS/site/index.html#L275-L281",
+      "ledger": "F-C01",
+      "label": "public"
+    },
+    "year": "2025",
+    "yearSource": "KPOS/site/index.html#L274",
+    "problem": {
+      "text": "Enterprise AI agent fleets emit traces from inside customer infrastructure; operators need per-tenant dashboards, trust scores and insights over that telemetry without any tenant seeing another's data.",
+      "source": "KPOS/site/index.html#L275-L281",
+      "ledger": "F-C01",
+      "label": "public"
+    },
+    "approach": [
+      {
+        "text": "Customer agents emit OTLP traces from inside their own infra.",
+        "source": "KPOS/site/index.html#L336-L359",
+        "ledger": "F-C04",
+        "label": "public"
+      },
+      {
+        "text": "Postgres staging buffers raw OTEL spans before normalization.",
+        "source": "KPOS/site/index.html#L336-L359",
+        "ledger": "F-C05",
+        "label": "public"
+      },
+      {
+        "text": "Azure Data Explorer is the source of truth: 3 fact tables + 4 dims + 31 materialized views.",
+        "source": "KPOS/site/index.html#L336-L359",
+        "ledger": "F-C06",
+        "label": "resume"
+      },
+      {
+        "text": "The ADX → Elasticsearch sync service fans 31 materialized views into per-tenant ES indices every 10 minutes.",
+        "source": "KPOS/site/index.html#L348-L350",
+        "ledger": "F-C07",
+        "label": "resume"
+      },
+      {
+        "text": "A FastAPI gateway proxies ES, Kibana, Cosmos, LiteLLM and Insights with JWKS auth.",
+        "source": "KPOS/site/index.html#L336-L359",
+        "ledger": "F-C08",
+        "label": "public"
+      },
+      {
+        "text": "Next.js 16 + React 19 + Shidoka design system: 11 KPI tiles, 10 Kibana pages, /chat and /agent-trust.",
+        "source": "KPOS/site/index.html#L356",
+        "ledger": "F-C09",
+        "label": "resume"
+      },
+      {
+        "text": "A boarding function (Flex Consumption) provisions per-tenant ADX DB, Cosmos containers, ES index templates and registers the tenant.",
+        "source": "KPOS/site/index.html#L386",
+        "ledger": "F-C12",
+        "label": "public"
+      },
+      {
+        "text": "The synthetic telemetry generator creates realistic agent traces, dependency telemetry and infra signals for 4+ tenants on a 6-hour Azure Functions timer, producing ~72 h of backfill in ~15 seconds.",
+        "source": "KPOS/site/app.js#L1870",
+        "ledger": "F-C16",
+        "label": "resume"
+      }
+    ],
+    "outcomes": [
+      {
+        "text": "12 repositories · 31 materialized views · 20 insight types · 7 gateway routers · 4 live tenants",
+        "source": "KPOS/site/Kevil_Resume_2026.md#L78",
+        "ledger": "F-C03",
+        "label": "resume"
+      },
+      {
+        "text": "Agent Trust Score: a composite reliability + quality metric fed by composite ES indices (run-summary, decision, run-heatmap).",
+        "source": "KPOS/site/index.html#L384",
+        "ledger": "F-C10",
+        "label": "public"
+      },
+      {
+        "text": "20 insight types — cost spikes, latency regressions, model drift, error clusters — auto-curated and rendered in the UI.",
+        "source": "KPOS/site/index.html#L385",
+        "ledger": "F-C11",
+        "label": "resume"
+      },
+      {
+        "text": "A360 emits its own traces into A360 under its own tenant — eat your own observability.",
+        "source": "KPOS/site/index.html#L387",
+        "ledger": "F-C13",
+        "label": "public"
+      }
+    ],
+    "stack": [
+      "Next.js 16",
+      "React 19",
+      "Shidoka design system",
+      "FastAPI",
+      "Azure Data Explorer",
+      "Elasticsearch",
+      "Cosmos DB",
+      "Azure Kubernetes Service",
+      "LiteLLM",
+      "Terraform",
+      "GitHub Actions"
+    ],
+    "stackSource": "KPOS/site/Kevil_Resume_2026.md#L77",
+    "links": [
+      { "label": "Kyndryl Bridge", "href": "https://www.kyndryl.com/in/en/services/platform", "kind": "org" }
+    ],
+    "decisions": [
+      "D-A360-SYNC-OVERLAP",
+      "D-A360-DOC-IDS",
+      "D-A360-JWKS",
+      "D-A360-DOGFOOD",
+      "D-A360-BOARDING"
+    ],
+    "order": 1
+  },
+  {
+    "id": "p2p",
+    "name": "Policy → Pipelines (P2P)",
+    "kind": "flagship",
+    "machine": "policy-sorter",
+    "summary": {
+      "text": "A multi-agent LangGraph platform that takes a plain-English policy like \"All GCS buckets must have cost_center, environment and team labels\" and turns it into compiled rules, live drift detection, risk-scored gcloud remediation plans, human-in-the-loop approvals, and audit-ready evidence — running against real GCP (Gemini 2.5 Pro on Vertex AI) or fully offline in mock mode for CI.",
+      "source": "KPOS/site/index.html#L400-L407",
+      "ledger": "F-C30",
+      "label": "public"
+    },
+    "problem": {
+      "text": "Cloud governance policies are written in plain English but enforced by hand; drift goes unnoticed and remediation is unaudited.",
+      "source": "KPOS/site/index.html#L400-L407",
+      "ledger": "F-C30",
+      "label": "public"
+    },
+    "approach": [
+      {
+        "text": "Policy Compiler: NL → structured PolicyConstraint via few-shot LLM. Rejects greetings, off-topic, or ambiguous policies.",
+        "source": "KPOS/site/index.html#L426-L454",
+        "ledger": "F-C31",
+        "label": "public"
+      },
+      {
+        "text": "Drift Scanner: queries live GCS / Compute / IAM / SQL state; LLM compares to policy and emits structured violations.",
+        "source": "KPOS/site/index.html#L426-L454",
+        "ledger": "F-C32",
+        "label": "public"
+      },
+      {
+        "text": "Remediation Planner: generates ordered, reversible gcloud commands per violation, with rollback hints and blast-radius estimates.",
+        "source": "KPOS/site/index.html#L426-L454",
+        "ledger": "F-C33",
+        "label": "public"
+      },
+      {
+        "text": "Risk Assessor: guardrails first (BLOCKED / HIGH_RISK), then LLM rubric scoring 0–10. Auto-approve below 4.",
+        "source": "KPOS/site/index.html#L426-L454",
+        "ledger": "F-C34",
+        "label": "public"
+      },
+      {
+        "text": "Change Executor: runs approved commands via gcloud, re-queries the resource for post-state proof, refuses unapproved plans.",
+        "source": "KPOS/site/index.html#L426-L454",
+        "ledger": "F-C35",
+        "label": "public"
+      },
+      {
+        "text": "Policy template library: 7+ YAML controls for GCS, Compute, IAM, Cloud SQL, VPC.",
+        "source": "KPOS/site/index.html#L468",
+        "ledger": "F-C38",
+        "label": "resume"
+      }
+    ],
+    "outcomes": [
+      {
+        "text": "Taken from hackathon prototype to production track.",
+        "source": "KPOS/site/Kevil_Resume_2026.md#L28",
+        "ledger": "F-B05",
+        "label": "resume"
+      },
+      {
+        "text": "Audit-ready: EvidencePack bundles policy + finding + plan + before/after state + execution log, persisted to Firestore.",
+        "source": "KPOS/site/index.html#L470",
+        "ledger": "F-C40",
+        "label": "public"
+      }
+    ],
+    "stack": [
+      "LangGraph",
+      "LangChain",
+      "Gemini 2.5 Pro on Vertex AI",
+      "FastAPI",
+      "Pydantic v2",
+      "React + Vite",
+      "APScheduler",
+      "Cloud Build",
+      "Firestore",
+      "Podman"
+    ],
+    "stackSource": "KPOS/site/Kevil_Resume_2026.md#L82",
+    "links": [],
+    "decisions": [
+      "D-P2P-GUARDRAILS-FIRST",
+      "D-P2P-AUTO-APPROVE",
+      "D-P2P-ROUTERS",
+      "D-P2P-PROVIDERS",
+      "D-P2P-EVIDENCE"
+    ],
+    "order": 2
+  },
+  {
+    "id": "climate-mitigation",
+    "name": "Climate Mitigation Tool",
+    "kind": "project",
+    "machine": "forecast-engine",
+    "station": "migration",
+    "summary": {
+      "text": "LSTM multi-modal time-series model for climate-induced migration forecasting. Real-time data from 3+ weather APIs · +15% accuracy over baseline.",
+      "source": "KPOS/site/Kevil_Resume_2026.md#L93-L94",
+      "ledger": "F-C50",
+      "label": "resume"
+    },
+    "year": "2023",
+    "yearSource": "KPOS/site/app.js#L1603",
+    "problem": {
+      "text": "Migration risk forecasting was being done with single-feature regressors and stale data — missing extreme-event correlation.",
+      "source": "KPOS/site/app.js#L1602-L1611",
+      "ledger": "F-C51",
+      "label": "public"
+    },
+    "approach": [
+      {
+        "text": "3+ real-time weather APIs aggregated into a unified hourly tensor.",
+        "source": "KPOS/site/app.js#L1602-L1611",
+        "ledger": "F-C51",
+        "label": "public"
+      },
+      {
+        "text": "Multi-modal LSTM with separate encoders for weather, displacement history and infra exposure.",
+        "source": "KPOS/site/app.js#L1602-L1611",
+        "ledger": "F-C51",
+        "label": "public"
+      },
+      {
+        "text": "Rolling-window cross-validation against held-out districts.",
+        "source": "KPOS/site/app.js#L1602-L1611",
+        "ledger": "F-C51",
+        "label": "public"
+      }
+    ],
+    "outcomes": [
+      {
+        "text": "+15% accuracy over baseline.",
+        "source": "KPOS/site/Kevil_Resume_2026.md#L94",
+        "ledger": "F-C50",
+        "label": "resume"
+      },
+      {
+        "text": "Forecasts surfaced as district-level risk heatmaps.",
+        "source": "KPOS/site/app.js#L1602-L1611",
+        "ledger": "F-C51",
+        "label": "public"
+      }
+    ],
+    "stack": ["Python", "LSTM", "TensorFlow", "Weather APIs", "Pandas"],
+    "stackSource": "KPOS/site/app.js#L1602-L1611",
+    "links": [
+      { "label": "Repository", "href": "https://github.com/kevil21/Climate_Mitigation_Tool", "kind": "repo" }
+    ],
+    "decisions": ["D-FC-MULTIMODAL", "D-FC-ROLLING-CV"],
+    "order": 3
+  },
+  {
+    "id": "smart-energy",
+    "name": "Smart Energy Forecasting",
+    "kind": "project",
+    "machine": "forecast-engine",
+    "station": "grid",
+    "summary": {
+      "text": "LSTM forecasting on AWS Kinesis / S3 / SageMaker across 500+ households and transformers. +25% grid resilience in pilot deployment.",
+      "source": "KPOS/site/Kevil_Resume_2026.md#L99-L100",
+      "ledger": "F-C52",
+      "label": "resume"
+    },
+    "year": "2024",
+    "yearSource": "KPOS/site/app.js#L1623",
+    "problem": {
+      "text": "Grid operators needed sub-hourly load forecasts at the transformer level to schedule preemptive shedding.",
+      "source": "KPOS/site/app.js#L1622-L1631",
+      "ledger": "F-C53",
+      "label": "public"
+    },
+    "approach": [
+      {
+        "text": "Kinesis ingestion of smart-meter telemetry → S3 staging.",
+        "source": "KPOS/site/app.js#L1622-L1631",
+        "ledger": "F-C53",
+        "label": "public"
+      },
+      {
+        "text": "Per-transformer LSTM trained on SageMaker with shared embeddings.",
+        "source": "KPOS/site/app.js#L1622-L1631",
+        "ledger": "F-C53",
+        "label": "public"
+      },
+      {
+        "text": "Forecasts written back to a low-latency read store for the ops dashboard.",
+        "source": "KPOS/site/app.js#L1622-L1631",
+        "ledger": "F-C53",
+        "label": "public"
+      }
+    ],
+    "outcomes": [
+      {
+        "text": "+25% grid resilience in pilot deployment.",
+        "source": "KPOS/site/Kevil_Resume_2026.md#L100",
+        "ledger": "F-C52",
+        "label": "resume"
+      },
+      {
+        "text": "Operators got a 30-minute heads-up on overload events.",
+        "source": "KPOS/site/app.js#L1622-L1631",
+        "ledger": "F-C53",
+        "label": "site-case-study"
+      }
+    ],
+    "stack": ["Python", "LSTM", "AWS Kinesis", "S3", "SageMaker"],
+    "stackSource": "KPOS/site/index.html#L578-L579",
+    "links": [],
+    "decisions": ["D-FC-SHARED-EMBEDDINGS"],
+    "order": 4
+  },
+  {
+    "id": "opticrop",
+    "name": "OptiCrop",
+    "kind": "project",
+    "machine": "forecast-engine",
+    "station": "irrigation",
+    "summary": {
+      "text": "ML for precision water allocation in Indian agriculture. Built with Python, weather APIs, and rule engines. +35% water-use efficiency · -50% manual expense entry through automated categorization.",
+      "source": "KPOS/site/Kevil_Resume_2026.md#L96-L97",
+      "ledger": "F-C54",
+      "label": "resume"
+    },
+    "year": "2024",
+    "yearSource": "KPOS/site/app.js#L1613",
+    "problem": {
+      "text": "Smallholder farmers were under- and over-watering inconsistently and tracking expenses on paper.",
+      "source": "KPOS/site/app.js#L1612-L1621",
+      "ledger": "F-C54",
+      "label": "public"
+    },
+    "approach": [
+      {
+        "text": "Crop + soil + weather features fed into a regression + rule hybrid for daily water targets.",
+        "source": "KPOS/site/app.js#L1612-L1621",
+        "ledger": "F-C54",
+        "label": "public"
+      },
+      {
+        "text": "Receipt OCR + rule engine for auto-categorising farm expenses.",
+        "source": "KPOS/site/app.js#L1612-L1621",
+        "ledger": "F-C54",
+        "label": "public"
+      },
+      {
+        "text": "Mobile-first read-only dashboard.",
+        "source": "KPOS/site/app.js#L1612-L1621",
+        "ledger": "F-C54",
+        "label": "public"
+      }
+    ],
+    "outcomes": [
+      {
+        "text": "+35% water-use efficiency.",
+        "source": "KPOS/site/Kevil_Resume_2026.md#L97",
+        "ledger": "F-C54",
+        "label": "resume"
+      },
+      {
+        "text": "-50% manual expense entry through automated categorization.",
+        "source": "KPOS/site/Kevil_Resume_2026.md#L97",
+        "ledger": "F-C54",
+        "label": "resume"
+      }
+    ],
+    "stack": ["Python", "Weather APIs", "Rule engines", "OCR"],
+    "stackSource": "KPOS/site/app.js#L1612-L1621",
+    "links": [
+      { "label": "Repository", "href": "https://github.com/kevil21/Crop-Prediction", "kind": "repo" }
+    ],
+    "decisions": ["D-FC-HYBRID"],
+    "order": 5
+  },
+  {
+    "id": "overlay-insights",
+    "name": "Overlay-Insights",
+    "kind": "project",
+    "machine": "data-workbench",
+    "station": "overlays",
+    "summary": {
+      "text": "Python toolkit that finds repeated overlay patterns across hostnames and quantifies business impact (cost / brand value). ELK pipeline with Jupyter notebooks for analysis.",
+      "source": "KPOS/site/Kevil_Resume_2026.md#L85",
+      "ledger": "F-C60",
+      "label": "public"
+    },
+    "year": "2024",
+    "yearSource": "KPOS/site/app.js#L1573",
+    "approach": [
+      {
+        "text": "Cluster overlay HTML signatures with token-level n-grams + cosine similarity.",
+        "source": "KPOS/site/app.js#L1572-L1581",
+        "ledger": "F-C61",
+        "label": "public"
+      },
+      {
+        "text": "Score each cluster by frequency × user-impact × support tickets.",
+        "source": "KPOS/site/app.js#L1572-L1581",
+        "ledger": "F-C61",
+        "label": "public"
+      },
+      {
+        "text": "Render the top clusters in Kibana dashboards and Jupyter notebooks for product review.",
+        "source": "KPOS/site/app.js#L1572-L1581",
+        "ledger": "F-C61",
+        "label": "public"
+      }
+    ],
+    "outcomes": [
+      {
+        "text": "Found 6 high-impact recurring overlays accounting for ~40% of all observed overlay events.",
+        "source": "KPOS/site/app.js#L1572-L1581",
+        "ledger": "F-C61",
+        "label": "site-case-study"
+      }
+    ],
+    "stack": ["Python", "Elasticsearch", "Kibana", "Jupyter"],
+    "stackSource": "KPOS/site/index.html#L549",
+    "links": [
+      { "label": "Repository", "href": "https://github.com/kevil21/Overlay-Insights", "kind": "repo" }
+    ],
+    "decisions": ["D-WB-SIGNATURES"],
+    "order": 6
+  },
+  {
+    "id": "incident-tickets",
+    "name": "Incident Ticket Management",
+    "kind": "project",
+    "machine": "data-workbench",
+    "station": "incidents",
+    "summary": {
+      "text": "End-to-end ELK pipeline that cleans, indexes, transforms and visualises incident-ticket data — fully script-driven and reproducible.",
+      "source": "KPOS/site/Kevil_Resume_2026.md#L88",
+      "ledger": "F-C62",
+      "label": "public"
+    },
+    "year": "2024",
+    "yearSource": "KPOS/site/app.js#L1583",
+    "approach": [
+      {
+        "text": "Bulk-indexed into Elasticsearch with deterministic doc IDs.",
+        "source": "KPOS/site/app.js#L1582-L1591",
+        "ledger": "F-C63",
+        "label": "public"
+      },
+      {
+        "text": "MTTR rollups; Kibana severity heatmap, team load and weekly trend.",
+        "source": "KPOS/site/app.js#L1582-L1591",
+        "ledger": "F-C63",
+        "label": "public"
+      }
+    ],
+    "outcomes": [
+      {
+        "text": "Cut analyst prep time from ~3 hours/dump to ~10 minutes.",
+        "source": "KPOS/site/app.js#L1582-L1591",
+        "ledger": "F-C63",
+        "label": "site-case-study"
+      }
+    ],
+    "stack": ["Python", "pandas", "Elasticsearch", "Kibana"],
+    "stackSource": "KPOS/site/index.html#L555",
+    "links": [
+      {
+        "label": "Repository",
+        "href": "https://github.com/kevil21/Incident_Ticket_Management",
+        "kind": "repo"
+      }
+    ],
+    "decisions": ["D-WB-DOC-IDS"],
+    "order": 7
+  },
+  {
+    "id": "it-assets",
+    "name": "IT Asset Analytics",
+    "kind": "project",
+    "machine": "data-workbench",
+    "station": "assets",
+    "summary": {
+      "text": "End-to-end IT asset analytics pipeline — pandas / NumPy / Elasticsearch / Kibana — cleaning, indexing, transforming and visualising asset data.",
+      "source": "KPOS/site/Kevil_Resume_2026.md#L91",
+      "ledger": "F-C64",
+      "label": "public"
+    },
+    "year": "2024",
+    "yearSource": "KPOS/site/app.js#L1593",
+    "outcomes": [
+      {
+        "text": "Surfaced ~12% of assets past EoL and unbudgeted.",
+        "source": "KPOS/site/app.js#L1592-L1601",
+        "ledger": "F-C65",
+        "label": "site-case-study"
+      },
+      {
+        "text": "Owner-resolution lifted from 71% to 96%.",
+        "source": "KPOS/site/app.js#L1592-L1601",
+        "ledger": "F-C65",
+        "label": "site-case-study"
+      }
+    ],
+    "stack": ["pandas", "NumPy", "Elasticsearch", "Kibana"],
+    "stackSource": "KPOS/site/index.html#L561",
+    "links": [
+      {
+        "label": "Repository",
+        "href": "https://github.com/kevil21/data-operations-it-assets_ELK",
+        "kind": "repo"
+      }
+    ],
+    "decisions": [],
+    "order": 8
+  },
+  {
+    "id": "python-essentials",
+    "name": "Python Essentials",
+    "kind": "project",
+    "machine": "foundations-generator",
+    "summary": {
+      "text": "A beginner-to-mastery Python guide — kept as a public learning artefact — used during GDSC VIT workshops.",
+      "source": "KPOS/site/Kevil_Resume_2026.md#L103",
+      "ledger": "F-C66",
+      "label": "public"
+    },
+    "stack": ["Python"],
+    "links": [{ "label": "Repository", "href": "https://github.com/kevil21/Python", "kind": "repo" }],
+    "decisions": [],
+    "order": 9
+  }
+]

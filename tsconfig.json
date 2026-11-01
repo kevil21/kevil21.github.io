@@ -1,0 +1,19 @@
+{
+  "extends": "astro/tsconfigs/strict",
+  "compilerOptions": {
+    "jsx": "react-jsx",
+    "jsxImportSource": "preact",
+    "strict": true,
+    "noUncheckedIndexedAccess": true,
+    "noImplicitOverride": true,
+    "exactOptionalPropertyTypes": true,
+    "verbatimModuleSyntax": true,
+    "resolveJsonModule": true,
+    "types": ["astro/client", "@webgpu/types", "node"],
+    "paths": {
+      "@/*": ["./src/*"]
+    }
+  },
+  "include": ["src/**/*", "scripts/**/*", "tests/**/*", "*.ts", "*.mjs", ".astro/types.d.ts"],
+  "exclude": ["dist", "node_modules", "src/ai/workers/**/*"]
+}

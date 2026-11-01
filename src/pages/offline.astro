@@ -1,0 +1,68 @@
+---
+/** Offline fallback served by the service worker when a page is not cached and the network is away. */
+import Shell from '@/layouts/Shell.astro';
+---
+
+<Shell
+  title="Offline"
+  description="The hall is offline. The résumé and contact details are cached."
+  path="/offline/"
+  noindex
+>
+  <section class="wrap offline">
+    <p class="eyebrow">Hall · offline</p>
+    <h1>The network is down; the lamps are not.</h1>
+    <p class="offline__lead">
+      This page was not cached before you went offline. The floor, the résumé and the contact desk usually
+      are.
+    </p>
+    <p class="offline__links">
+      <a class="button button--primary" href="/">
+        Back to the floor
+      </a>
+      <a class="button" href="/resume/">
+        Résumé
+      </a>
+      <a class="button" href="/contact/">
+        Contact
+      </a>
+    </p>
+    <p class="as-stated">When the connection returns, reload and the service worker refreshes its shelves.</p>
+  </section>
+</Shell>
+
+<style>
+  @layer components {
+    .offline {
+      padding-block: var(--space-9);
+      display: grid;
+      gap: var(--space-4);
+    }
+    .offline__lead {
+      color: var(--ink-2);
+      font-size: var(--text-lg);
+    }
+    .offline__links {
+      display: flex;
+      flex-wrap: wrap;
+      gap: var(--space-2);
+      max-width: none;
+    }
+    .button {
+      display: inline-flex;
+      align-items: center;
+      min-height: var(--touch);
+      padding-inline: var(--space-4);
+      border-radius: var(--radius-pill);
+      border: 1px solid var(--line-strong);
+      color: var(--ink);
+      text-decoration: none;
+      font-weight: 500;
+    }
+    .button--primary {
+      background: var(--fill-amber);
+      border-color: var(--fill-amber);
+      color: var(--on-amber);
+    }
+  }
+</style>

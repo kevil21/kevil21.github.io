@@ -1,0 +1,50 @@
+---
+/** The Operator's console as a page (also the control room's console). The island needs JS; this page says what it is without it. */
+import Shell from '@/layouts/Shell.astro';
+import Operator from '@/islands/Operator';
+import '@/styles/operator.css';
+---
+
+<Shell
+  title="Operator"
+  description="The Operator: an on-device agent that retrieves from Kevil Patel's fact ledger, cites its sources, proposes actions you confirm, and declines when the lab has no evidence."
+  path="/operator/"
+>
+  <section class="wrap operator">
+    <p class="eyebrow">Control room · Operator console</p>
+    <h1>Ask the lab. It cites or declines.</h1>
+    <p class="operator__lead">
+      The Operator runs entirely in your browser: lexical and semantic retrieval over the fact ledger, a
+      job-description matcher, and validated tools that move the floor only when you click. An optional
+      on-device language model can be downloaded for grounded prose; its size is shown first and nothing
+      downloads on its own.
+    </p>
+    <Operator client:load />
+    <noscript>
+      <p class="as-stated">
+        The console needs JavaScript. Without it, the <a href="/resume/">résumé</a>, the{' '}
+        <a href="/work/">case studies</a> and the <a href="/machines/telemetry-refinery/">machine pages</a>{' '}
+        carry every fact with its source.
+      </p>
+    </noscript>
+    <p class="as-stated">
+      Trust instruments: groundedness = cited sentences ÷ sentences · evidence coverage = cited chunks ÷
+      retrieved · refusals = answers declined for lack of evidence. Formulas are published in{' '}
+      <a href="/generated/ai-manifest.json">ai-manifest.json</a>.
+    </p>
+  </section>
+</Shell>
+
+<style>
+  @layer components {
+    .operator {
+      padding-block: var(--space-7);
+      display: grid;
+      gap: var(--space-4);
+    }
+    .operator__lead {
+      font-size: var(--text-lg);
+      color: var(--ink-2);
+    }
+  }
+</style>

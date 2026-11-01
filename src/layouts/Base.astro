@@ -1,0 +1,102 @@
+---
+/**
+ * Base document: head order matters for zero CLS and no theme flash.
+ * 1 charset/viewport · 2 theme-color meta with per-theme data attributes · 3 inline pre-paint script · 4 font preloads ·
+ * 5 token + base CSS · 6 SEO · 7 JSON-LD slot. Content renders before fonts, 3D, workers or indexes arrive.
+ */
+import { ClientRouter } from 'astro:transitions';
+import { SITE, canonical } from '@/lib/site';
+import ThemeScript from '@/components/ThemeScript.astro';
+import { THEME_COLORS } from '@/theme/meta';
+import '@/styles/tokens/color.css';
+import '@/styles/tokens/motion.css';
+import '@/styles/tokens/type.css';
+import '@/styles/base.css';
+import '@fontsource-variable/bricolage-grotesque/index.css';
+import '@fontsource/ibm-plex-mono/400.css';
+import '@fontsource/ibm-plex-mono/500.css';
+import bricolageWoff2 from '@fontsource-variable/bricolage-grotesque/files/bricolage-grotesque-latin-wght-normal.woff2?url';
+import plexWoff2 from '@fontsource/ibm-plex-mono/files/ibm-plex-mono-latin-400-normal.woff2?url';
+
+interface Props {
+  title: string;
+  description?: string;
+  /** Path for the canonical URL, e.g. "/work/a360/". Defaults to the current URL path. */
+  path?: string;
+  ogImage?: string;
+  ogType?: 'website' | 'article' | 'profile';
+  noindex?: boolean;
+  /** Serialised JSON-LD object(s). */
+  jsonLd?: Record<string, unknown> | Record<string, unknown>[];
+  bodyClass?: string;
+}
+
+const {
+  title,
+  description = SITE.description,
+  path = Astro.url.pathname,
+  ogImage = '/og/default.png',
+  ogType = 'website',
+  noindex = false,
+  jsonLd,
+  bodyClass = '',
+} = Astro.props;
+
+const canonicalUrl = canonical(path);
+const ogUrl = ogImage.startsWith('http') ? ogImage : `${SITE.origin}${ogImage}`;
+const fullTitle = title === SITE.shortName ? SITE.name : `${title} · ${SITE.shortName}`;
+const jsonLdList = jsonLd ? (Array.isArray(jsonLd) ? jsonLd : [jsonLd]) : [];
+---
+
+<!doctype html>
+<html lang="en" data-theme="dark" data-theme-pref="system">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+    {/* Cascade-layer order must be the first CSS the browser sees, before any bundled stylesheet. */}
+    <style is:inline>
+      @layer tokens, reset, base, components, utilities, overrides;
+    </style>
+    <meta
+      name="theme-color"
+      content={THEME_COLORS.dark}
+      data-dark={THEME_COLORS.dark}
+      data-light={THEME_COLORS.light}
+      data-night={THEME_COLORS.night}
+    />
+    <ThemeScript />
+    <title>{fullTitle}</title>
+    <meta name="description" content={description} />
+    <link rel="canonical" href={canonicalUrl} />
+    {noindex && <meta name="robots" content="noindex, nofollow" />}
+    <link rel="preload" href={bricolageWoff2} as="font" type="font/woff2" crossorigin />
+    <link rel="preload" href={plexWoff2} as="font" type="font/woff2" crossorigin />
+    <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
+    <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
+    <link rel="manifest" href="/manifest.webmanifest" />
+    <meta property="og:type" content={ogType} />
+    <meta property="og:site_name" content={SITE.name} />
+    <meta property="og:title" content={fullTitle} />
+    <meta property="og:description" content={description} />
+    <meta property="og:url" content={canonicalUrl} />
+    <meta property="og:image" content={ogUrl} />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
+    <meta property="og:locale" content={SITE.locale} />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content={fullTitle} />
+    <meta name="twitter:description" content={description} />
+    <meta name="twitter:image" content={ogUrl} />
+    <meta name="generator" content={Astro.generator} />
+    <meta name="application-name" content={SITE.shortName} />
+    <meta name="color-scheme" content="dark light" />
+    {jsonLdList.map((obj) => (
+      <script type="application/ld+json" set:html={JSON.stringify(obj)} />
+    ))}
+    <slot name="head" />
+    <ClientRouter />
+  </head>
+  <body class={bodyClass}>
+    <slot />
+  </body>
+</html>

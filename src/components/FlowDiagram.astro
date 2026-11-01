@@ -1,0 +1,188 @@
+---
+/**
+ * Inline SVG architecture diagram from data (src/lib/diagrams.ts). Token-coloured through CSS custom properties, so it
+ * follows the theme with no JavaScript. Also serves as the machine's static twin for print and reduced motion.
+ */
+import type { Diagram } from '@/lib/diagrams';
+
+interface Props {
+  diagram: Diagram;
+  id: string;
+}
+const { diagram, id } = Astro.props;
+
+const CW = 190; // column pitch
+const RH = 92; // row pitch
+const NW = 160; // node width
+const NH = 56; // node height
+const PAD = 16;
+const width = diagram.cols * CW + PAD * 2 - (CW - NW);
+const height = diagram.rows * RH + PAD * 2 - (RH - NH);
+
+const pos = new Map(diagram.nodes.map((n) => [n.id, { x: PAD + n.col * CW, y: PAD + n.row * RH }]));
+function edgePath(from: string, to: string): { d: string; mx: number; my: number } {
+  const a = pos.get(from)!;
+  const b = pos.get(to)!;
+  const ax = a.x + NW;
+  const ay = a.y + NH / 2;
+  const bx = b.x;
+  const by = b.y + NH / 2;
+  if (b.x > a.x) {
+    const c = (ax + bx) / 2;
+    return { d: `M${ax},${ay} C${c},${ay} ${c},${by} ${bx},${by}`, mx: c, my: (ay + by) / 2 - 6 };
+  }
+  // backward or vertical: route around
+  const sx = a.x + NW / 2;
+  const sy = a.y + (b.y > a.y ? NH : 0);
+  const tx = b.x + NW / 2;
+  const ty = b.y + (b.y > a.y ? 0 : NH);
+  if (Math.abs(b.x - a.x) < 1) return { d: `M${sx},${sy} L${tx},${ty}`, mx: sx + 8, my: (sy + ty) / 2 };
+  const dy = b.y > a.y ? 18 : -18;
+  return {
+    d: `M${sx},${sy} C${sx},${sy + dy} ${tx},${ty - dy} ${tx},${ty}`,
+    mx: (sx + tx) / 2,
+    my: (sy + ty) / 2 - 6,
+  };
+}
+const titleId = `${id}-title`;
+const descId = `${id}-desc`;
+const desc = `${diagram.nodes.length} components: ${diagram.nodes.map((n) => n.label).join(', ')}. Flow: ${diagram.edges
+  .map(
+    (e) =>
+      `${diagram.nodes.find((n) => n.id === e.from)?.label} to ${diagram.nodes.find((n) => n.id === e.to)?.label}${e.label ? ` (${e.label})` : ''}`,
+  )
+  .join('; ')}.`;
+---
+
+<figure class="diagram">
+  <svg
+    viewBox={`0 0 ${width} ${height}`}
+    role="img"
+    aria-labelledby={`${titleId} ${descId}`}
+    class="diagram__svg"
+    preserveAspectRatio="xMidYMid meet"
+  >
+    <title id={titleId}>{diagram.title}</title>
+    <desc id={descId}>{desc}</desc>
+    <defs>
+      <marker
+        id={`${id}-arrow`}
+        viewBox="0 0 10 10"
+        refX="9"
+        refY="5"
+        markerWidth="7"
+        markerHeight="7"
+        orient="auto-start-reverse"
+      >
+        <path d="M0,0 L10,5 L0,10 z" class="diagram__arrow"></path>
+      </marker>
+    </defs>
+    {diagram.edges.map((e) => {
+      const p = edgePath(e.from, e.to);
+      return (
+        <g class:list={['diagram__edge', { 'diagram__edge--dashed': e.dashed }]}>
+          <path d={p.d} marker-end={`url(#${id}-arrow)`} />
+          {e.label && (
+            <text x={p.mx} y={p.my} text-anchor="middle" class="diagram__edge-label">
+              {e.label}
+            </text>
+          )}
+        </g>
+      );
+    })}
+    {diagram.nodes.map((n) => {
+      const p = pos.get(n.id)!;
+      return (
+        <g
+          class:list={['diagram__node', `diagram__node--${n.tone ?? 'default'}`]}
+          transform={`translate(${p.x} ${p.y})`}
+        >
+          <rect width={NW} height={NH} rx="8" />
+          <text x={NW / 2} y={n.sub ? 23 : NH / 2 + 4} text-anchor="middle" class="diagram__label">
+            {n.label}
+          </text>
+          {n.sub && (
+            <text x={NW / 2} y={41} text-anchor="middle" class="diagram__sub">
+              {n.sub}
+            </text>
+          )}
+        </g>
+      );
+    })}
+  </svg>
+  <figcaption class="diagram__caption">
+    {diagram.title} <span class="as-stated">· drawn from ledger {diagram.source}</span>
+  </figcaption>
+</figure>
+
+<style>
+  @layer components {
+    .diagram {
+      margin: 0;
+      display: grid;
+      gap: var(--space-2);
+    }
+    .diagram__svg {
+      width: 100%;
+      height: auto;
+      background: var(--surface);
+      border: 1px solid var(--line);
+      border-radius: var(--radius-lg);
+      font-family: var(--font-mono);
+    }
+    .diagram__node rect {
+      fill: var(--surface-2);
+      stroke: var(--line-strong);
+      stroke-width: 1;
+    }
+    .diagram__node--amber rect {
+      fill: var(--fill-amber-dim);
+      stroke: var(--fill-amber);
+    }
+    .diagram__node--teal rect {
+      fill: color-mix(in oklch, var(--fill-teal) 22%, var(--surface-2));
+      stroke: var(--fill-teal);
+    }
+    .diagram__node--sage rect {
+      fill: color-mix(in oklch, var(--fill-sage) 22%, var(--surface-2));
+      stroke: var(--fill-sage);
+    }
+    .diagram__node--ember rect {
+      fill: color-mix(in oklch, var(--fill-ember) 22%, var(--surface-2));
+      stroke: var(--fill-ember);
+    }
+    .diagram__node--brass rect {
+      fill: color-mix(in oklch, var(--fill-brass) 22%, var(--surface-2));
+      stroke: var(--fill-brass);
+    }
+    .diagram__label {
+      fill: var(--ink);
+      font-size: 12px;
+      font-weight: 600;
+    }
+    .diagram__sub {
+      fill: var(--ink-2);
+      font-size: 10px;
+    }
+    .diagram__edge path {
+      fill: none;
+      stroke: var(--line-strong);
+      stroke-width: 1.4;
+    }
+    .diagram__edge--dashed path {
+      stroke-dasharray: 4 4;
+      stroke: var(--ink-3);
+    }
+    .diagram__arrow {
+      fill: var(--line-strong);
+    }
+    .diagram__edge-label {
+      fill: var(--ink-3);
+      font-size: 10px;
+    }
+    .diagram__caption {
+      font-size: var(--text-sm);
+      color: var(--ink-3);
+    }
+  }
+</style>

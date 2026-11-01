@@ -1,0 +1,184 @@
+[
+  {
+    "id": "e-2017-10th",
+    "month": "2017",
+    "label": "10th CBSE, L.P. Savani International School, Surat",
+    "kind": "education",
+    "source": "KPOS/site/index.html#L756"
+  },
+  {
+    "id": "e-2019-12th",
+    "month": "2019",
+    "label": "12th CBSE, L.P. Savani International School, Surat",
+    "kind": "education",
+    "source": "KPOS/site/index.html#L751"
+  },
+  {
+    "id": "e-2021-btech",
+    "month": "2021",
+    "label": "B.Tech CSE begins, Vellore Institute of Technology",
+    "kind": "education",
+    "source": "KPOS/site/index.html#L746"
+  },
+  {
+    "id": "e-2023-08-gdsc",
+    "month": "2023-08",
+    "label": "GDSC VIT Technical Core Member",
+    "kind": "community",
+    "source": "KPOS/site/index.html#L499"
+  },
+  {
+    "id": "e-2023-climate",
+    "month": "2023",
+    "label": "Climate Mitigation Tool",
+    "kind": "project",
+    "source": "KPOS/site/app.js#L1603"
+  },
+  {
+    "id": "e-2024-03-clf",
+    "month": "2024-03",
+    "label": "AWS Certified Cloud Practitioner (CLF-C02)",
+    "kind": "certification",
+    "source": "info.md#L116"
+  },
+  {
+    "id": "e-2024-overlay",
+    "month": "2024",
+    "label": "Overlay-Insights",
+    "kind": "project",
+    "source": "KPOS/site/app.js#L1573"
+  },
+  {
+    "id": "e-2024-incident",
+    "month": "2024",
+    "label": "Incident Ticket Management",
+    "kind": "project",
+    "source": "KPOS/site/app.js#L1583"
+  },
+  {
+    "id": "e-2024-assets",
+    "month": "2024",
+    "label": "IT Asset Analytics",
+    "kind": "project",
+    "source": "KPOS/site/app.js#L1593"
+  },
+  {
+    "id": "e-2024-opticrop",
+    "month": "2024",
+    "label": "OptiCrop",
+    "kind": "project",
+    "source": "KPOS/site/app.js#L1613"
+  },
+  {
+    "id": "e-2024-energy",
+    "month": "2024",
+    "label": "Smart Energy Forecasting",
+    "kind": "project",
+    "source": "KPOS/site/app.js#L1623"
+  },
+  {
+    "id": "e-2024-07-charly",
+    "month": "2024-07",
+    "label": "Cloud Intern, Charly Computers",
+    "kind": "role",
+    "source": "KPOS/site/index.html#L491"
+  },
+  {
+    "id": "e-2024-08-charly-end",
+    "month": "2024-08",
+    "label": "Internship ends",
+    "kind": "role",
+    "source": "KPOS/site/index.html#L491"
+  },
+  {
+    "id": "e-2024-09-gdsc-end",
+    "month": "2024-09",
+    "label": "GDSC role ends",
+    "kind": "community",
+    "source": "KPOS/site/index.html#L499"
+  },
+  {
+    "id": "e-2024-09-saa",
+    "month": "2024-09",
+    "label": "AWS Certified Solutions Architect – Associate (SAA-C03)",
+    "kind": "certification",
+    "source": "info.md#L104"
+  },
+  {
+    "id": "e-2025-btech-end",
+    "month": "2025",
+    "label": "B.Tech completes",
+    "kind": "education",
+    "source": "KPOS/site/index.html#L746"
+  },
+  {
+    "id": "e-2025-07-kyndryl",
+    "month": "2025-07",
+    "label": "Joins Kyndryl, Agentic AI practice",
+    "kind": "role",
+    "source": "KPOS/site/index.html#L481"
+  },
+  {
+    "id": "e-2025-09-az104",
+    "month": "2025-09",
+    "label": "Azure Administrator Associate (AZ-104)",
+    "kind": "certification",
+    "source": "info.md#L80"
+  },
+  {
+    "id": "e-2025-09-az900",
+    "month": "2025-09",
+    "label": "Azure Fundamentals (AZ-900)",
+    "kind": "certification",
+    "source": "info.md#L92"
+  },
+  {
+    "id": "e-2025-12-gh300",
+    "month": "2025-12",
+    "label": "GitHub Copilot (GH-300)",
+    "kind": "certification",
+    "source": "info.md#L68"
+  },
+  {
+    "id": "e-2026-01-ai102",
+    "month": "2026-01",
+    "label": "Azure AI Engineer Associate (AI-102)",
+    "kind": "certification",
+    "source": "info.md#L32"
+  },
+  {
+    "id": "e-2026-02-explorer",
+    "month": "2026-02",
+    "label": "Founderz Agent Explorer",
+    "kind": "certification",
+    "source": "info.md#L55"
+  },
+  {
+    "id": "e-2026-03-excellerate",
+    "month": "2026-03",
+    "label": "Microsoft Excellerate Agentic AI",
+    "kind": "certification",
+    "source": "info.md#L45"
+  },
+  {
+    "id": "e-2026-05-master",
+    "month": "2026-05",
+    "label": "Founderz Agent Master",
+    "kind": "certification",
+    "source": "info.md#L10"
+  },
+  {
+    "id": "e-2026-05-commander",
+    "month": "2026-05",
+    "label": "Founderz Agent Commander",
+    "kind": "certification",
+    "source": "info.md#L21"
+  },
+  {
+    "id": "e-2026-10-az104-exp",
+    "month": "2026-10",
+    "label": "AZ-104 expiry",
+    "kind": "expiry",
+    "source": "info.md#L80"
+  }
+]

@@ -1,0 +1,401 @@
+/* The hall page: a sticky 3D stage behind scrolling bay sections, plus the HUD. Everything readable without the canvas. */
+@layer components {
+  .page-hall {
+    background: var(--bg-hall);
+  }
+  .hall {
+    position: relative;
+  }
+  .hall-stage {
+    position: sticky;
+    inset-block-start: var(--strip-height);
+    height: calc(100dvh - var(--strip-height));
+    margin-block-end: calc(-100dvh + var(--strip-height));
+    z-index: 0;
+    overflow: hidden;
+    background: var(--bg-hall);
+  }
+  .hall-canvas {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    display: block;
+  }
+  /* Static twin shown until the canvas is ready, and forever when 3D is unavailable */
+  .hall-still {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    display: grid;
+    place-items: center;
+    padding: var(--gutter);
+    transition: opacity var(--dur-emphasis) var(--ease-exit);
+  }
+  .hall-still svg {
+    width: min(100%, 72rem);
+    height: auto;
+    max-height: 100%;
+  }
+  .hall-stage[data-hall='ready'] .hall-still {
+    opacity: 0;
+    pointer-events: none;
+  }
+  .hall-stage::after {
+    /* floor haze so text over the canvas stays readable */
+    content: '';
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
+    background: linear-gradient(
+      to bottom,
+      color-mix(in oklch, var(--bg-hall) 55%, transparent),
+      transparent 35%,
+      transparent 65%,
+      color-mix(in oklch, var(--bg-hall) 70%, transparent)
+    );
+  }
+
+  .bays {
+    position: relative;
+    z-index: 1;
+    display: grid;
+    gap: 0;
+  }
+  .bay {
+    min-height: calc(100dvh - var(--strip-height));
+    display: grid;
+    align-content: center;
+    padding-block: var(--space-7);
+  }
+  .bay__card {
+    width: min(100% - 2 * var(--gutter), 34rem);
+    margin-inline: auto;
+    background: color-mix(in oklch, var(--surface) 86%, transparent);
+    -webkit-backdrop-filter: blur(10px);
+    backdrop-filter: blur(10px);
+    border: 1px solid var(--line);
+    border-radius: var(--radius-lg);
+    padding: var(--space-5);
+    display: grid;
+    gap: var(--space-3);
+    box-shadow: 0 20px 60px var(--shadow);
+  }
+  .bay__card--intro {
+    width: min(100% - 2 * var(--gutter), 40rem);
+  }
+  .bay__portrait img {
+    width: 96px;
+    height: 96px;
+    border-radius: 50%;
+    object-fit: cover;
+    border: 2px solid var(--fill-brass);
+    background: var(--surface-2);
+  }
+  /* Phones: the machine owns the upper part of the viewport, the card sits in the lower part */
+  @media (max-width: 59.99rem) {
+    .bay:not(:first-child) {
+      align-content: end;
+      padding-block: var(--space-5) var(--space-4);
+    }
+    .bay:not(:first-child) .bay__card {
+      max-height: 52dvh;
+      overflow: auto;
+      gap: var(--space-2);
+      padding: var(--space-4);
+    }
+    .bay:not(:first-child) .bay__title {
+      font-size: var(--text-xl);
+    }
+    .bay:not(:first-child) .bay__sub {
+      font-size: var(--text-sm);
+    }
+  }
+  @media (min-width: 60rem) {
+    .bay__card {
+      margin-inline: auto 6vw;
+    }
+    .bay__card--intro {
+      margin-inline: 6vw auto;
+    }
+  }
+  .bay__panel {
+    margin-block-start: var(--space-2);
+  }
+  .bay__panel .panel {
+    background: color-mix(in oklch, var(--surface) 92%, transparent);
+  }
+  .bay__bay {
+    font-size: var(--text-xs);
+    color: var(--ink-3);
+    letter-spacing: var(--tracking-wide);
+    text-transform: uppercase;
+  }
+  .bay__title {
+    font-size: var(--text-2xl);
+  }
+  .bay__title a {
+    color: var(--ink);
+    text-decoration: none;
+  }
+  .bay__title a:hover {
+    color: var(--ink-amber);
+  }
+  .bay__sub {
+    color: var(--ink-2);
+  }
+  .bay__actions {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--space-2);
+    max-width: none;
+  }
+  .button {
+    display: inline-flex;
+    align-items: center;
+    min-height: var(--touch);
+    padding-inline: var(--space-4);
+    border-radius: var(--radius-pill);
+    border: 1px solid var(--line-strong);
+    color: var(--ink);
+    text-decoration: none;
+    font-weight: 500;
+    background: var(--surface);
+  }
+  .button--primary {
+    background: var(--fill-amber);
+    border-color: var(--fill-amber);
+    color: var(--on-amber);
+  }
+
+  /* HUD */
+  .hud {
+    position: fixed;
+    z-index: 55;
+    inset-inline-end: var(--space-4);
+    inset-block-end: var(--space-4);
+    width: 17rem;
+    background: var(--surface-glass);
+    -webkit-backdrop-filter: blur(14px);
+    backdrop-filter: blur(14px);
+    border: 1px solid var(--line);
+    border-radius: var(--radius-lg);
+    padding: var(--space-3);
+    display: grid;
+    gap: var(--space-2);
+    font-size: var(--text-sm);
+  }
+  .hud__head {
+    display: flex;
+    justify-content: space-between;
+    gap: var(--space-2);
+    align-items: baseline;
+  }
+  .hud__where {
+    color: var(--ink-amber);
+    font-weight: 600;
+  }
+  .hud__map {
+    width: 100%;
+    height: auto;
+  }
+  .hud__hall {
+    fill: var(--surface);
+    stroke: var(--line-strong);
+    stroke-width: 6;
+  }
+  .hud__room {
+    fill: var(--fill-glass);
+    stroke: var(--line-strong);
+    stroke-width: 6;
+  }
+  .hud__bay rect {
+    fill: var(--surface-3);
+    stroke: var(--line-strong);
+    stroke-width: 6;
+  }
+  .hud__bay text {
+    fill: var(--ink);
+    font-family: var(--font-mono);
+    font-size: 48px;
+  }
+  .hud__meter {
+    fill: var(--fill-brass);
+  }
+  .is-here,
+  .hud__bay.is-here rect {
+    fill: var(--fill-amber);
+    stroke: var(--ink-amber);
+  }
+  .hud__bay.is-here text {
+    fill: var(--on-amber);
+  }
+  .hud__list {
+    display: none;
+    gap: 2px;
+  }
+  .hud__stop {
+    width: 100%;
+    text-align: start;
+    min-height: var(--touch);
+    background: none;
+    border: 0;
+    border-radius: var(--radius-md);
+    color: var(--ink-2);
+    padding-inline: var(--space-2);
+    cursor: pointer;
+  }
+  .hud__stop:hover,
+  .hud__stop.is-here {
+    background: var(--surface-2);
+    color: var(--ink);
+  }
+  .hud__num {
+    color: var(--ink-3);
+    font-size: var(--text-xs);
+  }
+  .hud__row {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: var(--space-2);
+  }
+  .hud__mode {
+    min-height: var(--touch);
+    padding-inline: var(--space-3);
+    border-radius: var(--radius-pill);
+    border: 1px solid var(--line-strong);
+    background: var(--surface);
+    color: var(--ink);
+    cursor: pointer;
+  }
+  .hud__mode[aria-pressed='true'] {
+    background: var(--fill-amber);
+    border-color: var(--fill-amber);
+    color: var(--on-amber);
+  }
+  .hud__tier {
+    color: var(--ink-2);
+    font-size: var(--text-xs);
+  }
+  .hud__close {
+    display: none;
+  }
+  .hud__row {
+    flex-wrap: wrap;
+  }
+
+  /* Tour bar: a caption strip under the recruiter strip while the guided tour runs */
+  .tourbar {
+    position: fixed;
+    z-index: 56;
+    inset-inline: 0;
+    inset-block-start: var(--strip-height);
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) auto;
+    gap: var(--space-2) var(--space-4);
+    align-items: center;
+    padding: var(--space-2) var(--gutter);
+    background: var(--surface-glass);
+    -webkit-backdrop-filter: blur(14px);
+    backdrop-filter: blur(14px);
+    border-block-end: 1px solid var(--line);
+    overflow: hidden;
+  }
+  .tourbar__progress {
+    position: absolute;
+    inset-block-start: 0;
+    inset-inline-start: 0;
+    height: 3px;
+    background: var(--fill-amber);
+    transition: width var(--dur-normal) linear;
+  }
+  .tourbar__text {
+    margin: 0;
+    max-width: none;
+    font-size: var(--text-sm);
+    color: var(--ink-2);
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--space-2);
+    align-items: baseline;
+  }
+  .tourbar__text strong {
+    color: var(--ink);
+  }
+  .tourbar__actions {
+    display: flex;
+    gap: var(--space-2);
+  }
+  @media (max-width: 59.99rem) {
+    .tourbar {
+      grid-template-columns: minmax(0, 1fr);
+    }
+  }
+
+  /* Bay panel reveal */
+  .bay__panel {
+    animation: panel-reveal var(--dur-emphasis) var(--ease-enter);
+    transform-origin: top center;
+  }
+  @keyframes panel-reveal {
+    from {
+      opacity: 0;
+      transform: translateY(8px);
+    }
+    to {
+      opacity: 1;
+      transform: none;
+    }
+  }
+
+  /* Phone: HUD is a bottom sheet toggled by the Map button */
+  @media (max-width: 59.99rem) {
+    .hud {
+      inset-inline: 0;
+      inset-block-end: var(--bar-height);
+      width: auto;
+      border-radius: var(--radius-lg) var(--radius-lg) 0 0;
+      transform: translateY(110%);
+      transition: transform var(--dur-emphasis) var(--ease-enter);
+      max-height: calc(100dvh - var(--strip-height) - var(--bar-height) - var(--space-4));
+      overflow: auto;
+    }
+    .hud--open {
+      transform: translateY(0);
+    }
+    .hud__list {
+      display: grid;
+    }
+    .hud__close {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      min-height: var(--touch);
+      border-radius: var(--radius-pill);
+      border: 1px solid var(--line-strong);
+      background: var(--surface);
+      color: var(--ink);
+    }
+    .hud__map {
+      max-height: 22vh;
+    }
+  }
+  @media (prefers-reduced-motion: reduce) {
+    .hud {
+      transition: none;
+    }
+  }
+  /* Landscape phones: the bar is a side rail on the right; sheet and tour bar stop short of it */
+  @media (max-width: 59.99rem) and (orientation: landscape) and (max-height: 30rem) {
+    .hud {
+      inset-block-end: 0;
+      inset-inline-end: calc(64px + env(safe-area-inset-right, 0px));
+      max-height: calc(100dvh - var(--strip-height) - var(--space-4));
+    }
+    .tourbar {
+      inset-inline-end: calc(64px + env(safe-area-inset-right, 0px));
+    }
+  }
+}

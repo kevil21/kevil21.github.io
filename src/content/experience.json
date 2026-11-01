@@ -1,0 +1,109 @@
+[
+  {
+    "id": "kyndryl",
+    "org": "Kyndryl",
+    "orgUrl": "https://www.kyndryl.com",
+    "title": {
+      "text": "Associate Software Development Engineer",
+      "source": "KPOS/site/Kevil_Resume_2026.md#L3",
+      "ledger": "F-B01",
+      "label": "public"
+    },
+    "dates": {
+      "start": "2025-07",
+      "end": "present",
+      "precision": "month",
+      "source": "KPOS/site/Kevil_Resume_2026.md#L24"
+    },
+    "location": "Agentic AI practice",
+    "bullets": [
+      {
+        "text": "Designing and shipping Agentic AI POCs and enterprise use cases on Azure AI Foundry for enterprise clients.",
+        "source": "KPOS/site/index.html#L484",
+        "ledger": "F-B02",
+        "label": "public"
+      },
+      {
+        "text": "Lead developer on A360 — Kyndryl's multi-tenant AI agent observability platform. Owner of the ADX → Elasticsearch sync service (31 materialized views, per-tenant indices), the synthetic telemetry generator, and significant portions of the Next.js frontend.",
+        "source": "KPOS/site/Kevil_Resume_2026.md#L27",
+        "ledger": "F-B04",
+        "label": "resume"
+      },
+      {
+        "text": "Built Policy → Pipelines (P2P), a 5-agent LangGraph platform that compiles natural-language policies into enforced cloud guardrails with risk-scored remediation and audit-ready evidence packs — taken from hackathon prototype to production track.",
+        "source": "KPOS/site/Kevil_Resume_2026.md#L28",
+        "ledger": "F-B05",
+        "label": "resume"
+      },
+      {
+        "text": "Delivering mission-critical insights via Kyndryl Bridge with predictive modelling and observability dashboards.",
+        "source": "KPOS/site/Kevil_Resume_2026.md#L29",
+        "ledger": "F-B03",
+        "label": "public"
+      }
+    ],
+    "tags": ["Azure AI Foundry", "Agentic AI", "RAG", "LangGraph", "Observability", "Kyndryl Bridge"],
+    "machine": "telemetry-refinery",
+    "order": 1
+  },
+  {
+    "id": "charly",
+    "org": "Charly Computers",
+    "title": {
+      "text": "Cloud Intern",
+      "source": "KPOS/site/index.html#L491",
+      "ledger": "F-B07",
+      "label": "public"
+    },
+    "dates": {
+      "start": "2024-07",
+      "end": "2024-08",
+      "precision": "month",
+      "source": "KPOS/site/Kevil_Resume_2026.md#L32"
+    },
+    "bullets": [
+      {
+        "text": "Engineered cloud architectures that improved customer scalability by 40%.",
+        "source": "KPOS/site/Kevil_Resume_2026.md#L34",
+        "ledger": "F-B08",
+        "label": "resume"
+      },
+      {
+        "text": "Orchestrated migration of legacy business operations to AWS.",
+        "source": "KPOS/site/Kevil_Resume_2026.md#L35",
+        "ledger": "F-B09",
+        "label": "public"
+      }
+    ],
+    "tags": ["AWS", "Migration", "Architecture"],
+    "order": 2
+  },
+  {
+    "id": "gdsc",
+    "org": "GDSC VIT",
+    "orgUrl": "https://gdsc.community.dev/vellore-institute-of-technology-vellore/",
+    "title": {
+      "text": "Technical Core Member",
+      "source": "KPOS/site/Kevil_Resume_2026.md#L37",
+      "ledger": "F-B10",
+      "label": "public"
+    },
+    "dates": {
+      "start": "2023-08",
+      "end": "2024-09",
+      "precision": "month",
+      "source": "KPOS/site/Kevil_Resume_2026.md#L38"
+    },
+    "bullets": [
+      {
+        "text": "Led 3+ technical initiatives, ran 2 hackathons and 4 coding challenges, impacting 500+ students.",
+        "source": "KPOS/site/Kevil_Resume_2026.md#L40",
+        "ledger": "F-B11",
+        "label": "resume"
+      }
+    ],
+    "tags": ["Leadership", "Community", "DevRel"],
+    "machine": "foundations-generator",
+    "order": 3
+  }
+]

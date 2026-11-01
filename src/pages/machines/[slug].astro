@@ -1,0 +1,359 @@
+---
+/**
+ * Machine page = the HTML twin of a machine (Tier 0): plaque, schematic, controls as a real form, readouts, decisions,
+ * projects. The 3D panel (scene 4/5) enhances this page; nothing here needs JavaScript.
+ */
+import Shell from '@/layouts/Shell.astro';
+import Claim from '@/components/Claim.astro';
+import FlowDiagram from '@/components/FlowDiagram.astro';
+import DecisionLog from '@/components/DecisionLog.astro';
+import { DIAGRAMS } from '@/lib/diagrams';
+import { loadDecisions, loadMachines, loadProjects } from '@/lib/content';
+import MachinePanel from '@/components/MachinePanel.astro';
+import MaintenanceHatch from '@/components/MaintenanceHatch.astro';
+import '@/styles/panel.css';
+
+export async function getStaticPaths() {
+  const machines = await loadMachines();
+  return machines.map((m) => ({ params: { slug: m.data.slug }, props: { id: m.id } }));
+}
+const { id } = Astro.props;
+const [machines, projects, decisions] = await Promise.all([loadMachines(), loadProjects(), loadDecisions()]);
+const machine = machines.find((m) => m.id === id);
+if (!machine) throw new Error(`machine ${id} missing`);
+const m = machine.data;
+const idx = machines.findIndex((x) => x.id === id);
+const prev = machines[idx - 1];
+const next = machines[idx + 1];
+const linked = projects.filter((p) => m.projects.includes(p.id));
+const log = decisions.filter((d) => m.decisions.includes(d.data.id));
+const diagram = DIAGRAMS[m.slug];
+---
+
+<Shell
+  title={m.name}
+  description={`${m.name} — ${m.subtitle}. ${m.embodies}`}
+  path={`/machines/${m.slug}/`}
+  bodyClass="page-machine"
+>
+  <article class="machine wrap" data-machine={m.slug}>
+    <header class="machine__head">
+      <p class="eyebrow">
+        Machine · bay {String(m.bay).padStart(2, '0')} <span class="sample-tag">sample data</span>
+      </p>
+      <h1 transition:name={`machine-${m.slug}`}>{m.name}</h1>
+      <p class="machine__subtitle">{m.subtitle}</p>
+      <p class="machine__embodies">{m.embodies}</p>
+    </header>
+
+    <section class="plaque" aria-labelledby="plaque-title">
+      <h2 id="plaque-title" class="eyebrow">
+        Plaque
+      </h2>
+      <ul class="plaque__list" role="list">
+        {m.plaque.map((c) => (
+          <Claim claim={c} as="li" compact />
+        ))}
+      </ul>
+      <MaintenanceHatch claims={m.plaque} machine={m.slug} />
+    </section>
+
+    <section class="machine__section" aria-labelledby="ask-title">
+      <h2 id="ask-title">Ask this machine</h2>
+      <form class="ask-machine" action="/operator/" method="get">
+        <input type="hidden" name="voice" value={m.slug} />
+        <label for="ask-q" class="as-stated">
+          It answers in its own voice, from its own facts only.
+        </label>
+        <div class="ask-machine__row">
+          <input id="ask-q" name="q" type="text" placeholder={`Ask the ${m.name}…`} />
+          <button type="submit" class="control__button">
+            Ask
+          </button>
+        </div>
+      </form>
+    </section>
+
+    {diagram && (
+      <section class="machine__section" aria-labelledby="schematic-title">
+        <h2 id="schematic-title">Schematic</h2>
+        <FlowDiagram diagram={diagram} id={`schem-${m.slug}`} />
+      </section>
+    )}
+
+    <section class="machine__section" aria-labelledby="controls-title">
+      <h2 id="controls-title">Control panel</h2>
+      <p class="as-stated">
+        Every control drives the simulation only. Values are sample data; the plaque holds the facts.
+      </p>
+      <MachinePanel machine={machine} decisions={log} headless client="idle" />
+      <form class="controls controls--static" data-controls={m.slug} action="#" method="get">
+        {m.controls.map((c) => (
+          <div class="control">
+            {c.kind === 'range' && (
+              <>
+                <label for={`ctl-${c.id}`}>{c.label}</label>
+                <input
+                  id={`ctl-${c.id}`}
+                  name={c.id}
+                  type="range"
+                  min={c.min}
+                  max={c.max}
+                  step={c.step}
+                  value={String(c.default)}
+                />
+                <output for={`ctl-${c.id}`} class="mono">
+                  {String(c.default)}
+                </output>
+              </>
+            )}
+            {c.kind === 'toggle' && (
+              <label class="control__toggle">
+                <input id={`ctl-${c.id}`} name={c.id} type="checkbox" checked={Boolean(c.default)} />
+                <span>{c.label}</span>
+              </label>
+            )}
+            {c.kind === 'lever' && (
+              <label class="control__toggle control__lever">
+                <input id={`ctl-${c.id}`} name={c.id} type="checkbox" checked={Boolean(c.default)} />
+                <span>{c.label}</span>
+              </label>
+            )}
+            {c.kind === 'select' && (
+              <>
+                <label for={`ctl-${c.id}`}>{c.label}</label>
+                <select id={`ctl-${c.id}`} name={c.id}>
+                  {(c.options ?? []).map((o) => (
+                    <option value={o} selected={o === c.default}>
+                      {o}
+                    </option>
+                  ))}
+                </select>
+              </>
+            )}
+            {c.kind === 'button' && (
+              <button type="button" class="control__button" name={c.id} data-control={c.id}>
+                {c.label}
+              </button>
+            )}
+            {c.note && <p class="control__note">{c.note}</p>}
+          </div>
+        ))}
+      </form>
+      <dl class="readouts controls--static">
+        {m.readouts.map((r) => (
+          <div class="readout" data-readout={r.id}>
+            <dt>{r.label}</dt>
+            <dd>
+              <span class="readout__value mono">—</span>
+              {r.unit && <span class="readout__unit mono"> {r.unit}</span>}
+            </dd>
+          </div>
+        ))}
+      </dl>
+      <p class="as-stated controls--static">
+        Readouts come alive when the simulation runs; without JavaScript they stay at rest.
+      </p>
+    </section>
+
+    {linked.length > 0 && (
+      <section class="machine__section" aria-labelledby="projects-title">
+        <h2 id="projects-title">What it embodies</h2>
+        <ul class="machine__projects" role="list">
+          {linked.map((p) => (
+            <li>
+              <h3>
+                <a href={`/work/${p.id}/`}>{p.data.name}</a>
+              </h3>
+              <Claim claim={p.data.summary} compact />
+            </li>
+          ))}
+        </ul>
+      </section>
+    )}
+
+    <DecisionLog decisions={log} title="Decisions as switches" />
+
+    <nav class="machine__nav" aria-label="Walk the floor">
+      {prev ? (
+        <a href={`/machines/${prev.data.slug}/`}>← {prev.data.name}</a>
+      ) : (
+        <a href="/">← Control room</a>
+      )}
+      <a href="/">Floor plan</a>
+      {next ? (
+        <a href={`/machines/${next.data.slug}/`}>{next.data.name} →</a>
+      ) : (
+        <a href="/certifications/">Calibration records →</a>
+      )}
+    </nav>
+  </article>
+</Shell>
+
+<style>
+  @layer components {
+    .machine {
+      padding-block: var(--space-7);
+      display: grid;
+      gap: var(--space-7);
+    }
+    .machine__head {
+      display: grid;
+      gap: var(--space-2);
+    }
+    .machine__subtitle {
+      font-size: var(--text-lg);
+      color: var(--ink-2);
+    }
+    .machine__embodies {
+      color: var(--ink-2);
+    }
+    .plaque {
+      background: var(--surface);
+      border: 1px solid var(--fill-brass);
+      border-radius: var(--radius-lg);
+      padding: var(--space-5);
+      display: grid;
+      gap: var(--space-3);
+      box-shadow: inset 0 0 0 4px var(--surface-2);
+    }
+    .plaque__list {
+      display: grid;
+      gap: var(--space-3);
+    }
+    .machine__section {
+      display: grid;
+      gap: var(--space-3);
+    }
+    .ask-machine {
+      display: grid;
+      gap: var(--space-2);
+      max-width: 40rem;
+    }
+    .ask-machine__row {
+      display: grid;
+      grid-template-columns: minmax(0, 1fr) auto;
+      gap: var(--space-2);
+    }
+    .ask-machine input[type='text'] {
+      min-height: var(--touch);
+      background: var(--surface-2);
+      border: 1px solid var(--line-strong);
+      border-radius: var(--radius-md);
+      padding-inline: var(--space-3);
+      color: var(--ink);
+      min-width: 0;
+    }
+    :global(.js) .controls--static {
+      display: none;
+    }
+    .controls {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(min(16rem, 100%), 1fr));
+      gap: var(--space-4);
+      background: var(--surface);
+      border: 1px solid var(--line);
+      border-radius: var(--radius-lg);
+      padding: var(--space-4);
+    }
+    .control {
+      min-width: 0;
+      display: grid;
+      gap: var(--space-2);
+      align-content: start;
+    }
+    .control label {
+      font-size: var(--text-sm);
+      color: var(--ink-2);
+    }
+    .control input[type='range'] {
+      width: 100%;
+      accent-color: var(--fill-amber);
+      min-height: var(--touch);
+    }
+    .control select {
+      min-height: var(--touch);
+      background: var(--surface-2);
+      border: 1px solid var(--line-strong);
+      border-radius: var(--radius-md);
+      padding-inline: var(--space-3);
+      color: var(--ink);
+    }
+    .control__toggle {
+      display: flex;
+      align-items: center;
+      gap: var(--space-3);
+      min-height: var(--touch);
+      cursor: pointer;
+    }
+    .control__toggle input {
+      width: 22px;
+      height: 22px;
+      accent-color: var(--fill-amber);
+    }
+    .control__lever span {
+      font-weight: 600;
+    }
+    .control__button {
+      min-height: var(--touch);
+      border-radius: var(--radius-pill);
+      border: 1px solid var(--fill-amber);
+      background: var(--fill-amber-dim);
+      color: var(--ink);
+      padding-inline: var(--space-4);
+      cursor: pointer;
+    }
+    .control__note {
+      font-size: var(--text-xs);
+      color: var(--ink-3);
+    }
+    .readouts {
+      margin: 0;
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(min(10rem, 100%), 1fr));
+      gap: var(--space-3);
+    }
+    .readout {
+      background: var(--surface-2);
+      border-radius: var(--radius-md);
+      padding: var(--space-3);
+      display: grid;
+      gap: var(--space-1);
+    }
+    .readout dt {
+      font-size: var(--text-xs);
+      color: var(--ink-2);
+      text-transform: uppercase;
+      letter-spacing: var(--tracking-wide);
+    }
+    .readout dd {
+      margin: 0;
+      font-size: var(--text-xl);
+      color: var(--ink-amber);
+    }
+    .readout__unit {
+      font-size: var(--text-sm);
+      color: var(--ink-2);
+    }
+    .machine__projects {
+      display: grid;
+      gap: var(--space-3);
+    }
+    .machine__projects h3 {
+      font-size: var(--text-lg);
+    }
+    .machine__nav {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: space-between;
+      gap: var(--space-3);
+      padding-block-start: var(--space-4);
+      border-block-start: 1px solid var(--line);
+    }
+    .machine__nav a {
+      min-height: var(--touch);
+      display: inline-flex;
+      align-items: center;
+    }
+  }
+</style>

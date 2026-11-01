@@ -1,0 +1,148 @@
+/*
+ * THE SIMULATION ROOM — colour tokens (the ONLY place literal colours may appear).
+ * Every token is OKLCH. Every accent has a FILL variant (surfaces, lamps, particles, materials) and an INK variant
+ * (text-safe: ≥ 4.5:1 against --bg-hall and --surface in its theme). Shaders, particles, SVG and canvas read these
+ * through src/theme/bridge.ts and update live on `sr:themechange`.
+ *
+ * Themes: dark (default, cinematic hall with warm practicals) · light (daylit laboratory, warm paper) · night (egg:
+ * deeper dark, practicals dimmed, emissives brighter). Selected by data-theme on <html>, set pre-paint.
+ */
+@layer tokens {
+  :root {
+    color-scheme: dark;
+
+    /* hall surfaces */
+    --bg-hall: oklch(19% 0.018 262);
+    --bg-floor: oklch(23% 0.018 262);
+    --surface: oklch(26% 0.016 262);
+    --surface-2: oklch(31% 0.016 262);
+    --surface-3: oklch(36% 0.016 262);
+    --surface-glass: oklch(24% 0.016 262 / 0.72);
+    --surface-logo: oklch(97% 0.008 85);
+    --line: oklch(38% 0.014 262);
+    --line-strong: oklch(52% 0.014 262);
+    --shadow: oklch(5% 0.01 262 / 0.6);
+    --fog: oklch(21% 0.018 262);
+
+    /* text (ink) */
+    --ink: oklch(95% 0.012 85);
+    --ink-2: oklch(79% 0.014 85);
+    --ink-3: oklch(64% 0.014 85);
+    --ink-inverse: oklch(16% 0.016 262);
+
+    /* amber — practical light, warmth, primary action */
+    --fill-amber: oklch(78% 0.155 72);
+    --fill-amber-dim: oklch(48% 0.11 72);
+    --ink-amber: oklch(86% 0.13 78);
+    --on-amber: oklch(18% 0.03 72);
+
+    /* brass — machine metal, secondary accent */
+    --fill-brass: oklch(70% 0.1 82);
+    --ink-brass: oklch(83% 0.09 84);
+
+    /* ember — alerts, blocked, 404 alarm */
+    --fill-ember: oklch(62% 0.2 35);
+    --ink-ember: oklch(80% 0.15 40);
+
+    /* teal — telemetry, data flow, evidence */
+    --fill-teal: oklch(70% 0.11 195);
+    --ink-teal: oklch(83% 0.1 195);
+
+    /* sage — approve, healthy, strong match */
+    --fill-sage: oklch(72% 0.11 150);
+    --ink-sage: oklch(84% 0.1 150);
+
+    /* neutral metal for the kit */
+    --fill-steel: oklch(55% 0.01 262);
+    --fill-steel-dark: oklch(35% 0.01 262);
+    --fill-enamel: oklch(26% 0.02 262);
+    --fill-glass: oklch(85% 0.02 220 / 0.18);
+
+    /* practical lamp emissive strength (0–1), emissive boost and fog distances (metres), read by the bridge */
+    --lamp-intensity: 1;
+    --emissive-boost: 1;
+    --fog-near: 7;
+    --fog-far: 32;
+
+    --focus: var(--ink-amber);
+    --selection-bg: oklch(48% 0.11 72 / 0.5);
+  }
+
+  :root[data-theme='light'] {
+    color-scheme: light;
+
+    --bg-hall: oklch(96.5% 0.012 85);
+    --bg-floor: oklch(93% 0.014 85);
+    --surface: oklch(98.5% 0.008 85);
+    --surface-2: oklch(95% 0.012 85);
+    --surface-3: oklch(91% 0.014 85);
+    --surface-glass: oklch(98% 0.008 85 / 0.7);
+    --surface-logo: oklch(99% 0.004 85);
+    --line: oklch(86% 0.012 85);
+    --line-strong: oklch(72% 0.014 85);
+    --shadow: oklch(30% 0.02 85 / 0.18);
+    --fog: oklch(94% 0.012 85);
+
+    --ink: oklch(22% 0.02 262);
+    --ink-2: oklch(38% 0.018 262);
+    --ink-3: oklch(50% 0.016 262);
+    --ink-inverse: oklch(97% 0.01 85);
+
+    --fill-amber: oklch(80% 0.15 72);
+    --fill-amber-dim: oklch(90% 0.08 78);
+    --ink-amber: oklch(46% 0.13 62);
+    --on-amber: oklch(20% 0.03 72);
+
+    --fill-brass: oklch(74% 0.1 82);
+    --ink-brass: oklch(44% 0.09 78);
+
+    --fill-ember: oklch(66% 0.19 35);
+    --ink-ember: oklch(46% 0.18 32);
+
+    --fill-teal: oklch(74% 0.1 195);
+    --ink-teal: oklch(42% 0.1 200);
+
+    --fill-sage: oklch(76% 0.1 150);
+    --ink-sage: oklch(42% 0.1 150);
+
+    --fill-steel: oklch(72% 0.01 262);
+    --fill-steel-dark: oklch(55% 0.01 262);
+    --fill-enamel: oklch(88% 0.012 85);
+    --fill-glass: oklch(60% 0.02 220 / 0.14);
+
+    --lamp-intensity: 0.45;
+    --emissive-boost: 0.6;
+    --fog-near: 18;
+    --fog-far: 60;
+
+    --focus: var(--ink-amber);
+    --selection-bg: oklch(80% 0.15 72 / 0.45);
+  }
+
+  :root[data-theme='night'] {
+    color-scheme: dark;
+
+    --bg-hall: oklch(13% 0.014 262);
+    --bg-floor: oklch(16% 0.014 262);
+    --surface: oklch(19% 0.014 262);
+    --surface-2: oklch(23% 0.014 262);
+    --surface-3: oklch(28% 0.014 262);
+    --surface-glass: oklch(16% 0.014 262 / 0.78);
+    --line: oklch(31% 0.012 262);
+    --line-strong: oklch(45% 0.012 262);
+    --fog: oklch(14% 0.014 262);
+
+    --ink: oklch(92% 0.012 85);
+    --ink-2: oklch(74% 0.014 85);
+    --ink-3: oklch(58% 0.014 85);
+
+    --fill-amber: oklch(74% 0.15 70);
+    --fill-amber-dim: oklch(36% 0.1 70);
+    --ink-amber: oklch(84% 0.13 76);
+
+    --lamp-intensity: 0.55;
+    --emissive-boost: 1.6;
+    --fog-near: 5;
+    --fog-far: 26;
+  }
+}

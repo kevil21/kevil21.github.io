@@ -1,0 +1,12 @@
+node_modules
+dist
+.astro
+.cache
+.lighthouseci
+playwright-report
+test-results
+public/generated
+public/models
+public/images/derived
+package-lock.json
+*.md

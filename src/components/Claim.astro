@@ -1,0 +1,77 @@
+---
+/**
+ * Renders one sourced claim: the text, its presentation label ("as stated in résumé" …) and a source pointer that
+ * links to the public KPOS file and line. This is how "everything is true" becomes visible.
+ */
+import type { Claim } from '@/lib/schema';
+import { LABEL_CAPTION, sourceHref, sourceLabel } from '@/lib/content';
+
+interface Props {
+  claim: Claim;
+  as?: 'p' | 'li' | 'span' | 'div';
+  /** Hide the source pointer (plaques show it in the maintenance hatch instead). */
+  compact?: boolean;
+  class?: string;
+}
+const { claim, as: Tag = 'p', compact = false, class: cls = '' } = Astro.props;
+const caption = LABEL_CAPTION[claim.label];
+const href = sourceHref(claim.source);
+---
+
+<Tag class:list={['claim', cls]} data-ledger={claim.ledger}>
+  <span
+    class="claim__text"
+    set:html={claim.text.replace(
+      /→/g,
+      '<span aria-hidden="true">→</span><span class="visually-hidden"> to </span>',
+    )}
+  />
+  {(caption || !compact) && (
+    <small class="claim__meta">
+      {caption && <span class="claim__label">{caption}</span>}
+      {!compact && (
+        <span class="claim__source">
+          {href ? (
+            <a href={href} rel="noopener noreferrer external" title="Source file and line">
+              {sourceLabel(claim.source)}
+            </a>
+          ) : (
+            <span title="Private source, not published">{sourceLabel(claim.source)}</span>
+          )}
+        </span>
+      )}
+    </small>
+  )}
+</Tag>
+
+<style>
+  @layer components {
+    .claim {
+      max-width: 70ch;
+    }
+    .claim__meta {
+      display: block;
+      margin-block-start: 2px;
+      font-family: var(--font-mono);
+      font-size: var(--text-xs);
+      color: var(--ink-3);
+      display: flex;
+      flex-wrap: wrap;
+      gap: var(--space-1) var(--space-3);
+    }
+    .claim__label::before {
+      content: '· ';
+      color: var(--ink-brass);
+    }
+    .claim__label {
+      color: var(--ink-brass);
+    }
+    .claim__source a {
+      color: var(--ink-3);
+      text-decoration-color: var(--line-strong);
+    }
+    .claim__source a:hover {
+      color: var(--ink);
+    }
+  }
+</style>

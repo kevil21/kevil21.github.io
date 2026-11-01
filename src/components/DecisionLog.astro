@@ -1,0 +1,63 @@
+---
+/** Decision log: each decision as a sourced statement plus the narration the Operator uses when acting on it. */
+import type { DecisionEntry } from '@/lib/content';
+import Claim from './Claim.astro';
+
+interface Props {
+  decisions: DecisionEntry[];
+  title?: string;
+}
+const { decisions, title = 'Decision log' } = Astro.props;
+---
+
+{decisions.length > 0 && (
+  <section class="decisions" aria-labelledby="decisions-title">
+    <h2 id="decisions-title">{title}</h2>
+    <ol class="decisions__list" role="list">
+      {decisions.map((d) => (
+        <li class="decision" id={d.data.id}>
+          <h3 class="decision__title">
+            <span class="decision__id mono">{d.data.id}</span> {d.data.title}
+          </h3>
+          <Claim claim={d.data.statement} />
+          <p class="decision__narration">
+            <span class="eyebrow">Operator narration</span>
+            <br />
+            {d.data.narration}
+          </p>
+        </li>
+      ))}
+    </ol>
+  </section>
+)}
+
+<style>
+  @layer components {
+    .decisions {
+      display: grid;
+      gap: var(--space-4);
+    }
+    .decisions__list {
+      display: grid;
+      gap: var(--space-4);
+    }
+    .decision {
+      border-inline-start: 2px solid var(--fill-brass);
+      padding-inline-start: var(--space-4);
+      display: grid;
+      gap: var(--space-2);
+    }
+    .decision__title {
+      font-size: var(--text-lg);
+    }
+    .decision__id {
+      color: var(--ink-brass);
+      font-size: var(--text-xs);
+      letter-spacing: var(--tracking-wide);
+    }
+    .decision__narration {
+      color: var(--ink-2);
+      font-style: italic;
+    }
+  }
+</style>

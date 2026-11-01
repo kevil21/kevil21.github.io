@@ -1,0 +1,60 @@
+---
+/**
+ * Server component that mounts the ControlPanel island for a machine with its controls, readouts and decisions from
+ * the content collections. `headless` runs the simulation in the island when no 3D hall is on the page.
+ */
+import ControlPanel from '@/islands/ControlPanel';
+import type { MachineEntry, DecisionEntry } from '@/lib/content';
+
+interface Props {
+  machine: MachineEntry;
+  decisions: DecisionEntry[];
+  headless?: boolean;
+  compact?: boolean;
+  client?: 'idle' | 'visible';
+}
+const { machine, decisions, headless = false, compact = false, client = 'visible' } = Astro.props;
+const m = machine.data;
+const controls = m.controls.map((c) => ({
+  id: c.id,
+  label: c.label,
+  kind: c.kind,
+  ...(c.min !== undefined ? { min: c.min } : {}),
+  ...(c.max !== undefined ? { max: c.max } : {}),
+  ...(c.step !== undefined ? { step: c.step } : {}),
+  ...(c.options ? { options: c.options } : {}),
+  default: c.default,
+  ...(c.note ? { note: c.note } : {}),
+}));
+const outs = m.readouts.map((r) => ({ id: r.id, label: r.label, ...(r.unit ? { unit: r.unit } : {}) }));
+const decs = decisions.map((d) => ({
+  id: d.data.id,
+  title: d.data.title,
+  narration: d.data.narration,
+  ...(d.data.control ? { control: d.data.control } : {}),
+}));
+---
+
+{client === 'idle' ? (
+  <ControlPanel
+    client:idle
+    slug={m.slug}
+    name={m.name}
+    controls={controls}
+    readouts={outs}
+    decisions={decs}
+    headless={headless}
+    compact={compact}
+  />
+) : (
+  <ControlPanel
+    client:visible
+    slug={m.slug}
+    name={m.name}
+    controls={controls}
+    readouts={outs}
+    decisions={decs}
+    headless={headless}
+    compact={compact}
+  />
+)}

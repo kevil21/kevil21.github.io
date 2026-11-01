@@ -1,0 +1,198 @@
+---
+/**
+ * The hall. Readable first: recruiter strip (layout), the intro card, six bay cards and the hall-power card are HTML
+ * and are the scroll stops of the camera rail. The 3D stage is sticky behind them and streams in after first paint;
+ * a static SVG floor plan stands in before it and forever without WebGL 2.
+ */
+import Shell from '@/layouts/Shell.astro';
+import HallStill from '@/components/HallStill.astro';
+import HallHud from '@/islands/HallHud';
+import { getEntry } from 'astro:content';
+import { PROFILE } from '@/lib/profile';
+import { SITE } from '@/lib/site';
+import { loadDecisions, loadMachines } from '@/lib/content';
+import MachinePanel from '@/components/MachinePanel.astro';
+import HallPower from '@/components/HallPower.astro';
+import MaintenanceHatch from '@/components/MaintenanceHatch.astro';
+import '@/styles/panel.css';
+import '@/styles/hall.css';
+
+const profile = await getEntry('profile', 'kevil');
+if (!profile) throw new Error('profile content missing');
+const p = profile.data;
+const machines = await loadMachines();
+const decisions = await loadDecisions();
+
+const jsonLd = {
+  '@context': 'https://schema.org',
+  '@type': 'Person',
+  name: p.name.text,
+  alternateName: 'kevil21',
+  jobTitle: p.title.text,
+  worksFor: { '@type': 'Organization', name: p.employer.text, url: p.employerUrl },
+  email: `mailto:${p.email.text}`,
+  url: SITE.origin,
+  image: `${SITE.origin}/images/derived/headshot-640.jpg`,
+  address: {
+    '@type': 'PostalAddress',
+    addressLocality: 'Surat',
+    addressRegion: 'Gujarat',
+    addressCountry: 'IN',
+  },
+  alumniOf: { '@type': 'CollegeOrUniversity', name: 'Vellore Institute of Technology' },
+  sameAs: p.links.map((l) => l.href),
+};
+---
+
+<Shell title={PROFILE.name} path="/" ogType="profile" jsonLd={jsonLd} bodyClass="page-hall" bare>
+  <div class="hall" id="hall">
+    <div class="hall-stage" id="hall-stage" data-hall="pending">
+      <HallStill />
+    </div>
+
+    <div class="bays">
+      <section class="bay" data-rail-stop="0" id="control-room" aria-labelledby="hall-title">
+        <div class="bay__card bay__card--intro">
+          <picture class="bay__portrait">
+            <source
+              type="image/avif"
+              srcset="/images/derived/headshot-160.avif 160w, /images/derived/headshot-320.avif 320w"
+              sizes="96px"
+            />
+            <source
+              type="image/webp"
+              srcset="/images/derived/headshot-160.webp 160w, /images/derived/headshot-320.webp 320w"
+              sizes="96px"
+            />
+            <img
+              src="/images/derived/headshot-320.jpg"
+              width="96"
+              height="96"
+              alt="Kevil Patel, portrait photograph"
+              loading="eager"
+              decoding="async"
+              fetchpriority="low"
+            />
+          </picture>
+          <p class="eyebrow">
+            The Simulation Room <span aria-hidden="true">·</span> <span class="sample-tag">sample data</span>
+          </p>
+          <h1 id="hall-title" class="bay__title">
+            A laboratory of {p.name.text}'s work.
+          </h1>
+          <p class="bay__sub">
+            Six working machines, one for each system I built, running on clearly labelled sample data and
+            operated by an on-device agent that explains every change from my own decision records.{' '}
+            {p.title.text} at
+            <a href={p.employerUrl} rel="noopener noreferrer external">
+              {p.employer.text}
+            </a>
+            , {p.headline.text}.
+          </p>
+          <p class="bay__actions">
+            <a class="button button--primary" href="/resume/">
+              Read the résumé
+            </a>
+            <a class="button" href="/contact/">
+              Contact
+            </a>
+            <a class="button" href="/work/">
+              Case studies
+            </a>
+          </p>
+          <p class="as-stated">Scroll or press → to walk the floor. Every fact traces to a source.</p>
+        </div>
+      </section>
+
+      {machines.map((m) => (
+        <section
+          class="bay"
+          data-rail-stop={m.data.bay}
+          id={`bay-${m.data.bay}`}
+          aria-labelledby={`bay-title-${m.data.bay}`}
+        >
+          <div class="bay__card">
+            <p class="bay__bay mono">bay {String(m.data.bay).padStart(2, '0')}</p>
+            <h2 id={`bay-title-${m.data.bay}`} class="bay__title" transition:name={`machine-${m.data.slug}`}>
+              <a href={`/machines/${m.data.slug}/`}>{m.data.name}</a>
+            </h2>
+            <p class="bay__sub">{m.data.subtitle}</p>
+            <p>{m.data.embodies}</p>
+            <p class="bay__actions">
+              <button
+                class="button button--primary bay__toggle"
+                type="button"
+                aria-expanded="false"
+                aria-controls={`panel-${m.data.slug}`}
+                data-toggle-panel
+              >
+                Open the control panel
+              </button>
+              <a class="button" href={`/machines/${m.data.slug}/`}>
+                Machine page
+              </a>
+              {m.data.caseStudy && (
+                <a class="button" href={`/work/${m.data.projects[0] ?? ''}/`}>
+                  Read the case study
+                </a>
+              )}
+            </p>
+            <div class="bay__panel" id={`panel-${m.data.slug}`} hidden>
+              <MachinePanel
+                machine={m}
+                decisions={decisions.filter((d) => m.data.decisions.includes(d.data.id))}
+                client="visible"
+              />
+            </div>
+            <MaintenanceHatch claims={m.data.plaque} machine={m.data.slug} />
+          </div>
+        </section>
+      ))}
+
+      <section class="bay" data-rail-stop="7" id="hall-power" aria-labelledby="power-title">
+        <div class="bay__card">
+          <p class="bay__bay mono">back wall</p>
+          <h2 id="power-title" class="bay__title">
+            Hall power
+          </h2>
+          <p class="bay__sub">
+            The meter on the far wall counts dated milestones per month: roles, certifications, projects,
+            community work.
+          </p>
+          <HallPower from="2023-01" />
+          <p class="bay__actions">
+            <a class="button" href="/resume/">
+              Full résumé
+            </a>
+            <a class="button" href="/certifications/">
+              Certifications
+            </a>
+            <a class="button" href="#control-room">
+              Back to the control room
+            </a>
+          </p>
+        </div>
+      </section>
+    </div>
+
+    <HallHud client:idle />
+  </div>
+
+  <script>
+    import { loadHall } from '@/hall/loader';
+    const stage = document.getElementById('hall-stage');
+    if (stage) void loadHall(stage);
+    // Bay panels: toggle buttons bound outside the island so they work before hydration
+    document.addEventListener('click', (e) => {
+      const btn = (e.target as HTMLElement | null)?.closest<HTMLButtonElement>('[data-toggle-panel]');
+      if (!btn) return;
+      const id = btn.getAttribute('aria-controls');
+      const panel = id ? document.getElementById(id) : null;
+      if (!panel) return;
+      const open = panel.hasAttribute('hidden');
+      panel.toggleAttribute('hidden', !open);
+      btn.setAttribute('aria-expanded', String(open));
+      btn.textContent = open ? 'Close the control panel' : 'Open the control panel';
+    });
+  </script>
+</Shell>

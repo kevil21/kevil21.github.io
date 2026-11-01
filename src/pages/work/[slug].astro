@@ -1,0 +1,241 @@
+---
+/**
+ * Case-study page (Tier 0): problem, approach, architecture diagram, outcomes with sources, decision log.
+ * Flagship projects also render their Markdown narrative. Interview-quality with JavaScript disabled.
+ */
+import Shell from '@/layouts/Shell.astro';
+import Claim from '@/components/Claim.astro';
+import FlowDiagram from '@/components/FlowDiagram.astro';
+import DecisionLog from '@/components/DecisionLog.astro';
+import LensToggle from '@/islands/LensToggle';
+import { render } from 'astro:content';
+import { DIAGRAMS } from '@/lib/diagrams';
+import {
+  loadCaseStudies,
+  loadDecisions,
+  loadMachines,
+  loadProjects,
+  sourceHref,
+  sourceLabel,
+} from '@/lib/content';
+
+export async function getStaticPaths() {
+  const projects = await loadProjects();
+  return projects.map((p) => ({ params: { slug: p.id }, props: { id: p.id } }));
+}
+
+const { id } = Astro.props;
+const [projects, machines, decisions, caseStudies] = await Promise.all([
+  loadProjects(),
+  loadMachines(),
+  loadDecisions(),
+  loadCaseStudies(),
+]);
+const project = projects.find((p) => p.id === id);
+if (!project) throw new Error(`project ${id} missing`);
+const machine = machines.find((m) => m.id === project.data.machine);
+if (!machine) throw new Error(`machine ${project.data.machine} missing`);
+const log = decisions.filter((d) => project.data.decisions.includes(d.data.id));
+const caseStudy = caseStudies.find((c) => c.data.project === id);
+const Narrative = caseStudy ? (await render(caseStudy)).Content : null;
+const diagram = DIAGRAMS[machine.data.slug];
+const siblings = projects.filter((p) => p.data.machine === machine.id && p.id !== id);
+const jsonLd = {
+  '@context': 'https://schema.org',
+  '@type': 'CreativeWork',
+  name: project.data.name,
+  description: project.data.summary.text,
+  author: { '@type': 'Person', name: 'Kevil Patel' },
+  ...(project.data.year ? { dateCreated: project.data.year } : {}),
+  ...(project.data.links.find((l) => l.kind === 'repo')
+    ? { codeRepository: project.data.links.find((l) => l.kind === 'repo')!.href }
+    : {}),
+};
+---
+
+<Shell
+  title={project.data.name}
+  description={project.data.summary.text.slice(0, 155)}
+  path={`/work/${id}/`}
+  ogType="article"
+  jsonLd={jsonLd}
+>
+  <article class="wrap case">
+    <header class="case__head">
+      <p class="eyebrow">
+        Case study · <a href={`/machines/${machine.data.slug}/`}>{machine.data.name}</a> · bay{' '}
+        {String(machine.data.bay).padStart(2, '0')}
+        {project.data.year && <> · {project.data.year}</>}
+      </p>
+      <h1>{project.data.name}</h1>
+      <Claim claim={project.data.summary} class="case__summary" />
+      <p class="case__lens">
+        <LensToggle client:idle />{' '}
+        <span class="as-stated">Engineer lens shows the source file and line under every claim.</span>
+      </p>
+      {project.data.links.length > 0 && (
+        <p class="case__links">
+          {project.data.links.map((l) => (
+            <a href={l.href} rel="noopener noreferrer external" class="case__link">
+              {l.label}
+            </a>
+          ))}
+        </p>
+      )}
+    </header>
+
+    {project.data.problem && (
+      <section class="case__section" aria-labelledby="c-problem">
+        <h2 id="c-problem">Problem</h2>
+        <Claim claim={project.data.problem} />
+      </section>
+    )}
+
+    {project.data.approach.length > 0 && (
+      <section class="case__section" aria-labelledby="c-approach">
+        <h2 id="c-approach">Approach</h2>
+        <ol class="case__steps" role="list">
+          {project.data.approach.map((a) => (
+            <Claim claim={a} as="li" />
+          ))}
+        </ol>
+      </section>
+    )}
+
+    {diagram && (
+      <section class="case__section" aria-labelledby="c-arch">
+        <h2 id="c-arch">Architecture</h2>
+        <FlowDiagram diagram={diagram} id={`arch-${machine.data.slug}`} />
+      </section>
+    )}
+
+    {project.data.outcomes.length > 0 && (
+      <section class="case__section" aria-labelledby="c-outcomes">
+        <h2 id="c-outcomes">Outcomes</h2>
+        <ul class="case__steps" role="list">
+          {project.data.outcomes.map((o) => (
+            <Claim claim={o} as="li" />
+          ))}
+        </ul>
+      </section>
+    )}
+
+    {project.data.stack.length > 0 && (
+      <section class="case__section" aria-labelledby="c-stack">
+        <h2 id="c-stack">Stack</h2>
+        <p class="case__stack mono">{project.data.stack.join(' · ')}</p>
+        {project.data.stackSource && (
+          <p class="as-stated">
+            {sourceHref(project.data.stackSource) ? (
+              <a href={sourceHref(project.data.stackSource)!} rel="noopener noreferrer external">
+                {sourceLabel(project.data.stackSource)}
+              </a>
+            ) : (
+              sourceLabel(project.data.stackSource)
+            )}
+          </p>
+        )}
+      </section>
+    )}
+
+    {Narrative && (
+      <section class="case__section case__narrative" aria-labelledby="c-narrative">
+        <h2 id="c-narrative">{caseStudy!.data.title}</h2>
+        <Narrative />
+      </section>
+    )}
+
+    <DecisionLog decisions={log} />
+
+    {siblings.length > 0 && (
+      <nav class="case__siblings" aria-label="Other projects on this machine">
+        <p class="eyebrow">Also on the {machine.data.name}</p>
+        <ul role="list">
+          {siblings.map((s) => (
+            <li>
+              <a href={`/work/${s.id}/`}>{s.data.name}</a>
+            </li>
+          ))}
+        </ul>
+      </nav>
+    )}
+  </article>
+</Shell>
+
+<style>
+  @layer components {
+    .case {
+      padding-block: var(--space-7);
+      display: grid;
+      gap: var(--space-7);
+    }
+    .case__head {
+      display: grid;
+      gap: var(--space-3);
+    }
+    .case__summary {
+      font-size: var(--text-lg);
+      color: var(--ink-2);
+    }
+    .case__lens {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      gap: var(--space-3);
+      max-width: none;
+    }
+    .case__links {
+      display: flex;
+      flex-wrap: wrap;
+      gap: var(--space-2);
+      max-width: none;
+    }
+    .case__link {
+      display: inline-flex;
+      align-items: center;
+      min-height: var(--touch);
+      padding-inline: var(--space-3);
+      border: 1px solid var(--line-strong);
+      border-radius: var(--radius-pill);
+      text-decoration: none;
+    }
+    .case__section {
+      display: grid;
+      gap: var(--space-3);
+    }
+    .case__steps {
+      display: grid;
+      gap: var(--space-3);
+      counter-reset: step;
+    }
+    .case__steps :global(li) {
+      position: relative;
+      padding-inline-start: var(--space-6);
+    }
+    .case__steps :global(li)::before {
+      counter-increment: step;
+      content: counter(step, decimal-leading-zero);
+      position: absolute;
+      inset-inline-start: 0;
+      inset-block-start: 0.15em;
+      font-family: var(--font-mono);
+      font-size: var(--text-xs);
+      color: var(--ink-brass);
+    }
+    .case__stack {
+      color: var(--ink-2);
+    }
+    .case__narrative :global(h2),
+    .case__narrative :global(h3) {
+      margin-block-start: var(--space-3);
+    }
+    .case__narrative :global(p) {
+      margin-block: var(--space-2);
+    }
+    .case__siblings ul {
+      display: flex;
+      flex-wrap: wrap;
+      gap: var(--space-3);
+    }
+  }
+</style>

@@ -1,0 +1,89 @@
+---
+/**
+ * The hall as a still: an inline SVG floor plan drawn from the same layout numbers as the 3D scene. Shown before the
+ * canvas is ready, forever without JavaScript or WebGL 2, and as the reduced-motion/print twin of the hall.
+ */
+import { minimapModel } from '@/hall/layout';
+const m = minimapModel();
+const names = [
+  'Telemetry Refinery',
+  'Policy Sorter',
+  'Forecast Engine',
+  'Data Workbench',
+  'Calibration Bench',
+  'Foundations Generator',
+];
+---
+
+<div class="hall-still" aria-hidden="false">
+  <svg viewBox={`0 0 ${m.width} ${m.height + 90}`} role="img" aria-labelledby="still-title">
+    <title id="still-title">Floor plan of the laboratory: control room at the left, six machine bays along the hall, the hall power meter on the far wall.</title>
+    <rect x="0" y="0" width={m.width} height={m.height} class="still__hall" />
+    <rect
+      x={m.controlRoom.x}
+      y={m.controlRoom.y}
+      width={m.controlRoom.w}
+      height={m.controlRoom.h}
+      rx="8"
+      class="still__room"
+    />
+    <text
+      x={m.controlRoom.x + m.controlRoom.w / 2}
+      y={m.controlRoom.y + m.controlRoom.h / 2}
+      text-anchor="middle"
+      class="still__label"
+    >
+      control room
+    </text>
+    {m.bays.map((b, i) => (
+      <g transform={`translate(${b.x} ${b.y})`} class="still__bay">
+        <rect width={b.w} height={b.h} rx="10" />
+        <circle cx={b.w / 2} cy={-26} r="9" class="still__lamp" />
+        <text x={b.w / 2} y={b.h / 2 + 8} text-anchor="middle" class="still__num">
+          {String(i + 1).padStart(2, '0')}
+        </text>
+        <text x={b.w / 2} y={m.height - b.y + 40} text-anchor="middle" class="still__name">
+          {names[i]}
+        </text>
+      </g>
+    ))}
+    <rect x={m.backWall.x} y={m.backWall.y} width={m.backWall.w} height={m.backWall.h} class="still__meter" />
+  </svg>
+</div>
+
+<style>
+  @layer components {
+    .still__hall {
+      fill: var(--bg-floor);
+      stroke: var(--line-strong);
+      stroke-width: 4;
+    }
+    .still__room {
+      fill: var(--fill-glass);
+      stroke: var(--line-strong);
+      stroke-width: 4;
+    }
+    .still__label,
+    .still__name {
+      fill: var(--ink-2);
+      font-family: var(--font-mono);
+      font-size: 22px;
+    }
+    .still__bay rect {
+      fill: var(--surface-2);
+      stroke: var(--fill-brass);
+      stroke-width: 4;
+    }
+    .still__lamp {
+      fill: var(--fill-amber);
+    }
+    .still__num {
+      fill: var(--ink);
+      font-family: var(--font-mono);
+      font-size: 40px;
+    }
+    .still__meter {
+      fill: var(--fill-brass);
+    }
+  }
+</style>

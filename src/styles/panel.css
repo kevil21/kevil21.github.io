@@ -1,0 +1,181 @@
+/* Control panel island (over the 3D on the hall page; standalone on machine pages). */
+@layer components {
+  .panel {
+    display: grid;
+    gap: var(--space-3);
+    background: var(--surface);
+    border: 1px solid var(--line);
+    border-radius: var(--radius-lg);
+    padding: var(--space-4);
+  }
+  .panel__head {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: var(--space-2);
+  }
+  .panel__readouts {
+    margin: 0;
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(min(9rem, 100%), 1fr));
+    gap: var(--space-2);
+  }
+  .panel__readout {
+    background: var(--surface-2);
+    border-radius: var(--radius-md);
+    padding: var(--space-2) var(--space-3);
+    display: grid;
+    gap: 2px;
+    min-width: 0;
+  }
+  .panel__readout dt {
+    font-size: var(--text-xs);
+    color: var(--ink-2);
+    text-transform: uppercase;
+    letter-spacing: var(--tracking-wide);
+  }
+  .panel__readout dd {
+    margin: 0;
+    color: var(--ink-amber);
+    font-size: var(--text-base);
+    overflow-wrap: anywhere;
+  }
+  .panel__unit {
+    color: var(--ink-2);
+    font-size: var(--text-xs);
+  }
+  .panel__controls {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(min(12rem, 100%), 1fr));
+    gap: var(--space-3);
+  }
+  .panel__control {
+    display: grid;
+    gap: var(--space-1);
+    min-width: 0;
+    align-content: start;
+  }
+  .panel__control label {
+    font-size: var(--text-sm);
+    color: var(--ink-2);
+    display: flex;
+    justify-content: space-between;
+    gap: var(--space-2);
+  }
+  .panel__control input[type='range'] {
+    width: 100%;
+    min-height: var(--touch);
+    accent-color: var(--fill-amber);
+  }
+  .panel__control select {
+    min-height: var(--touch);
+    background: var(--surface-2);
+    border: 1px solid var(--line-strong);
+    border-radius: var(--radius-md);
+    color: var(--ink);
+    padding-inline: var(--space-3);
+  }
+  .panel__switch {
+    display: flex;
+    align-items: center;
+    gap: var(--space-3);
+    min-height: var(--touch);
+    background: none;
+    border: 0;
+    color: var(--ink);
+    padding: 0;
+    cursor: pointer;
+    text-align: start;
+  }
+  .panel__knob {
+    flex: none;
+    width: 44px;
+    height: 24px;
+    border-radius: var(--radius-pill);
+    background: var(--surface-3);
+    border: 1px solid var(--line-strong);
+    position: relative;
+    transition: background var(--dur-fast) var(--ease-standard);
+  }
+  .panel__knob::after {
+    content: '';
+    position: absolute;
+    inset-block-start: 2px;
+    inset-inline-start: 2px;
+    width: 18px;
+    height: 18px;
+    border-radius: 50%;
+    background: var(--ink-2);
+    transition: transform var(--dur-fast) var(--ease-spring);
+  }
+  .panel__switch[aria-checked='true'] .panel__knob {
+    background: var(--fill-amber);
+    border-color: var(--fill-amber);
+  }
+  .panel__switch[aria-checked='true'] .panel__knob::after {
+    transform: translateX(20px);
+    background: var(--on-amber);
+  }
+  .panel__switch--lever .panel__knob {
+    width: 24px;
+    height: 44px;
+  }
+  .panel__switch--lever .panel__knob::after {
+    inset-inline-start: 2px;
+    inset-block-start: 22px;
+  }
+  .panel__switch--lever[aria-checked='true'] .panel__knob::after {
+    transform: translateY(-20px);
+  }
+  .panel__button {
+    min-height: var(--touch);
+    border-radius: var(--radius-pill);
+    border: 1px solid var(--fill-amber);
+    background: var(--fill-amber-dim);
+    color: var(--ink);
+    padding-inline: var(--space-4);
+    cursor: pointer;
+  }
+  .panel__note {
+    font-size: var(--text-xs);
+    color: var(--ink-3);
+  }
+  .panel__narration {
+    border-inline-start: 2px solid var(--fill-brass);
+    padding-inline-start: var(--space-3);
+    color: var(--ink-2);
+    font-style: italic;
+    max-width: none;
+  }
+  .panel__decisions ul {
+    display: grid;
+    gap: var(--space-1);
+    margin-block-start: var(--space-1);
+  }
+  .panel__decision {
+    width: 100%;
+    text-align: start;
+    min-height: var(--touch);
+    background: var(--surface-2);
+    border: 1px solid var(--line);
+    border-radius: var(--radius-md);
+    color: var(--ink);
+    padding-inline: var(--space-3);
+    cursor: pointer;
+  }
+  .panel__decision[aria-expanded='true'] {
+    border-color: var(--fill-brass);
+  }
+  .panel__decision-id {
+    color: var(--ink-brass);
+    font-size: var(--text-xs);
+  }
+  .panel__why {
+    padding: var(--space-2) var(--space-3);
+    color: var(--ink-2);
+    font-size: var(--text-sm);
+  }
+  .panel--compact .panel__decisions {
+    display: none;
+  }
+}
