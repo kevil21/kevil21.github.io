@@ -106,3 +106,18 @@ export function bayForSlug(slug: string): number {
   const i = (BAY_SLUGS as readonly string[]).indexOf(slug);
   return i < 0 ? 0 : i;
 }
+
+/** Back to the initial state when the hall page is left (soft navigation), so the next visit starts clean. */
+export function resetHallState(): void {
+  hall.set({
+    tier: 'pending',
+    quality: 'high',
+    mode: 'rail',
+    bay: 0,
+    opening: 'pending',
+    paused: false,
+    fps: 0,
+  });
+  railProgress.set(0);
+  mapOpen.set(false);
+}

@@ -74,9 +74,10 @@ export function bindRail(stage: HTMLElement): RailBinding {
     )
       return;
     if (hall.get().mode !== 'rail') return;
+    // Left/Right and PageUp/PageDown walk the rail. ArrowUp/ArrowDown keep their native line-by-line scrolling.
     let delta = 0;
-    if (e.key === 'ArrowRight' || e.key === 'ArrowDown' || e.key === 'PageDown') delta = 1;
-    else if (e.key === 'ArrowLeft' || e.key === 'ArrowUp' || e.key === 'PageUp') delta = -1;
+    if (e.key === 'ArrowRight' || e.key === 'PageDown') delta = 1;
+    else if (e.key === 'ArrowLeft' || e.key === 'PageUp') delta = -1;
     else if (e.key === 'Home') {
       e.preventDefault();
       walkTo(0);
@@ -118,6 +119,12 @@ export function bindRail(stage: HTMLElement): RailBinding {
   };
 
   measure();
+  // Opening a control panel, a hatch or a decision changes a bay's height; the anchors must follow or the camera
+  // would be a bay out of step with the scroll position.
+  const container = sections[0]?.parentElement;
+  const layoutObserver = new ResizeObserver(() => measure());
+  if (container) layoutObserver.observe(container);
+  for (const s of sections) layoutObserver.observe(s);
   window.addEventListener('scroll', onScroll, { passive: true });
   window.addEventListener('resize', measure);
   window.addEventListener('keydown', onKey);
@@ -128,6 +135,8 @@ export function bindRail(stage: HTMLElement): RailBinding {
   return {
     measure,
     dispose() {
+      layoutObserver.disconnect();
+      window.clearTimeout(suppressTimer);
       window.removeEventListener('scroll', onScroll);
       window.removeEventListener('resize', measure);
       window.removeEventListener('keydown', onKey);

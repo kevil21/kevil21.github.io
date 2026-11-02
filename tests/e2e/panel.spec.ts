@@ -34,7 +34,7 @@ test('policy sorter: a high-risk policy waits at the gate until the lever is pul
   const packsBefore = Number(
     await panel.locator('[data-readout="evidence-packs"] .panel__value').textContent(),
   );
-  await panel.locator('[role="switch"][id$="approve"]').click();
+  await panel.locator('button[id$="approve"]').click();
   await expect
     .poll(
       async () => Number(await panel.locator('[data-readout="evidence-packs"] .panel__value').textContent()),

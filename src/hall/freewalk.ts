@@ -1,6 +1,6 @@
 /** Free walk: bounded OrbitControls (orbit, pan, zoom). Enabled by the toggle; "return to rail" hands control back. */
 import { OrbitControls } from 'three/addons/controls/OrbitControls.js';
-import type { Camera } from 'three';
+import { TOUCH, type Camera } from 'three';
 import { FREE_BOUNDS } from './layout';
 
 export interface FreeWalk {
@@ -20,7 +20,11 @@ export function createFreeWalk(camera: Camera, dom: HTMLElement): FreeWalk {
   controls.maxPolarAngle = Math.PI * 0.49; // never below the floor
   controls.minPolarAngle = Math.PI * 0.15;
   controls.screenSpacePanning = false;
-  controls.touches = { ONE: 0 as never, TWO: 2 as never }; // one finger scrolls the page; two fingers orbit/zoom (set in mount)
+  // Free walk is an explicit mode (a button, with a "return to rail" twin): one finger orbits, two fingers pan and zoom.
+  // In rail mode the controls are disabled and the canvas keeps `touch-action: pan-y`, so one finger scrolls the page.
+  controls.touches = { ONE: TOUCH.ROTATE, TWO: TOUCH.DOLLY_PAN };
+  // OrbitControls forces touch-action: none at construction; hand it back to the stylesheet (hall.css decides per mode).
+  dom.style.touchAction = '';
 
   function clampCamera(): void {
     const p = camera.position;
@@ -37,6 +41,7 @@ export function createFreeWalk(camera: Camera, dom: HTMLElement): FreeWalk {
     controls,
     setEnabled(on) {
       controls.enabled = on;
+      dom.closest('.hall-stage')?.setAttribute('data-mode', on ? 'free' : 'rail');
       if (on) controls.update();
     },
     update() {

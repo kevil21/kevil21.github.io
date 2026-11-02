@@ -49,6 +49,17 @@ export default function Operator({ mode: initialMode = 'ask', initialQuery = '' 
   const [fullState, setFullState] = useState<FullState>({ status: 'idle' });
   const [modelChoice, setModelChoice] = useState(FULL_MODELS[0]!.id);
   const [mode, setMode] = useState<'ask' | 'jd'>(initialMode);
+
+  // WAI-ARIA tabs: arrows / Home / End move between the two tabs (the selected one is the only tab stop).
+  const onTabKey = (e: KeyboardEvent) => {
+    const keys = ['ArrowLeft', 'ArrowRight', 'Home', 'End'];
+    if (!keys.includes(e.key)) return;
+    e.preventDefault();
+    const next: 'ask' | 'jd' =
+      e.key === 'Home' ? 'ask' : e.key === 'End' ? 'jd' : mode === 'ask' ? 'jd' : 'ask';
+    setMode(next);
+    requestAnimationFrame(() => document.getElementById(`op-tab-${next}`)?.focus());
+  };
   const [query, setQuery] = useState(initialQuery);
   const [steps, setSteps] = useState<Record<PlanStep, StepState>>({
     understand: 'pending',
@@ -203,11 +214,14 @@ export default function Operator({ mode: initialMode = 'ask', initialQuery = '' 
           </p>
         </div>
         <div class="op__tabs">
-          <div role="tablist" aria-label="Operator modes" class="op__tablist">
+          <div role="tablist" aria-label="Operator modes" class="op__tablist" onKeyDown={onTabKey}>
             <button
               type="button"
               role="tab"
+              id="op-tab-ask"
               aria-selected={mode === 'ask'}
+              aria-controls="op-panel-ask"
+              tabIndex={mode === 'ask' ? 0 : -1}
               class="op__tab"
               onClick={() => setMode('ask')}
             >
@@ -216,7 +230,10 @@ export default function Operator({ mode: initialMode = 'ask', initialQuery = '' 
             <button
               type="button"
               role="tab"
+              id="op-tab-jd"
               aria-selected={mode === 'jd'}
+              aria-controls="op-panel-jd"
+              tabIndex={mode === 'jd' ? 0 : -1}
               class="op__tab"
               onClick={() => setMode('jd')}
             >
@@ -235,7 +252,7 @@ export default function Operator({ mode: initialMode = 'ask', initialQuery = '' 
       </header>
 
       {mode === 'ask' && (
-        <>
+        <div class="op__pane" role="tabpanel" id="op-panel-ask" aria-labelledby="op-tab-ask">
           <form
             class="op__form"
             onSubmit={(e) => {
@@ -392,11 +409,11 @@ export default function Operator({ mode: initialMode = 'ask', initialQuery = '' 
               ))}
             </ul>
           )}
-        </>
+        </div>
       )}
 
       {mode === 'jd' && (
-        <div class="op__jd">
+        <div class="op__jd" role="tabpanel" id="op-panel-jd" aria-labelledby="op-tab-jd">
           <label for="op-jd" class="op__label">
             Paste a job description. Each requirement is classified as Strong, Related or Not demonstrated,
             with proof links. No percentages.

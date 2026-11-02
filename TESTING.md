@@ -12,7 +12,7 @@ Everything below was run on 2026-11-01 on the build machine (macOS 26.7.1, Apple
 | Content | `npx tsx scripts/validate-content.ts` (also a unit test) | schemas, cross-references, fixed counts, info.md only for cert months |
 | Unit | `npm test` | Vitest: OKLCH maths, schema, token lint, content, floor plan / rail / quality probe, tour, six simulations, power series, AI (chunks, BM25, RRF, answers, NLP, JD, grounding, tools), eggs, service worker |
 | Build + audit | `npm run build` | prebuild (images, ORT, Build Brain) · postbuild (service worker, public-output audit: exclusions + canonical + CNAME) |
-| E2E | `npm run test:e2e` | Playwright, 10 projects × 7 specs (foundation, tier0 with JS disabled, hall, panel, operator, eggs, a11y/axe) |
+| E2E | `npm run test:e2e` | Playwright, 10 projects × 8 specs (foundation, tier0 with JS disabled, hall, panel, operator, eggs, audit, a11y/axe) |
 | Lighthouse | `LH_PRESET=desktop npm run lighthouse` · `LH_PRESET=mobile npm run lighthouse` | perf ≥ 0.90, a11y ≥ 0.95, bp ≥ 0.90, SEO ≥ 0.95, CLS ≤ 0.05, TBT ≤ 200 ms on `/`, a machine page, a case study, the résumé |
 | 3G | `node scripts/check-3g.mjs` | HTML readable before any 3D bundle on 3G + 4× CPU, 390×844 |
 | Frame probe | `hall.spec.ts` "quality probe" | injected slow frames engage a lower profile |
@@ -26,7 +26,7 @@ Served by `scripts/serve-dist.mjs` (Pages-like) on 127.0.0.1:4441. Chromium exer
 adapter in Playwright's build); WebKit on this Mac reported a WebGPU adapter.
 
 ## Results (final numbers in the release report and `Memory/SIMULATION-ROOM/testing-status.md`)
-- Unit: 9 files, 66 tests passing.
+- Unit: 11 files, 81 tests passing (2026-11-02 audit).
 - Build: 25 pages; `✔ service worker: 46 precached entries`; `✔ public-output audit: 171 files clean`.
 - Bundle (gzip): first-load JS 20.7 KB total; `three` chunk 226 KB and `mount` 9 KB lazy; Rapier and the AI workers
   lazy; MiniLM 23 MB + ORT 14 MB only when semantic retrieval loads; Qwen 290 / 880 MB only on explicit opt-in.
@@ -35,7 +35,12 @@ adapter in Playwright's build); WebKit on this Mac reported a WebGPU adapter.
 - E2E, release build: 340 tests → 336 passed, 1 skipped (WebKit service-worker check), 3 test-side races fixed and
   re-run green (10 projects: desktop-light/dark, pixel7-light/dark, iphone14-webkit, small-360, landscape,
   reduced-motion, a11y-light/dark).
-- Lighthouse desktop: perf 1.00 / a11y 1.00 / bp 1.00 / SEO 1.00 on `/`, `/machines/telemetry-refinery/`,
+- **Audit re-run, 2026-11-02:** unit 81/81; build clean (25 pages, 46 precached entries, 170 files audited); E2E 386 passed ·
+  1 skipped · 1 failed. The failure is `iphone14-webkit` "breaker throws the night shift": the phone HUD sheet's transition
+  stalls under WebGPU rendering in this WebKit build; the same test fails 4/4 on the untouched `d213699` build (it passed on
+  2026-11-01). Lighthouse desktop 1.00 on all four URLs (TBT ≤ 26 ms, CLS ≤ 0.025); mobile 0.98 / 0.99 / 1.00 / 0.99,
+  a11y/bp/SEO 1.00, TBT 0 ms, CLS ≤ 0.007.
+- Lighthouse desktop (2026-11-01): perf 1.00 / a11y 1.00 / bp 1.00 / SEO 1.00 on `/`, `/machines/telemetry-refinery/`,
   `/work/a360/`, `/resume/`; CLS ≤ 0.027; TBT ≤ 7 ms. Mobile: perf 0.98 / 0.99 / 0.99 / 0.99, a11y/bp/SEO 1.00,
   CLS ≤ 0.007, TBT ≤ 2 ms, LCP 1.8–2.3 s (simulated). All budgets met.
 - Full Brain (Google Chrome 156 `--headless=new`, Apple metal-3, shader-f16): Qwen2.5-0.5B loaded (290 MB, 394 s on

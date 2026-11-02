@@ -32,6 +32,7 @@ export class SorterMachine extends BaseMachine {
   private paper: Mesh;
   private pack: Mesh;
   private packT = -1;
+  private leverT = -1;
   private cardDrop = -1; // scripted drop timer
   private rapier: RapierModule | null = null;
   private world: InstanceType<RapierModule['World']> | null = null;
@@ -137,7 +138,8 @@ export class SorterMachine extends BaseMachine {
 
   protected override onControl(id: string, value: number | boolean | string): void {
     this.sim.setControl(id, value);
-    if (id === 'approve' && this.leverArm) this.leverArm.rotation.z = value ? 0.5 : -0.5;
+    // The approval lever is a button: pull it down and let it spring back.
+    if (id === 'approve' && value === true) this.leverT = 0;
   }
 
   protected override onProfile(profile: QualityProfile): void {
@@ -194,7 +196,9 @@ export class SorterMachine extends BaseMachine {
     this.markers.forEach((m, i) => {
       const show = stage === 'scan' && i < violations && prog > 0.2 + i * 0.2;
       m.visible = show || (i < violations && ['plan', 'risk', 'gate'].includes(stage));
-      m.position.y = 0.42 + (m.visible ? Math.min(0.3, (prog - 0.2) * 0.6) : 0);
+      // lift during the scan; once scanned, markers stay lifted for the later stages (never sink into the belt)
+      const lift = stage === 'scan' ? Math.min(0.3, Math.max(0, (prog - 0.2) * 0.6)) : 0.3;
+      m.position.y = 0.42 + (m.visible ? lift : 0);
     });
     // Printer paper during planning
     this.paper.visible = stage === 'plan' || stage === 'risk' || stage === 'gate';
@@ -203,6 +207,17 @@ export class SorterMachine extends BaseMachine {
     // Risk needle: score 0..10 → sweep; red zone pinned at 10
     const r = this.sim.readouts();
     if (this.needle) this.needle.rotation.z = Math.PI * 0.4 - (Number(r['risk-score']) / 10) * 1.35;
+    // Approval lever: pulled down and back up; armed (half way) while a plan waits at the gate
+    if (this.leverArm) {
+      if (this.leverT >= 0) {
+        this.leverT += dt;
+        const k = Math.min(1, this.leverT / 0.9);
+        this.leverArm.rotation.z = -0.5 + 1.0 * Math.sin(k * Math.PI);
+        if (k >= 1) this.leverT = -1;
+      } else {
+        this.leverArm.rotation.z = stage === 'gate' ? -0.2 + 0.05 * Math.sin(this.elapsed * 6) : -0.5;
+      }
+    }
     // Evidence pack flies into the cabinet
     if (this.packT >= 0) {
       this.packT += dt;

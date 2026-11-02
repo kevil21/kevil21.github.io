@@ -76,8 +76,11 @@ self.addEventListener('fetch', (event) => {
     event.respondWith(
       fetch(req)
         .then((res) => {
-          const copy = res.clone();
-          caches.open(RUNTIME).then((c) => c.put(req, copy));
+          // Only successful pages are kept for offline use: never cache a 404 or a server error as the page.
+          if (res.ok) {
+            const copy = res.clone();
+            caches.open(RUNTIME).then((c) => c.put(req, copy));
+          }
           return res;
         })
         .catch(() => caches.match(req).then((hit) => hit || caches.match(OFFLINE))),

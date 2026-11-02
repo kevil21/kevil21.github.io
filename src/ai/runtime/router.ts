@@ -8,8 +8,9 @@ import type { Chunk, NlpParse, SearchHit } from '../protocol';
 import type { PocketClient } from './pocket-client';
 import type { FullClient } from './full-client';
 import { ground, hasEvidence, REFUSAL } from '../grounding';
+import { isPersonalTopic } from '../nlp';
 import { parseToolLine, validateCall, type ToolCall } from '../tools';
-import type { ScriptedAnswer } from '../answers';
+import { renderScripted, type ScriptedAnswer } from '../answers';
 
 export type PlanStep = 'understand' | 'retrieve' | 'verify' | 'act' | 'explain';
 export type StepState = 'pending' | 'running' | 'done' | 'skipped';
@@ -35,11 +36,8 @@ export interface OperatorAnswer {
   modelNote?: string;
 }
 
-const PERSONAL =
-  /\b(salary|compensation|pay|weakness|weaknesses|hobby|hobbies|phone|age|married|religion|politic|address)\b/i;
-
 export function declinedTopic(query: string): boolean {
-  return PERSONAL.test(query);
+  return isPersonalTopic(query);
 }
 
 function pickScripted(answers: ScriptedAnswer[], query: string, intent: string): ScriptedAnswer | null {
@@ -183,8 +181,7 @@ export async function route(
   let path: OperatorAnswer['path'];
   if (scripted && scripted.cites.every((id) => pocket.chunk(id))) {
     citations = scripted.cites.map((id, i) => ({ n: i + 1, chunk: pocket.chunk(id)! }));
-    const g = ground(scripted.text, citations.length);
-    sentences = g.sentences.length ? g.sentences : [{ text: scripted.text, cites: [] }];
+    sentences = renderScripted(scripted, pocket.chunks);
     path = 'scripted';
   } else {
     const ex = extractive(hits, pocket);

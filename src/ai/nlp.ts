@@ -13,11 +13,20 @@ export interface Dictionary {
   credentials: string[];
 }
 
+/**
+ * Topics the lab never discusses (the old chatbot's salary, weakness and hobby answers are excluded by the fact
+ * ledger). Whole words and phrases only: a bare prefix like "age" would also match "agent" and "agentic", which are the
+ * site's own subject matter, and "address" would swallow "IP address" in the Policy Sorter's sample policy.
+ */
+const PERSONAL =
+  /\b(?:salary|salaries|compensation|ctc|lpa|pay\s*(?:scale|grade|slip|rate|package)|how\s+much\s+(?:do|does|did|will|would|is|are)\b[^?.!]*\b(?:earn|paid|make|made|get)|weakness(?:es)?|hobby|hobbies|phone\s*(?:number|no)|mobile\s*number|date\s+of\s+birth|birthday|how\s+old|marital|married|girlfriend|boyfriend|religion|religious|political|politics|home\s+address)\b/i;
+
+export function isPersonalTopic(query: string): boolean {
+  return PERSONAL.test(query);
+}
+
 const INTENTS: Array<{ intent: string; patterns: RegExp }> = [
-  {
-    intent: 'refuse-personal',
-    patterns: /\b(salary|compensation|pay|weakness|hobby|hobbies|phone number|age|married|religion|politic)/i,
-  },
+  { intent: 'refuse-personal', patterns: PERSONAL },
   { intent: 'contact', patterns: /\b(contact|email|reach|hire|hiring|available|linkedin|github)\b/i },
   { intent: 'tour', patterns: /\b(tour|show me around|walk me|guide me)\b/i },
   { intent: 'secrets', patterns: /\b(secret|easter egg|hidden|night shift|notebook)\b/i },

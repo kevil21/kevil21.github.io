@@ -6,20 +6,22 @@ import { createSim } from '@/sim';
 import type { Sim } from '@/sim/types';
 import { INSTRUMENTS } from './data/instruments';
 import { POWER_SERIES } from './data/power';
-import { controls, publishReadouts } from './bus';
+import { controls, createControlApplier, onPulse, publishReadouts } from './bus';
 
 export function runHeadless(slug: string): () => void {
   const sim: Sim | null = createSim(slug, 1000, { instruments: INSTRUMENTS, power: POWER_SERIES });
   if (!sim) return () => {};
-  const initial = controls.get()[slug] ?? {};
-  for (const [id, v] of Object.entries(initial)) sim.setControl(id, v);
-  // Make sure the panel sees defaults
-  publishReadouts(slug, sim.readouts());
+  const applyMine = createControlApplier((s, id, v) => (s === slug ? sim.setControl(id, v) : false));
+  applyMine({ [slug]: controls.get()[slug] ?? {} });
+  publishReadouts(slug, sim.readouts()); // make sure the panel sees defaults
 
-  const unsub = controls.subscribe((all) => {
+  const unsubControls = controls.subscribe((all) => {
     const mine = all[slug];
-    if (!mine) return;
-    for (const [id, v] of Object.entries(mine)) if (sim.getControl(id) !== v) sim.setControl(id, v);
+    applyMine(mine ? { [slug]: mine } : {});
+  });
+  // Buttons (run, print, sync now, approve) arrive as pulses, never as stored values.
+  const unsubPulse = onPulse((d) => {
+    if (d.slug === slug) sim.setControl(d.id, true);
   });
 
   let last = performance.now();
@@ -41,6 +43,7 @@ export function runHeadless(slug: string): () => void {
   raf = requestAnimationFrame(loop);
   return () => {
     cancelAnimationFrame(raf);
-    unsub();
+    unsubControls();
+    unsubPulse();
   };
 }

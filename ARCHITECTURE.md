@@ -33,9 +33,15 @@ content/*.json  ──Zod──▶ pages (Astro) ──▶ dist/ (HTML first)
 - `src/islands/` — ThemeToggle, HallHud, ControlPanel, Operator, LensToggle, Toast.
 - `scripts/` — build-knowledge, copy-ort, prepare-assets, import-assets, validate-content, lint-tokens,
   verify-public, build-service-worker, serve-dist, lan-preview, screenshots, check-3g, check-full-brain.
-- `project-context/decisions/` — ADR-001 … ADR-014.
+- `project-context/decisions/` — ADR-001 … ADR-015.
 
 ## Key contracts
+- **Hall lifecycle:** the site uses ClientRouter (soft navigation), so `hall/loader.ts` starts the hall on every
+  `astro:page-load` and disposes it on `astro:before-swap` (ADR-015). Never rely on a module script running twice.
+- **Controls:** persistent (range, select, toggle) versus momentary (buttons: approve, run-*, print, sync-now). Momentary
+  presses are pulses through `onPulse` and are never stored in the control map. `machines.json` `kind: 'button'` and
+  `MOMENTARY_CONTROLS` in `hall/bus.ts` must match (unit-tested). Tool arguments are validated against `machines.json`.
+- **Shortcuts:** character-key shortcuts (R C O T M ?) obey the `sr:shortcuts` switch (WCAG 2.1.4); see footer.
 - **Theme:** `data-theme` set pre-paint; every non-CSS colour read through `tokenColor()`; `sr:themechange` re-applies.
 - **State is the only mutation path:** HUD, panels, Operator tools and the 3D all go through nanostores
   (`hall`, `railProgress`, `controls`, `readouts`, `tour`, `mapOpen`, `themePref`, `lens`).

@@ -8,6 +8,7 @@ import { useStore } from '@nanostores/preact';
 import { controls, narration, readouts, setControlValue, narrate } from '@/hall/bus';
 import type { ControlValue } from '@/sim/types';
 import { labWeather, fireEgg } from '@/hall/eggs';
+import { hall } from '@/hall/state';
 
 export interface PanelControl {
   id: string;
@@ -48,9 +49,12 @@ export default function ControlPanel({
   controls: defs,
   readouts: outs,
   decisions,
-  headless = false,
+  headless: headlessProp = false,
   compact = false,
 }: Props) {
+  // On the hall page the 3D scene drives the sims; when 3D is unavailable (static tier) the panels run them themselves.
+  const { tier } = useStore(hall, { keys: ['tier'] });
+  const headless = headlessProp || tier === 'static';
   const allControls = useStore(controls);
   const allReadouts = useStore(readouts);
   const lines = useStore(narration);

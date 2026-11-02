@@ -17,6 +17,8 @@ export interface MachineAssembly {
   update(dt: number, t: number): void;
   /** Lamps on/off (the opening sequence lights bays one by one). */
   setLit(lit: boolean): void;
+  /** Whether the machine is currently lit (running). */
+  readonly isLit: boolean;
   /** Apply a control value from the panel/Operator. Returns false if unknown. */
   setControl(id: string, value: number | boolean | string): boolean;
   /** Current readouts for the HTML panel (sample data). */

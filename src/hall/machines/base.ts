@@ -30,6 +30,10 @@ export abstract class BaseMachine implements MachineAssembly {
     mesh.material = this.ctx.kit.palette.get(key);
   }
 
+  get isLit(): boolean {
+    return this.lit;
+  }
+
   setLit(lit: boolean): void {
     this.lit = lit;
     for (const l of this.lamps) this.swap(l, lit ? 'lampOn' : 'lampOff');

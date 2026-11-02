@@ -15,12 +15,21 @@ export interface SkillRef {
 
 /** Split a JD into requirement lines: bullets, numbered items, or sentences. */
 export function splitRequirements(jd: string): string[] {
-  const lines = jd
-    .split(/\r?\n|•|▪|‣|(?<=[.;])\s+(?=[A-Z])/)
+  // Lines and bullets first; then split long lines at ". " or "; " before a capital (no regex lookbehind).
+  const rough = jd.split(/\r?\n|•|▪|‣/);
+  const lines: string[] = [];
+  for (const chunk of rough) {
+    const parts = chunk.split(/([.;])\s+(?=[A-Z])/);
+    for (let i = 0; i < parts.length; i += 2) {
+      const piece = (parts[i] ?? '') + (parts[i + 1] ?? '');
+      lines.push(piece);
+    }
+  }
+  const cleaned = lines
     .map((l) => l.replace(/^[\s\-–—*\d.)]+/, '').trim())
     .filter((l) => l.length >= 12 && /[a-z]/i.test(l));
   // drop obvious boilerplate
-  return lines
+  return cleaned
     .filter((l) => !/^(about us|we are|our team|benefits|salary|equal opportunity)/i.test(l))
     .slice(0, 25);
 }

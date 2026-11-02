@@ -6,7 +6,8 @@ export const SITE = {
   description:
     'A laboratory floor of working machines: the systems Kevil Patel built, running on labelled sample data, operated by an on-device AI agent that cites its sources.',
   locale: 'en_IN',
-  version: import.meta.env.PUBLIC_APP_VERSION ?? 'dev',
+  /** Short commit id in CI (`github.sha` is 40 characters), `dev` locally. */
+  version: String(import.meta.env.PUBLIC_APP_VERSION ?? 'dev').slice(0, 7),
 } as const;
 
 export function canonical(path: string): string {

@@ -44,9 +44,10 @@ const year = new Date().getUTCFullYear();
         </span>
       </p>
       <p class="footer__line eyebrow">
-        <a href="/lab-notebook/" rel="nofollow" class="footer__quiet">
-          v{SITE.version}
-        </a>
+        <button type="button" class="footer__shortcuts" data-action="shortcuts" aria-pressed="true">
+          Keyboard shortcuts: on
+        </button>
+        <span class="footer__quiet">v{SITE.version}</span>
       </p>
     </footer>
   )}
@@ -87,7 +88,16 @@ const year = new Date().getUTCFullYear();
     }
     .footer__quiet {
       color: var(--ink-3);
-      text-decoration: none;
+    }
+    .footer__shortcuts {
+      min-height: var(--touch);
+      padding-inline: var(--space-3);
+      border-radius: var(--radius-pill);
+      border: 1px solid var(--line-strong);
+      background: var(--surface);
+      color: var(--ink-2);
+      font: inherit;
+      cursor: pointer;
     }
   }
 </style>

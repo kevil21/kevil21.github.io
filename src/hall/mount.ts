@@ -2,14 +2,29 @@
  * Mounts the 3D hall behind the readable page. Loaded lazily by loader.ts after first paint.
  * Renderer: WebGPURenderer, WebGL 2 backend when no adapter (ADR-010). Pauses when hidden or off-screen.
  * Adaptive quality from measured frame time (quality.ts). Theme follows the tokens live.
+ * `dispose()` releases everything, so a soft navigation (View Transitions) can leave and re-enter the hall.
  */
-import { PerspectiveCamera, Vector3, type Camera } from 'three';
+import {
+  BoxGeometry,
+  DynamicDrawUsage,
+  InstancedMesh,
+  Matrix4,
+  Mesh,
+  PerspectiveCamera,
+  Raycaster,
+  SphereGeometry,
+  Vector2,
+  Vector3,
+  type Camera,
+  type Group,
+  type Material,
+} from 'three';
 import { WebGPURenderer } from 'three/webgpu';
 import { buildHall } from './scene';
 import { buildMachine } from './machines';
-import { controls as controlBus, publishReadouts } from './bus';
+import { controls as controlBus, createControlApplier, onPulse, publishReadouts } from './bus';
 import type { MachineAssembly } from './machines/types';
-import { machinePosition, railPose, BAY_COUNT } from './layout';
+import { machinePosition, railPose } from './layout';
 import { FrameProbe, PROFILES, effectiveDpr } from './quality';
 import { bindRail } from './rail';
 import { createFreeWalk } from './freewalk';
@@ -17,29 +32,13 @@ import { buildCables } from './cables';
 import { buildPowerMeter } from './power-meter';
 import { MachineRoomAudio, soundPref } from './sound';
 import { tour, advanceTour, TOUR_STOPS, startTour, stopTour } from './tour';
-import { SHELL_EVENT, dispatchAction, type ShellActionDetail } from '@/scripts/shell';
+import { SHELL_EVENT, announce, dispatchAction, type ShellActionDetail } from '@/scripts/shell';
 import { ReverseWalkDetector, fireEgg, devConsoleGreeting, EGG_EVENT, type EggDetail } from './eggs';
 import { POWER_SERIES } from './data/power';
-import {
-  Raycaster,
-  Vector2,
-  Mesh,
-  BoxGeometry,
-  SphereGeometry,
-  InstancedMesh,
-  Matrix4,
-  DynamicDrawUsage,
-  type Object3D,
-  type Material,
-} from 'three';
 import { SITE } from '@/lib/site';
-import { walkTo } from './state';
-import type { Group } from 'three';
-import { hall, railProgress, setMode, setOpening, setQuality, setTier, type Quality } from './state';
-import { controls as controlBusForSound } from './bus';
+import { hall, railProgress, setMode, setOpening, setQuality, setTier, walkTo, type Quality } from './state';
 import type { Capability } from './capability';
 import { prefersReducedMotion, durationS } from '@/motion/tokens';
-import { announce } from '@/scripts/shell';
 
 export interface HallHandle {
   dispose(): void;
@@ -51,17 +50,30 @@ export interface HallHandle {
 
 declare global {
   interface Window {
-    __srHall?: {
-      tier: string;
-      quality: Quality;
-      fps: number;
-      frameMs: number;
-      lit: number;
-      machines: string[];
-      forceSlowFrames?: number;
-    };
+    /** Probe for tests and the dev-console greeting. `forceSlowFrames` feeds slow samples to the quality probe. */
+    __srHall?:
+      | {
+          tier: string;
+          quality: Quality;
+          fps: number;
+          frameMs: number;
+          lit: number;
+          machines: string[];
+          forceSlowFrames?: number;
+        }
+      | undefined;
+    __srHallHandle?: HallHandle | undefined;
   }
 }
+
+const MACHINE_SLUGS = [
+  'telemetry-refinery',
+  'policy-sorter',
+  'forecast-engine',
+  'data-workbench',
+  'calibration-bench',
+  'foundations-generator',
+] as const;
 
 export async function mountHall(stage: HTMLElement, cap: Capability): Promise<HallHandle> {
   const canvas = document.createElement('canvas');
@@ -86,17 +98,9 @@ export async function mountHall(stage: HTMLElement, cap: Capability): Promise<Ha
   const camera = new PerspectiveCamera(42, 1, 0.1, 60);
   const env = buildHall(profile);
   const machines = new Map<string, MachineAssembly>();
-  const slugs = [
-    'telemetry-refinery',
-    'policy-sorter',
-    'forecast-engine',
-    'data-workbench',
-    'calibration-bench',
-    'foundations-generator',
-  ];
   // One machine per frame: keeps each main-thread task short on slow CPUs.
   const nextFrame = () => new Promise<void>((r) => requestAnimationFrame(() => r()));
-  for (const [i, slug] of slugs.entries()) {
+  for (const [i, slug] of MACHINE_SLUGS.entries()) {
     const m = buildMachine(slug, { kit: env.kit, profile, seed: 1000 + i });
     const p = machinePosition(i + 1);
     m.group.position.set(p.x, p.y, p.z);
@@ -112,19 +116,21 @@ export async function mountHall(stage: HTMLElement, cap: Capability): Promise<Ha
 
   const free = createFreeWalk(camera, canvas);
 
-  // Control bus → machines; readouts → bus (~4 Hz)
-  const applyControls = (all: Record<string, Record<string, number | boolean | string>>) => {
-    for (const [slug, values] of Object.entries(all)) {
-      const m = machines.get(slug);
-      if (!m) continue;
-      for (const [id, v] of Object.entries(values)) m.setControl(id, v);
-    }
+  // ---- Panels and the Operator talk to the machines through the bus ----------------------------------------------
+  const audio = new MachineRoomAudio();
+  const applyControls = createControlApplier((slug, id, v) => machines.get(slug)?.setControl(id, v) ?? false);
+  const onControlsChanged = (all: Parameters<typeof applyControls>[0]) => {
+    if (applyControls(all) > 0) audio.click();
   };
   applyControls(controlBus.get());
-  const unsubControls = controlBus.subscribe(applyControls);
+  const unsubControls = controlBus.subscribe(onControlsChanged);
+  // Buttons (run a pipeline, print, sync now, pull the approval lever) are pulses, never stored values.
+  const unsubPulse = onPulse(({ slug, id }) => {
+    if (machines.get(slug)?.setControl(id, true)) audio.click();
+  });
   let readoutAcc = 0;
 
-  // Size and DPR
+  // ---- Size and DPR ----------------------------------------------------------------------------------------------
   const resize = () => {
     const w = stage.clientWidth || window.innerWidth;
     const h = stage.clientHeight || window.innerHeight;
@@ -139,23 +145,21 @@ export async function mountHall(stage: HTMLElement, cap: Capability): Promise<Ha
 
   const portrait = () => window.innerHeight > window.innerWidth;
 
-  // Camera follows the rail with easing (snaps under reduced motion)
+  // ---- Camera: follows the rail with easing (snaps under reduced motion) -----------------------------------------
   const desiredPos = new Vector3();
   const desiredTarget = new Vector3();
   const currentTarget = new Vector3();
   const reduced = prefersReducedMotion();
-  // Laptop opening: start close on the Refinery as it wakes, then dolly back to the rail stop. Portrait: the control-room
-  // door pose from the start (the hall recedes down the screen), as in the treatment's phone storyboard.
+  // Laptop opening: start close on the Refinery as it wakes, then dolly back to the rail stop. Portrait: the
+  // control-room door pose from the start (the hall recedes down the screen), as in the treatment's phone storyboard.
+  const refineryX = machinePosition(1).x;
   const openingStart = {
-    position: new Vector3(bayX1() + 1.2, 1.3, -0.2 + 1.9),
-    target: new Vector3(bayX1() - 0.3, 0.9, -1.4),
+    position: new Vector3(refineryX + 1.2, 1.3, -0.2 + 1.9),
+    target: new Vector3(refineryX - 0.3, 0.9, -1.4),
   };
-  function bayX1(): number {
-    return machinePosition(1).x;
-  }
   {
     const pose = railPose(railProgress.get(), portrait());
-    if (!reduced && !portrait() && railProgress.get() < 0.5) {
+    if (!reduced && !portrait() && hall.get().opening !== 'skipped' && railProgress.get() < 0.5) {
       camera.position.copy(openingStart.position);
       currentTarget.copy(openingStart.target);
     } else {
@@ -165,27 +169,18 @@ export async function mountHall(stage: HTMLElement, cap: Capability): Promise<Ha
     camera.lookAt(currentTarget);
   }
 
-  // Sound (off by default; enabled from the HUD toggle, a user gesture)
-  const audio = new MachineRoomAudio();
-  const applySound = async (v: 'on' | 'off') => {
-    if (v === 'on') await audio.enable();
+  // ---- Sound (off by default; enabled from the HUD switch, a user gesture) ---------------------------------------
+  const unsubSound = soundPref.subscribe((v) => {
+    if (v === 'on') void audio.enable();
     else audio.disable();
-  };
-  const unsubSound = soundPref.subscribe((v) => void applySound(v));
-  let lastControlSig = JSON.stringify(controlBusForSound.get());
-  const unsubClick = controlBusForSound.subscribe((all) => {
-    const sig = JSON.stringify(all);
-    if (sig !== lastControlSig) audio.click();
-    lastControlSig = sig;
   });
 
-  // Breaker lever in the control room
+  // ---- Control-room props and the eggs ---------------------------------------------------------------------------
   const breakerLever = env.scene.getObjectByName('breaker-lever') as Group | undefined;
   const breakerArm = breakerLever?.userData['arm'] as Group | undefined;
   let breakerThrown = false;
 
-  // Eggs: reverse walk → the hall printer prints the résumé; coffee mug → steam shaped by the power series;
-  // picking (click/tap) on the breaker lever, the mug and the machines' hatch plates; dev-console greeting.
+  // Reverse walk → the hall printer prints the résumé; coffee mug → steam shaped by the power series.
   const reverse = new ReverseWalkDetector();
   const printer = env.scene.getObjectByName('hall-printer');
   const paper = new Mesh(new BoxGeometry(0.4, 0.002, 0.3), env.palette.get('enamel') as Material);
@@ -226,15 +221,18 @@ export async function mountHall(stage: HTMLElement, cap: Capability): Promise<Ha
     if (d.egg === 'coffee-mug') steamT = 0;
   };
   window.addEventListener(EGG_EVENT, onEgg);
-  // hatch plates on each plinth
-  const plates = new Map<Object3D, string>();
+
+  // A brass hatch plate on each plinth (3D twin of the "Maintenance hatch" disclosure)
+  const hatchGeometry = new BoxGeometry(0.22, 0.02, 0.14);
   machines.forEach((m, slug) => {
-    const plate = new Mesh(new BoxGeometry(0.22, 0.02, 0.14), env.palette.get('brass') as Material);
+    const plate = new Mesh(hatchGeometry, env.palette.get('brass') as Material);
     plate.position.set(-1.1, 0.09, 0.85);
     plate.userData['pick'] = `hatch:${slug}`;
     m.group.add(plate);
-    plates.set(plate, slug);
   });
+
+  // Picking: a quick tap or click on the breaker, the mug or a hatch plate. The canvas only receives pointer events
+  // where no bay card covers it (hall.css), and its touch-action keeps vertical page scrolling working.
   const ray = new Raycaster();
   const ndc = new Vector2();
   let downAt = { x: 0, y: 0, t: 0 };
@@ -242,18 +240,17 @@ export async function mountHall(stage: HTMLElement, cap: Capability): Promise<Ha
   const onUp = (ev: PointerEvent) => {
     if (Math.hypot(ev.clientX - downAt.x, ev.clientY - downAt.y) > 6 || performance.now() - downAt.t > 400)
       return;
+    if (hall.get().mode === 'free') return; // dragging, not tapping
     const r = canvas.getBoundingClientRect();
     ndc.set(((ev.clientX - r.left) / r.width) * 2 - 1, -((ev.clientY - r.top) / r.height) * 2 + 1);
     ray.setFromCamera(ndc, camera);
-    const hits = ray.intersectObjects(env.scene.children, true);
-    const hit = hits.find((h) => h.object.userData['pick']);
+    const hit = ray.intersectObjects(env.scene.children, true).find((h) => h.object.userData['pick']);
     if (!hit) return;
     const pick = String(hit.object.userData['pick']);
     if (pick === 'breaker') dispatchAction('night', 'api');
     else if (pick === 'coffee-mug') dispatchAction('coffee', 'api');
     else if (pick.startsWith('hatch:')) {
-      const slug = pick.slice(6);
-      const details = document.querySelector<HTMLDetailsElement>(`.hatch[data-machine="${slug}"]`);
+      const details = document.querySelector<HTMLDetailsElement>(`.hatch[data-machine="${pick.slice(6)}"]`);
       if (details) {
         details.open = true;
         details.scrollIntoView({ behavior: prefersReducedMotion() ? 'auto' : 'smooth', block: 'center' });
@@ -266,37 +263,39 @@ export async function mountHall(stage: HTMLElement, cap: Capability): Promise<Ha
   };
   canvas.addEventListener('pointerdown', onDown);
   canvas.addEventListener('pointerup', onUp);
+
   const greeting = devConsoleGreeting(cap.tier, probe.quality, SITE.version);
   console.info(greeting[0], greeting[1], greeting[2]);
   console.info(greeting[3]);
   console.info(greeting[4]);
 
-  // Tour runner: the schedule lives in tour.ts; here we walk the rail and announce
+  // ---- Tour: the schedule lives in tour.ts; here we walk the rail once per stop and announce ---------------------
   let tourState = tour.get();
+  let tourStop = -1;
   const unsubTour = tour.subscribe((st) => {
     const was = tourState.running;
     tourState = st;
-    if (st.running && st.index >= 0 && (!was || true)) {
-      const stop = TOUR_STOPS[st.index]!;
-      if (hall.get().bay !== stop.bay) walkTo(stop.bay);
+    if (!st.running) tourStop = -1;
+    else if (st.index !== tourStop) {
+      // once per stop, so scrolling or the minimap mid-stop is never fought frame by frame
+      tourStop = st.index;
+      const stop = TOUR_STOPS[st.index];
+      if (stop && hall.get().bay !== stop.bay) walkTo(stop.bay);
     }
     if (was && !st.running) announce('Tour ended. You are free to walk the floor.');
   });
   const onShellAction = (e: Event) => {
     const d = (e as CustomEvent<ShellActionDetail>).detail;
-    if (d.action === 'tour') {
-      if (tour.get().running) stopTour();
-      else {
-        startTour();
-        announce(
-          'Guided tour started: about 90 seconds, every machine once. Press Escape or Stop to end it.',
-        );
-      }
+    if (d.action !== 'tour') return;
+    if (tour.get().running) stopTour();
+    else {
+      startTour();
+      announce('Guided tour started: about 90 seconds, every machine once. Press Escape or Stop to end it.');
     }
   };
   window.addEventListener(SHELL_EVENT, onShellAction);
 
-  // Opening: lights sweep on bay by bay, machines start one after another.
+  // ---- Opening: lights sweep on bay by bay, machines start one after another -------------------------------------
   const reducedOrSkipped = reduced || hall.get().opening === 'skipped';
   let openingT = 0;
   const lampCount = env.lamps.length;
@@ -310,7 +309,7 @@ export async function mountHall(stage: HTMLElement, cap: Capability): Promise<Ha
     setOpening('running');
   }
 
-  // Pause when hidden or off-screen
+  // ---- Pause when hidden or off-screen ---------------------------------------------------------------------------
   let visible = true;
   const io = new IntersectionObserver(
     (entries) => {
@@ -323,7 +322,7 @@ export async function mountHall(stage: HTMLElement, cap: Capability): Promise<Ha
   const onVis = () => hall.setKey('paused', document.hidden || !visible);
   document.addEventListener('visibilitychange', onVis);
 
-  // Mode changes: free walk vs rail
+  // ---- Walk mode: rail vs free -----------------------------------------------------------------------------------
   const unsubMode = hall.subscribe((s, old) => {
     if (old && s.mode !== old.mode) {
       free.setEnabled(s.mode === 'free');
@@ -336,18 +335,24 @@ export async function mountHall(stage: HTMLElement, cap: Capability): Promise<Ha
     }
   });
   const onKey = (e: KeyboardEvent) => {
-    if (e.key === 'Escape') {
-      if (tour.get().running) stopTour();
-      if (hall.get().mode === 'free') setMode('rail');
-    }
+    if (e.key !== 'Escape') return;
+    if (tour.get().running) stopTour();
+    if (hall.get().mode === 'free') setMode('rail');
   };
   window.addEventListener('keydown', onKey);
 
   const rail = bindRail(stage);
 
-  // Expose a probe for tests and the dev-console egg
-  window.__srHall = { tier: cap.tier, quality: probe.quality, fps: 0, frameMs: 0, lit: 0, machines: slugs };
+  window.__srHall = {
+    tier: cap.tier,
+    quality: probe.quality,
+    fps: 0,
+    frameMs: 0,
+    lit: 0,
+    machines: [...MACHINE_SLUGS],
+  };
 
+  // ---- The frame loop --------------------------------------------------------------------------------------------
   let last = performance.now();
   let elapsed = 0;
   let raf = 0;
@@ -384,7 +389,7 @@ export async function mountHall(stage: HTMLElement, cap: Capability): Promise<Ha
       if (r.state !== tourState) tour.set(r.state);
     }
 
-    // Opening sweep
+    // Opening sweep: lamp 0 is the control-room lamp, lamp i+1 belongs to bay i+1; a machine starts with its lamp.
     if (hall.get().opening === 'running') {
       openingT += dt;
       if (!breakerThrown && openingT > 0.25) {
@@ -395,15 +400,9 @@ export async function mountHall(stage: HTMLElement, cap: Capability): Promise<Ha
       const frac = Math.min(1, openingT / openingDuration);
       const lit = Math.round(frac * lampCount);
       env.setLitCount(lit);
-      // machines start when their lamp (index bay) is lit; lamp 0 is the control-room lamp
-      slugs.forEach((slug, i) => {
-        if (lit >= i + 2) {
-          const m = machines.get(slug)!;
-          if (!(m as unknown as { _lit?: boolean })._lit) {
-            m.setLit(true);
-            (m as unknown as { _lit?: boolean })._lit = true;
-          }
-        }
+      MACHINE_SLUGS.forEach((slug, i) => {
+        const m = machines.get(slug)!;
+        if (lit >= i + 2 && !m.isLit) m.setLit(true);
       });
       if (frac >= 1) setOpening('done');
     }
@@ -432,14 +431,14 @@ export async function mountHall(stage: HTMLElement, cap: Capability): Promise<Ha
     if (audio.isEnabled) {
       machines.forEach((m, slug) => {
         const d = Math.abs(m.group.position.x - camera.position.x);
-        const lit = (m as unknown as { _lit?: boolean })._lit || hall.get().opening !== 'running';
-        audio.hum(slug, lit ? Math.max(0, 1 - d / 7) : 0);
+        audio.hum(slug, m.isLit ? Math.max(0, 1 - d / 7) : 0);
       });
     }
 
     machines.forEach((m) => m.update(dt, elapsed));
     meter.update(elapsed);
-    // egg animations
+
+    // Egg animations
     if (paperT >= 0) {
       paperT += dt;
       const k = Math.min(1, paperT / 3);
@@ -472,6 +471,7 @@ export async function mountHall(stage: HTMLElement, cap: Capability): Promise<Ha
         steam.count = 0;
       }
     }
+
     env.setCameraX(camera.position.x);
     readoutAcc += dt;
     if (readoutAcc >= 0.25) {
@@ -480,11 +480,13 @@ export async function mountHall(stage: HTMLElement, cap: Capability): Promise<Ha
     }
     renderer.render(env.scene, camera);
 
-    const h = window.__srHall!;
-    h.fps = probe.fps;
-    h.frameMs = Math.round(probe.averageMs * 10) / 10;
-    h.quality = probe.quality;
-    h.lit = Math.round(Math.min(1, openingT / openingDuration) * lampCount);
+    const h = window.__srHall;
+    if (h) {
+      h.fps = probe.fps;
+      h.frameMs = Math.round(probe.averageMs * 10) / 10;
+      h.quality = probe.quality;
+      h.lit = Math.round(Math.min(1, openingT / openingDuration) * lampCount);
+    }
     if (probe.fps !== hall.get().fps) hall.setKey('fps', probe.fps);
   };
   raf = requestAnimationFrame(loop);
@@ -507,28 +509,32 @@ export async function mountHall(stage: HTMLElement, cap: Capability): Promise<Ha
       io.disconnect();
       document.removeEventListener('visibilitychange', onVis);
       window.removeEventListener('keydown', onKey);
-      unsubMode();
-      unsubBay();
       window.removeEventListener(EGG_EVENT, onEgg);
+      window.removeEventListener(SHELL_EVENT, onShellAction);
       canvas.removeEventListener('pointerdown', onDown);
       canvas.removeEventListener('pointerup', onUp);
+      unsubMode();
+      unsubBay();
       unsubControls();
+      unsubPulse();
       unsubSound();
-      unsubClick();
       unsubTour();
-      window.removeEventListener(SHELL_EVENT, onShellAction);
+      stopTour();
       audio.dispose();
       rail.dispose();
       free.dispose();
       machines.forEach((m) => m.dispose());
       cables.dispose();
       meter.dispose();
+      hatchGeometry.dispose();
+      paper.geometry.dispose();
+      steam.geometry.dispose();
+      steam.dispose();
       env.dispose();
       renderer.dispose();
       canvas.remove();
+      window.__srHall = undefined;
       stage.setAttribute('data-hall', 'disposed');
     },
   };
 }
-
-export { BAY_COUNT };

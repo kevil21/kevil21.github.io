@@ -56,6 +56,14 @@
         "note": "The real service syncs every 10 minutes."
       },
       {
+        "id": "sync-now",
+        "label": "Sync now",
+        "kind": "button",
+        "default": false,
+        "sample": true,
+        "note": "Starts the ADX → Elasticsearch sync immediately instead of waiting for the interval."
+      },
+      {
         "id": "dogfooding",
         "label": "Dogfooding feed",
         "kind": "toggle",
@@ -63,13 +71,33 @@
         "sample": true,
         "note": "A360 emits its own traces into A360."
       },
-      { "id": "gateway", "label": "Gateway valve (JWKS)", "kind": "toggle", "default": true, "sample": true }
+      {
+        "id": "gateway",
+        "label": "Gateway valve (JWKS)",
+        "kind": "toggle",
+        "default": true,
+        "sample": true
+      }
     ],
     "readouts": [
-      { "id": "spans-per-second", "label": "Spans in", "unit": "/s" },
-      { "id": "views-synced", "label": "Views synced", "unit": "/ 31" },
-      { "id": "chambers", "label": "Tenant chambers lit" },
-      { "id": "insights", "label": "Insights curated" }
+      {
+        "id": "spans-per-second",
+        "label": "Spans in",
+        "unit": "/s"
+      },
+      {
+        "id": "views-synced",
+        "label": "Views synced",
+        "unit": "/ 31"
+      },
+      {
+        "id": "chambers",
+        "label": "Tenant chambers lit"
+      },
+      {
+        "id": "insights",
+        "label": "Insights curated"
+      }
     ],
     "projects": ["a360"],
     "decisions": [
@@ -126,19 +154,38 @@
       },
       {
         "id": "approve",
-        "label": "Approval lever",
-        "kind": "lever",
+        "label": "Pull the approval lever",
+        "kind": "button",
         "default": false,
         "sample": true,
-        "note": "Plans scoring 4 or above wait here."
+        "note": "Only does something while a plan waits at the human gate (risk score 4 or above)."
       },
-      { "id": "mock-mode", "label": "Mock mode for CI", "kind": "toggle", "default": true, "sample": true }
+      {
+        "id": "mock-mode",
+        "label": "Mock mode for CI",
+        "kind": "toggle",
+        "default": true,
+        "sample": true
+      }
     ],
     "readouts": [
-      { "id": "stage", "label": "Stage" },
-      { "id": "violations", "label": "Violations found" },
-      { "id": "risk-score", "label": "Risk score", "unit": "/ 10" },
-      { "id": "evidence-packs", "label": "Evidence packs filed" }
+      {
+        "id": "stage",
+        "label": "Stage"
+      },
+      {
+        "id": "violations",
+        "label": "Violations found"
+      },
+      {
+        "id": "risk-score",
+        "label": "Risk score",
+        "unit": "/ 10"
+      },
+      {
+        "id": "evidence-packs",
+        "label": "Evidence packs filed"
+      }
     ],
     "projects": ["p2p"],
     "decisions": [
@@ -196,12 +243,27 @@
         "default": 12,
         "sample": true
       },
-      { "id": "baseline", "label": "Show baseline", "kind": "toggle", "default": false, "sample": true }
+      {
+        "id": "baseline",
+        "label": "Show baseline",
+        "kind": "toggle",
+        "default": false,
+        "sample": true
+      }
     ],
     "readouts": [
-      { "id": "forecast", "label": "Forecast" },
-      { "id": "baseline-delta", "label": "vs baseline" },
-      { "id": "resilience", "label": "Stated outcome" }
+      {
+        "id": "forecast",
+        "label": "Forecast"
+      },
+      {
+        "id": "baseline-delta",
+        "label": "vs baseline"
+      },
+      {
+        "id": "resilience",
+        "label": "Stated outcome"
+      }
     ],
     "projects": ["climate-mitigation", "smart-energy", "opticrop"],
     "decisions": ["D-FC-MULTIMODAL", "D-FC-ROLLING-CV", "D-FC-SHARED-EMBEDDINGS", "D-FC-HYBRID"],
@@ -258,9 +320,19 @@
       }
     ],
     "readouts": [
-      { "id": "records-cleaned", "label": "Records cleaned" },
-      { "id": "jar-level", "label": "Index fill", "unit": "%" },
-      { "id": "screens", "label": "Kibana screens lit" }
+      {
+        "id": "records-cleaned",
+        "label": "Records cleaned"
+      },
+      {
+        "id": "jar-level",
+        "label": "Index fill",
+        "unit": "%"
+      },
+      {
+        "id": "screens",
+        "label": "Kibana screens lit"
+      }
     ],
     "projects": ["overlay-insights", "incident-tickets", "it-assets"],
     "decisions": ["D-WB-SIGNATURES", "D-WB-DOC-IDS"],
@@ -305,8 +377,15 @@
       }
     ],
     "readouts": [
-      { "id": "instruments", "label": "Instruments", "unit": "/ 10" },
-      { "id": "latest", "label": "Most recent calibration" }
+      {
+        "id": "instruments",
+        "label": "Instruments",
+        "unit": "/ 10"
+      },
+      {
+        "id": "latest",
+        "label": "Most recent calibration"
+      }
     ],
     "projects": [],
     "decisions": []
@@ -349,8 +428,16 @@
       }
     ],
     "readouts": [
-      { "id": "hall-power", "label": "Hall power", "unit": "milestones / month" },
-      { "id": "students", "label": "Students reached", "unit": "as stated" }
+      {
+        "id": "hall-power",
+        "label": "Hall power",
+        "unit": "milestones / month"
+      },
+      {
+        "id": "students",
+        "label": "Students reached",
+        "unit": "as stated"
+      }
     ],
     "projects": ["python-essentials"],
     "decisions": []

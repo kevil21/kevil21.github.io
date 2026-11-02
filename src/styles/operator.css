@@ -8,6 +8,10 @@
     border-radius: var(--radius-lg);
     padding: var(--space-5);
   }
+  .op__pane {
+    display: grid;
+    gap: var(--space-4);
+  }
   .op__head {
     display: flex;
     flex-wrap: wrap;

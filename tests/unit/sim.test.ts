@@ -124,3 +124,35 @@ describe('factory', () => {
     expect(createSim('not-a-machine')).toBeNull();
   });
 });
+
+describe('momentary controls (audit 2026-11-02)', () => {
+  it('the approval lever only counts while a plan waits at the gate and is consumed when used', () => {
+    const s = new SorterSim();
+    s.setControl('mock-mode', false);
+    s.setControl('approve', true); // pressed with nothing at the gate: ignored, must not pre-approve
+    s.setControl('policy', 'public-ip-ban');
+    run(s, 8);
+    expect(s.currentStage).toBe('gate');
+    run(s, 4);
+    expect(s.currentStage).toBe('gate'); // the early press did not approve this plan
+    s.setControl('approve', true);
+    run(s, 4);
+    expect(s.readouts()['evidence-packs']).toBe(1);
+    // and the next plan at the gate waits again
+    run(s, 14);
+    expect(s.currentStage).toBe('gate');
+  });
+  it('sync-now starts a sync at once, not twice, and is never stored as a persistent value', () => {
+    const s = new RefinerySim(5);
+    s.setControl('sync-interval', 30);
+    run(s, 0.5);
+    expect(s.isSyncing).toBe(false);
+    s.setControl('sync-now', true);
+    run(s, 0.1);
+    expect(s.isSyncing).toBe(true);
+    s.setControl('sync-now', true); // already syncing: ignored
+    run(s, 2);
+    expect(s.readouts()['views-synced']).toBe(REFINERY_VIEWS);
+    expect(s.getControl('sync-now')).toBe(false);
+  });
+});

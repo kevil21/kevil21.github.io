@@ -31,7 +31,7 @@ test('machine page is a complete HTML twin without JavaScript', async ({ page })
   const form = page.locator('form.controls');
   await expect(form).toBeVisible();
   await expect(form.locator('select[name="policy"]')).toBeVisible();
-  await expect(form.locator('input[name="approve"]')).toBeAttached();
+  await expect(form.locator('button[name="approve"]')).toBeAttached();
   await expect(page.locator('.sample-tag').first()).toBeVisible();
   await expect(page.getByRole('heading', { name: 'Decisions as switches' })).toBeVisible();
 });

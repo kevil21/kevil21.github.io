@@ -179,20 +179,7 @@ const jsonLd = {
   </div>
 
   <script>
-    import { loadHall } from '@/hall/loader';
-    const stage = document.getElementById('hall-stage');
-    if (stage) void loadHall(stage);
-    // Bay panels: toggle buttons bound outside the island so they work before hydration
-    document.addEventListener('click', (e) => {
-      const btn = (e.target as HTMLElement | null)?.closest<HTMLButtonElement>('[data-toggle-panel]');
-      if (!btn) return;
-      const id = btn.getAttribute('aria-controls');
-      const panel = id ? document.getElementById(id) : null;
-      if (!panel) return;
-      const open = panel.hasAttribute('hidden');
-      panel.toggleAttribute('hidden', !open);
-      btn.setAttribute('aria-expanded', String(open));
-      btn.textContent = open ? 'Close the control panel' : 'Open the control panel';
-    });
+    import { bootHall } from '@/hall/loader';
+    bootHall();
   </script>
 </Shell>

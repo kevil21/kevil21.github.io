@@ -89,6 +89,8 @@ export class SorterSim implements Sim<SorterReadouts> {
   private score = 0;
   private packs = 0;
   private gateWaited = 0;
+  /** The approval lever was pulled while a plan waited at the gate. A pulse: it is consumed, never stored. */
+  private approved = false;
 
   controls() {
     return { ...this.ctrl };
@@ -98,6 +100,14 @@ export class SorterSim implements Sim<SorterReadouts> {
   }
   setControl(id: string, value: ControlValue): boolean {
     if (!(id in this.ctrl)) return false;
+    if (id === 'approve') {
+      // A button, not a switch: it only means something while a plan waits at the human gate.
+      if (value === true) {
+        if (this.stage === 'gate') this.approved = true;
+        else this.events.push({ type: 'approve-ignored', stage: this.stage });
+      }
+      return true;
+    }
     if (id === 'policy' && !SAMPLE_POLICIES.some((p) => p.id === value)) return false;
     this.ctrl[id] = value;
     this.events.push({ type: 'control', id, value });
@@ -168,14 +178,15 @@ export class SorterSim implements Sim<SorterReadouts> {
         if (this.t >= DURATIONS.risk) {
           if (needsHumanGate(this.score)) {
             this.enter('gate');
-            this.ctrl['approve'] = false;
+            this.approved = false;
             this.gateWaited = 0;
           } else this.enter('execute');
         }
         break;
       case 'gate':
         this.gateWaited += dt;
-        if (this.ctrl['approve'] === true) {
+        if (this.approved) {
+          this.approved = false;
           this.events.push({
             type: 'approved',
             score: this.score,
@@ -188,10 +199,7 @@ export class SorterSim implements Sim<SorterReadouts> {
         if (this.t >= DURATIONS.execute) this.enter('evidence');
         break;
       case 'evidence':
-        if (this.t >= DURATIONS.evidence) {
-          this.ctrl['approve'] = false;
-          this.enter('idle');
-        }
+        if (this.t >= DURATIONS.evidence) this.enter('idle');
         break;
     }
   }

@@ -8,6 +8,7 @@ import { useStore } from '@nanostores/preact';
 import { hall, walkTo, setMode, BAY_SLUGS, mapOpen } from '@/hall/state';
 import { minimapModel } from '@/hall/layout';
 import { soundPref } from '@/hall/sound';
+import { themePref } from '@/theme/store';
 import { tour, TOUR_STOPS, TOUR_TOTAL_SECONDS, skipTourStop, stopTour, startTour } from '@/hall/tour';
 
 const model = minimapModel();
@@ -27,7 +28,11 @@ export default function HallHud() {
   const sound = useStore(soundPref);
   const t = useStore(tour);
   const open = useStore(mapOpen);
+  const theme = useStore(themePref);
   const setOpen = (v: boolean) => mapOpen.set(v);
+  useEffect(() => {
+    if (new URLSearchParams(window.location.search).get('map') === '1') mapOpen.set(true);
+  }, []);
 
   useEffect(() => {
     const btn = document.querySelector<HTMLButtonElement>('#bottom-bar [data-action="map"]');
@@ -173,16 +178,16 @@ export default function HallHud() {
             class="hud__mode"
             data-action="night"
             role="switch"
-            aria-checked={
-              typeof document !== 'undefined' &&
-              document.documentElement.getAttribute('data-theme') === 'night'
-            }
+            aria-checked={theme === 'night'}
             aria-label="Breaker: night shift"
           >
             Breaker
           </button>
           <button type="button" class="hud__mode" data-action="coffee" aria-label="Pick up the coffee mug">
             Coffee mug
+          </button>
+          <button type="button" class="hud__mode" data-action="shortcuts" aria-pressed="true">
+            Keyboard shortcuts: on
           </button>
         </div>
         <span class="hud__tier mono" title="Render tier · adaptive quality">

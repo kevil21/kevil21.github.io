@@ -22,6 +22,7 @@ export class RefinerySim implements Sim<RefineryReadouts> {
     'sync-interval': 10,
     dogfooding: true,
     gateway: true,
+    'sync-now': false,
   };
   private events: SimEvent[] = [];
   private rand: () => number;
@@ -48,6 +49,11 @@ export class RefinerySim implements Sim<RefineryReadouts> {
   }
   setControl(id: string, value: ControlValue): boolean {
     if (!(id in this.ctrl)) return false;
+    if (id === 'sync-now') {
+      // A button: start a sync immediately (ignored while one is already running).
+      if (value === true) this.startSync();
+      return true;
+    }
     if (id === 'tenant-count') value = clamp(Math.round(Number(value)), 1, 6);
     if (id === 'sync-interval') value = clamp(Math.round(Number(value)), 1, 30);
     this.ctrl[id] = value;
@@ -81,6 +87,14 @@ export class RefinerySim implements Sim<RefineryReadouts> {
     return clamp(this.staging / 600, 0, 1);
   }
 
+  private startSync(): void {
+    if (this.syncing) return;
+    this.syncing = true;
+    this.syncProgress = 0;
+    this.sinceSync = 0;
+    this.events.push({ type: 'sync-start', views: REFINERY_VIEWS, overlapMinutes: 70 });
+  }
+
   step(dt: number): void {
     const d = clamp(dt, 0, 0.2);
     this.simMinutes += d; // 1 s real = 1 sim minute
@@ -93,12 +107,7 @@ export class RefinerySim implements Sim<RefineryReadouts> {
 
     // Sync cycle
     this.sinceSync += d;
-    if (!this.syncing && this.sinceSync >= this.syncInterval) {
-      this.syncing = true;
-      this.syncProgress = 0;
-      this.sinceSync = 0;
-      this.events.push({ type: 'sync-start', views: REFINERY_VIEWS, overlapMinutes: 70 });
-    }
+    if (this.sinceSync >= this.syncInterval) this.startSync();
     if (this.syncing) {
       this.syncProgress = clamp(this.syncProgress + d / 1.6, 0, 1); // a sync takes ~1.6 s
       this.viewsSynced = Math.round(this.syncProgress * REFINERY_VIEWS);

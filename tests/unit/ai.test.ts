@@ -187,3 +187,86 @@ describe('grounding and tools', () => {
     expect(declinedTopic('what is A360')).toBe(false);
   });
 });
+
+describe('audit regressions (2026-11-02)', () => {
+  it('does not classify "agent"/"agentic"/"payload"/"page"/"IP address" questions as personal', async () => {
+    const { isPersonalTopic, detectIntent } = await import('@/ai/nlp');
+    for (const q of [
+      'Tell me about the agentic AI work',
+      'Which agents does Policy → Pipelines run?',
+      'How does the gateway validate the payload?',
+      'Which page shows the agent trust score?',
+      'How does the Policy Sorter treat a public IP address?',
+      'What is the payment of the sync overlap?',
+    ]) {
+      expect(isPersonalTopic(q), q).toBe(false);
+      expect(detectIntent(q), q).not.toBe('refuse-personal');
+    }
+    for (const q of [
+      'What is his salary?',
+      'What is Kevil’s weakness?',
+      'What are your hobbies',
+      'Give me his phone number',
+      'How old is he?',
+      'Is he married?',
+      'What compensation do you expect?',
+    ]) {
+      expect(isPersonalTopic(q), q).toBe(true);
+      expect(detectIntent(q), q).toBe('refuse-personal');
+    }
+  });
+
+  it('judges evidence from lexical or semantic strength, not from fused RRF scores', async () => {
+    const { hasEvidence } = await import('@/ai/grounding');
+    // hybrid hits carry RRF scores around 0.03 but keep their component scores
+    expect(hasEvidence([{ score: 0.032, lexical: 4.1, semantic: 0.2 }])).toBe(true);
+    expect(hasEvidence([{ score: 0.031, lexical: 0.4, semantic: 0.62 }])).toBe(true);
+    expect(hasEvidence([{ score: 0.016, lexical: 0.9, semantic: 0.3 }])).toBe(false);
+    expect(hasEvidence([{ score: 2.4 }])).toBe(true); // plain BM25 hit
+    expect(hasEvidence([{ score: 1.1 }])).toBe(false);
+    expect(hasEvidence([])).toBe(false);
+  });
+
+  it('splits sentences without lookbehind and keeps trailing citations with their own sentence', async () => {
+    const { splitSentences, ground } = await import('@/ai/grounding');
+    expect(splitSentences('A360 syncs 31 views. [1] It re-runs safely. [2] CGPA 8.95 is stated.')).toEqual([
+      'A360 syncs 31 views. [1]',
+      'It re-runs safely. [2]',
+      'CGPA 8.95 is stated.',
+    ]);
+    expect(splitSentences('It fans out [1]. Then it syncs [2].')).toEqual([
+      'It fans out [1].',
+      'Then it syncs [2].',
+    ]);
+    const g = ground('It syncs every 10 minutes. [1] The score is 0–10. [2] No cite here.', 2);
+    expect(g.sentences.map((s) => s.cites)).toEqual([[1], [2]]);
+    expect(g.dropped).toEqual(['No cite here.']);
+    // the shipped sources must not contain regex lookbehind (Safari < 16.4 cannot parse it)
+    const { readFileSync } = await import('node:fs');
+    for (const f of ['src/ai/grounding.ts', 'src/ai/jd.ts']) {
+      expect(readFileSync(join(ROOT, f), 'utf8'), f).not.toMatch(/\(\?<[=!]/);
+    }
+  });
+
+  it('attributes each scripted-answer sentence to exactly its own citation', async () => {
+    const { renderScripted } = await import('@/ai/answers');
+    const answers = buildAnswers(bundle, chunks);
+    expect(answers.length).toBeGreaterThanOrEqual(10);
+    for (const a of answers) {
+      const sentences = renderScripted(a, chunks);
+      if (a.parts.length === 0) {
+        // plain answers (tour, secrets) carry no facts and no citations
+        expect(a.plain, a.intent).toBeTruthy();
+        expect(sentences).toEqual([{ text: a.plain, cites: [] }]);
+        continue;
+      }
+      expect(a.parts.length, a.intent).toBe(a.cites.length);
+      expect(sentences.length, a.intent).toBe(a.cites.length);
+      sentences.forEach((s, i) => {
+        expect(s.cites, `${a.intent} #${i}`).toEqual([i + 1]);
+        expect(s.text.endsWith(`[${i + 1}]`), `${a.intent} #${i}`).toBe(true);
+        expect(s.text.match(/\[\d+\]/g), `${a.intent} #${i}`).toHaveLength(1);
+      });
+    }
+  });
+});

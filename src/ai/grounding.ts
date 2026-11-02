@@ -13,7 +13,28 @@ export interface GroundedAnswer {
 
 const CITE = /\[(\d{1,2})\]/g;
 
-/** Split prose into sentences, keep only those with at least one valid [n] citation (n within 1..max). */
+/**
+ * Split prose into sentences. A citation written after the full stop ("… views. [1]") belongs to the sentence it
+ * follows, so the boundary is placed after any trailing [n] groups. No regex lookbehind: Safari before 16.4 cannot
+ * even parse it, and this module loads in the Operator island and the Pocket worker.
+ */
+export function splitSentences(text: string): string[] {
+  const out: string[] = [];
+  const boundary = /[.!?]+(?:\s*\[\d{1,2}\])*(?=\s+[A-Z0-9“"(]|\s*$)/g;
+  let start = 0;
+  let m: RegExpExecArray | null;
+  while ((m = boundary.exec(text)) !== null) {
+    const end = m.index + m[0].length;
+    const piece = text.slice(start, end).trim();
+    if (piece) out.push(piece);
+    start = end;
+  }
+  const rest = text.slice(start).trim();
+  if (rest) out.push(rest);
+  return out;
+}
+
+/** Keep only sentences with at least one valid [n] citation (n within 1..maxCite); read a trailing tool line. */
 export function ground(prose: string, maxCite: number): GroundedAnswer {
   const lines = prose.trim().split('\n');
   let toolLine: string | null = null;
@@ -23,11 +44,7 @@ export function ground(prose: string, maxCite: number): GroundedAnswer {
     if (/^\{\s*"tool"\s*:/.test(t) || /^\{\s*"name"\s*:/.test(t)) toolLine = t;
     else if (t) body.push(t);
   }
-  const text = body.join(' ');
-  const parts = text
-    .split(/(?<=[.!?])\s+(?=[A-Z0-9“"(])/)
-    .map((s) => s.trim())
-    .filter(Boolean);
+  const parts = splitSentences(body.join(' '));
   const sentences: GroundedAnswer['sentences'] = [];
   const dropped: string[] = [];
   const cited = new Set<number>();
@@ -50,10 +67,26 @@ export function ground(prose: string, maxCite: number): GroundedAnswer {
 
 export const REFUSAL = 'The lab has no evidence for that.';
 
+/** BM25 floor: a single generic match (a name, an org) scores below this; a real topical hit scores above it. */
+export const LEXICAL_FLOOR = 2.0;
+/** Cosine floor for MiniLM on this corpus (inherited heuristic from the Atlas model ADR). */
+export const SEMANTIC_FLOOR = 0.45;
+
+export interface EvidenceHit {
+  /** The score used for ranking: BM25 in lexical mode, a reciprocal-rank-fusion score in hybrid mode. */
+  score: number;
+  lexical?: number;
+  semantic?: number;
+}
+
 /**
- * Decide whether retrieval found anything worth answering with. BM25 scores are unbounded; a single generic match
- * (a name, an org) must not count as evidence, so the top hit needs a real score.
+ * Decide whether retrieval found anything worth answering with. Fused RRF scores are tiny (≈ 0.03) and say nothing
+ * about strength, so judge the component scores: any hit with a real BM25 score or a real cosine counts. A plain
+ * lexical hit (no components) is judged by its own score.
  */
-export function hasEvidence(hits: Array<{ score: number }>, floor = 2.0): boolean {
-  return hits.length > 0 && hits[0]!.score >= floor;
+export function hasEvidence(hits: EvidenceHit[]): boolean {
+  return hits.some((h) => {
+    if (h.lexical === undefined && h.semantic === undefined) return h.score >= LEXICAL_FLOOR;
+    return (h.lexical ?? 0) >= LEXICAL_FLOOR || (h.semantic ?? 0) >= SEMANTIC_FLOOR;
+  });
 }

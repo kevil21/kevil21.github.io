@@ -8,6 +8,41 @@ import { startTour } from '@/hall/tour';
 import { setLens } from './lens';
 import type { ToolCall } from '../tools';
 import type { Chunk } from '../protocol';
+import machines from '@/content/machines.json';
+
+interface ControlDef {
+  kind: string;
+  min?: number;
+  max?: number;
+  options?: string[];
+}
+
+/** machine slug → control id → definition, from the same JSON the panels render. The agent can only set what exists. */
+const MACHINE_CONTROLS: Record<string, Record<string, ControlDef>> = Object.fromEntries(
+  (machines as Array<{ slug: string; controls: Array<ControlDef & { id: string }> }>).map((m) => [
+    m.slug,
+    Object.fromEntries(m.controls.map((c) => [c.id, c])),
+  ]),
+);
+
+/** Validate and coerce a tool value against the control definition; undefined = not acceptable. */
+function coerceControl(def: ControlDef, value: unknown): number | boolean | string | undefined {
+  switch (def.kind) {
+    case 'range': {
+      const n = Number(value);
+      if (!Number.isFinite(n)) return undefined;
+      return Math.min(def.max ?? n, Math.max(def.min ?? n, n));
+    }
+    case 'select':
+      return typeof value === 'string' && (def.options ?? []).includes(value) ? value : undefined;
+    case 'toggle':
+    case 'lever':
+    case 'button':
+      return typeof value === 'boolean' ? value : undefined;
+    default:
+      return undefined;
+  }
+}
 
 export interface ExecResult {
   ok: boolean;
@@ -47,11 +82,23 @@ export function executeTool(call: ToolCall, chunks: Chunk[]): ExecResult {
       const machine = String(a['machine']);
       const control = String(a['control']);
       const value = a['value'] as number | boolean | string;
-      setControlValue(machine, control, value);
+      const def = MACHINE_CONTROLS[machine]?.[control];
+      if (!def)
+        return {
+          ok: false,
+          narration: `The ${machine.replace(/-/g, ' ')} has no control called ${control}.`,
+        };
+      const checked = coerceControl(def, value);
+      if (checked === undefined)
+        return {
+          ok: false,
+          narration: `${String(value)} is not a valid setting for ${control}${def.kind === 'range' ? ` (${def.min} to ${def.max})` : ''}.`,
+        };
+      setControlValue(machine, control, checked);
       const why = decisionFor(chunks, machine, control);
       const line = why
-        ? `Set ${control} to ${String(value)}: ${why}`
-        : `Set ${control} to ${String(value)} on the ${machine.replace(/-/g, ' ')}.`;
+        ? `Set ${control} to ${String(checked)}: ${why}`
+        : `Set ${control} to ${String(checked)} on the ${machine.replace(/-/g, ' ')}.`;
       narrate(machine, line);
       if (onHallPage()) walkTo(bayForSlug(machine));
       return { ok: true, narration: line };
@@ -59,7 +106,7 @@ export function executeTool(call: ToolCall, chunks: Chunk[]): ExecResult {
     case 'runMachine': {
       const machine = String(a['machine']);
       const run: Record<string, [string, number | boolean | string]> = {
-        'telemetry-refinery': ['dogfooding', true],
+        'telemetry-refinery': ['sync-now', true],
         'policy-sorter': ['approve', true],
         'forecast-engine': ['baseline', true],
         'data-workbench': ['run-incidents', true],
