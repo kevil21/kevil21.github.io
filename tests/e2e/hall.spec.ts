@@ -150,6 +150,8 @@ test('sound toggle is off by default, persists, and never autoplays', async ({ p
   await sw.click();
   await expect(sw).toHaveAttribute('aria-checked', 'true');
   expect(await page.evaluate(() => localStorage.getItem('sr:sound'))).toBe('on');
+  // On desktop the card folded into its chip after the first selection; hover reopens it.
+  if (width >= 960) await page.locator('#minimap-sheet .hud__chip').hover();
   await sw.click();
   await expect(sw).toHaveAttribute('aria-checked', 'false');
 });

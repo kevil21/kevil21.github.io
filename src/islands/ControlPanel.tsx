@@ -5,7 +5,8 @@
  */
 import { useEffect, useMemo, useState } from 'preact/hooks';
 import { useStore } from '@nanostores/preact';
-import { controls, narration, readouts, setControlValue, narrate } from '@/hall/bus';
+import { controls, narration, readouts, setControlValue, narrate, visuals } from '@/hall/bus';
+import { Instruments } from '@/viz/Charts';
 import type { ControlValue } from '@/sim/types';
 import { labWeather, fireEgg } from '@/hall/eggs';
 import { hall } from '@/hall/state';
@@ -58,6 +59,7 @@ export default function ControlPanel({
   const allControls = useStore(controls);
   const allReadouts = useStore(readouts);
   const lines = useStore(narration);
+  const allVisuals = useStore(visuals);
   const mine = allControls[slug] ?? {};
   const values = allReadouts[slug] ?? {};
   const [openDecision, setOpenDecision] = useState<string | null>(null);
@@ -178,6 +180,7 @@ export default function ControlPanel({
           );
         })}
       </div>
+      {!compact && <Instruments specs={allVisuals[slug] ?? []} />}
       {slug === 'forecast-engine' && (
         <div class="panel__egg">
           <button

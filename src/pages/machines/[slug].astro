@@ -12,6 +12,7 @@ import { loadDecisions, loadMachines, loadProjects } from '@/lib/content';
 import MachinePanel from '@/components/MachinePanel.astro';
 import MaintenanceHatch from '@/components/MaintenanceHatch.astro';
 import '@/styles/panel.css';
+import '@/styles/viz.css';
 
 export async function getStaticPaths() {
   const machines = await loadMachines();

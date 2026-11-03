@@ -46,6 +46,10 @@ test('offline page and PWA bits exist; service worker registers on a secure cont
 
 test('breaker throws the night shift (third token variant) and announces it', async ({ page }) => {
   await page.goto('/');
+  // the toast island listens for egg events once hydrated; the hall reaching a terminal state means the page is idle
+  await expect
+    .poll(async () => page.locator('#hall-stage').getAttribute('data-hall'), { timeout: 20_000 })
+    .toMatch(/ready|static/);
   const { width } = page.viewportSize()!;
   if (width < 960) await page.locator('#bottom-bar [data-action="map"]').click();
   await page.locator('[data-action="night"]').first().click();
@@ -55,6 +59,8 @@ test('breaker throws the night shift (third token variant) and announces it', as
     getComputedStyle(document.documentElement).getPropertyValue('--bg-hall').trim(),
   );
   expect(bg).toContain('13%');
+  // On desktop the floor-plan card folded into its chip after the first selection; hover reopens it.
+  if (width >= 960) await page.locator('#minimap-sheet .hud__chip').hover();
   await page.locator('[data-action="night"]').first().click();
   await expect(page.locator('html')).toHaveAttribute('data-theme', 'dark');
 });

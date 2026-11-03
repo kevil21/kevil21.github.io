@@ -19,8 +19,10 @@ cd ~/Library/CloudStorage/OneDrive-kyndryl/Desktop/Misc/Resume/kevilpatel
 git status                          # review the tree (nothing is committed by the agent)
 npm ci && npm run build && npm test && npm run test:e2e
 git add -A
-git commit -m "v5.0.0 | The Simulation Room: laboratory floor of working machines, on-device Operator"
+git commit -m "v5.1.0 | Live instruments and scenarios on every machine, floor-plan card folds on selection"
+git tag -a v5.1.0 -m "v5.1.0"        # the agent does not tag: tags are Kevil's, from his github-personal identity
 git push -u origin simulation_dev
+git push origin v5.1.0
 # open a pull request simulation_dev → main (validate.yml runs); merge → deploy.yml publishes to kevilpatel.in
 ```
 Rollback: re-run an earlier successful `deploy.yml` run from the Actions tab, or revert the merge commit.

@@ -239,6 +239,10 @@ export class SorterMachine extends BaseMachine {
     return this.sim.readouts();
   }
 
+  viz() {
+    return this.sim.viz();
+  }
+
   override dispose(): void {
     if (this.world) this.world.free();
     super.dispose();

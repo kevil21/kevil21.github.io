@@ -16,7 +16,13 @@ function run(sim: { step(dt: number): void; drain(): unknown[] }, seconds: numbe
 describe('Data Workbench sim', () => {
   it('runs a station through ingest → clean → index → visualise and lights its screen', () => {
     const s = new WorkbenchSim();
-    expect(s.readouts()).toEqual({ 'records-cleaned': 0, 'jar-level': 0, screens: 0 });
+    expect(s.readouts()).toEqual({
+      'records-cleaned': 0,
+      'jar-level': 0,
+      screens: 0,
+      'docs-in-index': 0,
+      'duplicates-collapsed': 0,
+    });
     s.setControl('run-incidents', true);
     expect(s.getControl('run-incidents')).toBe(false); // momentary
     run(s, 6);

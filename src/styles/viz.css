@@ -1,0 +1,327 @@
+/* Live instruments: the charts under a control panel (src/viz/Charts.tsx). Colours are theme tokens only. */
+@layer components {
+  .instruments {
+    display: grid;
+    gap: var(--space-2);
+    container-type: inline-size;
+  }
+  .instruments__grid {
+    display: grid;
+    gap: var(--space-3);
+    grid-template-columns: 1fr;
+  }
+  @container (min-width: 44rem) {
+    .instruments__grid {
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+    .instruments__grid .viz--lines,
+    .instruments__grid .viz--heat {
+      grid-column: 1 / -1;
+    }
+  }
+
+  .viz {
+    margin: 0;
+    display: grid;
+    gap: var(--space-2);
+    background: var(--surface-2);
+    border: 1px solid var(--line);
+    border-radius: var(--radius-md);
+    padding: var(--space-3);
+    min-width: 0;
+    align-content: start;
+  }
+  .viz__cap {
+    display: grid;
+    gap: 2px;
+  }
+  .viz__title {
+    font-size: var(--text-sm);
+    color: var(--ink);
+  }
+  .viz__sub {
+    font-size: var(--text-xs);
+    color: var(--ink-2);
+  }
+  .viz__svg {
+    width: 100%;
+    max-width: 34rem; /* the text lives in viewBox units: keep it near its drawn size on wide panels */
+    height: auto;
+    display: block;
+    overflow: visible;
+  }
+  .viz__svg--gauge {
+    max-width: 14rem;
+    margin-inline: auto;
+  }
+
+  /* tones: fill vs stroke from the same token */
+  .viz__t--amber {
+    fill: var(--fill-amber);
+    stroke: var(--fill-amber);
+  }
+  .viz__t--teal {
+    fill: var(--fill-teal);
+    stroke: var(--fill-teal);
+  }
+  .viz__t--sage {
+    fill: var(--fill-sage);
+    stroke: var(--fill-sage);
+  }
+  .viz__t--ember {
+    fill: var(--fill-ember);
+    stroke: var(--fill-ember);
+  }
+  .viz__t--brass {
+    fill: var(--fill-brass);
+    stroke: var(--fill-brass);
+  }
+  .viz__t--muted {
+    fill: var(--fill-steel);
+    stroke: var(--fill-steel);
+  }
+  .viz__fill {
+    stroke: none;
+  }
+  .viz__stroke {
+    fill: none;
+  }
+  .viz__bg--amber {
+    --c: var(--fill-amber);
+    background: var(--c);
+  }
+  .viz__bg--teal {
+    --c: var(--fill-teal);
+    background: var(--c);
+  }
+  .viz__bg--sage {
+    --c: var(--fill-sage);
+    background: var(--c);
+  }
+  .viz__bg--ember {
+    --c: var(--fill-ember);
+    background: var(--c);
+  }
+  .viz__bg--brass {
+    --c: var(--fill-brass);
+    background: var(--c);
+  }
+  .viz__bg--muted {
+    --c: var(--fill-steel);
+    background: var(--c);
+  }
+
+  .viz__grid {
+    stroke: var(--line);
+    stroke-width: 0.6;
+  }
+  .viz__ref {
+    stroke: var(--ink-3);
+    stroke-width: 0.9;
+    stroke-dasharray: 3 3;
+  }
+  .viz__cursor {
+    stroke: var(--ink-amber);
+    stroke-width: 1.4;
+  }
+  .viz__txt {
+    fill: var(--ink-2);
+    font-family: var(--font-mono);
+    font-size: 9.5px;
+  }
+  .viz__txt--end {
+    text-anchor: end;
+  }
+  .viz__txt--mid {
+    text-anchor: middle;
+  }
+  .viz__txt--big {
+    font-size: 14px;
+    fill: var(--ink-amber);
+  }
+  .viz__gauge-track {
+    stroke: var(--surface-3);
+  }
+  .viz__needle {
+    stroke: var(--ink);
+  }
+  .viz__needle-hub {
+    fill: var(--ink);
+  }
+  .viz__gauge-text {
+    font-size: var(--text-xs);
+    color: var(--ink-2);
+    text-align: center;
+    max-width: none;
+  }
+
+  /* bars and stages (HTML) */
+  .viz__bars,
+  .viz__stages {
+    display: grid;
+    gap: var(--space-2);
+    margin: 0;
+    padding: 0;
+    list-style: none;
+  }
+  .viz__bar {
+    display: grid;
+    grid-template-columns: minmax(5.5rem, 34%) 1fr;
+    gap: 2px var(--space-2);
+    align-items: center;
+    font-size: var(--text-xs);
+  }
+  .viz__bar-label,
+  .viz__stage-label {
+    color: var(--ink);
+    overflow-wrap: anywhere;
+  }
+  .viz__bar-value {
+    grid-column: 2;
+    color: var(--ink-amber);
+    font-size: var(--text-xs);
+  }
+  .viz__bar-note {
+    color: var(--ink-2);
+  }
+  .viz__track {
+    position: relative;
+    display: block;
+    height: 0.6rem;
+    background: var(--surface-3);
+    border-radius: var(--radius-pill);
+    overflow: hidden;
+  }
+  .viz__bar-fill {
+    display: block;
+    height: 100%;
+    border-radius: var(--radius-pill);
+  }
+  .viz__marker {
+    position: absolute;
+    inset-block: 0;
+    width: 2px;
+    background: var(--ink);
+  }
+  .viz__marker--key {
+    position: static;
+    display: inline-block;
+    width: 2px;
+    height: 0.8em;
+    vertical-align: middle;
+  }
+  .viz__bar-legend {
+    font-size: var(--text-xs);
+    color: var(--ink-2);
+  }
+  .viz__stage {
+    display: grid;
+    grid-template-columns: 1fr auto;
+    gap: 2px var(--space-2);
+    align-items: center;
+    font-size: var(--text-xs);
+    padding: var(--space-1) var(--space-2);
+    border-radius: var(--radius-md);
+    border: 1px solid transparent;
+  }
+  .viz__stage .viz__track,
+  .viz__stage-note {
+    grid-column: 1 / -1;
+  }
+  .viz__stage-note {
+    color: var(--ink-2);
+  }
+  .viz__stage-state {
+    color: var(--ink-2);
+  }
+  .viz__stage--active {
+    border-color: var(--fill-teal);
+    background: var(--surface-3);
+  }
+  .viz__stage--active .viz__stage-state {
+    color: var(--ink-teal);
+  }
+  .viz__stage--waiting {
+    border-color: var(--fill-ember);
+  }
+  .viz__stage--waiting .viz__stage-state {
+    color: var(--ink-ember);
+  }
+  .viz__stage--done .viz__stage-state {
+    color: var(--ink-sage);
+  }
+
+  /* legends */
+  .viz__legend {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--space-1) var(--space-3);
+    margin: 0;
+    padding: 0;
+    list-style: none;
+    font-size: var(--text-xs);
+    color: var(--ink-2);
+    align-items: center;
+  }
+  .viz__legend--ramp {
+    justify-content: space-between;
+    gap: var(--space-2);
+  }
+  .viz__ramp {
+    flex: 1;
+    height: 0.4rem;
+    border-radius: var(--radius-pill);
+    background: linear-gradient(to right, var(--surface-3), var(--c));
+  }
+  .viz__swatch {
+    display: inline-block;
+    width: 1.2rem;
+    height: 0.28rem;
+    border-radius: var(--radius-pill);
+    vertical-align: middle;
+  }
+  .viz__swatch--dashed {
+    background: none;
+    border-block-start: 2px dashed var(--fill-steel);
+    height: 0;
+  }
+
+  /* text twin */
+  .viz__twin summary {
+    font-size: var(--text-xs);
+    color: var(--ink-2);
+    cursor: pointer;
+    min-height: 1.5rem;
+  }
+  .viz__table-wrap {
+    overflow-x: auto;
+    max-height: 14rem;
+    overflow-y: auto;
+  }
+  .viz__table {
+    border-collapse: collapse;
+    font-size: var(--text-xs);
+    width: 100%;
+    font-family: var(--font-mono);
+  }
+  .viz__table th,
+  .viz__table td {
+    border-block-end: 1px solid var(--line);
+    padding: 2px var(--space-2);
+    text-align: start;
+    color: var(--ink-2);
+    white-space: nowrap;
+  }
+  .viz__table thead th {
+    color: var(--ink);
+    position: sticky;
+    inset-block-start: 0;
+    background: var(--surface-2);
+  }
+
+  @media (prefers-reduced-motion: no-preference) {
+    .viz__bar-fill {
+      transition: width 220ms linear;
+    }
+  }
+}

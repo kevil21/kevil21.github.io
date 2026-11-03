@@ -26,7 +26,7 @@ Served by `scripts/serve-dist.mjs` (Pages-like) on 127.0.0.1:4441. Chromium exer
 adapter in Playwright's build); WebKit on this Mac reported a WebGPU adapter.
 
 ## Results (final numbers in the release report and `Memory/SIMULATION-ROOM/testing-status.md`)
-- Unit: 11 files, 81 tests passing (2026-11-02 audit).
+- Unit: 12 files, 115 tests passing (v5.1.0; 81 at the 2026-11-02 audit).
 - Build: 25 pages; `✔ service worker: 46 precached entries`; `✔ public-output audit: 171 files clean`.
 - Bundle (gzip): first-load JS 20.7 KB total; `three` chunk 226 KB and `mount` 9 KB lazy; Rapier and the AI workers
   lazy; MiniLM 23 MB + ORT 14 MB only when semantic retrieval loads; Qwen 290 / 880 MB only on explicit opt-in.
@@ -40,6 +40,17 @@ adapter in Playwright's build); WebKit on this Mac reported a WebGPU adapter.
   stalls under WebGPU rendering in this WebKit build; the same test fails 4/4 on the untouched `d213699` build (it passed on
   2026-11-01). Lighthouse desktop 1.00 on all four URLs (TBT ≤ 26 ms, CLS ≤ 0.025); mobile 0.98 / 0.99 / 1.00 / 0.99,
   a11y/bp/SEO 1.00, TBT 0 ms, CLS ≤ 0.007.
+- **v5.1.0, 2026-11-02:** unit 12 files / 115 tests passing (new `viz.test.ts`: 34); build 25 pages, 46 precached entries (`cache 5.1.0-…`),
+  171 files audited; E2E full matrix, final run **481 passed · 19 skipped · 0 failed** (10 projects; new `instruments.spec.ts`,
+  axe now covers all six machine pages plus every chart with its data table open). An earlier full run had 12 failures, all
+  explained and fixed in tests: five were my own e2e specs interacting before hydration (iphone14-webkit) or on a folded card
+  (desktop-light fold specs), four were existing specs that now click a button inside the folded floor-plan card (night-shift
+  breaker, sound toggle: they hover the chip first), one was the toast-island hydration race (the spec now waits for the hall
+  to reach a terminal state), and the iPhone breaker test (K-15) failed in that run but passed in the final one: it is flaky,
+  not fixed. Lighthouse desktop perf/a11y/bp/SEO 1.00 on all four URLs (TBT ≤ 42 ms, CLS ≤ 0.025, LCP ≤ 549 ms); mobile perf
+  0.98 `/`, 0.99 machine, 1.00 case study, 0.99 résumé, a11y/bp/SEO 1.00, TBT 0, CLS ≤ 0.007. The chart code adds
+  4.5 KB gzip to the lazy `ControlPanel` chunk (nothing to the first-load bundle). Not run: Full-Brain WebGPU and 3G checks
+  (nothing in those paths changed).
 - Lighthouse desktop (2026-11-01): perf 1.00 / a11y 1.00 / bp 1.00 / SEO 1.00 on `/`, `/machines/telemetry-refinery/`,
   `/work/a360/`, `/resume/`; CLS ≤ 0.027; TBT ≤ 7 ms. Mobile: perf 0.98 / 0.99 / 0.99 / 0.99, a11y/bp/SEO 1.00,
   CLS ≤ 0.007, TBT ≤ 2 ms, LCP 1.8–2.3 s (simulated). All budgets met.

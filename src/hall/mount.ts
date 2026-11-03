@@ -22,7 +22,13 @@ import {
 import { WebGPURenderer } from 'three/webgpu';
 import { buildHall } from './scene';
 import { buildMachine } from './machines';
-import { controls as controlBus, createControlApplier, onPulse, publishReadouts } from './bus';
+import {
+  controls as controlBus,
+  createControlApplier,
+  onPulse,
+  publishReadouts,
+  publishVisuals,
+} from './bus';
 import type { MachineAssembly } from './machines/types';
 import { machinePosition, railPose } from './layout';
 import { FrameProbe, PROFILES, effectiveDpr } from './quality';
@@ -129,6 +135,7 @@ export async function mountHall(stage: HTMLElement, cap: Capability): Promise<Ha
     if (machines.get(slug)?.setControl(id, true)) audio.click();
   });
   let readoutAcc = 0;
+  let visualTick = 0;
 
   // ---- Size and DPR ----------------------------------------------------------------------------------------------
   const resize = () => {
@@ -476,7 +483,11 @@ export async function mountHall(stage: HTMLElement, cap: Capability): Promise<Ha
     readoutAcc += dt;
     if (readoutAcc >= 0.25) {
       readoutAcc = 0;
-      machines.forEach((m, slug) => publishReadouts(slug, m.readouts()));
+      visualTick = (visualTick + 1) % 2;
+      machines.forEach((m, slug) => {
+        publishReadouts(slug, m.readouts());
+        if (visualTick === 0) publishVisuals(slug, m.viz());
+      });
     }
     renderer.render(env.scene, camera);
 

@@ -33,7 +33,8 @@ content/*.json  ──Zod──▶ pages (Astro) ──▶ dist/ (HTML first)
 - `src/islands/` — ThemeToggle, HallHud, ControlPanel, Operator, LensToggle, Toast.
 - `scripts/` — build-knowledge, copy-ort, prepare-assets, import-assets, validate-content, lint-tokens,
   verify-public, build-service-worker, serve-dist, lan-preview, screenshots, check-3g, check-full-brain.
-- `project-context/decisions/` — ADR-001 … ADR-015.
+- `src/viz/` — `spec.ts` (instrument specs, `Ring`, text twins; pure) and `Charts.tsx` (SVG/HTML renderer); styles in `src/styles/viz.css`.
+- `project-context/decisions/` — ADR-001 … ADR-016.
 
 ## Key contracts
 - **Hall lifecycle:** the site uses ClientRouter (soft navigation), so `hall/loader.ts` starts the hall on every
@@ -41,6 +42,11 @@ content/*.json  ──Zod──▶ pages (Astro) ──▶ dist/ (HTML first)
 - **Controls:** persistent (range, select, toggle) versus momentary (buttons: approve, run-*, print, sync-now). Momentary
   presses are pulses through `onPulse` and are never stored in the control map. `machines.json` `kind: 'button'` and
   `MOMENTARY_CONTROLS` in `hall/bus.ts` must match (unit-tested). Tool arguments are validated against `machines.json`.
+- **Instruments:** every sim implements `viz(): VizSpec[]` (plain data, sampled on simulated time, deterministic per seed);
+  `mount.ts` / `headless.ts` publish them to the `visuals` store and `ControlPanel` renders them with a data-table twin
+  (ADR-016). Each machine has a `scenario` select (Foundations: `playback` toggle) that changes what the sim does.
+- **Floor-plan card:** folds to a chip after a selection, opens on hover / the chip / focus, Escape folds (desktop);
+  phone sheet closes after a stop is picked.
 - **Shortcuts:** character-key shortcuts (R C O T M ?) obey the `sr:shortcuts` switch (WCAG 2.1.4); see footer.
 - **Theme:** `data-theme` set pre-paint; every non-CSS colour read through `tokenColor()`; `sr:themechange` re-applies.
 - **State is the only mutation path:** HUD, panels, Operator tools and the 3D all go through nanostores

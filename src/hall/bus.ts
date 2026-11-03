@@ -11,9 +11,12 @@
  */
 import { map } from 'nanostores';
 import type { ControlValue } from '@/sim/types';
+import type { VizSpec } from '@/viz/spec';
 
 export const controls = map<Record<string, Record<string, ControlValue>>>({});
 export const readouts = map<Record<string, Record<string, string | number>>>({});
+/** Live instruments per machine (published ~2×/s by whoever runs the sim). */
+export const visuals = map<Record<string, VizSpec[]>>({});
 /** Latest narration line per machine (from decisions when a control changes). */
 export const narration = map<Record<string, string>>({});
 
@@ -86,6 +89,10 @@ export function createControlApplier(
 
 export function publishReadouts(slug: string, values: Record<string, string | number>): void {
   readouts.setKey(slug, values);
+}
+
+export function publishVisuals(slug: string, specs: VizSpec[]): void {
+  visuals.setKey(slug, specs);
 }
 
 export function narrate(slug: string, line: string): void {

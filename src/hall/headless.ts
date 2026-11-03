@@ -6,7 +6,7 @@ import { createSim } from '@/sim';
 import type { Sim } from '@/sim/types';
 import { INSTRUMENTS } from './data/instruments';
 import { POWER_SERIES } from './data/power';
-import { controls, createControlApplier, onPulse, publishReadouts } from './bus';
+import { controls, createControlApplier, onPulse, publishReadouts, publishVisuals } from './bus';
 
 export function runHeadless(slug: string): () => void {
   const sim: Sim | null = createSim(slug, 1000, { instruments: INSTRUMENTS, power: POWER_SERIES });
@@ -14,6 +14,7 @@ export function runHeadless(slug: string): () => void {
   const applyMine = createControlApplier((s, id, v) => (s === slug ? sim.setControl(id, v) : false));
   applyMine({ [slug]: controls.get()[slug] ?? {} });
   publishReadouts(slug, sim.readouts()); // make sure the panel sees defaults
+  publishVisuals(slug, sim.viz());
 
   const unsubControls = controls.subscribe((all) => {
     const mine = all[slug];
@@ -26,6 +27,7 @@ export function runHeadless(slug: string): () => void {
 
   let last = performance.now();
   let acc = 0;
+  let tick = 0;
   let raf = 0;
   const loop = (now: number) => {
     raf = requestAnimationFrame(loop);
@@ -38,6 +40,8 @@ export function runHeadless(slug: string): () => void {
     if (acc >= 0.25) {
       acc = 0;
       publishReadouts(slug, sim.readouts());
+      tick = (tick + 1) % 2;
+      if (tick === 0) publishVisuals(slug, sim.viz());
     }
   };
   raf = requestAnimationFrame(loop);

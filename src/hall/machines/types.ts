@@ -2,6 +2,7 @@
 import type { Group } from 'three';
 import type { Kit } from '../kit/parts';
 import type { QualityProfile } from '../quality';
+import type { VizSpec } from '@/viz/spec';
 
 export interface MachineContext {
   kit: Kit;
@@ -23,6 +24,8 @@ export interface MachineAssembly {
   setControl(id: string, value: number | boolean | string): boolean;
   /** Current readouts for the HTML panel (sample data). */
   readouts(): Record<string, string | number>;
+  /** Live instruments for the HTML panel (sample data). */
+  viz(): VizSpec[];
   /** Quality profile changed: cap particles etc. */
   setProfile(profile: QualityProfile): void;
   dispose(): void;

@@ -160,6 +160,10 @@ export class ForecastMachine extends BaseMachine {
     return this.sim.readouts();
   }
 
+  viz() {
+    return this.sim.viz();
+  }
+
   override dispose(): void {
     this.unsubTheme();
     for (const l of [this.history, this.model, this.baseline]) l.geometry.dispose();

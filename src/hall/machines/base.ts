@@ -3,6 +3,7 @@ import { Group, type Mesh, type Object3D } from 'three';
 import type { MachineAssembly, MachineContext } from './types';
 import type { QualityProfile } from '../quality';
 import type { PaletteKey } from '../kit/materials';
+import type { VizSpec } from '@/viz/spec';
 
 export abstract class BaseMachine implements MachineAssembly {
   readonly group = new Group();
@@ -67,6 +68,7 @@ export abstract class BaseMachine implements MachineAssembly {
   protected abstract onUpdate(dt: number, t: number): void;
 
   abstract readouts(): Record<string, string | number>;
+  abstract viz(): VizSpec[];
 
   dispose(): void {
     this.group.traverse((o: Object3D) => {

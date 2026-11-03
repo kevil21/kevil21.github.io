@@ -118,4 +118,8 @@ export class WorkbenchMachine extends BaseMachine {
   readouts() {
     return this.sim.readouts();
   }
+
+  viz() {
+    return this.sim.viz();
+  }
 }

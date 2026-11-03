@@ -15,6 +15,19 @@ are on the plaques, each with a ledger id and a source line.
 | 5 | Calibration Bench (certifications) | issuer filter, print certificate | instruments /10, most recent calibration | instruments from the certifications collection; issue months [source: info.md]; printer prints one line per instrument |
 | 6 | Foundations Generator (education, GDSC) | spin up vit / gdsc / school | hall power (real milestone totals), students (as stated) | turbines spin up; totals computed from the real dated-milestone series |
 
+## Scenarios and live instruments (v5.1.0, ADR-016)
+Each panel shows **Live instruments · sample data** under the readouts: SVG/HTML charts drawn from the sim's own history,
+each with a "Data table" twin. Every machine has a scenario control that changes what the sim does.
+
+| Machine | Scenario control | Instruments |
+|---|---|---|
+| Telemetry Refinery | `steady` · `late-arrivals` (documents arrive after the window moved on; the 70-minute overlap catches them) · `tenant-surge` (tenant 1 bursts) | stacked spans/s by tenant · 31-view × 10-sync heat map · next-sync gauge · tenant chamber bars · overlap ledger (read / collapsed by SHA-256 id / late caught / new) · insight-types grid (20) |
+| Policy Sorter | `single` · `rotate` (all three sample policies in turn, starting at the selected one) | five-agent pipeline with the human gate · risk-score waterfall (rubric, HIGH_RISK +6, BLOCKED pins 10, auto-approve below 4) · all-policies comparison · gate-wait gauge · evidence cabinet |
+| Forecast Engine | `live` · `backtest` (rolling-origin folds on the sample series) | history + forecast with ±1 σ band and naive baseline · daily shape · landing values (live) / error per fold, residual histogram, folds beating the baseline (backtest) |
+| Data Workbench | `fresh` (every run brings new records) · `replay` (same deterministic ids: the index does not grow) | station stages · records/s trace · funnel (ingested, cleaned, unique docs, duplicates collapsed) · documents per station index |
+| Calibration Bench | chart: `issuers` · `timeline` | instruments by issuer · issuer × month heat (or issue-month columns + cumulative line) · printer gauge; months from `info.md` |
+| Foundations Generator | `playback` toggle ("run the years", 3 months/s over the real series) | hall-power series with playhead · milestones per year with the turbine's years highlighted · turbine speeds |
+
 Hall-wide: **ceiling skills cables** (fixed layout from the skills collection's `usedIn`; `highlightSkill` lights a
 run) and the **hall power meter** (bars per month from `events.json`; month-dated solid, year-only as a light band),
 with an SVG twin and the full milestone list in the back-wall card.

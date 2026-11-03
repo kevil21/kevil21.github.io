@@ -3,6 +3,8 @@
  * machines, the HTML control panels and the Operator's narration. Every number they emit is SAMPLE DATA; the plaques
  * hold the facts. Shapes (stages, thresholds, intervals) come from the fact ledger.
  */
+import type { VizSpec } from '../viz/spec';
+
 export type ControlValue = number | boolean | string;
 
 export interface SimEvent {
@@ -20,6 +22,8 @@ export interface Sim<R extends Record<string, string | number> = Record<string, 
   readouts(): R;
   /** Events since the last drain (particle spawns, stage changes, packs filed…). */
   drain(): SimEvent[];
+  /** Live instruments for the control panel: plain specs (src/viz/spec.ts), sample data unless a caption says otherwise. */
+  viz(): VizSpec[];
 }
 
 /** mulberry32: small, fast, deterministic. */

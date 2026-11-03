@@ -77,6 +77,15 @@
         "kind": "toggle",
         "default": true,
         "sample": true
+      },
+      {
+        "id": "scenario",
+        "label": "Scenario",
+        "kind": "select",
+        "options": ["steady", "late-arrivals", "tenant-surge"],
+        "default": "steady",
+        "sample": true,
+        "note": "Steady traffic; late arrivals (documents that show up after the sync window moved on, caught by the overlap); or one tenant surging. Sample data in every case."
       }
     ],
     "readouts": [
@@ -97,6 +106,16 @@
       {
         "id": "insights",
         "label": "Insights curated"
+      },
+      {
+        "id": "late-docs-caught",
+        "label": "Late documents caught",
+        "unit": "sample docs"
+      },
+      {
+        "id": "duplicates-collapsed",
+        "label": "Duplicates collapsed by id",
+        "unit": "sample docs"
       }
     ],
     "projects": ["a360"],
@@ -166,6 +185,15 @@
         "kind": "toggle",
         "default": true,
         "sample": true
+      },
+      {
+        "id": "scenario",
+        "label": "Scenario",
+        "kind": "select",
+        "options": ["single", "rotate"],
+        "default": "single",
+        "sample": true,
+        "note": "Single keeps the selected policy on the belt; rotate walks all three sample policies, one after another, starting at the selected one."
       }
     ],
     "readouts": [
@@ -249,6 +277,15 @@
         "kind": "toggle",
         "default": false,
         "sample": true
+      },
+      {
+        "id": "scenario",
+        "label": "Scenario",
+        "kind": "select",
+        "options": ["live", "backtest"],
+        "default": "live",
+        "sample": true,
+        "note": "Live shows history and forecast; backtest adds rolling-origin folds, residuals and how many folds beat the baseline, all on the sample series."
       }
     ],
     "readouts": [
@@ -263,6 +300,10 @@
       {
         "id": "resilience",
         "label": "Stated outcome"
+      },
+      {
+        "id": "backtest",
+        "label": "Rolling folds"
       }
     ],
     "projects": ["climate-mitigation", "smart-energy", "opticrop"],
@@ -317,6 +358,15 @@
         "kind": "button",
         "default": false,
         "sample": true
+      },
+      {
+        "id": "scenario",
+        "label": "Scenario",
+        "kind": "select",
+        "options": ["fresh", "replay"],
+        "default": "fresh",
+        "sample": true,
+        "note": "Fresh brings new records every run; replay re-ingests the same records with the same deterministic document ids, so the index does not grow."
       }
     ],
     "readouts": [
@@ -332,6 +382,16 @@
       {
         "id": "screens",
         "label": "Kibana screens lit"
+      },
+      {
+        "id": "docs-in-index",
+        "label": "Documents in the index",
+        "unit": "sample docs"
+      },
+      {
+        "id": "duplicates-collapsed",
+        "label": "Duplicates collapsed by id",
+        "unit": "sample docs"
       }
     ],
     "projects": ["overlay-insights", "incident-tickets", "it-assets"],
@@ -374,6 +434,15 @@
         "kind": "button",
         "default": false,
         "sample": true
+      },
+      {
+        "id": "scenario",
+        "label": "Chart",
+        "kind": "select",
+        "options": ["issuers", "timeline"],
+        "default": "issuers",
+        "sample": true,
+        "note": "Instruments by issuer, or certifications by issue month (months from info.md)."
       }
     ],
     "readouts": [
@@ -425,6 +494,14 @@
         "options": ["vit", "gdsc", "school"],
         "default": "vit",
         "sample": true
+      },
+      {
+        "id": "playback",
+        "label": "Run the years",
+        "kind": "toggle",
+        "default": true,
+        "sample": true,
+        "note": "Moves a playhead along the real hall-power series, three months per second."
       }
     ],
     "readouts": [
@@ -437,6 +514,10 @@
         "id": "students",
         "label": "Students reached",
         "unit": "as stated"
+      },
+      {
+        "id": "playhead",
+        "label": "Playhead"
       }
     ],
     "projects": ["python-essentials"],
